@@ -1,0 +1,22 @@
+{
+ "truth_dir": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Data_generation_exploration/Data/truth_mb100",
+ "n_hits_in": 687910,
+ "n_states": 604800,
+ "n_particles_with_states": 88408,
+ "n_charged_truth": 400512,
+ "states_per_det": {
+  "VP": 209405,
+  "UT": 106256,
+  "FT": 289139
+ },
+ "cuts": {
+  "charged_only": true,
+  "min_sensor_dz_mm": 0.05,
+  "max_abs_slope": 1.0,
+  "dets": [
+   "VP",
+   "UT",
+   "FT"
+  ]
+ }
+}

@@ -1,0 +1,81 @@
+{
+ "created": "2026-07-17 23:53:16",
+ "sample": {
+  "generator": "Gauss v61r0p2 (Gauss-on-Gaussino), event type 30000000 minbias",
+  "conditions": "2024 Block-7 beam, nu=7.6, geometry run3/2024-v00.02, conditions sim10/2024, DD4hep",
+  "sim_file": "First_Pass/run_output/GaussMB100-30000000-100ev-20260717.sim",
+  "n_events": 100,
+  "run_number": 1,
+  "event_numbers": "1-100 (seeds reproducible)",
+  "truth_dump": "First_Pass/dump_event.py -> Data/truth_mb100/"
+ },
+ "population": "states harvested from tracker MCHits (see harvest_states.py + results/harvest_summary.json)",
+ "labels": {
+  "engine": "fp64 fixed-step RK4, step_mm=5.0, ODE identical to Allen (deriv mirrored from track-extrapolation-pinn/datagen/generate_data_v2.py)",
+  "field": {
+   "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.down.bin",
+   "md5": "af284c6954d2273c637a5e766b82b58e"
+  },
+  "kappa": 0.001,
+  "qop_convention": "qop = 0.299792458 * q / p[GeV] (Allen)",
+  "material_effects": "excluded by design (master-extrapolator responsibility)",
+  "archive_core_commit": "dcddc3aba6b3f2077755867acba0ca8a684348bb"
+ },
+ "leg_types": {
+  "A": "first VP state -> its PV z (backward)",
+  "B": "cross-magnet, both directions",
+  "C": "consecutive plane crossings (forward), <=3/particle",
+  "D": "first T state -> its PV z (backward)"
+ },
+ "domain_cuts": {
+  "p_GeV": [
+   1.0,
+   200.0
+  ],
+  "slopes": "<1.0",
+  "aperture_mm": 5000
+ },
+ "core_selection": "non-electron & origin radius < 10 mm & 1.8 < eta < 5.2 (flag CORE; tails kept, selectable)",
+ "rows": {
+  "total": 166802,
+  "per_leg": {
+   "A": 25961,
+   "B": 22092,
+   "C": 100660,
+   "D": 18089
+  },
+  "split": {
+   "train": 133439,
+   "val": 16830,
+   "test": 16533,
+   "by": "particle",
+   "seed": 20260718
+  }
+ },
+ "gates": {
+  "G1_reprop_closure_mm": {
+   "median": 2.3034228135987433e-09,
+   "worst": 0.022433124039935137,
+   "n": 2000
+  },
+  "G2_label_vs_next_hit_mm": {
+   "median": 0.011924541397134725,
+   "p95": 0.6588365965266727,
+   "median_p_gt_5GeV": 0.0038401268404455458,
+   "median_p_lt_2GeV": 0.03879689345172199,
+   "n": 100660,
+   "meaning": "residual = material effects (scattering/dE), out of label scope by design"
+  },
+  "G3_step_convergence_mm_5vs1": {
+   "median": 2.8459027134886128e-08,
+   "worst": 0.0028483163505370612,
+   "n": 200
+  },
+  "G4_qop_passthrough_exact": true
+ },
+ "format": {
+  "X": "(x,y,tx,ty,qop,z0,z1) fp32",
+  "Y": "(x,y,tx,ty,qop) at z1, fp32",
+  "note": "labels computed in fp64, stored fp32 (same as vertex-fit corpus)"
+ }
+}

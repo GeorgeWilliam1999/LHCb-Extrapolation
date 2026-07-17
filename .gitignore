@@ -1,0 +1,17 @@
+# Bulky regenerable data stays out of git (the scripts + seeds + meta.json
+# regenerate all of it deterministically; see the READMEs).
+*.sim
+*.digi
+*.root
+*.log
+run_output/
+reco_output/
+Data_generation_exploration/Data/truth_mb100/
+Data_generation_exploration/Data/training_v1/*.npz
+Data_generation_exploration/First_Pass/First_reco/variants/
+Data_generation_exploration/First_Pass/results*/
+__pycache__/
+.ipynb_checkpoints/
+NewCatalog.xml
+test_catalog*.xml
+GeneratorLog.xml
