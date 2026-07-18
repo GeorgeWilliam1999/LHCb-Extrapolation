@@ -1,0 +1,18 @@
+{
+ "recommendation": "normalise each reconstruction-residual component by sigma_pop of the training population per component (x,y: mm-scale spread; tx,ty: slope spread; qop: its own spread). sigma_corr documents the physical correction scale per leg for reading results; not used in the loss.",
+ "sigma_pop_all_legs": {
+  "x_mm": 655.6092131625923,
+  "y_mm": 360.22536717754383,
+  "tx": 0.2592170998380813,
+  "ty": 0.11515301900134715,
+  "qop": 0.11898346055281289
+ },
+ "sigma_corr_all_legs": {
+  "x_mm": 1043.5215276488136,
+  "y_mm": 87.05996371854907,
+  "tx": 0.23531727626467816,
+  "ty": 0.01909700074421187,
+  "qop": 0.0
+ },
+ "per_leg_csv": "results/scales.csv"
+}
