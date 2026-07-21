@@ -60,7 +60,7 @@ and the data twin.
 | [training.py](training.py) | the 6-run protocol + held-out scoring -> `results/` |
 | [continue_training.py](continue_training.py) | resume the 6 runs to genuine stall (see below) -> updated `results/` |
 | [plot_one_step.py](plot_one_step.py) | figures -> `figures/` |
-| [one_step_network.ipynb](one_step_network.ipynb) | loads results, displays figures |
+| [one_step_network.ipynb](one_step_network.ipynb) | the full analysis record: theory + all converged results + a self-enforcing Verdict cell (executed in repo) |
 
 ## Continuation to convergence (2026-07-19)
 
