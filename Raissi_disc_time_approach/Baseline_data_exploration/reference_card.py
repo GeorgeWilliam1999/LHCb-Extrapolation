@@ -36,7 +36,9 @@ RK4_STEP = 5.0            # mm, the reference integrator's fixed step
 # the 11,046 forward cross-magnet legs in the event-derived training set ------
 FROZEN_LEG = dict(z0=2648.2, z1=7826.0)   # last UT plane -> first SciFi plane [mm]
 
-DATA_NPZ = os.path.join(
+# Overridable via TRAINING_NPZ (used by the One_step_network_v2 rerun on the
+# official-sample training set); the default stays the v1 build.
+DATA_NPZ = os.environ.get("TRAINING_NPZ") or os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
     "..", "..", "Data_generation_exploration", "Data", "training_v1", "train_mb100_v1.npz",
 )
