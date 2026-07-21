@@ -1,0 +1,21 @@
+{
+ "G1_reprop_closure_mm": {
+  "median": 1.3975380852571107e-09,
+  "worst": 0.05124457737110788,
+  "n": 2000
+ },
+ "G2_label_vs_next_hit_mm": {
+  "median": 0.02215307759376195,
+  "p95": 5.796406309144168,
+  "median_p_gt_5GeV": 0.006315410824868195,
+  "median_p_lt_2GeV": 0.08595600180056095,
+  "n": 205887,
+  "meaning": "residual = material effects (scattering/dE), out of label scope by design"
+ },
+ "G3_step_convergence_mm_5vs1": {
+  "median": 8.898439318727469e-09,
+  "worst": 0.00486657215788,
+  "n": 200
+ },
+ "G4_qop_passthrough_exact": true
+}

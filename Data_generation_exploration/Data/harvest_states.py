@@ -23,7 +23,7 @@ import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TRUTH = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "truth_mb100")
-OUT = os.path.join(HERE, "results")
+OUT = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(HERE, "results")
 os.makedirs(OUT, exist_ok=True)
 
 MIN_SENSOR_DZ = 0.05  # mm; below this the entry->exit displacement carries no slope

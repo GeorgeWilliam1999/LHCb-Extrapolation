@@ -15,3 +15,6 @@ __pycache__/
 NewCatalog.xml
 test_catalog*.xml
 GeneratorLog.xml
+Data_generation_exploration/Official_xdigi/truth_official/
+Data_generation_exploration/Official_xdigi/training_v2/*.npz
+Data_generation_exploration/Official_xdigi/dump.log

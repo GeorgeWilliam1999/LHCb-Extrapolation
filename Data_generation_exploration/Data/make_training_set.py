@@ -46,8 +46,11 @@ ARCHIVE_CORE = "/data/bfys/gscriven/Track_Extrapolation_work_archive/track-extra
 sys.path.insert(0, ARCHIVE_CORE)  # read-only import of the canonical field loader
 from field_v8r1 import FieldV8R1, V8R1_DOWN  # noqa: E402
 
-OUT = os.path.join(HERE, "training_v1")
-RES = os.path.join(HERE, "results")
+# CLI (all optional, defaults = the v1 build): states.npz path, output dir, tag
+STATES = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(HERE, "results", "states.npz")
+OUT = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(HERE, "training_v1")
+TAG = sys.argv[3] if len(sys.argv) > 3 else "train_mb100_v1"
+RES = os.path.dirname(STATES)
 os.makedirs(OUT, exist_ok=True)
 os.makedirs(RES, exist_ok=True)
 
@@ -105,7 +108,7 @@ def rk4_rows(S0, z0, z1, step=STEP):
 
 
 # ---------------------------------------------------------------- load states
-d = np.load(os.path.join(RES, "states.npz"), allow_pickle=False)
+d = np.load(STATES, allow_pickle=False)
 n = len(d["z"])
 keys = d["evt"].astype(np.int64) * 10_000_000 + d["mc_key"]
 order = np.lexsort((d["z"], keys))
@@ -237,7 +240,7 @@ lab[perm[ntr + nva:]] = 2
 SPLIT = lab[np.searchsorted(up, pkey)]
 
 np.savez_compressed(
-    os.path.join(OUT, "train_mb100_v1.npz"),
+    os.path.join(OUT, TAG + ".npz"),
     X=X, Y=Y, LEG=LEG, EVT=EVTr, MCKEY=MCKr, PID=PIDr, P=Pr.astype(np.float32),
     SPLIT=SPLIT,
     ORIGIN_R=ORR.astype(np.float32), ETA=ETAr.astype(np.float32),
@@ -290,9 +293,9 @@ meta = {
     "format": {"X": "(x,y,tx,ty,qop,z0,z1) fp32", "Y": "(x,y,tx,ty,qop) at z1, fp32",
                "note": "labels computed in fp64, stored fp32 (same as vertex-fit corpus)"},
 }
-with open(os.path.join(OUT, "train_mb100_v1.meta.json"), "w") as f:
+with open(os.path.join(OUT, TAG + ".meta.json"), "w") as f:
     json.dump(meta, f, indent=1)
 with open(os.path.join(RES, "gates.json"), "w") as f:
     json.dump(gates, f, indent=1)
 print(json.dumps(gates, indent=1))
-print("training set:", os.path.join(OUT, "train_mb100_v1.npz"), "rows:", len(X))
+print("training set:", os.path.join(OUT, TAG + ".npz"), "rows:", len(X))
