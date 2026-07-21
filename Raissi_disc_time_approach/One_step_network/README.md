@@ -58,5 +58,19 @@ and the data twin.
 | [prepare_data.py](prepare_data.py) | re-base B legs to the frozen planes, scales, labels for the twin -> `results/frozen_leg_data.npz` |
 | [model.py](model.py) | the one-step network, reconstruction residuals, physics + data losses |
 | [training.py](training.py) | the 6-run protocol + held-out scoring -> `results/` |
+| [continue_training.py](continue_training.py) | resume the 6 runs to genuine stall (see below) -> updated `results/` |
 | [plot_one_step.py](plot_one_step.py) | figures -> `figures/` |
 | [one_step_network.ipynb](one_step_network.ipynb) | loads results, displays figures |
+
+## Continuation to convergence (2026-07-19)
+
+The first attempt's 6-restart cap turned out to bind: `results/budget6/histories.csv`
+shows every run still improving 20-35% per restart at the cap — the early stop
+(two consecutive <1% restarts) never fired, so the first-attempt errors were
+**budget-limited, not converged**. `continue_training.py` resumes each run from
+its checkpoint and restarts L-BFGS until the stall criterion genuinely fires
+(safety cap 60 total restarts; the optimiser's curvature history is not
+checkpointed, so it restarts empty at the resume boundary). The pre-continuation
+results are snapshot in `results/budget6/` (and in git at 557a22f); the updated
+`summary.csv` adds train/val endpoint medians (generalisation-gap check) and the
+median endpoint slope error, plus a `converged` flag per run.
