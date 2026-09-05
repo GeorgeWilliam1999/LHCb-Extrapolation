@@ -33,8 +33,11 @@ LINE = ("{folder} --data {data} --mode {mode} --seed {seed} --q 8 "
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--near", type=int, default=5,
-                    help="restarts within this many of the cap counts as truncated")
+    ap.add_argument("--near", type=int, default=8,
+                    help="restarts within this many of the cap counts as truncated. "
+                         "A run can leave the stall phase a few restarts short "
+                         "of the cap and then spend the remainder in the "
+                         "confirmation pass, so the window is wider than 2.")
     ap.add_argument("--cap", type=int, default=400)
     ap.add_argument("--out", default="condor/jobs_continuation.txt")
     a = ap.parse_args()

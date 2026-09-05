@@ -94,17 +94,20 @@ def fig_floor(runs, arch):
                         (r["n_params"], r["test_endpoint_med_um_median"]),
                         textcoords="offset points", xytext=(5, 6), fontsize=7.5)
 
+    # y in data units, x in axes fraction, so the labels sit inside the frame
+    # whatever the log limits end up being.
+    tr = ax.get_yaxis_transform()
     ax.axhline(CEILING_UM, color="k", ls="--", lw=1.2, zorder=2)
-    ax.text(ax.get_xlim()[0], CEILING_UM * 1.06,
-            "  exact-scheme ceiling %.0f um (q = 8, same 2018 test states)" % CEILING_UM, fontsize=8.5,
-            va="bottom")
+    ax.text(0.015, CEILING_UM * 1.06,
+            "exact-scheme ceiling %.0f um (q = 8, these 2018 test states)"
+            % CEILING_UM, transform=tr, fontsize=8.5, va="bottom")
 
     v2 = v2_reference()
     if v2 is not None:
         ax.axhline(v2, color="grey", ls=":", lw=1.2, zorder=2)
-        ax.text(ax.get_xlim()[0], v2 * 1.04,
-                "  One_step_network_v2, 4x50, 3 seeds: %.0f um" % v2,
-                fontsize=8.5, va="bottom", color="grey")
+        ax.text(0.015, v2 * 1.04,
+                "One_step_network_v2, 4x50, 3 seeds, 4 threads: %.0f um" % v2,
+                transform=tr, fontsize=8.5, va="bottom", color="grey")
 
     twin = arch[(arch["mode"] == "data") & (arch["n_converged"] > 0)]
     for _, r in twin.iterrows():
@@ -134,7 +137,7 @@ def fig_floor(runs, arch):
 
 def fig_loss_vs_error(runs):
     c = runs[runs["converged"] & (runs["mode"] == "physics")]
-    fig, ax = plt.subplots(figsize=(6.6, 5.2))
+    fig, ax = plt.subplots(figsize=(7.2, 5.4))
     rho = np.nan
     if len(c) > 2:
         rho = float(spearmanr(c["final_loss"], c["test_endpoint_med_um"]).statistic)
