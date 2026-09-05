@@ -242,11 +242,12 @@ def fig_val_vs_test(runs):
     ax.set_xlabel("validation endpoint error (um)")
     ax.set_ylabel("test endpoint error (um)")
     sub = "" if not n_arch else (
-        "\nvalidation-best seed is also test-best in %d/%d architectures; "
-        "median within-architecture rho = %.2f"
+        "\nvalidation-best seed is also test-best in %d/%d architectures"
+        "\nmedian within-architecture rho = %.2f"
         % (hits, n_arch, float(np.median(rhos))))
-    ax.set_title("Does validation pick the seed?  Spearman rho = %.2f "
-                 "over %d runs%s" % (rho_all, len(c), sub), fontsize=10)
+    ax.set_title("Does validation pick the seed?\n"
+                 "Spearman rho = %.3f over %d converged runs%s"
+                 % (rho_all, len(c), sub), fontsize=10)
     ax.grid(alpha=0.3, which="both")
     ax.legend(fontsize=8.5)
     fig.tight_layout()
