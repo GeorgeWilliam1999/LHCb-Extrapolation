@@ -24,7 +24,10 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "results")
 FIGURES = os.path.join(HERE, "figures")
-# the exact scheme on leg D, ../Simple_first_pass/results/scheme_error_vs_q.csv
+# The published leg-D ceilings, ../Simple_first_pass/results/scheme_error_vs_q.csv
+# (32 legs, stratified in momentum). measure_leg_d_ceiling.py re-measures them on
+# the population actually used here; when that file exists its numbers are drawn
+# instead, and the published ones are drawn faintly beside them.
 CEIL_D_Q8_UM = 739.2
 CEIL_D_Q16_UM = 92.5
 
@@ -141,10 +144,22 @@ def main():
         ax.plot([i - 0.28, i + 0.28], [np.median(v)] * 2, "-", lw=2.4,
                 color=colour)
     straight = float(d[0]["straight_med_um"])
-    ax.axhline(CEIL_D_Q8_UM, ls=":", color="green", lw=1.6,
-               label="exact scheme, leg D, q=8 (%.0f um)" % CEIL_D_Q8_UM)
-    ax.axhline(CEIL_D_Q16_UM, ls="-.", color="darkgreen", lw=1.4,
-               label="exact scheme, leg D, q=16 (%.0f um)" % CEIL_D_Q16_UM)
+    own = {}
+    own_path = os.path.join(RESULTS, "leg_d_ceiling_same_population.csv")
+    if os.path.exists(own_path):
+        own = {int(r["q"]): float(r["ceiling_med_um"])
+               for r in read("leg_d_ceiling_same_population.csv")
+               if r["band"] == "all"}
+    c8 = own.get(8, CEIL_D_Q8_UM)
+    c16 = own.get(16, CEIL_D_Q16_UM)
+    ax.axhline(c8, ls=":", color="green", lw=1.6,
+               label="exact scheme, leg D, q=8, this population (%.0f um)" % c8)
+    ax.axhline(c16, ls="-.", color="darkgreen", lw=1.4,
+               label="exact scheme, leg D, q=16, this population (%.0f um)" % c16)
+    if own:
+        ax.axhline(CEIL_D_Q8_UM, ls=":", color="0.7", lw=1.0,
+                   label="published q=8 / q=16 (stratified sample)")
+        ax.axhline(CEIL_D_Q16_UM, ls="-.", color="0.7", lw=1.0)
     ax.axhline(straight, ls="--", color="0.4", lw=1.2,
                label="straight line (%.0f um)" % straight)
     ax.set_yscale("log")

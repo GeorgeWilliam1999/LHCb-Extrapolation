@@ -18,12 +18,18 @@ only whole-split scores, so the network is reloaded from its checkpoint and
 re-scored on the subsets with the shared scorer (`score_against_reference`),
 which is the identical arithmetic.
 
-The ceiling columns come from ../Simple_first_pass:
-  ceiling_leg_um   the published whole-leg value at q = 8
-                   (results/scheme_error_vs_q.csv, median_err_mm)
-  ceiling_band_um  the same scan restricted to this momentum band
+Three ceiling columns, and the difference between them matters:
+  ceiling_leg_um   the published whole-leg value at q = 8, from
+                   ../Simple_first_pass/results/scheme_error_vs_q.csv. Measured
+                   on 32 legs drawn STRATIFIED IN MOMENTUM, not on this
+                   experiment's population.
+  ceiling_band_um  the same stratified scan restricted to this momentum band
                    (results/scheme_scan.csv), measured the way our score is
                    measured: the larger of |dx| and |dy|.
+  ceiling_own_um   the exact scheme solved on THIS split's own states, cell by
+                   cell, by measure_ceiling.py. This is the like-for-like
+                   number; the two above are the published ones and are kept
+                   for continuity.
 """
 from __future__ import annotations
 
@@ -77,6 +83,18 @@ def leg_ceilings_um():
 
 
 
+def own_ceilings():
+    """The ceiling measured on this experiment's own states, if it was run."""
+    path = os.path.join(RESULTS, "scheme_ceiling_same_population.csv")
+    if not os.path.exists(path):
+        print("  (no scheme_ceiling_same_population.csv; run measure_ceiling.py)")
+        return {}
+    with open(path) as f:
+        return {(r["leg"], r["band"]): (float(r["ceiling_med_um"]),
+                                        float(r["ceiling_p95_um"]))
+                for r in csv.DictReader(f)}
+
+
 def build_model(pt_path, data, width, depth):
     model = OneStepNetwork(int(data["q"]), data["in_scale"], data["out_scale"],
                            width=width, depth=depth, n_extra=2)
@@ -89,6 +107,7 @@ def main():
     data = np.load(os.path.join(RESULTS, "general_legs.npz"))
     data = {k: data[k] for k in data.files}
     whole_ceiling, band_ceiling = leg_ceilings_um()
+    own = own_ceilings()
 
     runs = []
     for jf in sorted(glob.glob(os.path.join(RESULTS, "w*_s*.json"))):
@@ -165,6 +184,9 @@ def main():
                         **{k: sc[k] for k in SCORE_KEYS},
                         "ceiling_leg_um": whole_ceiling.get(leg),
                         "ceiling_band_um": cb, "ceiling_band_n": cn,
+                        "ceiling_own_um": own.get((leg, name), (None,))[0],
+                        "ceiling_own_p95_um": own.get((leg, name), (None, None))[1]
+                        if (leg, name) in own else None,
                     })
                 # the leg as a whole, all momenta together
                 m = L == li
@@ -179,6 +201,9 @@ def main():
                         "ceiling_leg_um": whole_ceiling.get(leg),
                         "ceiling_band_um": whole_ceiling.get(leg),
                         "ceiling_band_n": 32,
+                        "ceiling_own_um": own.get((leg, "all"), (None,))[0],
+                        "ceiling_own_p95_um": own.get((leg, "all"), (None, None))[1]
+                        if (leg, "all") in own else None,
                     })
         print("  scored %s" % tag)
     with open(os.path.join(RESULTS, "by_leg.csv"), "w", newline="") as f:

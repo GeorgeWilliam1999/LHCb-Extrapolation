@@ -1,0 +1,4 @@
+General_leg_network --data results/general_legs.npz --mode data --seed 0 --q 8 --width 50 --depth 4 --out results --tag w50_data_s0 --outer-cap 400
+General_leg_network --data results/general_legs.npz --mode data --seed 1 --q 8 --width 50 --depth 4 --out results --tag w50_data_s1 --outer-cap 400
+General_leg_network --data results/general_legs.npz --mode data --seed 2 --q 8 --width 50 --depth 4 --out results --tag w50_data_s2 --outer-cap 400
+General_leg_network --data results/general_legs.npz --mode physics --seed 5 --q 8 --width 50 --depth 4 --out results --tag w50_physics_s5 --outer-cap 400

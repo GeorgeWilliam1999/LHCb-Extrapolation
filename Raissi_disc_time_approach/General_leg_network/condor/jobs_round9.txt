@@ -1,0 +1,2 @@
+General_leg_network --data results/general_legs.npz --mode data --seed 0 --q 8 --width 100 --depth 4 --out results --tag w100_data_s0 --outer-cap 400
+General_leg_network --data results/general_legs.npz --mode data --seed 2 --q 8 --width 100 --depth 4 --out results --tag w100_data_s2 --outer-cap 400

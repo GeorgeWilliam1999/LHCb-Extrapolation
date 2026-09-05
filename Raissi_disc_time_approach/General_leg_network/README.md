@@ -60,8 +60,87 @@ mkdir -p condor/logs results
 condor_submit condor/jobs.sub          # jobs.sub is ../_shared/condor/template.sub
 ```
 
-Cluster **5781158**, 26 jobs, submitted 2026-09-05 16:25.
+Cluster **5781158**, 26 jobs, submitted 2026-09-05 16:25. All 26 finished and all
+26 are **converged** (55-154 restarts, longest run 1.6 h).
+
+Getting there took a small operational detour worth recording. The shared stall
+criterion is "two consecutive restarts each improving the loss by less than 1%".
+On this dataset the loss creeps down by a few tenths of a percent per restart for
+a long time, so that criterion fires while the endpoint medians are still moving
+by more than 1% — and the confirmation pass then re-stalls immediately, records
+`converged = false` and stops the run. 20 of the first 26 ended that way, at 51 to
+111 restarts, still improving. Because `train.py` checkpoints after every restart,
+resubmitting the identical command continues the run and gives it a fresh
+optimiser and another confirmation attempt; [resubmit_unconverged.py](resubmit_unconverged.py)
+does exactly that, and after five such rounds (a couple of restarts each) all 26
+confirmed. Two runs additionally hit the 150-restart cap during the confirmation
+pass (`--outer-cap` counts both phases together, A1's finding) and were continued
+with `--outer-cap 400`.
+
+### Second wave (overnight)
+
+A2's architecture scan on the frozen leg selected **4x200** (physics 115 µm over
+10 seeds, against 133 µm at 4x100 and 222 µm at 4x50; depth 6 hurt). The same
+grid at width 200 — physics seeds 0-9, data twin seeds 0-2, same dataset, default
+restart cap 400 — was submitted as **cluster 5781443** (13 jobs, submitted 2026-09-05 in the evening;
+expect 3-4 h each). Its argument lines are in [condor/jobs_wave2.txt](condor/jobs_wave2.txt)
+and appended to `condor/jobs.txt`. `aggregate.py`, `plot.py` and
+`../Chained_legs/chain.py` read the architectures out of the result files, so
+rerunning the analysis tomorrow picks the `w200_*` runs up with no code change.
+
+## Ceilings: which number the network is being compared with
+
+`../Simple_first_pass/results/scheme_error_vs_q.csv` measured the exact scheme on
+32 legs per type drawn **stratified in momentum**, which over-weights the soft
+tracks that bend hardest. This experiment's test split has the natural mix, so
+[measure_ceiling.py](measure_ceiling.py) solves the same scheme with the same
+solver on **these** states, cell by cell (`results/scheme_ceiling_same_population.csv`).
+`by_leg.csv` carries both: `ceiling_leg_um` / `ceiling_band_um` are the published
+stratified-sample values, `ceiling_own_um` is the like-for-like one.
+
+| leg | q=8 ceiling, this population | published (stratified) |
+|---|---|---|
+| A vertex fetch | 0.0013 µm | 0.0007 µm |
+| B cross-magnet | **46 µm** (24 µm at 5-20 GeV, 239 µm at 1-5 GeV) | 29 µm |
+| C plane-to-plane | 6e-7 µm | 2e-6 µm |
 
 ## Verdict
 
-_Filled in when the runs finish; see the report._
+**One label-free network does serve all three leg types — but nowhere near each
+leg's ceiling, and on the short legs it is worse than doing nothing.**
+
+Test split, median endpoint error over seeds (range across seeds in brackets):
+
+| leg | 4x50 physics | 4x50 twin | 4x100 physics | 4x100 twin | straight line | ceiling (this population) |
+|---|---|---|---|---|---|---|
+| A vertex fetch | 849 [601-1491] | 653 [641-678] | **404** [286-538] | 385 [295-406] | 10.9 | 0.0013 |
+| B cross-magnet | 6742 [4576-9130] | 2395 [2041-2415] | **2600** [2106-3152] | 933 [869-1055] | 444075 | 46 |
+| C plane-to-plane | 535 [475-881] | 486 [484-510] | **300** [252-335] | 235 [178-262] | 6.6 | 6e-7 |
+
+Read across that table:
+
+1. **Distance to the ceiling.** On the leg that matters, the cross-magnet step,
+   the best physics network sits at 2.6 mm against a 46 µm ceiling — a factor 56
+   above the scheme it is solving. Widening from 4x50 to 4x100 buys a factor 2.6;
+   the trend says width is the binding constraint, which is what the overnight
+   4x200 wave will test.
+2. **Generalising the leg is expensive.** The same physics loss, same q, same
+   optimiser, same data source on ONE frozen cross-magnet leg reaches 177-235 µm
+   (`../One_step_network_v2`). Asking one network to carry (z0, dz) as inputs and
+   serve three leg geometries costs a factor 14 on that same leg
+   (`figures/frozen_vs_general.png`).
+3. **On short legs the network loses to a straight line.** Legs A (341 mm) and C
+   (70 mm) are nearly straight: ignoring the magnet entirely gives 10.9 µm and
+   6.6 µm, while the network gives 404 µm and 300 µm. A single network whose
+   output scale is set by the 5 m cross-magnet step cannot also resolve a 70 mm
+   one; the residual is roughly a fixed fraction of the largest step it was
+   trained on, not a fixed fraction of each step.
+4. **The data twin is uniformly ahead of the physics loss**, by 2.8x at 4x100 on
+   leg B and by 5-25% on legs A and C. On the frozen leg the two were
+   indistinguishable (182 vs 192 µm). The gap opens exactly where the leg
+   geometry varies, i.e. the physics loss is the harder optimisation problem once
+   the step length is an input rather than a constant.
+5. **Where the error lives inside the step** (`figures/stage_errors.png`): on legs
+   A and C it is flat across the eight Gauss nodes — a scale error, not an
+   accumulation. On leg B it grows monotonically from the first node to the
+   endpoint, roughly doubling, which is the bend being under-resolved.

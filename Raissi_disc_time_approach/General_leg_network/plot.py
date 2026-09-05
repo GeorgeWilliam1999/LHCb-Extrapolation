@@ -26,7 +26,6 @@ LEGS = ("A", "B", "C")
 LEG_TITLE = {"A": "A  vertex fetch", "B": "B  cross-magnet",
              "C": "C  plane-to-plane"}
 COLS = ("all", "1-5GeV", "5-20GeV", "20-200GeV")
-ARCHS = ((50, "4x50"), (100, "4x100"))
 # the converged frozen-leg baseline, One_step_network_v2/results/summary.csv
 V2_PHYSICS = [182.65, 177.39, 235.44]
 V2_DATA = [191.75, 162.44, 207.53]
@@ -51,6 +50,11 @@ def sel(rows, **kw):
 def main():
     os.makedirs(FIGURES, exist_ok=True)
     by_leg = [r for r in read("by_leg.csv") if r["split"] == "test"]
+    # the architectures are whatever is in the table, so a later wave of runs
+    # at a new width is picked up without touching this script
+    widths = sorted({int(r["width"]) for r in by_leg})
+    depth = int(by_leg[0]["depth"])
+    ARCHS = [(w, "%dx%d" % (depth, w)) for w in widths]
 
     # -------------------------------------------- error by leg and momentum --
     fig, axes = plt.subplots(len(LEGS), len(COLS), figsize=(15, 9.5),
@@ -83,7 +87,14 @@ def main():
                     ax.plot([x + 0.02, x + 0.24], [np.median(dt)] * 2, "-",
                             lw=2.5, color="#d62728")
             straight = np.median([f(r["straight_med_um"]) for r in rows])
-            ceil = f(rows[0]["ceiling_band_um"])
+            # prefer the ceiling measured on this experiment's own states;
+            # fall back to the published stratified-sample value
+            ceil_pub = f(rows[0]["ceiling_band_um"])
+            ceil_own = (f(rows[0]["ceiling_own_um"])
+                        if "ceiling_own_um" in rows[0] else float("nan"))
+            ceil = ceil_own if np.isfinite(ceil_own) else ceil_pub
+            ceil_name = ("exact scheme q=8, this population"
+                         if np.isfinite(ceil_own) else "exact scheme q=8")
             ax.axhline(straight, ls="--", color="0.4", lw=1.2,
                        label="straight line" if (i == 0 and jx == 0) else None)
             ax.set_yscale("log")
@@ -95,9 +106,9 @@ def main():
             bottom = min(vals) / 5.0 if vals else None
             if np.isfinite(ceil) and ceil > 0 and (bottom is None or ceil >= bottom):
                 ax.axhline(ceil, ls=":", color="green", lw=1.6,
-                           label="exact scheme, q=8" if (i == 0 and jx == 0) else None)
+                           label=ceil_name if (i == 0 and jx == 0) else None)
             elif np.isfinite(ceil):
-                ax.text(0.02, 0.03, "exact scheme q=8: %.3g um" % ceil,
+                ax.text(0.02, 0.04, "%s: %.3g um" % (ceil_name, ceil),
                         transform=ax.transAxes, fontsize=7, color="green")
             if bottom is not None:
                 ax.set_ylim(bottom=bottom)
@@ -109,7 +120,7 @@ def main():
                 ax.set_title(band if band != "all" else "all momenta")
             if jx == 0:
                 ax.set_ylabel("%s\nendpoint error [um]" % LEG_TITLE[leg])
-    axes[0, 0].legend(fontsize=8, loc="lower left")
+    axes[0, 0].legend(fontsize=8, loc="lower right")
     fig.suptitle("A3a  one network for legs A, B and C: test-split endpoint "
                  "error by leg type and momentum", fontsize=12)
     fig.tight_layout(rect=[0, 0, 1, 0.97])
@@ -155,17 +166,15 @@ def main():
     rowsB = [r for r in by_leg if r["leg"] == "B" and r["band"] == "all"]
     fig, ax = plt.subplots(figsize=(8, 5))
     groups = [
-        ("frozen leg 4x50\nphysics (v2)", V2_PHYSICS, "#1f77b4"),
-        ("frozen leg 4x50\ndata twin (v2)", V2_DATA, "#d62728"),
-        ("general 4x50\nphysics", [f(r["endpoint_med_um"]) for r in rowsB
-                                   if r["mode"] == "physics" and int(r["width"]) == 50], "#1f77b4"),
-        ("general 4x50\ndata twin", [f(r["endpoint_med_um"]) for r in rowsB
-                                     if r["mode"] == "data" and int(r["width"]) == 50], "#d62728"),
-        ("general 4x100\nphysics", [f(r["endpoint_med_um"]) for r in rowsB
-                                    if r["mode"] == "physics" and int(r["width"]) == 100], "#1f77b4"),
-        ("general 4x100\ndata twin", [f(r["endpoint_med_um"]) for r in rowsB
-                                      if r["mode"] == "data" and int(r["width"]) == 100], "#d62728"),
+        ("frozen leg %s\nphysics (v2)" % ARCHS[0][1], V2_PHYSICS, "#1f77b4"),
+        ("frozen leg %s\ndata twin (v2)" % ARCHS[0][1], V2_DATA, "#d62728"),
     ]
+    for w, wname in ARCHS:
+        for mode, colour in (("physics", "#1f77b4"), ("data", "#d62728")):
+            groups.append(("general %s\n%s" % (wname, mode),
+                           [f(r["endpoint_med_um"]) for r in rowsB
+                            if r["mode"] == mode and int(r["width"]) == w],
+                           colour))
     for i, (name, vals, colour) in enumerate(groups):
         if not vals:
             continue

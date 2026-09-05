@@ -1,0 +1,4 @@
+mode,seed,phase,outer,loss,wall_s
+data,1,stall,0,0.0054467714732811,103.8
+data,1,stall,1,0.0012814104766447616,105.3
+data,1,stall,2,0.0006214252860240442,107.6
