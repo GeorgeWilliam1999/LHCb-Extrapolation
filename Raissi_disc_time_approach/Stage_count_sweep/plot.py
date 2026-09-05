@@ -31,6 +31,7 @@ import os
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt   # noqa: E402
+import numpy as np                # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "results")
@@ -66,31 +67,45 @@ def figure_error_vs_stages(out_png):
     # ---- left: the endpoint
     ax = axes[0]
     for mode, st in STYLE.items():
-        x, y, lo, hi = [], [], [], []
+        # NaN where a q has no converged run, so the line BREAKS there rather
+        # than drawing a straight segment across a q that was never measured
+        y, lo, hi = [], [], []
         for r in rows:
             med = num(r["%s_endpoint_med_um" % mode])
             if med is None:
-                continue
-            x.append(int(r["q"]))
-            y.append(med)
-            lo.append(med - num(r["%s_endpoint_min_um" % mode]))
-            hi.append(num(r["%s_endpoint_max_um" % mode]) - med)
-        if x:
-            ax.errorbar(x, y, yerr=[lo, hi], capsize=4, lw=1.8, ms=6, **st)
+                y.append(np.nan); lo.append(0.0); hi.append(0.0)
+            else:
+                y.append(med)
+                lo.append(med - num(r["%s_endpoint_min_um" % mode]))
+                hi.append(num(r["%s_endpoint_max_um" % mode]) - med)
+        if not np.all(np.isnan(y)):
+            ax.errorbar(qs, y, yerr=[lo, hi], capsize=4, lw=1.8, ms=6, **st)
 
+    # the ceiling measured on THESE test states - the like-for-like one
     sx = [int(r["q"]) for r in rows if num(r["scheme_endpoint_med_um"])]
     sy = [num(r["scheme_endpoint_med_um"]) for r in rows
           if num(r["scheme_endpoint_med_um"])]
     if sx:
-        ax.plot(sx, sy, color="#2ca02c", marker="^", lw=1.8, ms=7,
-                label="exact scheme (leg B)")
+        ax.plot(sx, sy, color="#2ca02c", marker="^", lw=2.2, ms=8,
+                label="exact scheme, same test states")
+
+    # and the one measured in Simple_first_pass on a momentum-stratified
+    # sample of 32 legs: a different population, plotted faint so that the
+    # difference between the two is visible rather than argued about
+    tx = [int(r["q"]) for r in rows
+          if num(r["scheme_stratified_endpoint_med_um"])]
+    ty = [num(r["scheme_stratified_endpoint_med_um"]) for r in rows
+          if num(r["scheme_stratified_endpoint_med_um"])]
+    if tx:
+        ax.plot(tx, ty, color="#2ca02c", marker="^", lw=1.2, ms=5, ls=":",
+                alpha=0.55, label="exact scheme, momentum-stratified 32 legs")
 
     straight = next((num(r["straight_med_um"]) for r in rows
                      if num(r["straight_med_um"])), None)
     if straight:
         ax.axhline(straight, ls="--", color="0.45", lw=1.3)
-        ax.text(qs[0], straight * 1.15, "straight line, %.0f um" % straight,
-                color="0.35", fontsize=8, va="bottom")
+        ax.text(qs[0], straight / 1.35, "straight line (no magnet), %.0f um"
+                % straight, color="0.35", fontsize=8, va="top", ha="left")
 
     ax.set_xscale("log", base=2)
     ax.set_yscale("log")
@@ -100,17 +115,26 @@ def figure_error_vs_stages(out_png):
     ax.set_ylabel("median endpoint error / um  (test split)")
     ax.set_title("Endpoint across the magnet")
     ax.grid(alpha=0.3, which="both")
+    # headroom above the straight-line reference so the legend sits in empty
+    # space instead of over the curves
+    lo, hi = ax.get_ylim()
+    ax.set_ylim(lo, hi * 12)
     if ax.get_legend_handles_labels()[0]:
-        ax.legend(fontsize=9)
+        ax.legend(fontsize=8.5, loc="upper right", framealpha=0.92)
 
     # ---- right: the stage states
     ax = axes[1]
     for mode, st in STYLE.items():
-        x = [int(r["q"]) for r in rows if num(r["%s_stage_med_um" % mode])]
-        y = [num(r["%s_stage_med_um" % mode]) for r in rows
-             if num(r["%s_stage_med_um" % mode])]
-        if x:
-            ax.plot(x, y, lw=1.8, ms=6, **st)
+        y = [num(r["%s_stage_med_um" % mode]) if num(r["%s_stage_med_um" % mode])
+             else np.nan for r in rows]
+        if not np.all(np.isnan(y)):
+            ax.plot(qs, y, lw=1.8, ms=6, **st)
+    gx = [int(r["q"]) for r in rows if num(r["scheme_stage_med_um"])]
+    gy = [num(r["scheme_stage_med_um"]) for r in rows
+          if num(r["scheme_stage_med_um"])]
+    if gx:
+        ax.plot(gx, gy, color="#2ca02c", marker="^", lw=2.2, ms=8,
+                label="exact scheme, same test states")
     ax.set_xscale("log", base=2)
     ax.set_yscale("log")
     ax.set_xticks(qs)

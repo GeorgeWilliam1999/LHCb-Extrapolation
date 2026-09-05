@@ -1,0 +1,15 @@
+{
+ "q": 2,
+ "split": "test",
+ "n": 2018,
+ "n_available": 2018,
+ "sample_seed": 20260718,
+ "converged_frac": 0.9990089197224975,
+ "endpoint_med_um": 5198.153415332456,
+ "endpoint_p95_um": 37728.184160923054,
+ "endpoint_mean_um": 10569.175847016102,
+ "stage_med_um": 15556.642634878834,
+ "wall_s": 16.4,
+ "solver": "solve_leg imported from ../Simple_first_pass/exact_scheme.py",
+ "dataset": "frozen_leg_q02.npz"
+}

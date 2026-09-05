@@ -4,12 +4,18 @@
     PYTHONNOUSERSITE=1 /data/bfys/gscriven/conda/envs/TE/bin/python aggregate.py
 
 Reads every `results/q<qq>_<mode>_s<seed>.json` written by the shared
-`train.py`, plus the exact-scheme ceiling measured in
-`../Simple_first_pass/results/scheme_error_vs_q.csv`, and writes:
+`train.py`, plus two measurements of the exact scheme's own error: the leg-B
+rows of `../Simple_first_pass/results/scheme_error_vs_q.csv` (a
+momentum-stratified sample of 32 legs) and, on this experiment's own 2018 test
+states, `results/scheme_ceiling_same_population_q<qq>.json` from
+`measure_scheme_ceiling.py`. The second is the one to compare the networks
+against; the first is carried so the two can be seen not to agree, and why.
+It writes:
 
     results/summary.csv          one row per run, as recorded - nothing pooled
     results/error_vs_stages.csv  one row per q: the median over seeds and the
-                                 seed spread for each loss, beside the ceiling
+                                 seed spread for each loss, beside both
+                                 measurements of the exact-scheme ceiling
 
 Nothing is recomputed from the model weights here; the numbers are the ones
 `train.py` scored and recorded, so the table cannot drift from the runs.
@@ -120,6 +126,21 @@ def scheme_ceiling(leg="B"):
     return out
 
 
+def scheme_ceiling_same_population():
+    """The same scheme solved on THIS experiment's own test states.
+
+    `measure_scheme_ceiling.py` writes one json per q. This is the like-for-like
+    ceiling: same states, same fp64 RK4 reference, same max(|dx|, |dy|) measure
+    as the networks are scored with.
+    """
+    out = {}
+    for path in sorted(glob.glob(os.path.join(
+            RESULTS, "scheme_ceiling_same_population_q*.json"))):
+        rec = json.load(open(path))
+        out[int(rec["q"])] = rec
+    return out
+
+
 # ------------------------------------------------------------- the tables ---
 def median(xs):
     s = sorted(xs)
@@ -129,7 +150,7 @@ def median(xs):
     return s[n // 2] if n % 2 else 0.5 * (s[n // 2 - 1] + s[n // 2])
 
 
-def error_vs_stages(runs, ceiling, include_unconverged=False):
+def error_vs_stages(runs, ceiling, ceiling_same, include_unconverged=False):
     rows = []
     for q in Q_VALUES:
         row = {"q": q}
@@ -150,8 +171,14 @@ def error_vs_stages(runs, ceiling, include_unconverged=False):
                 1 for _, r in got if not r["converged"])
             row["%s_n_seeds_missing" % mode] = len(SEEDS) - len(got)
         c = ceiling.get(q, {})
-        row["scheme_endpoint_med_um"] = c.get("median_um", "")
-        row["scheme_endpoint_worst_um"] = c.get("worst_um", "")
+        row["scheme_stratified_endpoint_med_um"] = c.get("median_um", "")
+        row["scheme_stratified_endpoint_worst_um"] = c.get("worst_um", "")
+        cs = ceiling_same.get(q, {})
+        row["scheme_endpoint_med_um"] = cs.get("endpoint_med_um", "")
+        row["scheme_endpoint_p95_um"] = cs.get("endpoint_p95_um", "")
+        row["scheme_stage_med_um"] = cs.get("stage_med_um", "")
+        row["scheme_n"] = cs.get("n", "")
+        row["scheme_converged_frac"] = cs.get("converged_frac", "")
         # the do-nothing reference: the straight line through the same leg,
         # identical for every run, so any one of them carries it
         straight = [r["test"]["straight_med_um"] for k, r in runs.items()
@@ -197,14 +224,20 @@ def main():
     write_csv(os.path.join(RESULTS, "summary.csv"), rows, SUMMARY_FIELDS)
 
     ceiling = scheme_ceiling("B")
-    evs = error_vs_stages(runs, ceiling, a.include_unconverged)
+    ceiling_same = scheme_ceiling_same_population()
+    if not ceiling_same:
+        print("no same-population ceiling yet: run measure_scheme_ceiling.py")
+    evs = error_vs_stages(runs, ceiling, ceiling_same, a.include_unconverged)
     fields = ["q"]
     for mode in MODES:
         fields += ["%s_endpoint_med_um" % mode, "%s_endpoint_min_um" % mode,
                    "%s_endpoint_max_um" % mode, "%s_stage_med_um" % mode,
                    "%s_p95_med_um" % mode, "%s_n_seeds_used" % mode,
                    "%s_n_seeds_unconverged" % mode, "%s_n_seeds_missing" % mode]
-    fields += ["scheme_endpoint_med_um", "scheme_endpoint_worst_um",
+    fields += ["scheme_endpoint_med_um", "scheme_endpoint_p95_um",
+               "scheme_stage_med_um", "scheme_n", "scheme_converged_frac",
+               "scheme_stratified_endpoint_med_um",
+               "scheme_stratified_endpoint_worst_um",
                "straight_med_um"]
     banner = ("medians over converged seeds only; unconverged runs excluded"
               if not a.include_unconverged else
@@ -213,9 +246,9 @@ def main():
 
     # a small readable echo, so a farm-side run says something useful
     print()
-    print("%-4s %-28s %-28s %12s" % ("q", "physics med [min-max] um",
-                                     "data twin med [min-max] um",
-                                     "ceiling um"))
+    print("%-4s %-28s %-28s %12s %12s"
+          % ("q", "physics med [min-max] um", "data twin med [min-max] um",
+             "ceiling um", "(stratified)"))
     for r in evs:
         def fmt(mode):
             if r["%s_endpoint_med_um" % mode] == "":
@@ -224,9 +257,11 @@ def main():
                 r["%s_endpoint_med_um" % mode], r["%s_endpoint_min_um" % mode],
                 r["%s_endpoint_max_um" % mode], r["%s_n_seeds_used" % mode])
         ceil = r["scheme_endpoint_med_um"]
-        print("%-4d %-28s %-28s %12s"
+        strat = r["scheme_stratified_endpoint_med_um"]
+        print("%-4d %-28s %-28s %12s %12s"
               % (r["q"], fmt("physics"), fmt("data"),
-                 ("%.0f" % ceil) if ceil != "" else "-"))
+                 ("%.0f" % ceil) if ceil != "" else "-",
+                 ("%.0f" % strat) if strat != "" else "-"))
 
 
 if __name__ == "__main__":

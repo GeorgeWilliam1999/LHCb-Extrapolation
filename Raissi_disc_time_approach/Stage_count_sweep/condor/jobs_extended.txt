@@ -1,0 +1,8 @@
+Stage_count_sweep --data results/frozen_leg_q04.npz --mode physics --seed 0 --q 4 --width 50 --depth 4 --out results --tag q04_physics_s0 --outer-cap 400
+Stage_count_sweep --data results/frozen_leg_q04.npz --mode physics --seed 1 --q 4 --width 50 --depth 4 --out results --tag q04_physics_s1 --outer-cap 400
+Stage_count_sweep --data results/frozen_leg_q04.npz --mode physics --seed 2 --q 4 --width 50 --depth 4 --out results --tag q04_physics_s2 --outer-cap 400
+Stage_count_sweep --data results/frozen_leg_q08.npz --mode physics --seed 0 --q 8 --width 50 --depth 4 --out results --tag q08_physics_s0 --outer-cap 400
+Stage_count_sweep --data results/frozen_leg_q08.npz --mode physics --seed 1 --q 8 --width 50 --depth 4 --out results --tag q08_physics_s1 --outer-cap 400
+Stage_count_sweep --data results/frozen_leg_q08.npz --mode physics --seed 2 --q 8 --width 50 --depth 4 --out results --tag q08_physics_s2 --outer-cap 400
+Stage_count_sweep --data results/frozen_leg_q16.npz --mode physics --seed 1 --q 16 --width 50 --depth 4 --out results --tag q16_physics_s1 --outer-cap 400
+Stage_count_sweep --data results/frozen_leg_q16.npz --mode physics --seed 2 --q 16 --width 50 --depth 4 --out results --tag q16_physics_s2 --outer-cap 400
