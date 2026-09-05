@@ -1,0 +1,17 @@
+{
+ "what": "one L-BFGS restart, same seed and same up-field dataset, with the physics loss built on each polarity in turn",
+ "loss_after_one_restart": {
+  "up": 0.00262150329156261,
+  "down": 0.00803173013953939
+ },
+ "field_recorded_in_json": {
+  "up": "up",
+  "down": "down"
+ },
+ "test_endpoint_med_um_vs_up_references": {
+  "up": 8407.884662936567,
+  "down": 1039322.1163791097
+ },
+ "losses_differ": true,
+ "ratio_down_over_up": 3.0637879286246803
+}

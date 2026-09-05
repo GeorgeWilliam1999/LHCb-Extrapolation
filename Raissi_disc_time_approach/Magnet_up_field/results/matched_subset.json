@@ -1,0 +1,166 @@
+{
+ "tolerance_mm": 1.0,
+ "train": {
+  "n_up": 2000,
+  "n_down": 1979,
+  "n_matched": 1979,
+  "all_down_rows_found": true
+ },
+ "val": {
+  "n_up": 2082,
+  "n_down": 2062,
+  "n_matched": 2062,
+  "all_down_rows_found": true
+ },
+ "test": {
+  "n_up": 2033,
+  "n_down": 2018,
+  "n_matched": 2018,
+  "all_down_rows_found": true
+ },
+ "physics_up": {
+  "n_seeds": 10,
+  "median_over_seeds_all_tracks_um": 229.40102694816744,
+  "range_all_tracks_um": [
+   170.5533559913306,
+   296.4944401089724
+  ],
+  "median_over_seeds_matched_um": 226.56056456037632,
+  "range_matched_um": [
+   168.62919958855116,
+   293.91729715962356
+  ]
+ },
+ "data_up": {
+  "n_seeds": 3,
+  "median_over_seeds_all_tracks_um": 204.16340793730114,
+  "range_all_tracks_um": [
+   186.74162280876772,
+   230.100723843492
+  ],
+  "median_over_seeds_matched_um": 202.72640829658428,
+  "range_matched_um": [
+   183.7960636698881,
+   228.26271159388511
+  ]
+ },
+ "per_run": [
+  {
+   "tag": "up_data_s0",
+   "mode": "data",
+   "seed": 0,
+   "med_all_um": 204.16340793730114,
+   "med_matched_um": 202.72640829658428,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_data_s1",
+   "mode": "data",
+   "seed": 1,
+   "med_all_um": 230.100723843492,
+   "med_matched_um": 228.26271159388511,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_data_s2",
+   "mode": "data",
+   "seed": 2,
+   "med_all_um": 186.74162280876772,
+   "med_matched_um": 183.7960636698881,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s0",
+   "mode": "physics",
+   "seed": 0,
+   "med_all_um": 219.39218966781482,
+   "med_matched_um": 215.8930600556195,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s1",
+   "mode": "physics",
+   "seed": 1,
+   "med_all_um": 241.6362903687741,
+   "med_matched_um": 239.78618162861665,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s2",
+   "mode": "physics",
+   "seed": 2,
+   "med_all_um": 229.52612507526737,
+   "med_matched_um": 227.83205538066653,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s3",
+   "mode": "physics",
+   "seed": 3,
+   "med_all_um": 170.5533559913306,
+   "med_matched_um": 168.62919958855116,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s4",
+   "mode": "physics",
+   "seed": 4,
+   "med_all_um": 296.4944401089724,
+   "med_matched_um": 293.91729715962356,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s5",
+   "mode": "physics",
+   "seed": 5,
+   "med_all_um": 279.0668081245258,
+   "med_matched_um": 277.24204085144777,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s6",
+   "mode": "physics",
+   "seed": 6,
+   "med_all_um": 230.5093341119573,
+   "med_matched_um": 227.10529299610016,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s7",
+   "mode": "physics",
+   "seed": 7,
+   "med_all_um": 229.2759288210675,
+   "med_matched_um": 226.01583612465248,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s8",
+   "mode": "physics",
+   "seed": 8,
+   "med_all_um": 212.12328003935,
+   "med_matched_um": 210.35967212770856,
+   "n_all": 2033,
+   "n_matched": 2018
+  },
+  {
+   "tag": "up_physics_s9",
+   "mode": "physics",
+   "seed": 9,
+   "med_all_um": 215.90581003329135,
+   "med_matched_um": 213.88790054160722,
+   "n_all": 2033,
+   "n_matched": 2018
+  }
+ ]
+}

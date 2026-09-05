@@ -1,0 +1,45 @@
+{
+ "q": 8,
+ "leg": "B",
+ "n_states": 32,
+ "seed": 20260718,
+ "per_field": {
+  "up": {
+   "n": 32,
+   "n_converged": 32,
+   "converged_frac": 1.0,
+   "median_err_um": 33.16862466988724,
+   "p95_err_um": 865.4849003306524,
+   "worst_err_um": 37836.67055042974,
+   "median_n_evals": 44
+  },
+  "down": {
+   "n": 32,
+   "n_converged": 31,
+   "converged_frac": 0.96875,
+   "median_err_um": 32.040678874295736,
+   "p95_err_um": 83508.40655311823,
+   "worst_err_um": 258429.16988995738,
+   "median_n_evals": 44
+  }
+ },
+ "on_the_test_states": {
+  "up": {
+   "n": 2033,
+   "converged_frac": 1.0,
+   "endpoint_med_um": 22.103423479109097,
+   "endpoint_p95_um": 1544.6273956574257,
+   "endpoint_mean_um": 657.4858871786739,
+   "stage_med_um": 27.214570694241047
+  },
+  "down": {
+   "n": 2018,
+   "converged_frac": 1.0,
+   "endpoint_med_um": 22.544094616847588,
+   "endpoint_p95_um": 1609.9007786735729,
+   "endpoint_mean_um": 613.4675594696984,
+   "stage_med_um": 26.39244205823843
+  }
+ },
+ "note": "per_field = 32 momentum-stratified legs (the Simple_first_pass population); on_the_test_states = the frozen leg's own test split, the like-for-like network comparator"
+}

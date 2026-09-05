@@ -1,0 +1,49 @@
+{
+ "tag": "up_physics_s3",
+ "mode": "physics",
+ "seed": 3,
+ "q": 8,
+ "width": 50,
+ "depth": 4,
+ "n_extra": 0,
+ "dataset": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Raissi_disc_time_approach/Magnet_up_field/results/frozen_leg_up.npz",
+ "dataset_kind": "frozen",
+ "field": "up",
+ "restarts": 131,
+ "final_loss": 1.0641231394392349e-05,
+ "converged": true,
+ "wall_s": 708.0,
+ "outer_cap": 150,
+ "max_iter": 200,
+ "confirmed": true,
+ "train": {
+  "endpoint_med_um": 179.6405245819983,
+  "endpoint_p95_um": 3150.9670173546165,
+  "stage_med_um": 285.5253972410452,
+  "slope_med_mrad": 0.10681205747182024,
+  "rho_mean": 1.2773619021638345e-05,
+  "rho_median": 1.1533210051544947e-07,
+  "straight_med_um": 528223.3471378485,
+  "n": 2000
+ },
+ "val": {
+  "endpoint_med_um": 174.87573444476823,
+  "endpoint_p95_um": 7094.608622688704,
+  "stage_med_um": 292.2151920840008,
+  "slope_med_mrad": 0.10930005085412961,
+  "rho_mean": 5.1497269495300484e-05,
+  "rho_median": 1.3981927012725883e-07,
+  "straight_med_um": 535027.691688259,
+  "n": 2082
+ },
+ "test": {
+  "endpoint_med_um": 170.5533559913306,
+  "endpoint_p95_um": 4183.827533523673,
+  "stage_med_um": 277.14167991257455,
+  "slope_med_mrad": 0.09668773850490808,
+  "rho_mean": 3.977692853742578e-05,
+  "rho_median": 1.251291687003893e-07,
+  "straight_med_um": 525183.7153673901,
+  "n": 2033
+ }
+}

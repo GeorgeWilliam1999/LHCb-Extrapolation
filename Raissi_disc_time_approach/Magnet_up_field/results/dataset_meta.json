@@ -1,0 +1,141 @@
+{
+ "note": "same event-derived input states as One_step_network_v2; only the field the references are integrated with changes",
+ "up": {
+  "kind": "frozen",
+  "leg": {
+   "z0": 2648.2,
+   "z1": 7826.0,
+   "q": 8
+  },
+  "field": "up",
+  "counts": {
+   "train": 2000,
+   "val": 2082,
+   "test": 2033
+  },
+  "dropped_by_fiducial": {
+   "train": 0,
+   "val": 0,
+   "test": 0
+  },
+  "in_scale": [
+   183.66489845931878,
+   184.93645174506733,
+   0.07350167212367208,
+   0.07550244915599745,
+   0.07806646852658625
+  ],
+  "out_scale": [
+   414.0463313385865,
+   422.2864393227428,
+   0.0735016721236721,
+   0.07550244915599727,
+   0.078066468526586
+  ],
+  "rebase": "own plane within 60 mm, fp64 RK4 transport to z0 (exact)",
+  "fiducial": true,
+  "seed": 20260718,
+  "n_train_cap": 2000,
+  "field_file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+  "field_md5": "9e49ddc4313b589f273540e7e0bb513b"
+ },
+ "down": {
+  "kind": "frozen",
+  "leg": {
+   "z0": 2648.2,
+   "z1": 7826.0,
+   "q": 8
+  },
+  "field": "down",
+  "counts": {
+   "train": 1979,
+   "val": 2062,
+   "test": 2018
+  },
+  "dropped_by_fiducial": {
+   "train": 21,
+   "val": 20,
+   "test": 15
+  },
+  "in_scale": [
+   176.54513155896834,
+   182.7198036417944,
+   0.06977380919595938,
+   0.07447248716178624,
+   0.07627255146266909
+  ],
+  "out_scale": [
+   395.4405054631252,
+   416.829878323476,
+   0.06977380919595881,
+   0.07447248716178653,
+   0.07627255146266929
+  ],
+  "rebase": "own plane within 60 mm, fp64 RK4 transport to z0 (exact)",
+  "fiducial": true,
+  "seed": 20260718,
+  "n_train_cap": 2000,
+  "field_file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.down.bin",
+  "field_md5": "af284c6954d2273c637a5e766b82b58e"
+ },
+ "population_comparison": {
+  "train": {
+   "n_up": 2000,
+   "n_down": 1979,
+   "n_v2": 1979,
+   "down_equals_v2_bitwise": true,
+   "n_shared_states": 0,
+   "only_up": 2000,
+   "only_down": 1979,
+   "identical_population": false
+  },
+  "val": {
+   "n_up": 2082,
+   "n_down": 2062,
+   "n_v2": 2062,
+   "down_equals_v2_bitwise": true,
+   "n_shared_states": 0,
+   "only_up": 2082,
+   "only_down": 2062,
+   "identical_population": false
+  },
+  "test": {
+   "n_up": 2033,
+   "n_down": 2018,
+   "n_v2": 2018,
+   "down_equals_v2_bitwise": true,
+   "n_shared_states": 0,
+   "only_up": 2033,
+   "only_down": 2018,
+   "identical_population": false
+  }
+ },
+ "in_scale_up": [
+  183.66489845931878,
+  184.93645174506733,
+  0.07350167212367208,
+  0.07550244915599745,
+  0.07806646852658625
+ ],
+ "in_scale_down": [
+  176.54513155896834,
+  182.7198036417944,
+  0.06977380919595938,
+  0.07447248716178624,
+  0.07627255146266909
+ ],
+ "out_scale_up": [
+  414.0463313385865,
+  422.2864393227428,
+  0.0735016721236721,
+  0.07550244915599727,
+  0.078066468526586
+ ],
+ "out_scale_down": [
+  395.4405054631252,
+  416.829878323476,
+  0.06977380919595881,
+  0.07447248716178653,
+  0.07627255146266929
+ ]
+}

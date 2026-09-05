@@ -1,0 +1,75 @@
+{
+ "up": {
+  "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+  "md5": "9e49ddc4313b589f273540e7e0bb513b"
+ },
+ "down": {
+  "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.down.bin",
+  "md5": "af284c6954d2273c637a5e766b82b58e"
+ },
+ "map_bounds_mm": {
+  "lo": [
+   -4000.0,
+   -4000.0,
+   -500.0
+  ],
+  "hi": [
+   4000.000178813938,
+   4000.000178813938,
+   14000.000324100263
+  ]
+ },
+ "bounds_identical": true,
+ "parity_up": {
+  "field": "up",
+  "n_points": 200000,
+  "seed": 0,
+  "max_abs_diff_T": 1.3322676295501878e-15,
+  "tol_T": 1e-12,
+  "passes": true,
+  "dBy_dx_smoke": [
+   -4.674075664310621e-07,
+   6.512857028677168e-07
+  ]
+ },
+ "parity_down": {
+  "field": "down",
+  "n_points": 200000,
+  "seed": 0,
+  "max_abs_diff_T": 1.3322676295501878e-15,
+  "tol_T": 1e-12,
+  "passes": true,
+  "dBy_dx_smoke": [
+   4.674075664310621e-07,
+   -6.512857028677168e-07
+  ]
+ },
+ "mirror_test": {
+  "n_points": 200000,
+  "max_abs_B_down_T": 4.467516157109472,
+  "max_abs_Bup_plus_Bdown_T": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "exact_sign_flip": true,
+  "max_abs_diff_magnitude_T": 0.0,
+  "median_abs_diff_magnitude_T": 0.0
+ },
+ "frozen_leg_axis_profile": {
+  "z_mm": [
+   2648.2,
+   7826.0
+  ],
+  "By_up_max_T": 1.0481333350750788,
+  "By_down_max_T": 1.0481333350750788,
+  "By_up_signed_at_peak_T": 1.0481333350750788,
+  "By_down_signed_at_peak_T": -1.0481333350750788
+ },
+ "real_leg_profile": {
+  "n_legs": 300,
+  "median_signed_By_integral_up_Tmm": 3787.5725134201048,
+  "median_signed_By_integral_down_Tmm": -3787.5725134201048,
+  "max_abs_|B|_difference_T": 0.0
+ }
+}

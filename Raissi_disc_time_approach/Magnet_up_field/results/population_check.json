@@ -1,0 +1,48 @@
+{
+ "note": "the input population before the field is used at all",
+ "train": {
+  "n_selected_rows": 2000,
+  "n_unique_tracks": 2000,
+  "same_rows_for_both_polarities": true,
+  "n_finite_after_transport_up": 2000,
+  "n_finite_after_transport_down": 2000,
+  "max_abs_state_difference_up_minus_down": [
+   0.049661226647330636,
+   0.011276054789163936,
+   0.002509771347906309,
+   0.0005699774762030207,
+   0.0
+  ],
+  "median_abs_x_difference_mm": 0.00048132234834596943
+ },
+ "val": {
+  "n_selected_rows": 2082,
+  "n_unique_tracks": 2082,
+  "same_rows_for_both_polarities": true,
+  "n_finite_after_transport_up": 2082,
+  "n_finite_after_transport_down": 2082,
+  "max_abs_state_difference_up_minus_down": [
+   0.04632036957249852,
+   0.006139389084637514,
+   0.002024770238244933,
+   0.0006976684158161439,
+   0.0
+  ],
+  "median_abs_x_difference_mm": 0.0004848993180512906
+ },
+ "test": {
+  "n_selected_rows": 2033,
+  "n_unique_tracks": 2033,
+  "same_rows_for_both_polarities": true,
+  "n_finite_after_transport_up": 2033,
+  "n_finite_after_transport_down": 2033,
+  "max_abs_state_difference_up_minus_down": [
+   0.06827706229694286,
+   0.04645881068745439,
+   0.003451909552393273,
+   0.0020392763855582308,
+   0.0
+  ],
+  "median_abs_x_difference_mm": 0.00048455972955707693
+ }
+}
