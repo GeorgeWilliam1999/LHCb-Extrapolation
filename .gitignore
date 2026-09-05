@@ -18,3 +18,10 @@ GeneratorLog.xml
 Data_generation_exploration/Official_xdigi/truth_official/
 Data_generation_exploration/Official_xdigi/training_v2/*.npz
 Data_generation_exploration/Official_xdigi/dump.log
+
+# Discrete-time experiments: model weights, prepared datasets and farm logs.
+# All regenerable from the scripts, seeds and metadata here (see
+# Raissi_disc_time_approach/_shared/README.md).
+Raissi_disc_time_approach/*/results/*.pt
+Raissi_disc_time_approach/*/results/*.npz
+Raissi_disc_time_approach/*/condor/logs/

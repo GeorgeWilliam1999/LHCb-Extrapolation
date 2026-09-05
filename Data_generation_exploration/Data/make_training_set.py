@@ -46,10 +46,52 @@ ARCHIVE_CORE = "/data/bfys/gscriven/Track_Extrapolation_work_archive/track-extra
 sys.path.insert(0, ARCHIVE_CORE)  # read-only import of the canonical field loader
 from field_v8r1 import FieldV8R1, V8R1_DOWN  # noqa: E402
 
-# CLI (all optional, defaults = the v1 build): states.npz path, output dir, tag
+# CLI (all optional, defaults = the v1 build): states.npz path, output dir, tag,
+# and the key of the sample description recorded in the meta json (SAMPLES below).
 STATES = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(HERE, "results", "states.npz")
 OUT = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(HERE, "training_v1")
 TAG = sys.argv[3] if len(sys.argv) > 3 else "train_mb100_v1"
+SAMPLE_KEY = sys.argv[4] if len(sys.argv) > 4 else "gauss_mb100"
+
+# Where the events came from. One entry per input sample; the meta json records
+# the entry named by SAMPLE_KEY, so a rebuild on a different sample cannot
+# inherit the previous sample's description (that mistake was made once, and
+# corrected on 2026-09-05).
+SAMPLES = {
+    # v1: our own Gauss production (superseded as a provenance source by George's
+    # 2026-07-21 directive to use centrally produced samples).
+    "gauss_mb100": {
+        "origin": "self-generated (Gauss run locally at Nikhef)",
+        "generator": "Gauss v61r0p2 (Gauss-on-Gaussino), event type 30000000 minbias",
+        "conditions": "2024 Block-7 beam, nu=7.6, geometry run3/2024-v00.02, "
+                      "conditions sim10/2024, DD4hep",
+        "sim_file": "First_Pass/run_output/GaussMB100-30000000-100ev-20260717.sim",
+        "n_events": 100,
+        "run_number": 1,
+        "event_numbers": "1-100 (seeds reproducible)",
+        "truth_dump": "First_Pass/dump_event.py -> Data/truth_mb100/",
+    },
+    # v2: the official TestFileDB sample, read from the local CVMFS mirror.
+    "official_xdigi": {
+        "origin": "official central production (LHCb TestFileDB), not self-generated",
+        "testfiledb_entry": "expected_2024_minbias_xdigi (PRConfig)",
+        "production": "00212966",
+        "format": "XDIGI (digitised banks + packed MC truth pSim/...)",
+        "conditions": "Simulation; DDDB dddb-20231017, CondDB sim-20231017-vc-mu100, DataType 2024",
+        "input_files": [
+            "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/"
+            "expected_2024_minbias_xdigi/00212966_000000%s_1.xdigi" % n
+            for n in ("13", "18", "26", "31", "86")
+        ],
+        "access": "local CVMFS mirror /cvmfs/lhcbdev.cern.ch/testfiledb-mirror/ "
+                  "(5 of the entry's 8 files, 19 GB) - no EOS, kerberos or DIRAC",
+        "n_events": 200,
+        "event_numbers": "0-199, the 0-based index in the concatenated file stream",
+        "truth_dump": "Official_xdigi/dump_xdigi.py (bash run_dump.sh truth_official 200) "
+                      "-> Official_xdigi/truth_official/",
+    },
+}
+assert SAMPLE_KEY in SAMPLES, "unknown sample key %r (have %s)" % (SAMPLE_KEY, sorted(SAMPLES))
 RES = os.path.dirname(STATES)
 os.makedirs(OUT, exist_ok=True)
 os.makedirs(RES, exist_ok=True)
@@ -264,13 +306,7 @@ archive_commit = subprocess.run(
 
 meta = {
     "created": time.strftime("%Y-%m-%d %H:%M:%S"),
-    "sample": {
-        "generator": "Gauss v61r0p2 (Gauss-on-Gaussino), event type 30000000 minbias",
-        "conditions": "2024 Block-7 beam, nu=7.6, geometry run3/2024-v00.02, conditions sim10/2024, DD4hep",
-        "sim_file": "First_Pass/run_output/GaussMB100-30000000-100ev-20260717.sim",
-        "n_events": 100, "run_number": 1, "event_numbers": "1-100 (seeds reproducible)",
-        "truth_dump": "First_Pass/dump_event.py -> Data/truth_mb100/",
-    },
+    "sample": dict(SAMPLES[SAMPLE_KEY], key=SAMPLE_KEY),
     "population": "states harvested from tracker MCHits (see harvest_states.py + results/harvest_summary.json)",
     "labels": {
         "engine": "fp64 fixed-step RK4, step_mm=%.1f, ODE identical to Allen (deriv mirrored from track-extrapolation-pinn/datagen/generate_data_v2.py)" % STEP,

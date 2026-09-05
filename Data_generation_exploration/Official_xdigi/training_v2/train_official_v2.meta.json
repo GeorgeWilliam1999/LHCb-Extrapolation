@@ -1,13 +1,23 @@
 {
  "created": "2026-07-21 15:51:13",
  "sample": {
-  "generator": "Gauss v61r0p2 (Gauss-on-Gaussino), event type 30000000 minbias",
-  "conditions": "2024 Block-7 beam, nu=7.6, geometry run3/2024-v00.02, conditions sim10/2024, DD4hep",
-  "sim_file": "First_Pass/run_output/GaussMB100-30000000-100ev-20260717.sim",
-  "n_events": 100,
-  "run_number": 1,
-  "event_numbers": "1-100 (seeds reproducible)",
-  "truth_dump": "First_Pass/dump_event.py -> Data/truth_mb100/"
+  "key": "official_xdigi",
+  "origin": "official central production (LHCb TestFileDB), not self-generated",
+  "testfiledb_entry": "expected_2024_minbias_xdigi (PRConfig)",
+  "production": "00212966",
+  "format": "XDIGI (digitised banks + packed MC truth pSim/...)",
+  "conditions": "Simulation; DDDB dddb-20231017, CondDB sim-20231017-vc-mu100, DataType 2024",
+  "input_files": [
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000013_1.xdigi",
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000018_1.xdigi",
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000026_1.xdigi",
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000031_1.xdigi",
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000086_1.xdigi"
+  ],
+  "access": "local CVMFS mirror /cvmfs/lhcbdev.cern.ch/testfiledb-mirror/ (5 of the entry's 8 files, 19 GB) - no EOS, kerberos or DIRAC",
+  "n_events": 200,
+  "event_numbers": "0-199, the 0-based index in the concatenated file stream",
+  "truth_dump": "Official_xdigi/dump_xdigi.py (bash run_dump.sh truth_official 200) -> Official_xdigi/truth_official/"
  },
  "population": "states harvested from tracker MCHits (see harvest_states.py + results/harvest_summary.json)",
  "labels": {
@@ -77,5 +87,6 @@
   "X": "(x,y,tx,ty,qop,z0,z1) fp32",
   "Y": "(x,y,tx,ty,qop) at z1, fp32",
   "note": "labels computed in fp64, stored fp32 (same as vertex-fit corpus)"
- }
+ },
+ "meta_corrected": "2026-09-05: sample block previously described v1"
 }
