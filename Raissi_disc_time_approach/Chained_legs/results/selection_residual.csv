@@ -1,0 +1,31 @@
+arm,width,mode,network,rank_by_val_chain,chain_val_leg4_med_um,chain_test_leg4_med_um,one_step_val_med_um,selected
+residual,50,physics,residual_w50_physics_s6,0,514.4177262563403,486.9305655096241,1.9740248328616872,True
+residual,50,physics,residual_w50_physics_s4,1,550.6003934027142,510.188152953873,2.0553372471567855,False
+residual,50,physics,residual_w50_physics_s2,2,596.5260966170547,562.1185366464374,2.902713067894691,False
+residual,50,physics,residual_w50_physics_s8,3,600.303001684324,538.953485487454,2.756119984212546,False
+residual,50,physics,residual_w50_physics_s7,4,622.0220326292747,566.3786052474507,2.1364004475117326,False
+residual,50,physics,residual_w50_physics_s0,5,628.960206192346,569.4001148962684,2.0156824436865506,False
+residual,50,physics,residual_w50_physics_s1,6,650.3654369271175,607.303564708559,2.423124998175652,False
+residual,50,physics,residual_w50_physics_s3,7,673.6803433683889,601.756277850896,2.1454671227729705,False
+residual,50,physics,residual_w50_physics_s9,8,699.0514039171742,607.6704643048743,2.29302931086961,False
+residual,50,physics,residual_w50_physics_s5,9,796.2809934123029,762.9421408964845,2.6399526510749727,False
+residual,50,physics,SPEARMAN,,0.9757575757575757,0.34545454545454546,0.3090909090909091,columns: val-chain vs test-chain | one-step-val vs test-chain | one-step-val vs val-chain
+residual,50,data,residual_w50_data_s2,0,167.32086734253926,140.9051881699952,0.05923660160078725,True
+residual,50,data,residual_w50_data_s1,1,172.67710763530886,156.3886321526553,0.05352858526563864,False
+residual,50,data,residual_w50_data_s0,2,232.52779066814355,201.56692389628006,0.07338796973499484,False
+residual,50,data,SPEARMAN,,1.0,0.5,0.5,columns: val-chain vs test-chain | one-step-val vs test-chain | one-step-val vs val-chain
+residual,100,physics,residual_w100_physics_s0,0,560.543184941821,524.6803470151917,2.60872143621782,True
+residual,100,physics,residual_w100_physics_s5,1,575.5920208367229,512.919060069521,2.219132738702889,False
+residual,100,physics,residual_w100_physics_s2,2,592.6272505554095,554.4771529661148,2.36378347108257,False
+residual,100,physics,residual_w100_physics_s3,3,598.0136220532017,580.5749341180331,2.919073552533291,False
+residual,100,physics,residual_w100_physics_s6,4,604.76268568857,563.4158877057871,3.8688079583550916,False
+residual,100,physics,residual_w100_physics_s7,5,614.884192179268,540.5377674171064,2.6570768631302144,False
+residual,100,physics,residual_w100_physics_s9,6,637.4140196078315,591.6099142821167,3.659308791153393,False
+residual,100,physics,residual_w100_physics_s1,7,669.0461232238292,641.867350427674,2.3794186573695697,False
+residual,100,physics,residual_w100_physics_s4,8,687.4644977699944,666.4617023424171,4.076063421980081,False
+residual,100,physics,residual_w100_physics_s8,9,857.9216565867682,782.6863784067584,4.447184144282801,False
+residual,100,physics,SPEARMAN,,0.9030303030303031,0.7212121212121212,0.696969696969697,columns: val-chain vs test-chain | one-step-val vs test-chain | one-step-val vs val-chain
+residual,100,data,residual_w100_data_s0,0,122.07134519195506,109.63108035807068,0.039453279402579255,True
+residual,100,data,residual_w100_data_s1,1,136.10670127491176,117.88851312934412,0.04167207538330331,False
+residual,100,data,residual_w100_data_s2,2,143.40131761491648,119.35933210406802,0.04073448911867672,False
+residual,100,data,SPEARMAN,,1.0,0.5,0.5,columns: val-chain vs test-chain | one-step-val vs test-chain | one-step-val vs val-chain

@@ -127,7 +127,14 @@ def main():
             model = OneStepNetwork(int(data["q"]), data["in_scale"],
                                    data["out_scale"], width=j["width"],
                                    depth=j["depth"], n_extra=2)
-        model.load_state_dict(torch.load(pt, weights_only=True))
+        try:
+            model.load_state_dict(torch.load(pt, weights_only=True))
+        except Exception as exc:
+            # a checkpoint being rewritten by a still-running job (the wave-1
+            # 4x200 wave was draining while this arm trained) reads back torn;
+            # skip it rather than take the process down
+            print("  skipped %s: %s" % (tag, exc))
+            continue
         model.eval()
 
         row = {"arm": arm, "tag": tag, "mode": j["mode"], "seed": j["seed"],
