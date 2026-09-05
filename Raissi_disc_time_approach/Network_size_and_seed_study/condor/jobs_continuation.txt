@@ -1,0 +1,12 @@
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 4 --q 8 --width 32 --depth 6 --out results --tag w032_d6_s4 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 5 --q 8 --width 32 --depth 6 --out results --tag w032_d6_s5 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 7 --q 8 --width 32 --depth 6 --out results --tag w032_d6_s7 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 9 --q 8 --width 32 --depth 6 --out results --tag w032_d6_s9 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 0 --q 8 --width 50 --depth 4 --out results --tag w050_d4_s0 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 1 --q 8 --width 50 --depth 4 --out results --tag w050_d4_s1 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 2 --q 8 --width 50 --depth 4 --out results --tag w050_d4_s2 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 4 --q 8 --width 50 --depth 4 --out results --tag w050_d4_s4 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 7 --q 8 --width 50 --depth 4 --out results --tag w050_d4_s7 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 1 --q 8 --width 50 --depth 6 --out results --tag w050_d6_s1 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 2 --q 8 --width 50 --depth 6 --out results --tag w050_d6_s2 --outer-cap 400
+Network_size_and_seed_study --data results/frozen_leg_q08.npz --mode physics --seed 8 --q 8 --width 50 --depth 6 --out results --tag w050_d6_s8 --outer-cap 400

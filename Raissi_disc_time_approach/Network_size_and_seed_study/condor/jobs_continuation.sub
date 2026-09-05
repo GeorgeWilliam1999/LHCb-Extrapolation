@@ -1,0 +1,31 @@
+# HTCondor submit template for one training run per job.
+#
+# Copy this file into the experiment folder as `condor/jobs.sub`, edit nothing
+# but the two lines marked EDIT, write the argument lines into
+# `condor/jobs.txt` (one line = one run), then:
+#
+#     cd <experiment folder>
+#     mkdir -p condor/logs results
+#     condor_submit condor/jobs.sub
+#
+# Each argument line starts with the experiment folder name and continues with
+# the train.py arguments; see ../_shared/condor/README.md.
+
+universe                = vanilla
+executable              = /data/bfys/gscriven/LHCb_Extrapolation_Project/Raissi_disc_time_approach/_shared/condor/wrapper.sh
+arguments               = $(args)
+
+# EDIT: the log directory lives under the experiment folder.
+output                  = condor/logs/$(Cluster).$(Process).out
+error                   = condor/logs/$(Cluster).$(Process).err
+log                     = condor/logs/$(Cluster).log
+
+request_cpus            = 1
+request_memory          = 4096
+should_transfer_files   = NO
+getenv                  = False
++UseOS                  = "el9"
++JobCategory            = "medium"
+
+# EDIT: the job list for this experiment.
+queue args from condor/jobs_continuation.txt
