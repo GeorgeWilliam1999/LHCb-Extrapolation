@@ -1,0 +1,258 @@
+{
+ "experiment": "A3a - one network for legs A, B, C",
+ "dataset": "results/general_legs.npz",
+ "legs": [
+  "A",
+  "B",
+  "C"
+ ],
+ "q": 8,
+ "field": "down",
+ "fiducial": true,
+ "n_train_chosen": 8000,
+ "n_eval": 4000,
+ "seed": 20260718,
+ "sizing_rule": "largest N in [2000, 4000, 8000, 16000] whose single physics L-BFGS restart (200 iterations, 4x100, one thread) runs under 90 s",
+ "timing_table": [
+  {
+   "n_train_cap": 2000,
+   "n_rows_timed": 2000,
+   "restart_s": 13.8,
+   "process_s": 19.8,
+   "projected_150_restarts_h": 0.57,
+   "under_budget": true
+  },
+  {
+   "n_train_cap": 4000,
+   "n_rows_timed": 4000,
+   "restart_s": 26.8,
+   "process_s": 32.3,
+   "projected_150_restarts_h": 1.12,
+   "under_budget": true
+  },
+  {
+   "n_train_cap": 8000,
+   "n_rows_timed": 8000,
+   "restart_s": 47.3,
+   "process_s": 53.3,
+   "projected_150_restarts_h": 1.97,
+   "under_budget": true
+  },
+  {
+   "n_train_cap": 16000,
+   "n_rows_timed": 15853,
+   "restart_s": 97.1,
+   "process_s": 103.8,
+   "projected_150_restarts_h": 4.05,
+   "under_budget": false
+  }
+ ],
+ "stratification": "the shared builder caps the pool with a plain random permutation - it does NOT stratify by leg type or by momentum, so the mix below is the natural mix of the training set and is recorded rather than imposed",
+ "counts": {
+  "train": 7935,
+  "val": 3969,
+  "test": 3961
+ },
+ "per_leg": {
+  "train": {
+   "A": 1317,
+   "B": 1060,
+   "C": 5558,
+   "D": 0
+  },
+  "val": {
+   "A": 632,
+   "B": 581,
+   "C": 2756,
+   "D": 0
+  },
+  "test": {
+   "A": 604,
+   "B": 564,
+   "C": 2793,
+   "D": 0
+  }
+ },
+ "momentum_mix": {
+  "train": {
+   "A": {
+    "1-5GeV": 722,
+    "5-20GeV": 413,
+    "20-200GeV": 182,
+    "p_median_GeV": 4.412759780883789
+   },
+   "B": {
+    "1-5GeV": 385,
+    "5-20GeV": 495,
+    "20-200GeV": 180,
+    "p_median_GeV": 7.375464677810669
+   },
+   "C": {
+    "1-5GeV": 3177,
+    "5-20GeV": 1791,
+    "20-200GeV": 590,
+    "p_median_GeV": 4.013754367828369
+   }
+  },
+  "val": {
+   "A": {
+    "1-5GeV": 350,
+    "5-20GeV": 184,
+    "20-200GeV": 98,
+    "p_median_GeV": 4.233056306838989
+   },
+   "B": {
+    "1-5GeV": 219,
+    "5-20GeV": 268,
+    "20-200GeV": 94,
+    "p_median_GeV": 6.792455196380615
+   },
+   "C": {
+    "1-5GeV": 1541,
+    "5-20GeV": 901,
+    "20-200GeV": 314,
+    "p_median_GeV": 4.193423509597778
+   }
+  },
+  "test": {
+   "A": {
+    "1-5GeV": 324,
+    "5-20GeV": 191,
+    "20-200GeV": 89,
+    "p_median_GeV": 4.371533393859863
+   },
+   "B": {
+    "1-5GeV": 191,
+    "5-20GeV": 278,
+    "20-200GeV": 95,
+    "p_median_GeV": 7.083384990692139
+   },
+   "C": {
+    "1-5GeV": 1625,
+    "5-20GeV": 857,
+    "20-200GeV": 311,
+    "p_median_GeV": 3.8523993492126465
+   }
+  }
+ },
+ "dz_sign": {
+  "train": {
+   "A": {
+    "forward_dz_gt_0": 0,
+    "backward_dz_lt_0": 1317,
+    "dz_abs_median_mm": 340.64619064331055
+   },
+   "B": {
+    "forward_dz_gt_0": 570,
+    "backward_dz_lt_0": 490,
+    "dz_abs_median_mm": 5174.591796875
+   },
+   "C": {
+    "forward_dz_gt_0": 5558,
+    "backward_dz_lt_0": 0,
+    "dz_abs_median_mm": 69.7900390625
+   }
+  },
+  "val": {
+   "A": {
+    "forward_dz_gt_0": 0,
+    "backward_dz_lt_0": 632,
+    "dz_abs_median_mm": 351.39724922180176
+   },
+   "B": {
+    "forward_dz_gt_0": 322,
+    "backward_dz_lt_0": 259,
+    "dz_abs_median_mm": 5176.069091796875
+   },
+   "C": {
+    "forward_dz_gt_0": 2756,
+    "backward_dz_lt_0": 0,
+    "dz_abs_median_mm": 69.79296875
+   }
+  },
+  "test": {
+   "A": {
+    "forward_dz_gt_0": 0,
+    "backward_dz_lt_0": 604,
+    "dz_abs_median_mm": 284.85100841522217
+   },
+   "B": {
+    "forward_dz_gt_0": 293,
+    "backward_dz_lt_0": 271,
+    "dz_abs_median_mm": 5175.423583984375
+   },
+   "C": {
+    "forward_dz_gt_0": 2793,
+    "backward_dz_lt_0": 0,
+    "dz_abs_median_mm": 69.79296875
+   }
+  }
+ },
+ "builder_meta": {
+  "kind": "general",
+  "legs": [
+   "A",
+   "B",
+   "C"
+  ],
+  "q": 8,
+  "field": "down",
+  "counts": {
+   "train": 7935,
+   "val": 3969,
+   "test": 3961
+  },
+  "per_leg_counts": {
+   "train": {
+    "A": 1317,
+    "B": 1060,
+    "C": 5558,
+    "D": 0
+   },
+   "val": {
+    "A": 632,
+    "B": 581,
+    "C": 2756,
+    "D": 0
+   },
+   "test": {
+    "A": 604,
+    "B": 564,
+    "C": 2793,
+    "D": 0
+   }
+  },
+  "dropped_by_fiducial": {
+   "train": 65,
+   "val": 31,
+   "test": 39
+  },
+  "in_scale": [
+   588.3572403666155,
+   329.20768287891457,
+   0.22477756614317054,
+   0.11996352407895162,
+   0.11724236032115327
+  ],
+  "out_scale": [
+   601.5782653630346,
+   340.8630470372739,
+   0.22477756614317568,
+   0.1199635240789528,
+   0.11724236032115279
+  ],
+  "extra_mean": [
+   3659.446366537173,
+   -162.0929745811976
+  ],
+  "extra_scale": [
+   3837.744812666698,
+   2567.601781946558
+  ],
+  "extra_inputs": "(z0, dz), normalised by extra_mean/extra_scale",
+  "fiducial": true,
+  "seed": 20260718,
+  "n_train_cap": 8000,
+  "n_eval_cap": 4000
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "rule": "per particle: forward rows only; the planes they name, sorted and uniqued to 3 decimals, are the waypoints; consecutive waypoints are the legs; keep >= 4 legs",
+ "test": {
+  "split": "test",
+  "particles_seen": 7636,
+  "particles_kept": 4563,
+  "min_legs": 4,
+  "legs_total": 23500,
+  "n_legs_histogram": {
+   "4": 1649,
+   "5": 1433,
+   "6": 628,
+   "7": 853
+  },
+  "leg_length_mm_quantiles": {
+   "0.01": 11.218000000000018,
+   "0.1": 25.0,
+   "0.5": 70.20499999999993,
+   "0.9": 2435.1322000000027,
+   "0.99": 5187.71039
+  }
+ },
+ "val": {
+  "split": "val",
+  "particles_seen": 7635,
+  "particles_kept": 4551,
+  "min_legs": 4,
+  "legs_total": 23516,
+  "n_legs_histogram": {
+   "4": 1619,
+   "5": 1408,
+   "6": 668,
+   "7": 856
+  },
+  "leg_length_mm_quantiles": {
+   "0.01": 11.218000000000018,
+   "0.1": 25.0,
+   "0.5": 70.20499999999993,
+   "0.9": 2462.513,
+   "0.99": 5238.363899999999
+  }
+ },
+ "leg_d_test": {
+  "split": "test",
+  "particles_with_D_leg": 2726,
+  "waypoint_from_own_B_leg": 1637,
+  "waypoint_from_frozen_leg_z0": 1089,
+  "dz_first_step_mm_median": -5178.247045898437,
+  "dz_second_step_mm_median": -2651.4154677152633,
+  "dz_whole_leg_mm_median": -7853.16176700592
+ }
+}
