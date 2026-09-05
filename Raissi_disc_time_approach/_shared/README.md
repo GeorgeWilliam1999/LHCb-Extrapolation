@@ -156,7 +156,7 @@ The score dict is: `endpoint_med_um`, `endpoint_p95_um`, `stage_med_um`,
 --width 50  --depth 4
 --out <dir>  --tag <str>
 --field down|up         optional; defaults to the dataset's own
---outer-cap 150         safety cap on total L-BFGS restarts (both phases)
+--outer-cap 400         safety cap on total L-BFGS restarts (both phases)
 --max-iter 200          L-BFGS iterations inside one restart
 --no-confirm            stop at the first stall, skip the confirmation pass
 ```
