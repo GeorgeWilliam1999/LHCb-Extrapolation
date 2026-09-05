@@ -109,7 +109,7 @@ def main(argv=None):
     ap.add_argument("--tag", required=True, help="basename of the outputs")
     ap.add_argument("--field", choices=("down", "up"), default=None,
                     help="field polarity; defaults to the dataset's own")
-    ap.add_argument("--outer-cap", type=int, default=150,
+    ap.add_argument("--outer-cap", type=int, default=400,
                     help="safety cap on total L-BFGS restarts (both phases)")
     ap.add_argument("--max-iter", type=int, default=200,
                     help="L-BFGS iterations inside one restart")
