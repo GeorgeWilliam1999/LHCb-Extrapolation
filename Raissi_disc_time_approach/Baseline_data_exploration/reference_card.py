@@ -3,10 +3,10 @@ port relies on, importable from one place. Step 0 of the port plan.
 
 Nothing here is new physics. The ODE, kappa, q/p convention and RK4 are
 mirrored from Data_generation_exploration/Data/make_training_set.py (which
-itself mirrors the validated datagen engine); the field loader is imported
-read-only from the archived track-extrapolation repo; the scalar error rho is
-the metric agreed for the van der Pol study (2026-07-13), applied to the four
-dynamic state components.
+itself mirrors the validated datagen engine); the field loader is the vendored
+copy in ../_shared/ (parity-gated against the archive original); the scalar
+error rho is the metric agreed for the van der Pol study (2026-07-13), applied
+to the four dynamic state components.
 
 Import:  from reference_card import deriv, rk4_rows, rho, FIELD, card, load_training
 Run   :  /data/bfys/gscriven/conda/envs/TE/bin/python reference_card.py  (prints the card)
@@ -20,10 +20,15 @@ import sys
 
 import numpy as np
 
-# ---- canonical field (read-only import from the archive) --------------------
-ARCHIVE_CORE = "/data/bfys/gscriven/Track_Extrapolation_work_archive/track-extrapolation-pinn/core"
-sys.path.insert(0, ARCHIVE_CORE)
-from field_v8r1 import FieldV8R1, V8R1_DOWN  # noqa: E402
+# ---- canonical field (vendored into this repository, 2026-09-05) ------------
+# Was a read-only sys.path import from the archive at
+# Track_Extrapolation_work_archive/track-extrapolation-pinn/core (commit
+# 1faa97e0). The module is now a byte-for-byte copy at ../_shared/field_v8r1.py,
+# gated by ../_shared/vendoring_parity.py: field values on 200k random in-map
+# points are bit-identical to the archive import (max abs diff exactly 0) and
+# the map md5 is af284c6954d2273c637a5e766b82b58e.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from _shared.field_v8r1 import FieldV8R1, V8R1_DOWN  # noqa: E402
 
 V8R1_UP = "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin"  # exists, for the MagUp twin later
 

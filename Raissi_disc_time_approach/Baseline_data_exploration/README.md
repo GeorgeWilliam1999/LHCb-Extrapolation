@@ -5,7 +5,7 @@ and builds on. No new physics, no networks.
 
 | file | what it does |
 |---|---|
-| [reference_card.py](reference_card.py) | THE importable module: the ODE (`deriv`), the fp64 RK4 reference (`rk4_rows`), the canonical v8r1 field (read-only import from the archive; MagUp path recorded and verified to exist), the agreed scalar metric `rho`, the frozen step-2 leg, and `load_training()` for the event-derived sample with its by-particle splits. `python reference_card.py` prints the card. |
+| [reference_card.py](reference_card.py) | THE importable module: the ODE (`deriv`), the fp64 RK4 reference (`rk4_rows`), the canonical v8r1 field (loaded through the vendored copy `../_shared/field_v8r1.py`, parity-gated against the archive original in `../_shared/vendoring_parity.py`; MagUp path recorded and verified to exist), the agreed scalar metric `rho`, the frozen step-2 leg, and `load_training()` for the event-derived sample with its by-particle splits. `python reference_card.py` prints the card. |
 | [data_look.py](data_look.py) | measures the loss-normalisation scales and the field along real legs -> `results/scales.{csv,json}`, `figures/field_along_legs.png` |
 | [baseline_data_exploration.ipynb](baseline_data_exploration.ipynb) | loads the results, displays the figure |
 

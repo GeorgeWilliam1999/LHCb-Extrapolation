@@ -1,0 +1,27 @@
+{
+ "checked": "2026-09-05",
+ "origin_module": "/data/bfys/gscriven/Track_Extrapolation_work_archive/track-extrapolation-pinn/core/field_v8r1.py",
+ "origin_commit": "1faa97e085918082fd8ff15e60aa7932bb588786",
+ "vendored_module": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Raissi_disc_time_approach/_shared/field_v8r1.py",
+ "n_points": 200000,
+ "point_seed": 20260905,
+ "sampling_box_mm": {
+  "lo": [
+   -4000.0,
+   -4000.0,
+   -500.0
+  ],
+  "hi": [
+   4000.000178813938,
+   4000.000178813938,
+   14000.000324100263
+  ]
+ },
+ "max_abs_diff_T": 0.0,
+ "bitwise_identical": true,
+ "field_map_file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.down.bin",
+ "field_map_md5": "af284c6954d2273c637a5e766b82b58e",
+ "field_map_md5_expected": "af284c6954d2273c637a5e766b82b58e",
+ "md5_matches": true,
+ "map_info": "N=(np.int64(81), np.int64(81), np.int64(146)) d=(np.float64(100.0), np.float64(100.0), np.float64(100.0)) min=(np.float64(-4000.0), np.float64(-4000.0), np.float64(-500.0)) max=(np.float64(4000.0), np.float64(4000.0), np.float64(14000.0)) peak|By|(raw)=0.004944 scale->T=1000"
+}
