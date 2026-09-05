@@ -33,6 +33,7 @@ for _v in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
     os.environ[_v] = "1"
 os.environ["PYTHONNOUSERSITE"] = "1"
 
+import argparse
 import csv
 import glob
 import json
@@ -46,7 +47,8 @@ from _shared.evaluate import chain, chain_reference
 from _shared.reference import rk4_rows
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-RESULTS = os.path.join(HERE, "results")
+RESULTS = os.environ.get("A3_CHAIN_OUT") or os.path.join(HERE, "results")
+CHAINS = os.path.join(HERE, "results")
 TRAINED = os.environ.get("A3_TRAINED") or os.path.join(
     os.path.dirname(HERE), "General_leg_network", "results")
 GENERAL = os.path.join(os.path.dirname(HERE), "General_leg_network")
@@ -164,14 +166,23 @@ def selection(summary):
 
 
 def main():
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--limit", type=int, default=None,
+                    help="use only the first N particles of each set; for "
+                         "exercising the pipeline, never for a result")
+    a = ap.parse_args()
+
     data = np.load(os.path.join(TRAINED, "general_legs_residual.npz"))
     data = {k: data[k] for k in data.files}
     em, es = data["extra_mean"], data["extra_scale"]
     profile = str(data["residual_node_profile"])
 
-    chains = {s: dict(np.load(os.path.join(RESULTS, "chains_%s.npz" % s),
+    chains = {s: dict(np.load(os.path.join(CHAINS, "chains_%s.npz" % s),
                               allow_pickle=True))
               for s in ("val", "test")}
+    if a.limit:
+        chains = {s: {k: v[:a.limit] for k, v in d.items()}
+                  for s, d in chains.items()}
     print("building the RK4 reference paths ...", flush=True)
     groups = {s: group_chains(chains[s]) for s in ("val", "test")}
     for s in groups:
@@ -179,8 +190,10 @@ def main():
               % (s, len(groups[s]), sum(len(g["S0"]) for g in groups[s])),
               flush=True)
 
-    legd = dict(np.load(os.path.join(RESULTS, "leg_d_test.npz"),
+    legd = dict(np.load(os.path.join(CHAINS, "leg_d_test.npz"),
                         allow_pickle=True))
+    if a.limit:
+        legd = {k: v[:a.limit] for k, v in legd.items()}
     d_S0, d_zt = legd["S0"], legd["z_t"]
     d_zmid, d_zpv = legd["z_mid"], legd["z_pv"]
     d_label = legd["label"]
@@ -263,6 +276,8 @@ def main():
                  [r for r in summary if r["network"] == tag
                   and r["split"] == "test" and r["step"] == 3][0]["end_med_um"],
                  float(np.median(one_err))), flush=True)
+
+    os.makedirs(RESULTS, exist_ok=True)
 
     def write(name, rows):
         with open(os.path.join(RESULTS, name), "w", newline="") as f:

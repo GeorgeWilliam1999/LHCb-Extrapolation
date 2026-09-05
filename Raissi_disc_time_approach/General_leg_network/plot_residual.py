@@ -28,7 +28,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.environ.get("A3_RESULTS") or os.path.join(HERE, "results")
-FIGURES = os.path.join(HERE, "figures")
+FIGURES = os.environ.get("A3_FIGURES") or os.path.join(HERE, "figures")
 LEGS = ("A", "B", "C")
 LEG_TITLE = {"A": "A  vertex fetch", "B": "B  cross-magnet",
              "C": "C  plane-to-plane"}
