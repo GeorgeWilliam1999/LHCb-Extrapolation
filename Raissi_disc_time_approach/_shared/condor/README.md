@@ -60,3 +60,5 @@ condor_q
   dataset completed on `wn-sate-069.nikhef.nl` in 9 s wall, wrote its `.pt`,
   `_history.csv` and `.json`, and reproduced the same first-restart loss
   (4.927638e-03) as the identical run on the submit host.
+
+**Gotcha (2026-09-05):** `queue args from jobs.txt` does not skip `#` comment lines; a comment line is submitted as a job. Keep jobs.txt free of comments.
