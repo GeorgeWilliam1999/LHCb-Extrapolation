@@ -1,0 +1,15 @@
+{
+ "counts": {
+  "test": 2018,
+  "train": 1979,
+  "val": 2062
+ },
+ "counts_expected": {
+  "test": 2018,
+  "train": 1979,
+  "val": 2062
+ },
+ "counts_match": true,
+ "npz": "frozen_leg_q16.npz",
+ "q": 16
+}

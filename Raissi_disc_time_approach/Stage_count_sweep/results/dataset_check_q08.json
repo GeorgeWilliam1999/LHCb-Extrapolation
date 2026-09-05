@@ -1,0 +1,38 @@
+{
+ "added_keys_are_constants": {
+  "dz": 5177.8,
+  "field": "down",
+  "kind": "frozen",
+  "z0": 2648.2
+ },
+ "bitwise_equal_to_v2_baseline": true,
+ "bitwise_report": {
+  "differing_keys": {},
+  "keys_added_by_shared_builder": [
+   "c",
+   "field",
+   "kind",
+   "test_dz",
+   "test_z0",
+   "train_dz",
+   "train_z0",
+   "val_dz",
+   "val_z0"
+  ],
+  "keys_missing_from_new": [],
+  "n_shared_keys": 16
+ },
+ "counts": {
+  "test": 2018,
+  "train": 1979,
+  "val": 2062
+ },
+ "counts_expected": {
+  "test": 2018,
+  "train": 1979,
+  "val": 2062
+ },
+ "counts_match": true,
+ "npz": "frozen_leg_q08.npz",
+ "q": 8
+}
