@@ -144,3 +144,49 @@ Read across that table:
    A and C it is flat across the eight Gauss nodes — a scale error, not an
    accumulation. On leg B it grows monotonically from the first node to the
    endpoint, roughly doubling, which is the bend being under-resolved.
+
+
+## Second wave (4x200) — 2026-09-06
+
+A2's architecture scan on the frozen leg selected 4x200, so the same grid was run
+on this dataset: cluster **5781443**, 13 jobs (physics seeds 0-9, data twin seeds
+0-2, `--outer-cap 400`). **12 of 13 converged.** `w200_physics_s5` stopped at 111
+restarts, far from its 400-restart cap, in the same "re-stalled but the medians
+moved" state described above; it was resubmitted (cluster 5781566) but the farm
+had a long idle queue, so it is **reported unconverged and left out of every
+median below**. Its numbers are in `summary.csv` and `by_leg.csv` with
+`converged = false`, as are all the rest.
+
+Test split, median over converged seeds, endpoint error in µm:
+
+| leg | 4x50 physics | 4x100 physics | **4x200 physics** | 4x50 twin | 4x100 twin | **4x200 twin** | straight | ceiling q=8 |
+|---|---|---|---|---|---|---|---|---|
+| A vertex fetch | 849 | 404 | **229** [201-277] | 653 | 385 | **227** | 10.9 | 0.0013 |
+| B cross-magnet | 6742 | 2600 | **1740** [1632-2154] | 2395 | 933 | **777** | 444075 | 46 |
+| C plane-to-plane | 535 | 300 | **213** [165-235] | 486 | 235 | **182** | 6.6 | 6e-7 |
+
+Chained along real particle paths (test, median over converged seeds, µm; see
+`../Chained_legs`):
+
+| legs walked | 4x50 phys | 4x100 phys | **4x200 phys** | 4x50 twin | 4x100 twin | **4x200 twin** |
+|---|---|---|---|---|---|---|
+| 1 | 440 | 246 | **174** | 388 | 217 | **165** |
+| 4 | 3919 | 2293 | **1738** | 3634 | 1484 | **1490** |
+| 7 | 15999 | 10248 | **10450** | 10739 | 5283 | **6476** |
+
+Leg D, median over converged seeds (µm): composite two steps 35034 (physics) /
+30351 (twin); the same leg in one giant step 4563 / **2182**. The exact q = 8
+scheme on these legs is 752 µm.
+
+**Did width alone close the gap? No.** On the one-step score width keeps paying,
+but with clear diminishing returns: leg B goes 6742 -> 2600 -> 1740 µm for
+50 -> 100 -> 200, i.e. factors of 2.6 then 1.5 for each doubling, and is still
+**38x above the 46 µm ceiling**; on the short legs the network is still 32x
+(leg C) and 21x (leg A) *worse than ignoring the magnet entirely*, which no
+amount of width can fix because the defect is structural — a single output scale
+set by the 5 m cross-magnet step cannot also resolve a 70 mm one. Chained, width
+stops helping at all beyond four legs (10450 µm at 4x200 against 10248 µm at
+4x100 after seven legs). The residual arm running in this same folder
+(`residual_*`, another agent's work — untouched here) attacks exactly that
+structural defect by giving each sample its own output scale from the field
+integral along its leg; that, and not width, is where the gap has to close.

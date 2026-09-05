@@ -112,9 +112,9 @@ def main():
                         transform=ax.transAxes, fontsize=7, color="green")
             if bottom is not None:
                 ax.set_ylim(bottom=bottom)
-            ax.set_xticks([0, 1])
+            ax.set_xticks(range(len(ARCHS)))
             ax.set_xticklabels([a[1] for a in ARCHS])
-            ax.set_xlim(-0.6, 1.6)
+            ax.set_xlim(-0.6, len(ARCHS) - 0.4)
             ax.grid(alpha=0.3, which="both")
             if i == 0:
                 ax.set_title(band if band != "all" else "all momenta")

@@ -144,3 +144,49 @@ particle path without breaking, and the val chain ranks seeds reliably — but t
 error compounds by roughly a factor two per leg to 5-10 mm over a full path, and
 composite stepping does not recover the accuracy of a single big step, let alone
 approach the exact scheme's ceiling.
+
+
+## Second wave (4x200) — 2026-09-06
+
+The 13 runs of cluster 5781443 (`../General_leg_network`, 12 of 13 converged;
+`w200_physics_s5` is unconverged and is excluded from every median here) were
+chained along the same 4,563 test and 4,551 val particle paths.
+
+Median endpoint error against the RK4 path, test split, µm:
+
+| legs walked | 4x50 phys | 4x100 phys | **4x200 phys** | 4x50 twin | 4x100 twin | **4x200 twin** | particles |
+|---|---|---|---|---|---|---|---|
+| 1 | 440 | 246 | **174** | 388 | 217 | **165** | 4563 |
+| 2 | 1423 | 783 | **540** | 1275 | 652 | **510** | 4563 |
+| 3 | 2562 | 1443 | **1029** | 2225 | 1051 | **894** | 4563 |
+| 4 | 3919 | 2293 | **1738** | 3634 | 1484 | **1490** | 4563 |
+| 5 | 8163 | 4831 | **4133** | 6991 | 2869 | **2972** | 2914 |
+| 6 | 14479 | 8904 | **8659** | 10087 | 4820 | **5695** | 1481 |
+| 7 | 15999 | 10248 | **10450** | 10739 | 5283 | **6476** | 853 |
+
+Width buys a factor 1.4 on the first leg and nothing at all by the seventh: the
+4x200 physics chain ends at 10450 µm against 10248 µm for 4x100. The compounding
+is the same at every width (per-step growth ratios 3.1, 1.9, 1.7, 2.4, 2.1, 1.2
+at 4x200), so a better one-step network shifts the curve down a little and does
+not change its slope. That is the sense in which chained error is not bounded.
+
+Seed selection at 4x200 (`results/selection.csv`): the val chain again transfers,
+Spearman(val-chain, test-chain) = **0.94** over the ten physics seeds, while the
+one-step val error gives **0.42**. Selected: `w200_physics_s3` (val 1443 µm, test
+1402 µm) and `w200_data_s2` (val 1251 µm, test 1279 µm). The selected physics
+seed is converged; the unconverged `w200_physics_s5` ranks third and does not
+affect the choice.
+
+Leg D, median over converged seeds (µm), against the stored D-leg label:
+
+| | 4x50 phys | 4x100 phys | **4x200 phys** | 4x50 twin | 4x100 twin | **4x200 twin** |
+|---|---|---|---|---|---|---|
+| two composite steps | 47353 | 59416 | **35034** | 34228 | 33416 | **30351** |
+| one giant step | 17947 | 8778 | **4563** | 6213 | 3158 | **2182** |
+
+The verdict does not move: composite stepping is still 8-14x worse than taking
+the leg in one step. Width helps the single giant step a lot (17947 -> 4563 µm
+for physics, 6213 -> 2182 µm for the twin, the latter now within a factor 2.9 of
+the 752 µm exact-scheme ceiling on these legs) and barely helps the composite at
+all, because the composite's damage is done in its first hop, a 6.4 m backward
+step of a kind the network never saw in training.
