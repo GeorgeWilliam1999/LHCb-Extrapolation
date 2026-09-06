@@ -181,9 +181,10 @@ just the answer better.
 # Results
 
 *Numbers corrected 2026-09-06 to match `results/*.csv` (see
-`Mini_paper/README.md`): the wave-1 4×200 physics column and the residual
-4×100 twin column below, and the derived twin factors in reading 4 and in the
-tails section.*
+`Mini_paper/README.md`): the wave-1 4×200 physics cells in the whole-split and
+by-leg tables, the residual 4×100 twin column in the by-leg and by-momentum-band
+tables, the derived twin factors in reading 4 and in the tails section, and the
+per-band improvement range quoted under the by-momentum-band table.*
 
 `aggregate_residual.py` re-scored **65** checkpoints — the 26 residual runs and
 the 39 wave-1 runs on disk (4×50, 4×100 and A2's overnight 4×200 wave) — on the
@@ -198,11 +199,14 @@ converged-only 229 / 1740 / 213 µm).
 
 | arm | 4×50 physics | 4×50 twin | 4×100 physics | 4×100 twin | 4×200 physics | 4×200 twin |
 |---|---|---|---|---|---|---|
-| wave 1 (absolute states) | 721 | 637 | 397 | 321 | 274 | 237 |
+| wave 1 (absolute states) | 721 | 637 | 397 | 321 | 273 | 237 |
 | **residual** | **2.12** | **0.06** | **2.64** | **0.04** | — | — |
 
-µm. The straight line on this split is 16.1 µm. Wave 1 never beat it at any
-width; the residual arm beats it by a factor 6 with the physics loss and 400
+µm, medians over converged seeds. The 4×200 physics cell is 273 µm over the
+nine converged seeds; pooling all ten, including the unconverged
+`w200_physics_s5`, gives 274 µm, which is what this table said before the
+2026-09-06 correction. The straight line on this split is 16.1 µm. Wave 1 never
+beat it at any width; the residual arm beats it by a factor 6 with the physics loss and 400
 with the twin, and a 4×50 residual network beats a 4×200 wave-1 network by a
 factor 130.
 
@@ -258,18 +262,18 @@ All µm. Read across:
 
 | leg | band | wave 1 4×100 | **residual 4×100** | residual 4×100 twin | straight | ceiling |
 |---|---|---|---|---|---|---|
-| A | 1–5 GeV | 702 | **15.2** | 0.20 | 31.1 | 0.0028 |
-| A | 5–20 GeV | 221 | **3.1** | 0.04 | 9.8 | 0.00051 |
-| A | 20–200 GeV | 183 | **2.3** | 0.02 | 6.0 | 0.00091 |
+| A | 1–5 GeV | 702 | **15.2** | 0.152 | 31.1 | 0.0028 |
+| A | 5–20 GeV | 221 | **3.1** | 0.034 | 9.8 | 0.00051 |
+| A | 20–200 GeV | 183 | **2.3** | 0.031 | 6.0 | 0.00091 |
 | B | 1–5 GeV | 6582 | **2641** | 2575 | 1197128 | 239 |
 | B | 5–20 GeV | 2120 | **775** | 316 | 355193 | 23.8 |
 | B | 20–200 GeV | 1370 | **628** | 110 | 104911 | 6.7 |
-| C | 1–5 GeV | 463 | **2.3** | 0.05 | 20.7 | 6.8 × 10⁻⁶ |
-| C | 5–20 GeV | 181 | **1.2** | 0.02 | 4.0 | 1.8 × 10⁻⁶ |
-| C | 20–200 GeV | 134 | **1.2** | 0.02 | 0.74 | 4.8 × 10⁻⁷ |
+| C | 1–5 GeV | 463 | **2.3** | 0.044 | 20.7 | 6.8 × 10⁻⁶ |
+| C | 5–20 GeV | 181 | **1.2** | 0.005 | 4.0 | 1.8 × 10⁻⁶ |
+| C | 20–200 GeV | 134 | **1.2** | 0.003 | 0.74 | 4.8 × 10⁻⁷ |
 
 All µm. The improvement is uniform in momentum on legs A and C — a factor 46 to
-115 in every band — so it is not an artefact of the momentum mix. The one cell
+200 in every band — so it is not an artefact of the momentum mix. The one cell
 where the residual network is still *worse* than a straight line is
 **C at 20–200 GeV** (1.2 µm against 0.74 µm): a stiff 70 mm hop is so nearly
 straight that there is essentially nothing to predict, and the network's own
