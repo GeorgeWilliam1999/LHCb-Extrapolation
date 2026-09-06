@@ -341,12 +341,12 @@ Rohrhofer, Posch, G\"o\ss{}nitzer and Geiger~\cite{rohrhofer2023} observe that
 if the network output is a constant equal to a fixed point $y^\ast$ of the flow,
 so that $f(y^\ast) = 0$, then its time derivative is zero and the residual is
 exactly zero at every collocation point, wherever those points sit. Fixed points
-are therefore global minima of the residual term, with basins that grow as the
-horizon grows, and only the initial-condition term prefers the true solution.
-They measure success rates falling monotonically with horizon and with proximity
-of the start to a fixed point, and report that larger networks improve matters
-slightly but repair nothing, concluding that the difficulty is bound to
-optimisation complexity rather than to expressive power. They propose no remedy.
+are therefore global minima of the residual term, with basins that grow with the
+horizon, and only the initial-condition term prefers the true solution. They
+measure success falling monotonically with horizon and with proximity of the
+start to a fixed point, and report that larger networks repair nothing,
+concluding that the difficulty is bound to optimisation complexity rather than
+to expressive power. They propose no remedy.
 
 Wang, Koohy, Lu and Perdikaris~\cite{wang2026pseudo} sharpen this into a
 statement about the whole family of spurious minimisers. For any fixed
@@ -355,24 +355,20 @@ every collocation point before some time $t_0$, follows a different solution of
 the same equation after it, and hides the hand-over in the gaps between
 collocation points, so that its empirical residual is \emph{exactly} zero. The
 fixed point is only the cheapest member of that family. Their remedy is
-pseudo-time stepping with collocation resampling, which adds a term penalising
-change from the previous iterate and thereby amplifies the hidden transition
-layer by a factor that grows as the layer sharpens.
+pseudo-time stepping with collocation resampling, which penalises change from
+the previous iterate and thereby amplifies the hidden transition layer.
+Babic, Rohrhofer and Geiger~\cite{babic2025} instead propose a regulariser that
+penalises a candidate for sitting still inside a locally unstable region, a
+product of the positive real parts of the Jacobian eigenvalues at the network's
+output and a Gaussian in the network's own speed, inert on any moving candidate
+by construction, and demonstrate it on van der Pol to about two periods.
 
-Babic, Rohrhofer and Geiger~\cite{babic2025} propose a regulariser that
-penalises a candidate for sitting still inside a locally unstable region: a
-product of the sum of positive real parts of the Jacobian eigenvalues at the
-network's output and a Gaussian in the network's own speed, with a coefficient
-that decays to zero halfway through training. It is inert on any moving
-candidate by construction. Demonstrated on van der Pol to a horizon of about two
-periods, it converts failure into success there.
-
-The van der Pol study measured all three on its own problem. The finding that
-matters for LHCb is the ordering: the regulariser turns parking at the fixed
-point into a different member of the same family, a flow-following splice, and
-only pseudo-time stepping prices the whole family rather than one member of it.
-Across $240$ converged runs, pseudo-time stepping was the only intervention that
-worked past two periods.
+The van der Pol study measured all three. The finding that matters here is the
+ordering: the regulariser turns parking at the fixed point into a different
+member of the same family, a flow-following splice, and only pseudo-time
+stepping prices the whole family rather than one member of it. Across $240$
+converged runs, pseudo-time stepping was the only intervention that worked past
+two periods.
 
 None of this applies to the discrete-time construction as such. A discrete-time
 network is asked for the stage states of one step, and the reconstruction
@@ -408,7 +404,7 @@ its scales; define the three comparators and the metrics; state the training
 protocol and the fiducial requirement; and finally define the output
 parameterisation that Section~\ref{sec:residual} tests.
 
-\subsection{The equation of motion in $z$}
+\subsection{The equation of motion in \texorpdfstring{$z$}{z}}
 \label{sec:eom}
 
 A charged particle in a magnetic field $\mathbf{B}$ feels the Lorentz force
@@ -677,7 +673,7 @@ quoted against three fixed comparators.
   does not beat it is doing nothing useful.
 \end{enumerate}
 
-\subsection{Why the ceiling floors at about $23\um$}
+\subsection{Why the ceiling floors at about \texorpdfstring{$23\um$}{23 micrometres}}
 \label{sec:floor}
 
 The formal order of the $q$-stage Gauss--Legendre scheme is $2q$, so one might
@@ -970,20 +966,20 @@ needed.
   Section~\ref{sec:general}. Counts are over the whole set, before any
   experiment's own subsampling or fiducial cut.}
   \label{tab:legs}
-  \small
+  \footnotesize
   \setlength{\tabcolsep}{4pt}
-  \begin{tabular}{clcr}
+  \begin{tabular}{clp{2.0cm}r}
     \toprule
     leg & what it is & typical step & rows \\
     \midrule
-    A & vertex fetch: first vertex-detector state back to its collision vertex
+    A & vertex fetch: first vertex-detector state back to its vertex
       & $341\mm$, backward & $49{,}014$ \\
-    B & cross-magnet: last plane before the magnet to first plane after, both
-        directions & $5175\mm$ & $41{,}398$ \\
-    C & plane-to-plane: consecutive sensor crossings, forward, at most three
-        per particle & $70\mm$ & $205{,}887$ \\
-    D & downstream to vertex: first post-magnet state back to the collision
-        vertex & $-8.6$ m & $27{,}234$ \\
+    B & cross-magnet: last plane before the magnet to the first after,
+        both directions & $5175\mm$ & $41{,}398$ \\
+    C & plane-to-plane: consecutive sensor crossings, forward, at most
+        three per particle & $70\mm$ & $205{,}887$ \\
+    D & downstream to vertex: first post-magnet state back to the vertex
+      & $-8.6$ m & $27{,}234$ \\
     \midrule
     \multicolumn{3}{l}{total, split by particle into
       $258{,}857$ train $/$ $32{,}389$ validation $/$ $32{,}287$ test}
@@ -1004,7 +1000,7 @@ Four gates were run on the labels and are recorded in the dataset metadata.
   \label{tab:gates}
   \small
   \setlength{\tabcolsep}{4pt}
-  \begin{tabular}{clp{6.2cm}l}
+  \begin{tabular}{clp{5.6cm}p{3.5cm}}
     \toprule
     gate & what it checks & & result \\
     \midrule
@@ -1216,7 +1212,7 @@ equation. Second, $q = 16$ is not the hard case: it trains faster than $q = 8$,
 $113$ to $115$ restarts against $154$. The hardest optimisation in the grid is
 $q = 4$.
 
-\paragraph{The $29\um$ correction.}
+\paragraph{The \texorpdfstring{$29\um$}{29 micrometre} correction.}
 A ceiling must always be quoted on the population being scored. An earlier
 measurement of the exact scheme, made on $32$ legs drawn stratified in momentum
 and each on its own start plane, gave $29\um$ at $q = 8$, and that number was
@@ -1469,14 +1465,13 @@ must say which polarity they refer to.
   dotted blue, and the straight-line baseline in grey near one million
   micrometres; the two polarities lie on top of one another and the two
   exact-scheme ceilings, $22$ and $23\um$, are marked at the left. Middle:
-  endpoint error against track momentum, one point per test track per seed
-  median, with binned medians overlaid; the two polarities trace the same curve,
-  falling from about one millimetre at $2$ GeV to about $100\um$ above $20$ GeV.
-  Right: three test tracks propagated from the same start states under both
-  polarities, showing the network's eight stage states as markers on top of the
-  double-precision reference curves; the trajectories curve in opposite
-  directions, which is the check that the label-free network learned the sign of
-  the bending and not merely the geometry of the detector.}
+  endpoint error against track momentum with binned medians overlaid; the two
+  polarities trace the same curve, falling from about one millimetre at $2$ GeV
+  to about $100\um$ above $20$ GeV. Right: three test tracks propagated from the
+  same start states under both polarities, with the network's eight stage states
+  as markers on the reference curves; the trajectories curve in opposite
+  directions, which is the check that the network learned the sign of the
+  bending and not merely the geometry.}
   \label{fig:magnetup}
 \end{figure}
 
@@ -1513,8 +1508,8 @@ $4 \times 200$ followed overnight, $13$ runs of which $12$ converged.
   excludes one unconverged physics seed. Source:
   \texttt{General\_leg\_network/results/by\_leg.csv}.}
   \label{tab:general}
-  \small
-  \setlength{\tabcolsep}{3.5pt}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
   \begin{tabular}{lrrrrrrrr}
     \toprule
     & \multicolumn{3}{c}{physics loss} & \multicolumn{3}{c}{data twin}
@@ -1568,12 +1563,10 @@ is the bend being under-resolved.
   are the ten label-free seeds and red squares the three supervised seeds, with
   horizontal bars at the median; the dashed grey line in each panel is the
   straight-line baseline and the green annotation gives the exact-scheme ceiling
-  measured on that same population. The two architectures are shown side by side
-  within each panel. The middle row shows the network beating the straight line
-  by two orders of magnitude on the cross-magnet leg while sitting a factor $56$
-  above the ceiling; the top and bottom rows show the opposite situation, where
-  the straight line lies below every network point, so on the short legs the
-  network is worse than ignoring the magnet.}
+  on that same population. The middle row shows the network beating the straight
+  line by two orders of magnitude on the cross-magnet leg while sitting a factor
+  $56$ above the ceiling; the top and bottom rows show the opposite situation,
+  where the straight line lies below every network point.}
   \label{fig:generallegs}
 \end{figure}
 
@@ -1797,32 +1790,32 @@ first $26$ in the absolute-output wave.
 \begin{table}[tbp]
   \centering
   \caption{The residual redesign against the absolute-output design, by leg
-  type. Test-split median endpoint error in micrometres, median over seeds with
-  the range in brackets. Every column was re-scored in one pass on the same test
-  states by \texttt{aggregate\_residual.py}, which is why the absolute-output
-  $4 \times 200$ column differs by up to two percent from
-  Table~\ref{tab:general}. Source:
+  type. Test-split median endpoint error in micrometres, median over seeds, with
+  the seed range in brackets. The residual $4\times50$ ranges, omitted for
+  width, are $3$--$6$, $945$--$1627$ and $1$--$1$. Every column here was
+  re-scored in one pass on the same test states by
+  \texttt{aggregate\_residual.py}. Source:
   \texttt{General\_leg\_network/results/by\_leg\_residual.csv}.}
   \label{tab:residual}
-  \small
-  \setlength{\tabcolsep}{3.5pt}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
   \begin{tabular}{lrrrrrrr}
     \toprule
     & \multicolumn{2}{c}{absolute, physics} & \multicolumn{2}{c}{residual, physics}
-    & residual & & \\
+    & resid. & & \\
     \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-    leg & $4\times100$ & $4\times200$ & $4\times100$ & $4\times50$
-        & twin $4\times100$ & straight & ceiling \\
+    leg & $4{\times}100$ & $4{\times}200$ & $4{\times}100$ & $4{\times}50$
+        & twin & straight & ceiling \\
     \midrule
-    A vertex fetch  & $404$ [$286$--$538$]   & $234$ [$201$--$277$]
-                    & $\mathbf{4.4}$ [$2$--$6$] & $4.1$ [$3$--$6$]
-                    & $0.13$ & $10.9$ & $0.0013$ \\
-    B cross-magnet  & $2600$ [$2106$--$3152$] & $1781$ [$1632$--$2154$]
-                    & $\mathbf{1026}$ [$878$--$1209$] & $1136$ [$945$--$1627$]
+    A vertex fetch  & $404$ [$286$--$538$]   & $229$ [$201$--$277$]
+                    & $\mathbf{4.4}$ [$2$--$6$] & $4.1$
+                    & $0.06$ & $10.9$ & $0.0013$ \\
+    B cross-magnet  & $2600$ [$2106$--$3152$] & $1740$ [$1632$--$2154$]
+                    & $\mathbf{1026}$ [$878$--$1209$] & $1136$
                     & $512$ & $444{,}075$ & $46.4$ \\
-    C plane-to-plane& $300$ [$252$--$335$]   & $213$ [$165$--$254$]
-                    & $\mathbf{1.6}$ [$1$--$2$] & $1.2$ [$1$--$1$]
-                    & $0.04$ & $6.6$ & $5.8\times10^{-7}$ \\
+    C plane-to-plane& $300$ [$252$--$335$]   & $213$ [$165$--$235$]
+                    & $\mathbf{1.6}$ [$1$--$2$] & $1.2$
+                    & $0.01$ & $6.6$ & $5.8\times10^{-7}$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -1832,9 +1825,9 @@ first $26$ in the absolute-output wave.
   \caption{Whole test split, all leg types pooled, median over seeds, in
   micrometres. The straight line on this split is $16.1\um$. The
   absolute-output design never beat it at any width; the residual design beats
-  it by a factor $6$ with the physics loss and $400$ with the twin, and a
+  it by a factor $7.6$ with the physics loss and $410$ with the twin, and a
   $4 \times 50$ residual network beats a $4 \times 200$ absolute-output network
-  by a factor $130$. Source:
+  by a factor $129$. Source:
   \texttt{General\_leg\_network/results/residual\_summary.csv}.}
   \label{tab:residual-split}
   \small
@@ -1845,9 +1838,9 @@ first $26$ in the absolute-output wave.
     output design & $4\times50$ & $4\times100$ & $4\times200$
                   & $4\times50$ & $4\times100$ & $4\times200$ \\
     \midrule
-    absolute states & $721$ & $397$ & $274$ & $637$ & $321$ & $237$ \\
-    straight-line residual & $\mathbf{2.12}$ & $\mathbf{2.64}$ & ---
-                           & $\mathbf{0.06}$ & $\mathbf{0.04}$ & --- \\
+    absolute states & $721$ & $397$ & $273$ & $637$ & $321$ & $237$ \\
+    straight-line residual & $\mathbf{2.12}$ & $\mathbf{2.64}$ & not run
+                           & $\mathbf{0.06}$ & $\mathbf{0.04}$ & not run \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -1858,8 +1851,8 @@ Read across Table~\ref{tab:residual}.
   \item \textbf{The two short legs are transformed.} Leg A goes $404 \to 4.4\um$,
   a factor $92$; leg C goes $300 \to 1.6\um$, a factor $190$. Both now sit
   \emph{below} the straight line, by a factor $2.5$ on A and $4$ on C, where the
-  absolute-output design sat thirty to fifty times above it. This is the
-  hypothesis's own prediction, and it is confirmed with room to spare.
+  absolute-output design sat thirty to fifty times above it, which is the
+  hypothesis's own prediction.
   \item \textbf{The cross-magnet leg improves by a factor $2.5$}, $2600 \to
   1026\um$. Real, but an order of magnitude short of the same transformation.
   Leg B is the one leg where the absolute output scale was roughly right, so it
@@ -1870,15 +1863,16 @@ Read across Table~\ref{tab:residual}.
   narrower network is the better of the two. The absolute-output verdict read
   the width trend as evidence that width was the binding constraint. It was
   never width. It was the parameterisation.
-  \item \textbf{The data twin is extraordinary on the short legs}, $0.13\um$ on
-  A and $0.04\um$ on C, that is $3400$ and $165$ times better than the
-  absolute-output twin, and still twice as good as the physics loss on leg B,
-  $512$ against $1026\um$. The gap between the two losses has widened in
-  relative terms on the easy legs and narrowed on the hard one.
+  \item \textbf{The data twin is extraordinary on the short legs}, $0.06\um$ on
+  A and $0.01\um$ on C, four orders of magnitude better than the
+  absolute-output twin on each, and still twice as good as the physics loss on
+  leg B, $512$ against $1026\um$, where it is a factor $11$ above the ceiling.
+  The gap between the two losses has widened in relative terms on the easy legs
+  and narrowed on the hard one.
   \item \textbf{Distance to the ceiling, which is the honest scorecard.} Against
   the exact $q = 8$ scheme on the same states, the residual $4 \times 100$
   physics network is $3400$ times above the ceiling on leg A, $22$ times on leg
-  B and $2.8 \times 10^{6}$ times on leg C. The absolute-output factors were
+  B and $2.7 \times 10^{6}$ times on leg C. The absolute-output factors were
   $310{,}000$, $56$ and $5 \times 10^{8}$. So the gap closed by two orders of
   magnitude on A and C and by a factor $2.5$ on B, but the network is nowhere
   near the scheme it is solving on any leg, and on the short legs the scheme is
@@ -1993,15 +1987,17 @@ with a bounded time budget actually has to survive.
   reference path, test split, in micrometres. Source:
   \texttt{Chained\_legs/results/chain\_summary\_residual.csv}.}
   \label{tab:chains-residual}
-  \small
-  \setlength{\tabcolsep}{4pt}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
   \begin{tabular}{crrrrrr}
     \toprule
-    legs walked & absolute $4\times100$ & absolute $4\times100$ twin
-                & residual $4\times100$ & residual $4\times100$ twin
-                & residual $4\times50$ & particles \\
+    legs & \multicolumn{2}{c}{absolute $4{\times}100$}
+         & \multicolumn{3}{c}{residual} & \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-6}
+    walked & physics & twin & $4{\times}100$ & $4{\times}100$ twin
+           & $4{\times}50$ & particles \\
     \midrule
-    $1$ & $246$      & $217$  & $\mathbf{1.2}$  & $\mathbf{0.03}$ & $1.1$  & $4563$ \\
+    $1$ & $246$      & $217$  & $\mathbf{1.2}$  & $\mathbf{0.01}$ & $1.1$  & $4563$ \\
     $2$ & $783$      & $652$  & $\mathbf{60}$   & $\mathbf{2.7}$  & $59$   & $4563$ \\
     $3$ & $1443$     & $1051$ & $\mathbf{281}$  & $\mathbf{32}$   & $261$  & $4563$ \\
     $4$ & $2293$     & $1484$ & $\mathbf{572}$  & $\mathbf{118}$  & $568$  & $4563$ \\
@@ -2061,12 +2057,14 @@ at $4 \times 100$.
   $0.045\um$. Source:
   \texttt{Chained\_legs/results/leg\_d\_residual.csv}.}
   \label{tab:legd-residual}
-  \small
-  \setlength{\tabcolsep}{4pt}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
   \begin{tabular}{lrrrrr}
     \toprule
-    & absolute $4\times100$ & absolute $4\times100$ twin
-    & residual $4\times100$ & residual $4\times100$ twin & residual $4\times50$ \\
+    & \multicolumn{2}{c}{absolute $4{\times}100$}
+    & \multicolumn{3}{c}{residual} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-6}
+    & physics & twin & $4{\times}100$ & $4{\times}100$ twin & $4{\times}50$ \\
     \midrule
     two composite steps & $59{,}416$ & $33{,}416$ & $\mathbf{4252}$ & $\mathbf{2374}$ & $4768$ \\
     one giant step      & $8778$     & $3158$     & $\mathbf{3749}$ & $\mathbf{2213}$ & $3806$ \\
@@ -2137,8 +2135,8 @@ $z = 2648\mm$ to $z = 7826\mm$ with $q = 8$ stages.
   a real particle path. Each column's ceiling is measured on that column's own
   population.}
   \label{tab:verdict}
-  \footnotesize
-  \setlength{\tabcolsep}{4pt}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
   \begin{tabular}{lrrrccr}
     \toprule
     & \multicolumn{2}{c}{frozen leg} & magnet up
@@ -2161,7 +2159,7 @@ $z = 2648\mm$ to $z = 7826\mm$ with $q = 8$ stages.
     network, data twin
       & $192$ & $128$ & $204$
       & $385$ / $933$ / $235$
-      & $0.13$ / $512$ / $0.04$
+      & $0.06$ / $512$ / $0.01$
       & $118$ \\
     straight line
       & $520{,}444$ & $520{,}444$ & $525{,}184$
@@ -2191,33 +2189,29 @@ cost and cannot easily schedule a loop whose trip count depends on the track.
 
 \subsection{Question 1, does it work: yes, on every test}
 
-\begin{itemize}
-  \item \textbf{The label-free training is stable.} Across the campaign $232$
-  runs were trained. All $24$ of the stage sweep, all $26$ of the general-leg
-  first wave, $12$ of $13$ of the second wave, all $13$ of the reversed-polarity
-  experiment and all $26$ of the residual redesign reached a confirmed stall,
-  and $96$ of the $120$ in the architecture grid did. The $24$ that did not
-  confirm are all in the architecture grid, all at width $32$ or depth $6$, and
-  none of them diverged: they failed the confirmation pass, in which a fresh
-  optimiser moves a small or deep network again rather than re-stalling. No run
-  in the campaign blew up.
-  \item \textbf{Where the numerical scheme is the limiting factor, the network
-  sits on the scheme's own error}: $5202$ against $5198\um$ at $q = 2$ and
-  $5371$ against $5401\um$ at $q = 4$, agreements of $0.1$ and $0.6$ percent.
-  That is the technique doing exactly what it says it does.
-  \item \textbf{Where the network is the limiting factor, the shortfall is
-  identified.} It is optimisation, not capacity: the rank correlation between
-  final training loss and test endpoint error over $96$ converged runs is
-  $+0.965$, so every architecture and seed lies on one loss-error curve and the
-  error is a readout of how far L-BFGS got.
-  \item \textbf{At $4 \times 200$ the label-free loss beats its own supervised
-  twin}, whose median is $12$ percent higher, $115$ against $128\um$, with a
-  tighter seed spread.
-  \item \textbf{On a field polarity for which no labels exist anywhere in the
-  project}, the label-free network reaches the same floor, $229$ against
-  $222\um$, and sits the same distance above that polarity's own ceiling, $10.4$
-  against $9.8$ times.
-\end{itemize}
+Four measurements answer it, and they are the four the question was written
+around.
+
+\textbf{The label-free training is stable.} Across the campaign $232$ runs were
+trained and $208$ reached a confirmed stall: all $24$ of the stage sweep, all
+$26$ of the general-leg first wave, $12$ of $13$ of the second wave, all $13$ of
+the reversed-polarity experiment, all $26$ of the residual redesign, and $96$ of
+the $120$ in the architecture grid. The $24$ that did not confirm are all in the
+architecture grid, all at width $32$ or depth $6$, and none of them diverged:
+they failed the confirmation pass, in which a fresh optimiser moves a small or
+deep network again rather than re-stalling. No run blew up.
+
+\textbf{Where the scheme is the limiting factor, the network sits on the
+scheme's own error}, $5202$ against $5198\um$ at $q = 2$ and $5371$ against
+$5401\um$ at $q = 4$, agreements of $0.1$ and $0.6$ percent
+(Table~\ref{tab:stages}). \textbf{Where the network is the limiting factor, the
+shortfall is identified}: optimisation and not capacity, by the loss-error rank
+correlation of $+0.965$ over $96$ converged runs
+(Figure~\ref{fig:lossvserror}). \textbf{At $4 \times 200$ the label-free loss
+beats its own supervised twin}, whose median is $12$ percent higher with a wider
+seed spread. And \textbf{on a field polarity for which no labels exist anywhere
+in the project} it reaches the same floor, $229$ against $222\um$, and sits the
+same distance above that polarity's own ceiling (Table~\ref{tab:magnetup}).
 
 \subsection{Question 2, can it be used: the residual design changed the answer}
 
@@ -2248,7 +2242,7 @@ the target.
 
 \begin{enumerate}
   \item \textbf{The supervised twin is also stuck}, at $512\um$ on leg B, a
-  factor $11$ above the ceiling, while it reaches $0.13$ and $0.04\um$ on the
+  factor $11$ above the ceiling, while it reaches $0.06$ and $0.01\um$ on the
   other two legs. Whatever limits leg B limits both losses, so it is not a
   property of the label-free objective.
   \item \textbf{Leg B is a minority of the training states.} Only $1060$ of the
@@ -2279,10 +2273,10 @@ what the network is asked to carry rather than to how much of it there is.
   tracks for which the first-order scale of Eq.~\eqref{eq:scale} is a poor
   estimate. An extrapolator with a bounded time budget has to survive its tail,
   not its median, so this is a real limitation and not a presentational one.
-  \item \textbf{One unconverged seed.} In the general-leg second wave,
-  \texttt{w200\_physics\_s5} stopped at $111$ restarts, far short of its
-  $400$-restart cap, in the "re-stalled but the medians moved" state described
-  below. It was resubmitted but the farm queue was long, so it is reported
+  \item \textbf{One unconverged seed.} In the general-leg second wave one of the ten
+  label-free seeds at the widest architecture stopped at $111$ restarts, far
+  short of its $400$-restart cap, in the re-stalled-but-still-moving state
+  described below. It was resubmitted but the farm queue was long, so it is reported
   unconverged and excluded from every median. It ranks third on the validation
   chain and does not affect the seed selection.
   \item \textbf{Ceilings are population-dependent.} The $29\um$ figure published
@@ -2444,11 +2438,11 @@ normalised by a per-leg bending integral built from the inputs alone, reaches
 $2.1\um$ on the whole test split against $16.1\um$ for a straight line, beats
 the trivial baseline on every leg type, and walks a real particle path four to
 thirteen times more accurately than the design it replaced. What it does not do
-is the one step the extrapolator exists for. The cross-magnet crossing inside
+is the one step the extrapolator exists for: the cross-magnet crossing inside
 that shared network sits a factor $22$ above the scheme it is solving, its
-supervised twin sits a factor $11$ above it, and after two or three chained legs
-that single leg dominates everything else. That is now the only failure left to
-find, and Section~\ref{sec:outlook} says how to look for it.
+supervised twin a factor $11$, and after two or three chained legs that single
+leg dominates everything else. That is the only failure left to find, and
+Section~\ref{sec:outlook} says how to look for it.
 
 % ---------------------------------------------------------------------------
 \section*{Data availability}
@@ -2504,7 +2498,7 @@ body of this paper, map as follows: A1 is the stage-count sweep
 \subsection*{Data set and field maps}
 
 Data set
-\texttt{Data\_generation\_exploration/Official\_xdigi/training\_v2/train\_official\_v2.npz},
+\texttt{Data\_generation\_exploration/}\allowbreak\texttt{Official\_xdigi/training\_v2/}\allowbreak\texttt{train\_official\_v2.npz},
 metadata \texttt{train\_official\_v2.meta.json} (sample block corrected
 5 September 2026; no data changed). Source sample: LHCb TestFileDB entry
 \texttt{expected\_2024\_minbias\_xdigi}, production \texttt{00212966}, five of
@@ -2514,7 +2508,7 @@ eight files mirrored on CVMFS ($19$ GB), $200$ events, detector description
 seed $20260718$.
 
 Field maps:
-\texttt{/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.down.bin},
+\texttt{/cvmfs/lhcb.cern.ch/lib/lhcb/}\allowbreak\texttt{DBASE/FieldMap/v8r1/cdf/}\allowbreak\texttt{field.v8r1.down.bin},
 md5 \texttt{af284c6954d2273c637a5e766b82b58e}, and \texttt{field.v8r1.up.bin},
 md5 \texttt{9e49ddc4313b589f273540e7e0bb513b}. Grid $81 \times 81 \times 146$ at
 $100\mm$ spacing, spanning $(-4000, -4000, -500)$ to $(4000, 4000, 14000)\mm$,
@@ -2557,8 +2551,8 @@ Nikhef HTCondor, all jobs single-threaded and double-precision on one core.
 \subsection*{Figure-to-file map}
 
 Every figure below is copied unmodified into \texttt{figures/} from the
-repository path given. Paths beginning \texttt{R/} are relative to
-\texttt{R/}; the one path beginning \texttt{D/} is
+repository path given. Paths beginning \texttt{R/} are relative to the folder
+\texttt{Raissi\_disc\_time\_approach/} and the one path beginning \texttt{D/} is
 relative to \texttt{Data\_generation\_exploration/}.
 
 \begin{table}[htbp]
@@ -2567,10 +2561,11 @@ relative to \texttt{Data\_generation\_exploration/}.
   \setlength{\tabcolsep}{5pt}
   \begin{tabular}{lll}
     \toprule
-    figure & file in \texttt{Mini\_paper/figures/} & source in the repository \\
+    figure & file in \texttt{figures/} & source in the repository \\
     \midrule
     \ref{fig:population} & \texttt{fig\_population.png}
       & \texttt{D/Official\_xdigi/figures/v1\_vs\_v2\_population.png} \\
+    \ref{fig:baseline} & \texttt{fig\_baseline.png}
       & \texttt{R/One\_step\_network\_v2/figures/one\_step\_results\_v2.png} \\
     \ref{fig:stages} & \texttt{fig\_stages.png}
       & \texttt{R/Stage\_count\_sweep/figures/error\_vs\_stages.png} \\
@@ -2578,6 +2573,7 @@ relative to \texttt{Data\_generation\_exploration/}.
       & \texttt{R/Network\_size\_and\_seed\_study/figures/floor\_vs\_architecture.png} \\
     \ref{fig:lossvserror} & \texttt{fig\_loss\_vs\_error.png}
       & \texttt{R/Network\_size\_and\_seed\_study/figures/loss\_vs\_error.png} \\
+    \ref{fig:magnetup} & \texttt{fig\_magnet\_up.png}
       & \texttt{R/Magnet\_up\_field/figures/magnet\_up\_results.png} \\
     \ref{fig:generallegs} & \texttt{fig\_general\_legs.png}
       & \texttt{R/General\_leg\_network/figures/error\_by\_leg\_and\_momentum.png} \\

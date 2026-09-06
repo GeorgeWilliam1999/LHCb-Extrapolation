@@ -106,6 +106,33 @@ Two entries carry `% TODO verify` comments in `references.bib`:
 
 `scriven2026vdp` is the van der Pol companion paper, cited as "in preparation".
 
+## Discrepancies found while writing (numbers taken from the CSVs, not the READMEs)
+
+Every number in the paper was recomputed from the committed CSVs. Three cells
+disagree with the prose tables in the experiment READMEs; the paper follows the
+CSVs. Worth checking before the READMEs are reused.
+
+| quantity | README says | CSV says (converged seeds, test, band=all) |
+|---|---|---|
+| absolute-output 4x200 physics, legs A / B / C | 234 / 1781 / 213 um (`General_leg_network/README_residual.md`) | **229 / 1740 / 213 um** (`by_leg.csv` and `by_leg_residual.csv` agree; `General_leg_network/README.md` also says 229 / 1740 / 213) |
+| residual 4x100 data twin, leg A | 0.13 um (`README_residual.md`) | **0.058 um** |
+| residual 4x100 data twin, leg C | 0.04 um (`README_residual.md`) | **0.012 um** |
+| residual 4x100 data twin, chained 1 leg | 0.03 um (`Chained_legs/README_residual.md`) | **0.01 um** |
+
+The whole-split figures (2.12 / 2.64 physics, 0.06 / 0.04 twin, 16.1 straight)
+and every other cell reproduce exactly. The absolute-output whole-split 4x200
+physics figure is 272.8 um, quoted as 274 in `README_residual.md`; the paper
+rounds it to 273.
+
+## Length
+
+38 pages. The van der Pol mini-paper it mirrors is 35. The brief asked for
+20-30; the content list in the brief (seven sections, a full theory derivation,
+six results subsections each with a table and a figure, the assembled verdict,
+the caveat list and the provenance appendix) does not compress below this
+without dropping required material. 13 figures, 16 tables, 12 bibliography
+entries.
+
 ## Scope note
 
 The paper covers the programme from the data-generation restart of 16 July 2026
