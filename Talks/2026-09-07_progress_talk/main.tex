@@ -116,7 +116,7 @@
               $1/T$ price; pseudo-time stepping; the comparators and metrics.
         \item \hl{The fix literature} (4 slides), one paper per slide: what it
               proves, its protocol, my implementation check, my result.
-        \item \hl{System and data} (5 slides). Why van der Pol first, the shared
+        \item \hl{System and data} (6 slides). Why van der Pol first, the shared
               machinery, the dictionary between the two problems, and both data
               sets.
       \end{enumerate}
@@ -124,11 +124,11 @@
     \begin{column}{0.5\textwidth}
       \begin{enumerate}
         \setcounter{enumi}{4}
-        \item \hl{Results on van der Pol} (10 slides). The cliff, causal
+        \item \hl{Results on van der Pol} (14 slides). The cliff, causal
               weighting, the supervised control, eight objectives to
               convergence, the failure classes, the two resource axes, the
               measured $1/T$ price, and the whole discrete-time column.
-        \item \hl{Results on LHCb} (13 slides). Six experiments with their full
+        \item \hl{Results on LHCb} (14 slides). Six experiments with their full
               tables, then the assembled verdict and the cost statement.
         \item \hl{What is not working} (2 slides), and \hl{what would falsify
               the edge} (1 slide) with pass and fail criteria stated in advance.
@@ -1100,6 +1100,45 @@
   \end{columns}
 \end{frame}
 
+% ---- 23b: the local pipeline (added 2026-09-06) --------------------------
+\begin{frame}[shrink=25]{Before the official sample: the full LHCb simulation and reconstruction chain, run locally}
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\linewidth]{lhcb_event_display.png}
+      \srcnote{One simulated minimum-bias event from the local chain: truth
+        hits by subdetector, the magnet region marked. Everything in it was
+        produced at Nikhef with no grid, eos or kerberos dependency.}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{The chain, proven end to end before any network was trained}
+      \begin{itemize}\small
+        \item Gauss v61r0p2, 2024 conditions and geometry, to Boole v48r0, to
+              Moore v59r4: the HLT2 light reconstruction with its truth
+              checkers, and HLT1 through Allen in Gaudi.
+        \item On five events: long-track efficiency $87.4\%$, purity
+              $99.4\%$, ghost rate $4.8\%$, the numbers the production
+              checkers print, so the local chain reproduces the real
+              reconstruction.
+        \item A bulk run of $100$ events followed, with a first event-derived
+              training set of $166{,}802$ rows.
+        \item One root-caused gotcha worth keeping: Boole must write the
+              \emph{extended} digitisation. The default output leaves dangling
+              truth links and the Moore checkers segfault on it.
+      \end{itemize}
+      \smallskip
+      \fbox{\parbox{0.93\textwidth}{\small On 21 July the training population
+        was switched to the official simulation sample on the next slide, not
+        because the chain was wrong but because small configuration errors in
+        home-grown generation cause large and silent problems, and provenance
+        has to be beyond argument. The chain remains the tool for reading
+        reconstruction output and for the eventual validation inside Moore.}}
+      \srcnote{Write-up: ``The data, figure by figure'' (Notion, Provisional).
+        Repository: \texttt{Data\_generation\_exploration/First\_Pass}.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 % ---- 24 ------------------------------------------------------------------
 \begin{frame}[shrink=25]{LHCb data: 323,533 legs of four kinds, harvested from an official sample}
   \vspace{1mm}
@@ -1249,6 +1288,50 @@
   \end{columns}
 \end{frame}
 
+% ---- 26b: the classical anchor (added 2026-09-06) -------------------------
+\begin{frame}[shrink=25]{A classical anchor at the same step: explicit is unusable, implicit is fine, and the network beats implicit where it works}
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\linewidth]{vdp_rk6_comparison.png}
+      \srcnote{Two classical runs at the discrete-time study's step
+        $\Delta t = 0.8$, chained from $(2, 0)$: the reference integrator's own
+        seven-stage explicit order-6 tableau, and Gauss--Legendre with $q = 3$,
+        also order 6, solved by root-finding. Both scored by the same relative
+        $L_2$ at the common step times as the networks.}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering\footnotesize
+      \begin{tabular}{@{}ccccc@{}}
+        \toprule
+        $T$ & explicit RK6 & implicit GL, order 6 & plain network & causal network \\
+        \midrule
+        3  & $0.67$ & $6.3\times10^{-5}$ & $3.3\times10^{-5}$ & $3.0\times10^{-5}$ \\
+        7  & $0.72$ & $1.2\times10^{-3}$ & $6.6\times10^{-4}$ & $8.7\times10^{-5}$ \\
+        14 & not finite & $3.0\times10^{-3}$ & \bad{$0.78$} & $2.5\times10^{-4}$ \\
+        27 & not finite & $5.4\times10^{-3}$ & \bad{$0.90$} & \bad{$1.88$} \\
+        40 & not finite & $8.2\times10^{-3}$ & \bad{$0.94$} & \bad{$2.03$} \\
+        \bottomrule
+      \end{tabular}
+      \smallskip
+      \begin{itemize}\small
+        \item The explicit method at this step is outside its stable range: the
+              state reaches $10^{21}$ by $t = 8$ and is not finite past $8.8$.
+        \item The implicit member of the same family is stable at every horizon;
+              beyond two periods it is the only method in the table that works.
+        \item Within the networks' working range the network is the more
+              accurate: $3.0\times10^{-5}$ against $6.3\times10^{-5}$ at
+              $T = 3$, $2.5\times10^{-4}$ against $3.0\times10^{-3}$ at two periods.
+      \end{itemize}
+      \fbox{\parbox{0.93\textwidth}{\small Two separate questions. At a fine step
+        classical integration beats every network here by orders of magnitude.
+        At a coarse step of $0.8$ only \hl{implicit structure} takes the step
+        accurately, solved classically as here or learned as in the
+        discrete-time column.}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 % ---- 27 ------------------------------------------------------------------
 \begin{frame}[shrink=25]{Causal weighting moves the cliff to two periods and turns silent failures into visible ones}
   \vspace{1mm}
@@ -1280,6 +1363,47 @@
         \item That single run is the empirical form of the splice theorem, found
               before I knew what it was.
       \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- 27b: the resource axes (added 2026-09-06) ----------------------------
+\begin{frame}[shrink=25]{The resource axes under the original protocol: 600 + 72 + 24 runs, and none of them moves the four-period wall}
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\linewidth,height=0.36\textheight,keepaspectratio]{vdp_size_heatmaps.png}\\[1mm]
+      \includegraphics[width=0.49\linewidth,height=0.3\textheight,keepaspectratio]{vdp_success_map.png}\hfill
+      \includegraphics[width=0.49\linewidth,height=0.3\textheight,keepaspectratio]{vdp_density.png}
+      \srcnote{Top: median relative $L_2$ by depth and width, both variants,
+        two and four periods. Bottom left: the six starting states on the vector
+        field, coloured by success at two periods. Bottom right: error against
+        collocation density, 5 to 320 points per unit time.}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{itemize}\small
+        \item \hl{Network size and starting state, 600 runs}: 25 architectures,
+              depth 2 to 10 and width 16 to 256, six starts, both variants, two
+              and four periods. Size does not move the wall and added depth is
+              harmful. What orders the outcomes is the start: success at two
+              periods in \hl{19 of 150} causally weighted runs at the 1\% bar,
+              concentrated on the outer starts, and at four periods in
+              \bad{none of 300}.
+        \item \hl{Collocation density, 72 runs}: a 64-fold range moves the
+              plain medians at two, four and six periods by factors
+              $1.15$, $1.01$, $1.003$. Causal weighting needs about 20 points
+              per unit time for its weight condition to be informative, and no
+              more.
+        \item \hl{Collocation placement, 24 runs}: uniform, jittered, and 40
+              extra points packed into the unsampled gap after $t = 0$ through
+              which the starved runs escaped. Plugging the gap changes nothing.
+      \end{itemize}
+      \fbox{\parbox{0.93\textwidth}{\small All under the L-BFGS-only protocol.
+        With training taken to a demonstrated plateau (slide on the two axes,
+        later) density 80 lifts the plain objective at \emph{two} periods from
+        5 to 10 of 10; the four-period wall stays. So the conclusion stands
+        where it matters: resources change the price of the truth, not the
+        price of a splice.}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -1401,6 +1525,31 @@
         $10^{-4}$ \bad{without moving the error at all}. Loss and error decouple
         on that branch. That is the silent failure of the first result slide, in
         its fully converged form.}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- 30b: the eight arms in pictures (added 2026-09-06) -------------------
+\begin{frame}[shrink=25]{The eight arms in pictures: the headline, the trajectories, and where the residual is paid}
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.36\textwidth}
+      \includegraphics[width=\linewidth]{vdp_arms_summary.png}\\[1mm]
+      \includegraphics[width=\linewidth]{vdp_arms_traj_T27.png}
+      \srcnote{Top: success rate and median error per arm and horizon. Bottom:
+        four periods, both state components against time, every seed, coloured
+        by outcome; the regulariser variants leave the frame at $t = 0$.}
+    \end{column}
+    \begin{column}{0.62\textwidth}
+      \includegraphics[width=\linewidth]{vdp_arms_residual_T27.png}
+      \srcnote{The absolute residual of every trained network on the reference
+        grid at four periods, dotted line at $0.05$. Parks: a moderate residual
+        across the hand-over, then quiet. Every regulariser variant: below
+        $0.05$ on more than $95\%$ of the window and \bad{one spike of $10^2$
+        to $10^3$ immediately after $t = 0$}, the splice placed in the first
+        unsampled gap. Pseudo-time successes: flat near $10^{-3}$. This panel
+        is the direct evidence for the splice family; the classification of
+        the previous slide is read off it.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -1760,6 +1909,65 @@
 % =========================================================================
 % VI. RESULTS, LHCb
 % =========================================================================
+
+% ---- 38b: the discrete column in pictures (added 2026-09-06) --------------
+\begin{frame}[shrink=25]{The discrete-time column in pictures: both formulations on one axis, the test set, and the label bill}
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.33\textwidth}
+      \includegraphics[width=\linewidth]{vdp_head_to_head.png}
+      \srcnote{Both formulations at the continuous-time sweep's horizons. From
+        four periods on no continuous-time variant produces a usable
+        trajectory; the chained map's pooled median stays at $2\times10^{-3}$.
+        Below one period the dedicated fits are the more accurate.}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \includegraphics[width=\linewidth]{vdp_test_set.png}
+      \srcnote{The error as a distribution: $108$ held-out starts chained six
+        periods, median and 10 to 90\% band per seed. Growth lap on lap is the
+        behaviour of these three unselected seeds, not a ceiling of the method.}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \includegraphics[width=\linewidth]{vdp_data_baseline.png}
+      \srcnote{Physics against perfect labels at matched everything else, and
+        the reference-integrator work behind the labels: $799$ steps per state.
+        The physics variant's bill is zero at every $n$.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- 38c: step 0 and 1 on LHCb (added 2026-09-06) ------------------------
+\begin{frame}[shrink=25]{Steps 0 and 1 on LHCb: the field along real legs, and the exact scheme's ceiling before any network}
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=\linewidth]{lhcb_field_along_legs.png}
+      \srcnote{The dipole along real leg paths: $|B_y|$ peaks near $1.05$ T at
+        $z \approx 4.7$ m and is remarkably uniform across paths. Bending
+        integrals separate the leg types by three orders of magnitude, and the
+        cross-magnet $x$ correction over the straight line falls as $1/p$, from
+        metres at $1$ GeV to about $30\mm$ at $200$ GeV: the function the
+        technique must learn.}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \includegraphics[width=\linewidth]{lhcb_scheme_ceiling.png}
+      \srcnote{The Gauss--Legendre scheme solved directly by a root-finder on
+        the LHCb equation of motion over real legs, stratified in momentum, no
+        network: endpoint error against the fp64 reference per stage count and
+        leg type.}
+      \begin{itemize}\small
+        \item Feasibility: \hl{640 of 640} implicit solves converged on the
+              trilinear field, including one giant step across the whole
+              magnet.
+        \item Ceiling: on the frozen crossing the scheme floors at about
+              $23\um$ from $q = 8$ ($29\um$ on the stratified sample). The
+              floor is the field map's interpolation, not the scheme.
+        \item Everything a network trained on these equations achieves is
+              measured against this curve, on the same states.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
 
 % ---- 37 ------------------------------------------------------------------
 \begin{frame}[shrink=25]{The July baseline: one frozen magnet crossing, and the two losses indistinguishable}

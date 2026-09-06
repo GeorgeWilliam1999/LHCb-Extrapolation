@@ -1,7 +1,7 @@
 # Progress talk, 7 September 2026
 
 "Physics-informed networks for track extrapolation: from van der Pol to the LHCb
-magnet". Beamer, 16:9, **67 slides**, no overlays, so one frame is one page and
+magnet". Beamer, 16:9, **73 slides**, no overlays, so one frame is one page and
 the slide number equals the page number throughout.
 
 Audience: experts, no time limit. Consequences for the build: the full tables
@@ -16,8 +16,8 @@ stated in advance, before the direction block.
 | file | what it is |
 |---|---|
 | `main.tex` | the deck, single file |
-| `main.pdf` | the built deck, 67 pages |
-| `figures/` | 33 PNGs, copied unmodified (see the map below) |
+| `main.pdf` | the built deck, 73 pages |
+| `figures/` | 42 PNGs, copied unmodified (see the map below) |
 | `notes.md` | speaker notes, one entry per slide, 2 to 4 sentences each |
 | `build.sh` | `pdflatex` twice |
 | `README.md` | this file: slide list, figure map, number map |
@@ -80,50 +80,56 @@ Abbreviations below: `R/` = `Raissi_disc_time_approach/`,
 | 21 | The shared machinery and the protocol | none | `R/_shared/train.py`; Mini_paper §3.6 and §4.5 |
 | 22 | The dictionary van der Pol to LHCb | none | Mini_paper §3.1 and §2.2; `V/vdp_minipaper/main.tex` §2 |
 | 23 | Van der Pol data | `vdp_problem.png` | `V/vdp_minipaper/main.tex` §2.2, the four verification instruments |
-| 24 | LHCb data, harvest and legs | `lhcb_population.png` | leg table and split from `D/Official_xdigi/training_v2/train_official_v2.meta.json` (`leg_types`, `rows`); split seed 20260718 |
-| 25 | The label gates and the fiducial requirement | none | gates from the same `.meta.json` (`gates`); fiducial numbers from Mini_paper §3.8 and `R/One_step_network_v2/README.md` |
-| 26 | The continuous-time cliff | `vdp_cliff.png`, `vdp_phase_collapse.png` | `V/vdp_minipaper/main.tex` Tab. `tab:expA`, from `V/continuous_time_network/Initial_pass/results/` |
-| 27 | Causal weighting moves the cliff | `vdp_causal_compare.png` | Tab. `tab:causal`; the loss 9.7e-6 / error 0.71 run from `V/continuous_time_network/Causal_weighting/` run outputs |
-| 28 | The supervised control | `vdp_control_compare.png` | `V/continuous_time_network/Supervised_control/results/` |
-| 29 | **Eight objectives, the full table** | none | Tab. `tab:arms`; `V/.../Stability_regularization/results/converged_summary.csv` |
-| 30 | The three failure classes | `vdp_arms_phase_T27.png` | same CSV, columns `parked`, `flow_following`, `diffuse`; loss-term observations from the `fig_arms_lossterms_T27` analysis |
-| 31 | **The two resource axes, the full table** | none | Tab. `tab:axes`; `V/.../Stability_regularization/results/axes_summary.csv` |
-| 32 | The two axes as pictures | `vdp_axes_density.png`, `vdp_axes_horizon.png`, `vdp_axes_long_horizon.png` | same CSV |
-| 33 | The 1/T price, measured | `vdp_axes_parked_loss.png` | `axes_summary.csv`; loss × T median 0.85, range 0.84 to 0.90 over 65 parked runs |
-| 34 | **The discrete-time floor, the full table** | none | `V/vdp_minipaper/main.tex` Tab. `tab:floor` and `tab:rho`; `V/discrete_time_network/results/` |
-| 35 | The same floor twice | `vdp_capacity_floor.png`, `vdp_size_map_discrete.png` | `V/discrete_time_network/results/`, `V/discrete_time_network/Network_size_study/results/` |
-| 36 | Size and seed on van der Pol | `vdp_seed_replication.png` | `V/discrete_time_network/Network_size_study/results/` |
-| 37 | Selection on the chain | `vdp_selection.png` | same folder; far-horizon check at t = 200 |
-| 38 | Routes and the data twin | none | Tab. `tab:routes` (`V/discrete_time_network/Trajectory_network/results/`) and Tab. `tab:baseline` (`V/discrete_time_network/data_trained_baseline/results/`) |
-| 39 | The July baseline | `lhcb_baseline.png` | `R/One_step_network_v2/results/summary.csv` |
-| 40 | **The stage sweep, the full table** | none | `R/Stage_count_sweep/results/error_vs_stages.csv`, `results/summary.csv`, `results/scheme_ceiling_same_population_q*.json` |
-| 41 | The stage sweep as a picture, and the 29 µm correction | `lhcb_stages.png` | same; the correction from `R/Stage_count_sweep/README.md` |
-| 42 | **The full architecture grid** | none | `R/Network_size_and_seed_study/results/by_architecture.csv` |
-| 43 | The loss-error band | `lhcb_loss_vs_error.png` | `R/Network_size_and_seed_study/results/summary.csv` (Spearman +0.965 over 96 converged runs) |
-| 44 | Returns collapse, and the twin is overtaken | `lhcb_architecture.png` | `results/by_architecture.csv`, `results/summary.csv` (seed ratios, validation-test rank +0.995) |
-| 45 | **Reversed polarity, the full table** | none | `R/Magnet_up_field/results/summary.csv`, `results/up_vs_down.csv`, `results/ceiling_summary.json`, `results/field_up_parity.json`, `results/loss_field_probe.json` |
-| 46 | Reversed polarity in pictures | `lhcb_magnet_up.png` | same |
-| 47 | **One network for all legs, absolute, the full table at three widths** | none | `R/General_leg_network/results/by_leg.csv`, `results/scheme_ceiling_same_population.csv`, `results/dataset_meta.json` |
-| 48 | The parameterisation hypothesis | none | Mini_paper §5.5.3; scales from `results/general_legs_meta.json` |
-| 49 | **Chaining, absolute, the full table** | none | `R/Chained_legs/results/chain_summary.csv`, `results/chains_meta.json`, `results/selection.csv` |
-| 50 | **Leg D, both designs, the full table** | none | `R/Chained_legs/results/leg_d_reproduction.csv`, `results/leg_d_residual.csv`, `results/leg_d_ceiling_same_population.csv` |
-| 51 | The absolute-output network in pictures | `lhcb_general_legs.png`, `lhcb_chains.png`, `lhcb_leg_d.png` | as for slides 47, 49 and 50 |
-| 52 | **The residual redesign, the full table plus the whole split** | none | `R/General_leg_network/results/by_leg_residual.csv`, `results/residual_summary.csv` |
-| 53 | Reading the redesign across | none | same, plus `results/residual_init_check.json`; restart counts from `README_residual.md` section "The farm" |
-| 54 | **Inside the step, and the tails** | none | `R/General_leg_network/results/stage_errors_residual.csv`, `results/stage_errors.csv`; p95 from column `endpoint_p95_um` of `by_leg_residual.csv` |
-| 55 | The redesign in pictures | `lhcb_residual_legs.png`, `lhcb_residual_stages.png` | as for slides 52 and 54 |
-| 56 | **Chaining the residual networks, the full table** | none | `R/Chained_legs/results/chain_summary_residual.csv`, `results/selection_residual.csv` |
-| 57 | The cross-magnet leg across three designs | `lhcb_frozen_vs_general.png`, `lhcb_residual_scale.png` | figures from `R/General_leg_network/figures/`; medians from `results/residual_scale_check.json` |
-| 58 | The verdict, and the cost statement | none | Mini_paper Tab. `tab:verdict`, drawn from tables 3, 5, 6, 7, 10 and 14 |
-| 59 | Two ceilings and a floor | none | Mini_paper §3.4 (the C0 field map), §5.3, §6.2 |
-| 60 | What I cannot claim yet | none | Mini_paper §6.3 (caveats) and §4.5 (single thread) |
-| 61 | What would falsify the edge | none | **new for this talk**; the designs and the pass/fail criteria are mine, built on Mini_paper §7.1 and §7.4 |
-| 62 | The rest of the queue | none | Mini_paper §7.1, §7.2, §7.4 |
-| 63 | Theory predictions, and the thesis framing | none | Mini_paper §7.3 |
-| 64 | What I would like feedback on | none | **new for this talk** |
-| 65 | Reference: protocol and gates | none | Mini_paper §3.6 and §4.4 |
-| 66 | Reference: provenance | none | Mini_paper Appendix A |
-| 67 | Reference: where the record lives | none | Notion write-up URLs; repository URL |
+| 24 | The local simulation and reconstruction chain (added 2026-09-06) | `lhcb_event_display.png` | `D/First_Pass/README.md` and `D/First_Pass/First_reco/README.md` (Gauss v61r0p2, Boole v48r0 extended, Moore v59r4; long-track efficiency 87.4 %, purity 99.4 %, ghosts 4.8 % on five events; 100-event bulk; v1 set 166,802 rows); Notion write-up "The data, figure by figure" |
+| 25 | LHCb data, harvest and legs | `lhcb_population.png` | leg table and split from `D/Official_xdigi/training_v2/train_official_v2.meta.json` (`leg_types`, `rows`); split seed 20260718 |
+| 26 | The label gates and the fiducial requirement | none | gates from the same `.meta.json` (`gates`); fiducial numbers from Mini_paper §3.8 and `R/One_step_network_v2/README.md` |
+| 27 | The continuous-time cliff | `vdp_cliff.png`, `vdp_phase_collapse.png` | `V/vdp_minipaper/main.tex` Tab. `tab:expA`, from `V/continuous_time_network/Initial_pass/results/` |
+| 28 | The classical anchor at the same step (added 2026-09-06) | `vdp_rk6_comparison.png` | `V/vdp_minipaper/main.tex` Tab. `tab:rk6`, from `V/continuous_time_network/Classical_RK_comparison/results/comparison_rel_l2.csv` |
+| 29 | Causal weighting moves the cliff | `vdp_causal_compare.png` | Tab. `tab:causal`; the loss 9.7e-6 / error 0.71 run from `V/continuous_time_network/Causal_weighting/` run outputs |
+| 30 | The resource axes under the original protocol (added 2026-09-06) | `vdp_size_heatmaps.png`, `vdp_success_map.png`, `vdp_density.png` | `V/vdp_minipaper/main.tex` §3.7 to §3.9; `V/continuous_time_network/Network_size_study/results/runs/` (600 json), `Collocation_study/results/summary_analysis.csv` (72 runs), `Collocation_placement_study/results/` (24 runs) |
+| 31 | The supervised control | `vdp_control_compare.png` | `V/continuous_time_network/Supervised_control/results/` |
+| 32 | **Eight objectives, the full table** | none | Tab. `tab:arms`; `V/.../Stability_regularization/results/converged_summary.csv` |
+| 33 | The three failure classes | `vdp_arms_phase_T27.png` | same CSV, columns `parked`, `flow_following`, `diffuse`; loss-term observations from the `fig_arms_lossterms_T27` analysis |
+| 34 | The eight arms in pictures (added 2026-09-06) | `vdp_arms_summary.png`, `vdp_arms_traj_T27.png`, `vdp_arms_residual_T27.png` | `V/.../Stability_regularization/results/converged_summary.csv` and the per-run `.npz` residual profiles |
+| 35 | **The two resource axes, the full table** | none | Tab. `tab:axes`; `V/.../Stability_regularization/results/axes_summary.csv` |
+| 36 | The two axes as pictures | `vdp_axes_density.png`, `vdp_axes_horizon.png`, `vdp_axes_long_horizon.png` | same CSV |
+| 37 | The 1/T price, measured | `vdp_axes_parked_loss.png` | `axes_summary.csv`; loss × T median 0.85, range 0.84 to 0.90 over 65 parked runs |
+| 38 | **The discrete-time floor, the full table** | none | `V/vdp_minipaper/main.tex` Tab. `tab:floor` and `tab:rho`; `V/discrete_time_network/results/` |
+| 39 | The same floor twice | `vdp_capacity_floor.png`, `vdp_size_map_discrete.png` | `V/discrete_time_network/results/`, `V/discrete_time_network/Network_size_study/results/` |
+| 40 | Size and seed on van der Pol | `vdp_seed_replication.png` | `V/discrete_time_network/Network_size_study/results/` |
+| 41 | Selection on the chain | `vdp_selection.png` | same folder; far-horizon check at t = 200 |
+| 42 | Routes and the data twin | none | Tab. `tab:routes` (`V/discrete_time_network/Trajectory_network/results/`) and Tab. `tab:baseline` (`V/discrete_time_network/data_trained_baseline/results/`) |
+| 43 | The discrete-time column in pictures (added 2026-09-06) | `vdp_head_to_head.png`, `vdp_test_set.png`, `vdp_data_baseline.png` | as for slides 38 to 42 (`V/discrete_time_network/results/`, `Trajectory_network/results/`, `data_trained_baseline/results/`) |
+| 44 | Steps 0 and 1 on LHCb: the field along legs and the exact scheme (added 2026-09-06) | `lhcb_field_along_legs.png`, `lhcb_scheme_ceiling.png` | `R/Baseline_data_exploration/results/scales.json` and `figures/field_along_legs.png`; `R/Simple_first_pass/results/scheme_scan.csv`, `scheme_error_vs_q.csv` (640/640 solves); the 23 µm test-population ceiling from `R/Stage_count_sweep/results/scheme_ceiling_same_population_q08.json` |
+| 45 | The July baseline | `lhcb_baseline.png` | `R/One_step_network_v2/results/summary.csv` |
+| 46 | **The stage sweep, the full table** | none | `R/Stage_count_sweep/results/error_vs_stages.csv`, `results/summary.csv`, `results/scheme_ceiling_same_population_q*.json` |
+| 47 | The stage sweep as a picture, and the 29 µm correction | `lhcb_stages.png` | same; the correction from `R/Stage_count_sweep/README.md` |
+| 48 | **The full architecture grid** | none | `R/Network_size_and_seed_study/results/by_architecture.csv` |
+| 49 | The loss-error band | `lhcb_loss_vs_error.png` | `R/Network_size_and_seed_study/results/summary.csv` (Spearman +0.965 over 96 converged runs) |
+| 50 | Returns collapse, and the twin is overtaken | `lhcb_architecture.png` | `results/by_architecture.csv`, `results/summary.csv` (seed ratios, validation-test rank +0.995) |
+| 51 | **Reversed polarity, the full table** | none | `R/Magnet_up_field/results/summary.csv`, `results/up_vs_down.csv`, `results/ceiling_summary.json`, `results/field_up_parity.json`, `results/loss_field_probe.json` |
+| 52 | Reversed polarity in pictures | `lhcb_magnet_up.png` | same |
+| 53 | **One network for all legs, absolute, the full table at three widths** | none | `R/General_leg_network/results/by_leg.csv`, `results/scheme_ceiling_same_population.csv`, `results/dataset_meta.json` |
+| 54 | The parameterisation hypothesis | none | Mini_paper §5.5.3; scales from `results/general_legs_meta.json` |
+| 55 | **Chaining, absolute, the full table** | none | `R/Chained_legs/results/chain_summary.csv`, `results/chains_meta.json`, `results/selection.csv` |
+| 56 | **Leg D, both designs, the full table** | none | `R/Chained_legs/results/leg_d_reproduction.csv`, `results/leg_d_residual.csv`, `results/leg_d_ceiling_same_population.csv` |
+| 57 | The absolute-output network in pictures | `lhcb_general_legs.png`, `lhcb_chains.png`, `lhcb_leg_d.png` | as for slides 47, 49 and 50 |
+| 58 | **The residual redesign, the full table plus the whole split** | none | `R/General_leg_network/results/by_leg_residual.csv`, `results/residual_summary.csv` |
+| 59 | Reading the redesign across | none | same, plus `results/residual_init_check.json`; restart counts from `README_residual.md` section "The farm" |
+| 60 | **Inside the step, and the tails** | none | `R/General_leg_network/results/stage_errors_residual.csv`, `results/stage_errors.csv`; p95 from column `endpoint_p95_um` of `by_leg_residual.csv` |
+| 61 | The redesign in pictures | `lhcb_residual_legs.png`, `lhcb_residual_stages.png` | as for slides 52 and 54 |
+| 62 | **Chaining the residual networks, the full table** | none | `R/Chained_legs/results/chain_summary_residual.csv`, `results/selection_residual.csv` |
+| 63 | The cross-magnet leg across three designs | `lhcb_frozen_vs_general.png`, `lhcb_residual_scale.png` | figures from `R/General_leg_network/figures/`; medians from `results/residual_scale_check.json` |
+| 64 | The verdict, and the cost statement | none | Mini_paper Tab. `tab:verdict`, drawn from tables 3, 5, 6, 7, 10 and 14 |
+| 65 | Two ceilings and a floor | none | Mini_paper §3.4 (the C0 field map), §5.3, §6.2 |
+| 66 | What I cannot claim yet | none | Mini_paper §6.3 (caveats) and §4.5 (single thread) |
+| 67 | What would falsify the edge | none | **new for this talk**; the designs and the pass/fail criteria are mine, built on Mini_paper §7.1 and §7.4 |
+| 68 | The rest of the queue | none | Mini_paper §7.1, §7.2, §7.4 |
+| 69 | Theory predictions, and the thesis framing | none | Mini_paper §7.3 |
+| 70 | What I would like feedback on | none | **new for this talk** |
+| 71 | Reference: protocol and gates | none | Mini_paper §3.6 and §4.4 |
+| 72 | Reference: provenance | none | Mini_paper Appendix A |
+| 73 | Reference: where the record lives | none | Notion write-up URLs; repository URL |
 
 Slides in **bold** are the full-table slides that were moved out of backup into
 the main line for this audience.
@@ -138,46 +144,50 @@ script from committed CSV tables only.
 
 | file in `figures/` | source | on slide |
 |---|---|---|
-| `lhcb_population.png` | `D/Official_xdigi/figures/v1_vs_v2_population.png` | 24 |
-| `lhcb_baseline.png` | `R/One_step_network_v2/figures/one_step_results_v2.png` | 39 |
-| `lhcb_stages.png` | `R/Stage_count_sweep/figures/error_vs_stages.png` | 41 |
-| `lhcb_loss_vs_error.png` | `R/Network_size_and_seed_study/figures/loss_vs_error.png` | 43 |
-| `lhcb_architecture.png` | `R/Network_size_and_seed_study/figures/floor_vs_architecture.png` | 44 |
-| `lhcb_magnet_up.png` | `R/Magnet_up_field/figures/magnet_up_results.png` | 46 |
-| `lhcb_general_legs.png` | `R/General_leg_network/figures/error_by_leg_and_momentum.png` | 51 |
-| `lhcb_chains.png` | `R/Chained_legs/figures/error_vs_chained_legs.png` | 51 |
-| `lhcb_leg_d.png` | `R/Chained_legs/figures/leg_d_reproduction.png` | 51 |
-| `lhcb_residual_legs.png` | `R/General_leg_network/figures/error_by_leg_and_momentum_residual.png` | 55 |
-| `lhcb_residual_stages.png` | `R/General_leg_network/figures/stage_errors_residual.png` | 55 |
-| `lhcb_frozen_vs_general.png` | `R/General_leg_network/figures/frozen_vs_general_residual.png` | 57 |
-| `lhcb_residual_scale.png` | `R/General_leg_network/figures/residual_scale_check.png` | 57 |
+| `lhcb_population.png` | `D/Official_xdigi/figures/v1_vs_v2_population.png` | 25 |
+| `lhcb_baseline.png` | `R/One_step_network_v2/figures/one_step_results_v2.png` | 45 |
+| `lhcb_stages.png` | `R/Stage_count_sweep/figures/error_vs_stages.png` | 47 |
+| `lhcb_loss_vs_error.png` | `R/Network_size_and_seed_study/figures/loss_vs_error.png` | 49 |
+| `lhcb_architecture.png` | `R/Network_size_and_seed_study/figures/floor_vs_architecture.png` | 50 |
+| `lhcb_magnet_up.png` | `R/Magnet_up_field/figures/magnet_up_results.png` | 52 |
+| `lhcb_general_legs.png` | `R/General_leg_network/figures/error_by_leg_and_momentum.png` | 57 |
+| `lhcb_chains.png` | `R/Chained_legs/figures/error_vs_chained_legs.png` | 57 |
+| `lhcb_leg_d.png` | `R/Chained_legs/figures/leg_d_reproduction.png` | 57 |
+| `lhcb_residual_legs.png` | `R/General_leg_network/figures/error_by_leg_and_momentum_residual.png` | 61 |
+| `lhcb_residual_stages.png` | `R/General_leg_network/figures/stage_errors_residual.png` | 61 |
+| `lhcb_frozen_vs_general.png` | `R/General_leg_network/figures/frozen_vs_general_residual.png` | 63 |
+| `lhcb_residual_scale.png` | `R/General_leg_network/figures/residual_scale_check.png` | 63 |
 | `vdp_problem.png` | `V/vdp_minipaper/figures/fig_problem.png` | 23 |
-| `vdp_cliff.png` | `V/vdp_minipaper/figures/fig_cliff.png` | 26 |
-| `vdp_phase_collapse.png` | `V/vdp_minipaper/figures/fig_phase_collapse.png` | 26 |
-| `vdp_causal_compare.png` | `V/vdp_minipaper/figures/fig_causal_compare.png` | 27 |
-| `vdp_control_compare.png` | `V/vdp_minipaper/figures/fig_control_compare.png` | 28 |
-| `vdp_arms_phase_T27.png` | `V/vdp_minipaper/figures/fig_arms_phase_T27.png` | 30 |
-| `vdp_axes_density.png` | `V/vdp_minipaper/figures/fig_axes_density.png` | 32 |
-| `vdp_axes_horizon.png` | `V/vdp_minipaper/figures/fig_axes_horizon.png` | 32 |
-| `vdp_axes_long_horizon.png` | `V/vdp_minipaper/figures/fig_axes_long_horizon.png` | 32 |
-| `vdp_axes_parked_loss.png` | `V/vdp_minipaper/figures/fig_axes_parked_loss.png` | 33 |
-| `vdp_capacity_floor.png` | `V/vdp_minipaper/figures/fig_capacity_floor.png` | 35 |
-| `vdp_size_map_discrete.png` | `V/vdp_minipaper/figures/fig_size_map_discrete.png` | 35 |
-| `vdp_seed_replication.png` | `V/vdp_minipaper/figures/fig_seed_replication.png` | 36 |
-| `vdp_selection.png` | `V/vdp_minipaper/figures/fig_selection.png` | 37 |
-| `vdp_arms_summary.png` | `V/vdp_minipaper/figures/fig_arms_summary.png` | held in reserve |
-| `vdp_arms_traj_T27.png` | `V/vdp_minipaper/figures/fig_arms_traj_T27.png` | held in reserve |
+| `vdp_cliff.png` | `V/vdp_minipaper/figures/fig_cliff.png` | 27 |
+| `vdp_phase_collapse.png` | `V/vdp_minipaper/figures/fig_phase_collapse.png` | 27 |
+| `vdp_causal_compare.png` | `V/vdp_minipaper/figures/fig_causal_compare.png` | 29 |
+| `vdp_control_compare.png` | `V/vdp_minipaper/figures/fig_control_compare.png` | 31 |
+| `vdp_arms_phase_T27.png` | `V/vdp_minipaper/figures/fig_arms_phase_T27.png` | 33 |
+| `vdp_axes_density.png` | `V/vdp_minipaper/figures/fig_axes_density.png` | 36 |
+| `vdp_axes_horizon.png` | `V/vdp_minipaper/figures/fig_axes_horizon.png` | 36 |
+| `vdp_axes_long_horizon.png` | `V/vdp_minipaper/figures/fig_axes_long_horizon.png` | 36 |
+| `vdp_axes_parked_loss.png` | `V/vdp_minipaper/figures/fig_axes_parked_loss.png` | 37 |
+| `vdp_capacity_floor.png` | `V/vdp_minipaper/figures/fig_capacity_floor.png` | 39 |
+| `vdp_size_map_discrete.png` | `V/vdp_minipaper/figures/fig_size_map_discrete.png` | 39 |
+| `vdp_seed_replication.png` | `V/vdp_minipaper/figures/fig_seed_replication.png` | 40 |
+| `vdp_selection.png` | `V/vdp_minipaper/figures/fig_selection.png` | 41 |
+| `vdp_arms_summary.png` | `V/vdp_minipaper/figures/fig_arms_summary.png` | 34 |
+| `vdp_arms_traj_T27.png` | `V/vdp_minipaper/figures/fig_arms_traj_T27.png` | 34 |
 | `vdp_control_overlay.png` | `V/vdp_minipaper/figures/fig_control_overlay.png` | held in reserve |
-| `vdp_data_baseline.png` | `V/vdp_minipaper/figures/fig_data_baseline.png` | held in reserve |
-| `vdp_test_set.png` | `V/vdp_minipaper/figures/fig_test_set.png` | held in reserve |
-| `vdp_head_to_head.png` | `V/vdp_minipaper/figures/fig_head_to_head.png` | held in reserve |
+| `vdp_data_baseline.png` | `V/vdp_minipaper/figures/fig_data_baseline.png` | 43 |
+| `vdp_test_set.png` | `V/vdp_minipaper/figures/fig_test_set.png` | 43 |
+| `vdp_head_to_head.png` | `V/vdp_minipaper/figures/fig_head_to_head.png` | 43 |
+| `lhcb_event_display.png` | `D/First_Pass/figures5/event_display.png` | 24 |
+| `vdp_rk6_comparison.png` | `V/vdp_minipaper/figures/fig_rk6_comparison.png` | 28 |
+| `vdp_size_heatmaps.png` | `V/vdp_minipaper/figures/fig_size_heatmaps.png` | 30 |
+| `vdp_success_map.png` | `V/vdp_minipaper/figures/fig_success_map.png` | 30 |
+| `vdp_density.png` | `V/vdp_minipaper/figures/fig_density.png` | 30 |
+| `vdp_placement.png` | `V/vdp_minipaper/figures/fig_placement.png` | held in reserve (added 2026-09-06) |
+| `vdp_arms_residual_T27.png` | `V/vdp_minipaper/figures/fig_arms_residual_T27.png` | 34 |
+| `lhcb_field_along_legs.png` | `R/Baseline_data_exploration/figures/field_along_legs.png` | 44 |
+| `lhcb_scheme_ceiling.png` | `R/Simple_first_pass/figures/scheme_error_vs_q.png` | 44 |
 
-Twenty-seven of the 33 are placed. The six marked "held in reserve" are copied
-and ready so a question can be answered with a picture rather than a sentence:
-the eight-arm summary and trajectory panels (slides 29 and 30), the supervised
-overlay (slide 28), the data-twin cost panel and the test-set distribution
-(slide 38), and the head-to-head of the two constructions. Adding any of them is
-one `\includegraphics` line.
+Forty of the 42 are placed; `vdp_control_overlay.png` and `vdp_placement.png` are held in reserve. (Revision 2026-09-06: six slides added, 24, 28, 30, 34, 43 and 44, covering the local simulation chain, the classical anchor, the 600 + 72 + 24 resource-axis runs, the eight arms' residual anatomy, the discrete column's pictures, and the LHCb field and exact-scheme ceiling; every later slide number shifted accordingly. No number on any pre-existing slide changed.)
 
 ## Numbers quoted in the deck that live in prose rather than in a CSV
 
