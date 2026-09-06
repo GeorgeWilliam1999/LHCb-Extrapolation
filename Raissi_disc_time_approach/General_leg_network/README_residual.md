@@ -180,9 +180,19 @@ just the answer better.
 
 # Results
 
+*Numbers corrected 2026-09-06 to match `results/*.csv` (see
+`Mini_paper/README.md`): the wave-1 4×200 physics column and the residual
+4×100 twin column below, and the derived twin factors in reading 4 and in the
+tails section.*
+
 `aggregate_residual.py` re-scored **65** checkpoints — the 26 residual runs and
 the 39 wave-1 runs on disk (4×50, 4×100 and A2's overnight 4×200 wave) — on the
 same test states with the same scorer, so every number below is like for like.
+Re-scoring is not why the wave-1 4×200 column moved in the 2026-09-06
+correction: every median here pools **converged seeds only**, per the protocol,
+and the earlier values pooled all ten, including the unconverged
+`w200_physics_s5` (all-seed medians 234 / 1781 / 213 µm against the
+converged-only 229 / 1740 / 213 µm).
 
 ## Whole test split, median over seeds
 
@@ -200,9 +210,9 @@ factor 130.
 
 | leg | wave 1 4×100 physics | wave 1 4×200 physics | **residual 4×100 physics** | **residual 4×50 physics** | residual 4×100 twin | straight line | ceiling (this population) |
 |---|---|---|---|---|---|---|---|
-| A vertex fetch (341 mm, backward) | 404 [286–538] | 234 [201–277] | **4.4** [2–6] | **4.1** [3–6] | 0.13 [0.12–0.14] | 10.9 | 0.0013 |
-| B cross-magnet (5.2 m) | 2600 [2106–3152] | 1781 [1632–2154] | **1026** [878–1209] | **1136** [945–1627] | 512 [486–566] | 444075 | 46.4 |
-| C plane-to-plane (70 mm) | 300 [252–335] | 213 [165–254] | **1.6** [1–2] | **1.2** [1–1] | 0.04 [0.03–0.04] | 6.6 | 5.8 × 10⁻⁷ |
+| A vertex fetch (341 mm, backward) | 404 [286–538] | 229 [201–277] | **4.4** [2–6] | **4.1** [3–6] | 0.058 [0.047–0.063] | 10.9 | 0.0013 |
+| B cross-magnet (5.2 m) | 2600 [2106–3152] | 1740 [1632–2154] | **1026** [878–1209] | **1136** [945–1627] | 512 [486–566] | 444075 | 46.4 |
+| C plane-to-plane (70 mm) | 300 [252–335] | 213 [165–235] | **1.6** [1–2] | **1.2** [1–1] | 0.012 [0.0118–0.0122] | 6.6 | 5.8 × 10⁻⁷ |
 
 All µm. Read across:
 
@@ -221,9 +231,13 @@ All µm. Read across:
    of the two. Wave 1's verdict read the 4×50 → 4×100 → 4×200 trend as "width is
    the binding constraint"; at 4×200 wave 1 still had not reached 200 µm on leg
    C. It was never width. It was the parametrisation.
-4. **The data twin is now extraordinary on the short legs** — 0.13 µm on A and
-   0.04 µm on C, i.e. 3,400× and 165× better than wave 1's twin — and still
-   twice the physics loss on leg B (512 against 1026 µm). The physics-vs-twin
+4. **The data twin is now extraordinary on the short legs** — 0.058 µm on A and
+   0.012 µm on C, i.e. **6,600×** and **2.0 × 10⁴** better than wave 1's twin —
+   and still twice the physics loss on leg B (512 against 1026 µm). The factors
+   are (wave 1 4×100 twin) ÷ (residual 4×100 twin), each the median over the
+   three converged twin seeds on the test split at all momenta, from
+   `results/by_leg_residual.csv`: 384.774 / 0.0583 = 6,605 on leg A and
+   235.242 / 0.0119 = 19,792 on leg C. The physics-vs-twin
    gap that opened in wave 1 when the leg geometry became an input has *widened*
    in relative terms on the easy legs and narrowed on the hard one.
 5. **Distance to the ceiling, which is the honest scorecard.** Against the exact
@@ -299,7 +313,7 @@ momenta, 4×100:
 
 µm. Leg C's tail improves by a factor 10–70 with the median. Legs A and B do
 not: the residual twin's p95 on leg A is twice wave 1's, so a small population
-of states got worse while the bulk got 3,400× better. Those are the soft tracks
+of states got worse while the bulk got 6,600× better. Those are the soft tracks
 that bend hardest — the residual scale is a *first-order* estimate, and where the
 true deviation is many times that estimate the network is back to writing down a
 large number. Fixing the median did not fix the tail, and the tail is what an

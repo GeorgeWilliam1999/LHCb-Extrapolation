@@ -59,13 +59,16 @@ converged) were walked along all 4,563 test and 4,551 val chains and over all
 
 ## 1. The whole growth curve moved down by two orders of magnitude — and then compounds faster
 
+*Numbers corrected 2026-09-06 to match `results/*.csv` (see
+`Mini_paper/README.md`): the residual 4×100 twin entry at one leg.*
+
 Median endpoint error against the RK4 path, test split, by the number of legs
 walked. All 4,563 particles contribute up to leg 4; beyond that only the longer
 chains do, so the first four steps are the like-for-like comparison.
 
 | legs walked | wave 1 4×100 phys | wave 1 4×100 twin | **residual 4×100 phys** | **residual 4×100 twin** | residual 4×50 phys | particles |
 |---|---|---|---|---|---|---|
-| 1 | 246 | 217 | **1.2** | **0.03** | 1.1 | 4563 |
+| 1 | 246 | 217 | **1.2** | **0.01** | 1.1 | 4563 |
 | 2 | 783 | 652 | **60** | **2.7** | 59 | 4563 |
 | 3 | 1443 | 1051 | **281** | **32** | 261 | 4563 |
 | 4 | 2293 | 1484 | **572** | **118** | 568 | 4563 |
