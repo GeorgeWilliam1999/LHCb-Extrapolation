@@ -106,23 +106,72 @@ Two entries carry `% TODO verify` comments in `references.bib`:
 
 `scriven2026vdp` is the van der Pol companion paper, cited as "in preparation".
 
-## Discrepancies found while writing (numbers taken from the CSVs, not the READMEs)
+## Discrepancies found while writing, and what was corrected at source
 
-Every number in the paper was recomputed from the committed CSVs. Three cells
-disagree with the prose tables in the experiment READMEs; the paper follows the
-CSVs. Worth checking before the READMEs are reused.
+Every number in the paper was recomputed from the committed CSVs rather than
+copied from the experiment READMEs. That caught six cells and two derived
+figures where the READMEs disagreed with their own result files. All of them
+have been corrected at source, in commits `1b7e5b6` and `66e8549`; no CSV,
+figure or notebook was touched, because the result files were right all along.
+This table is the full record.
 
-| quantity | README says | CSV says (converged seeds, test, band=all) |
+### Root cause 1: the unconverged 4x200 seed was pooled
+
+`General_leg_network/README.md` records that `w200_physics_s5` did not converge
+and the protocol says unconverged runs are never pooled into a median.
+`README_residual.md` nevertheless quoted medians over all ten seeds.
+
+| cell | README said | CSV says (converged seeds, test) | file |
+|---|---|---|---|
+| by-leg, wave-1 4x200 physics, legs A / B / C | 234 / 1781 / 213 um | **229 / 1740 / 213 um** | `General_leg_network/results/by_leg_residual.csv` (`by_leg.csv` and `General_leg_network/README.md` already agreed) |
+| by-leg, wave-1 4x200 physics, leg C seed range | [165-254] | **[165-235]** | same |
+| whole split, wave-1 4x200 physics | 274 um | **273 um** (272.76) | `General_leg_network/results/residual_summary.csv` |
+
+The all-seed medians are 234.1 / 1780.5 / 213.4 and 274.5, which is exactly what
+the old cells said, so the cause is the pooling rule and not the re-scoring pass.
+`README_residual.md` now states both values where it matters.
+
+### Root cause 2: the residual data-twin cells were quoted high
+
+The residual 4x100 twin on the two short legs was out by roughly an order of
+magnitude in the by-leg table, and rounded away in the by-momentum-band table.
+
+| cell | README said | CSV says | file |
+|---|---|---|---|
+| by-leg, residual 4x100 twin, leg A | 0.13 um | **0.058 um** [0.047-0.063] | `General_leg_network/results/by_leg_residual.csv` |
+| by-leg, residual 4x100 twin, leg C | 0.04 um | **0.012 um** [0.0118-0.0122] | same |
+| by-momentum-band, residual 4x100 twin, leg A (1-5 / 5-20 / 20-200 GeV) | 0.20 / 0.04 / 0.02 um | **0.152 / 0.034 / 0.031 um** | same |
+| by-momentum-band, residual 4x100 twin, leg C (1-5 / 5-20 / 20-200 GeV) | 0.05 / 0.02 / 0.02 um | **0.044 / 0.005 / 0.003 um** | same |
+| chained, residual 4x100 twin at one leg | 0.03 um | **0.01 um** (0.0090) | `Chained_legs/results/chain_summary_residual.csv` |
+
+The leg-B twin cells were right throughout (512 um by leg; 2575 / 316 / 110 um
+by band).
+
+### The derived figures that followed from those cells
+
+| claim | README said | recomputed from the CSVs |
 |---|---|---|
-| absolute-output 4x200 physics, legs A / B / C | 234 / 1781 / 213 um (`General_leg_network/README_residual.md`) | **229 / 1740 / 213 um** (`by_leg.csv` and `by_leg_residual.csv` agree; `General_leg_network/README.md` also says 229 / 1740 / 213) |
-| residual 4x100 data twin, leg A | 0.13 um (`README_residual.md`) | **0.058 um** |
-| residual 4x100 data twin, leg C | 0.04 um (`README_residual.md`) | **0.012 um** |
-| residual 4x100 data twin, chained 1 leg | 0.03 um (`Chained_legs/README_residual.md`) | **0.01 um** |
+| residual twin against wave-1 twin, legs A and C | 3,400x and 165x | **6,600x and 2.0 x 10^4** = 384.774 / 0.0583 and 235.242 / 0.0119, medians over the three converged twin seeds, test split, all momenta |
+| the same factor restated in the tails section | 3,400x | **6,600x** |
+| per-band improvement, wave-1 physics over residual physics, legs A and C | a factor 46 to 115 in every band | **a factor 46 to 200**: 46 / 70 / 80 on leg A and 200 / 154 / 116 on leg C |
 
-The whole-split figures (2.12 / 2.64 physics, 0.06 / 0.04 twin, 16.1 straight)
-and every other cell reproduce exactly. The absolute-output whole-split 4x200
-physics figure is 272.8 um, quoted as 274 in `README_residual.md`; the paper
-rounds it to 273.
+The chained twin growth-ratio row (299, 11.8, 3.69, ...) was computed from the
+unrounded 0.0090 and is correct as it stands; it was not changed.
+
+### What this cost the paper
+
+One cell: the caption of Figure 10 repeated "a factor 46 to 115 in every band"
+and now reads 46 to 200. Every other number in the paper was already taken from
+the CSVs and needed no change, including the whole-split 273 um and the twin
+values 0.06 / 512 / 0.01 um. The paper was rebuilt after the caption fix.
+
+### Noted, not changed
+
+`README_residual.md`'s whole-split paragraph rounds three ratios loosely: the
+residual arm beats the straight line by 7.6x with the physics loss (quoted as
+6) and 413x with the twin (quoted as 400), and a 4x50 residual network beats a
+4x200 wave-1 network by 129x (quoted as 130). These are roundings rather than
+disagreements, and they are outside the corrections above.
 
 ## Length
 
