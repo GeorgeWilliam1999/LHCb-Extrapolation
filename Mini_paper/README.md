@@ -1,0 +1,116 @@
+# LHCb extrapolation mini-paper
+
+Overleaf-ready LaTeX source for the mini-paper on the label-free discrete-time
+extrapolation programme (16 July to 6 September 2026). Built in the same mould as
+the van der Pol mini-paper (`Van_Der_Pole/vdp_minipaper/`): same document class,
+same packages, same figure and table conventions.
+
+Every number in the paper traces to a committed file in this repository. The two
+tables below give the map.
+
+## Build
+
+```sh
+sh build.sh          # pdflatex, bibtex, pdflatex, pdflatex
+make                 # the same thing
+make zip             # rebuilds Mini_paper.zip
+```
+
+Requires `pdflatex` and `bibtex` only. No exotic packages: geometry, amsmath,
+amssymb, graphicx, booktabs, caption, natbib, xcolor, hyperref.
+
+## Overleaf
+
+Upload `Mini_paper.zip` via **New Project -> Upload Project**. Compiles with
+pdfLaTeX; bibliography via BibTeX (`natbib`, `unsrtnat`).
+
+## Contents
+
+- `main.tex` -- the paper (single file).
+- `references.bib` -- 12 entries. Two carry `% TODO verify` comments (see below).
+- `figures/` -- 13 PNGs, copied unmodified from the experiment folders.
+- `build.sh`, `Makefile` -- the build.
+- `Mini_paper.zip` -- the Overleaf bundle.
+
+## Table -> source map
+
+All paths are relative to the repository root
+(`/data/bfys/gscriven/LHCb_Extrapolation_Project`). `R/` abbreviates
+`Raissi_disc_time_approach/`, `D/` abbreviates `Data_generation_exploration/`.
+
+| table | what it holds | source file(s) |
+|---|---|---|
+| 1 (`tab:legs`) | the four leg types and the row counts | `D/Official_xdigi/training_v2/train_official_v2.meta.json` (`leg_types`, `rows`); `D/Official_xdigi/README.md` |
+| 2 (`tab:gates`) | integrity gates G1-G4 on the labels | `D/Official_xdigi/training_v2/train_official_v2.meta.json` (`gates`) |
+| 3 (`tab:baseline`) | the July baseline on the frozen leg | `R/One_step_network_v2/results/summary.csv`; `R/One_step_network_v2/README.md` |
+| 4 (`tab:stages`) | stage-count sweep, q in {2,4,8,16} | `R/Stage_count_sweep/results/error_vs_stages.csv`, `results/summary.csv`, `results/scheme_ceiling_same_population_q*.json`; `R/Stage_count_sweep/README.md` |
+| 5 (`tab:grid`) | the 12-architecture grid plus the twin | `R/Network_size_and_seed_study/results/by_architecture.csv`, `results/summary.csv`; `R/Network_size_and_seed_study/README.md` |
+| 6 (`tab:magnetup`) | reversed magnet polarity against the original | `R/Magnet_up_field/results/summary.csv`, `results/up_vs_down.csv`, `results/ceiling_summary.json`, `results/field_up_parity.json`, `results/loss_field_probe.json` |
+| 7 (`tab:general`) | one network for legs A/B/C, absolute outputs, 3 widths | `R/General_leg_network/results/by_leg.csv`, `results/scheme_ceiling_same_population.csv`; `R/General_leg_network/README.md` (Verdict and "Second wave (4x200)") |
+| 8 (`tab:chains-abs`) | the same networks chained, 1 to 7 legs | `R/Chained_legs/results/chain_summary.csv`; `R/Chained_legs/README.md` (Verdict 1 and "Second wave (4x200)") |
+| 9 (`tab:legd-abs`) | leg D, composite against one giant step | `R/Chained_legs/results/leg_d_reproduction.csv`, `results/leg_d_ceiling_same_population.csv` |
+| 10 (`tab:residual`) | residual redesign against absolute, per leg | `R/General_leg_network/results/by_leg_residual.csv`; `R/General_leg_network/README_residual.md` |
+| 11 (`tab:residual-split`) | whole test split, both designs, three widths | `R/General_leg_network/results/residual_summary.csv`; `R/General_leg_network/README_residual.md` |
+| 12 (`tab:stage-errors`) | error at each Gauss node and the endpoint | `R/General_leg_network/results/stage_errors_residual.csv` (and `results/stage_errors.csv` for the absolute rows) |
+| 13 (`tab:tails`) | 95th percentiles by leg | `R/General_leg_network/results/by_leg_residual.csv`, column `endpoint_p95_um` |
+| 14 (`tab:chains-residual`) | residual networks chained, 1 to 7 legs | `R/Chained_legs/results/chain_summary_residual.csv`, `results/selection_residual.csv` |
+| 15 (`tab:legd-residual`) | leg D under the residual parameterisation | `R/Chained_legs/results/leg_d_residual.csv`, `results/leg_d_ceiling_same_population.csv` |
+| 16 (`tab:verdict`) | the assembled verdict | all of the above; the columns are drawn from tables 3, 5, 6, 7, 10 and 14 |
+| A.1 (figure map) | figure to repository path | this file and Appendix A of the paper |
+
+Numbers quoted in prose but not in a table:
+
+| claim | source |
+|---|---|
+| Spearman +0.965 (loss vs error), +0.995 (val vs test), seed ratios | `R/Network_size_and_seed_study/results/summary.csv`; README section "The floor is the optimiser" |
+| 44 root-finder residual evaluations per leg | `R/Simple_first_pass/exact_scheme.py` run log; quoted in `R/Simple_first_pass/README.md` |
+| the loss scales (655.6 mm, 360.2 mm, ...) | `R/General_leg_network/results/general_legs_meta.json`; `R/Stage_count_sweep/results/frozen_leg_q08_meta.json` |
+| the O(1) scale check medians 1.09 / 1.03 / 0.95 | `R/General_leg_network/results/residual_scale_check.json` |
+| the initialisation check numbers | `R/General_leg_network/results/residual_init_check.json` |
+| dataset size rule, N = 8000, leg mix 1317/1060/5558 | `R/General_leg_network/results/dataset_meta.json`, `results/general_legs_meta.json` |
+| chain construction counts (4563 test particles, 23500 legs) | `R/Chained_legs/results/chains_meta.json` |
+| field map grid, md5s, polarity parity | `R/_shared/results/vendoring_parity.json`; `R/Magnet_up_field/results/field_up_parity.json` |
+| restart counts and wall times, both waves | `R/General_leg_network/README_residual.md` ("The farm"); the `*_history.csv` files |
+| cluster identifiers | the `README.md` / `README_residual.md` of each experiment folder |
+
+## Figure -> source map
+
+| figure | file | source in the repository |
+|---|---|---|
+| 1 | `fig_population.png` | `D/Official_xdigi/figures/v1_vs_v2_population.png` |
+| 2 | `fig_baseline.png` | `R/One_step_network_v2/figures/one_step_results_v2.png` |
+| 3 | `fig_stages.png` | `R/Stage_count_sweep/figures/error_vs_stages.png` |
+| 4 | `fig_architecture.png` | `R/Network_size_and_seed_study/figures/floor_vs_architecture.png` |
+| 5 | `fig_loss_vs_error.png` | `R/Network_size_and_seed_study/figures/loss_vs_error.png` |
+| 6 | `fig_magnet_up.png` | `R/Magnet_up_field/figures/magnet_up_results.png` |
+| 7 | `fig_general_legs.png` | `R/General_leg_network/figures/error_by_leg_and_momentum.png` |
+| 8 | `fig_chains.png` | `R/Chained_legs/figures/error_vs_chained_legs.png` |
+| 9 | `fig_residual_scale.png` | `R/General_leg_network/figures/residual_scale_check.png` |
+| 10 | `fig_residual_legs.png` | `R/General_leg_network/figures/error_by_leg_and_momentum_residual.png` |
+| 11 | `fig_residual_stages.png` | `R/General_leg_network/figures/stage_errors_residual.png` |
+| 12 | `fig_leg_d.png` | `R/Chained_legs/figures/leg_d_reproduction.png` |
+| 13 | `fig_frozen_vs_general.png` | `R/General_leg_network/figures/frozen_vs_general_residual.png` |
+
+Every one of those PNGs is regenerated by its folder's `plot.py` (or
+`plot_residual.py`, `plot_chains.py`) from committed CSV tables only.
+
+## Bibliography: fields still to verify
+
+Two entries carry `% TODO verify` comments in `references.bib`:
+
+- `rohrhofer2023` -- TMLR does not use volume or page numbers; the canonical
+  citation string and the OpenReview identifier were not checkable offline.
+- `lhcb2024upgrade` -- volume, article number and DOI (JINST 19 (2024) P05065,
+  doi:10.1088/1748-0221/19/05/P05065) are from memory and must be confirmed
+  against the journal record.
+
+`scriven2026vdp` is the van der Pol companion paper, cited as "in preparation".
+
+## Scope note
+
+The paper covers the programme from the data-generation restart of 16 July 2026
+onward. Earlier extrapolation work is deliberately out of scope and is not
+referred to anywhere in the source.
+
+Experiment identifiers A1 to A4 appear only in Appendix A, per the house style:
+no code-words in the prose.

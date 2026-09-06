@@ -1,0 +1,6 @@
+# LaTeX build products (regenerate with `sh build.sh` or `make`)
+main.aux
+main.bbl
+main.blg
+main.out
+main.toc
