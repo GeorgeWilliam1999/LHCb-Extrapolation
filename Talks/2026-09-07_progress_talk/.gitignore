@@ -1,0 +1,7 @@
+# pdflatex auxiliaries; main.pdf is committed, everything else regenerates
+*.aux
+*.nav
+*.out
+*.snm
+*.toc
+*.log
