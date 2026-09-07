@@ -1,0 +1,34 @@
+{
+ "tag": "grid_init_check",
+ "seed": 0,
+ "width": 256,
+ "depth": 8,
+ "q": 20,
+ "field": "up",
+ "n_train": 4002,
+ "n_parameters": 484180,
+ "n_outputs": 84,
+ "straight_term_vs_numpy_max_abs_mm": 9.094947017729282e-13,
+ "residual_scale": {
+  "min_pos_mm": 3.716241477390921e-09,
+  "median_pos_mm": 0.009885687897669049,
+  "min_slope": 7.155073080503482e-08
+ },
+ "raw_output_at_init": {
+  "max_abs": 0.12927297882174507,
+  "median_abs": 0.03399734093528039
+ },
+ "init_offset_from_straight_line_in_units_of_scale": {
+  "max": 0.1292729788217451,
+  "median": 0.033997340935323854
+ },
+ "zeroed_last_layer_vs_straight_line_max_abs_mm": 0.0,
+ "physics_loss_at_init": 0.04576853875550161,
+ "physics_grad_max_abs": 0.005953346829391662,
+ "physics_grad_all_finite": true,
+ "data_loss_at_init": 0.18858660280122563,
+ "data_grad_max_abs": 0.0028646763305140823,
+ "data_grad_all_finite": true,
+ "all_finite": true,
+ "passes": true
+}
