@@ -1,0 +1,309 @@
+{
+ "question": "which v8r1 polarity did the official minbias sample expected_2024_minbias_xdigi run with?",
+ "conditions_tag": "sim-20231017-vc-mu100 (DDDB dddb-20231017)",
+ "why_it_matters": "every label in Data_generation_exploration/Official_xdigi/training_v2 was built with the MagDown map",
+ "maps": {
+  "up": {
+   "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+   "md5": "9e49ddc4313b589f273540e7e0bb513b"
+  },
+  "down": {
+   "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.down.bin",
+   "md5": "af284c6954d2273c637a5e766b82b58e"
+  },
+  "max_abs_B_up_plus_B_down_T": 0.0,
+  "n_points": 200000,
+  "meaning": "0.0 means the maps are exact negatives, so the only thing the polarity changes is the sign of the bend"
+ },
+ "population": {
+  "legs": 30514,
+  "particles": 15257,
+  "selection": "magnet_leg_rows(): leg B, UT plane, both directions, 2 < eta < 5, 1 < p < 200 GeV, non-electron"
+ },
+ "propagation_test": {
+  "what": "the leg integrated with each polarity (fp64 RK4, 5 mm), compared with the particle's OWN truth state at the far plane, which is the start state of its other-direction row",
+  "by_polarity": {
+   "up": {
+    "forward: UT -> first SciFi plane": [
+     {
+      "p_band_GeV": [
+       1.0,
+       2.0
+      ],
+      "n": 94,
+      "median_mm": 14.83214788846604,
+      "p95_mm": 36.76981766414148,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": [
+       2.0,
+       5.0
+      ],
+      "n": 5243,
+      "median_mm": 5.128780773078233,
+      "p95_mm": 18.203941549550944,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": [
+       5.0,
+       10.0
+      ],
+      "n": 4463,
+      "median_mm": 1.615760577433889,
+      "p95_mm": 5.871215980836187,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": [
+       10.0,
+       25.0
+      ],
+      "n": 3963,
+      "median_mm": 0.6463230324862224,
+      "p95_mm": 3.8140876850628924,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": [
+       25.0,
+       200.0
+      ],
+      "n": 1494,
+      "median_mm": 0.27630303859631056,
+      "p95_mm": 2.2437589283915518,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": "all",
+      "n": 15257,
+      "median_mm": 1.727512318211211,
+      "p95_mm": 12.576700647398608,
+      "bend_sign_correct_fraction": 1.0
+     }
+    ],
+    "backward: first SciFi plane -> UT": [
+     {
+      "p_band_GeV": [
+       1.0,
+       2.0
+      ],
+      "n": 94,
+      "median_mm": 11.751045191982541,
+      "p95_mm": 27.290200698203964,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": [
+       2.0,
+       5.0
+      ],
+      "n": 5243,
+      "median_mm": 3.6197424302390004,
+      "p95_mm": 13.578755878853245,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": [
+       5.0,
+       10.0
+      ],
+      "n": 4463,
+      "median_mm": 1.1064000919282933,
+      "p95_mm": 4.157996738711433,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": [
+       10.0,
+       25.0
+      ],
+      "n": 3963,
+      "median_mm": 0.43784117797908095,
+      "p95_mm": 1.8672027412478456,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": [
+       25.0,
+       200.0
+      ],
+      "n": 1494,
+      "median_mm": 0.18346464182263844,
+      "p95_mm": 0.7063080259170973,
+      "bend_sign_correct_fraction": 1.0
+     },
+     {
+      "p_band_GeV": "all",
+      "n": 15257,
+      "median_mm": 1.0861255687833307,
+      "p95_mm": 9.120650094855042,
+      "bend_sign_correct_fraction": 1.0
+     }
+    ]
+   },
+   "down": {
+    "forward: UT -> first SciFi plane": [
+     {
+      "p_band_GeV": [
+       1.0,
+       2.0
+      ],
+      "n": 94,
+      "median_mm": 3973.400052230755,
+      "p95_mm": 4685.043004486644,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": [
+       2.0,
+       5.0
+      ],
+      "n": 5243,
+      "median_mm": 1855.9674830010042,
+      "p95_mm": 2908.7388287369686,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": [
+       5.0,
+       10.0
+      ],
+      "n": 4463,
+      "median_mm": 892.1582825740927,
+      "p95_mm": 1201.6623372694467,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": [
+       10.0,
+       25.0
+      ],
+      "n": 3963,
+      "median_mm": 417.69114052973384,
+      "p95_mm": 590.2193727411366,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": [
+       25.0,
+       200.0
+      ],
+      "n": 1494,
+      "median_mm": 168.948389829273,
+      "p95_mm": 233.37642202919795,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": "all",
+      "n": 15257,
+      "median_mm": 883.4706191757975,
+      "p95_mm": 2557.4639117797415,
+      "bend_sign_correct_fraction": 0.0
+     }
+    ],
+    "backward: first SciFi plane -> UT": [
+     {
+      "p_band_GeV": [
+       1.0,
+       2.0
+      ],
+      "n": 94,
+      "median_mm": 4356.160494455844,
+      "p95_mm": 4694.361477709908,
+      "bend_sign_correct_fraction": 0.031914893617021274
+     },
+     {
+      "p_band_GeV": [
+       2.0,
+       5.0
+      ],
+      "n": 5243,
+      "median_mm": 2165.3152375942955,
+      "p95_mm": 4438.344814592226,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": [
+       5.0,
+       10.0
+      ],
+      "n": 4463,
+      "median_mm": 892.6519697466515,
+      "p95_mm": 1263.9692859184297,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": [
+       10.0,
+       25.0
+      ],
+      "n": 3963,
+      "median_mm": 400.42728275119083,
+      "p95_mm": 571.4738140191363,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": [
+       25.0,
+       200.0
+      ],
+      "n": 1494,
+      "median_mm": 160.27181519001763,
+      "p95_mm": 223.1133708286509,
+      "bend_sign_correct_fraction": 0.0
+     },
+     {
+      "p_band_GeV": "all",
+      "n": 15257,
+      "median_mm": 883.3465087846876,
+      "p95_mm": 3765.2667807345483,
+      "bend_sign_correct_fraction": 0.0001966310545978895
+     }
+    ]
+   }
+  }
+ },
+ "fiducial_effect": {
+  "what": "legs whose RK6 path (20 mm screening step) leaves the field map, on a random 4000-leg subset",
+  "n": 4000,
+  "up": {
+   "legs_leaving_the_map": 0,
+   "fraction": 0.0,
+   "by_p_band": {
+    "1-2": 0.0,
+    "2-5": 0.0,
+    "5-10": 0.0,
+    "10-25": 0.0,
+    "25-200": 0.0
+   },
+   "by_direction": {
+    "UT -> SciFi": 0.0,
+    "SciFi -> UT": 0.0
+   }
+  },
+  "down": {
+   "legs_leaving_the_map": 80,
+   "fraction": 0.02,
+   "by_p_band": {
+    "1-2": 0.5714285714285714,
+    "2-5": 0.0482611781405252,
+    "5-10": 0.0,
+    "10-25": 0.0,
+    "25-200": 0.0
+   },
+   "by_direction": {
+    "UT -> SciFi": 0.0014866204162537165,
+    "SciFi -> UT": 0.03884964682139253
+   }
+  }
+ },
+ "verdict": "MagUp. The forward cross-magnet leg lands 1.73 mm from the particle's real first-SciFi state with the up map and 883 mm with the down map, and the sign of the bend is right for 100.0% of particles with up against 0.0% with down. The up-map residual falls as 1/p, which is the multiple-scattering line the training set's own G2 gate reports for the short legs - i.e. exactly the material effect that is out of the label's scope by design. The down-map residual is the deflection itself, doubled.",
+ "consequence": [
+  "the v2 training set's labels (train_official_v2.npz) do not describe the events they were harvested from; the Y column is the field-only propagation of the right start state through the wrong polarity",
+  "experiments that only ever compared a network with that same engine (One_step_network_v2, General_leg_network, Chained_legs, ...) are internally consistent and their conclusions about how well a network solves the scheme stand; what does not stand is any claim that those labels are where the simulated particle went",
+  "../Magnet_up_field is framed as 'a polarity for which no labelled sample has ever been produced'. It is in fact the polarity of the sample, and its own A4.2 table already shows the tell: the fiducial cut removes 0 states on MagUp and 21/20/15 on MagDown",
+  "Block C therefore builds on MagUp, and records this file as the reason. THIS NEEDS GEORGE'S DECISION for the rest of the line."
+ ]
+}

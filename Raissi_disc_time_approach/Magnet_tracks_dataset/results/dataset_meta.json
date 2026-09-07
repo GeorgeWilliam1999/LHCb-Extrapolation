@@ -1,0 +1,576 @@
+{
+ "kind": "magnet_tracks_v3",
+ "created": "2026-09-07 18:06:03",
+ "what": "cross-magnet steps of every length, from the last UT plane to the first SciFi plane, labelled by the fine RK6 reference",
+ "source_training_set": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Data_generation_exploration/Official_xdigi/training_v2/train_official_v2.npz",
+ "reference": {
+  "integrator": "fp64 fixed-step RK6 (Butcher, 7 stages, order 6)",
+  "step_mm": 0.1,
+  "dense_sampling_mm": 10.0,
+  "field": {
+   "which": "up",
+   "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+   "md5": "9e49ddc4313b589f273540e7e0bb513b"
+  },
+  "kappa": 0.001,
+  "qop_convention": "qop = 0.299792458 q / p[GeV] (Allen)",
+  "verification": "../Fine_reference/results/tableau_checks.json and reference_convergence.csv"
+ },
+ "cut_cascade": [
+  {
+   "cut": "leg-B rows in the training set (both directions)",
+   "rows_in": 41398,
+   "rows_removed": 0,
+   "rows_out": 41398,
+   "particles_out": 21932,
+   "note": "load_training(leg='B')"
+  },
+  {
+   "cut": "pre-magnet plane is a UT plane",
+   "rows_in": 41398,
+   "rows_removed": 2476,
+   "rows_out": 38922,
+   "particles_out": 20655,
+   "note": "z_pre > 1500 mm; below it the particle had no UT hit and the row starts on a VELO plane"
+  },
+  {
+   "cut": "both directions kept for the particle",
+   "rows_in": 38922,
+   "rows_removed": 2388,
+   "rows_out": 36534,
+   "particles_out": 18267,
+   "note": "forward and backward legs are a matched pair"
+  },
+  {
+   "cut": "2 < eta < 5",
+   "rows_in": 36534,
+   "rows_removed": 1240,
+   "rows_out": 35294,
+   "particles_out": 17647,
+   "note": "truth pseudorapidity at the particle's origin (ETA column)"
+  },
+  {
+   "cut": "1 < p < 200 GeV",
+   "rows_in": 35294,
+   "rows_removed": 0,
+   "rows_out": 35294,
+   "particles_out": 17647,
+   "note": "already the training set's own domain cut, so it removes little"
+  },
+  {
+   "cut": "non-electron",
+   "rows_in": 35294,
+   "rows_removed": 4780,
+   "rows_out": 30514,
+   "particles_out": 15257,
+   "note": "|PID| != 11"
+  },
+  {
+   "cut": "both directions still kept after the cuts",
+   "rows_in": 30514,
+   "rows_removed": 0,
+   "rows_out": 30514,
+   "particles_out": 15257,
+   "note": ""
+  },
+  {
+   "cut": "compute cap: 6000 particles drawn at random",
+   "rows_in": 30514,
+   "rows_removed": 18514,
+   "rows_out": 12000,
+   "particles_out": 6000,
+   "note": "a budget cap, not a physics cut: the RK6 path costs ~0.1 s per leg and the fiducial requirement needs it. Seed 20260718."
+  },
+  {
+   "cut": "fiducial: the whole RK6 path stays inside the field map",
+   "rows_in": 12000,
+   "rows_removed": 0,
+   "rows_out": 12000,
+   "particles_out": 6000,
+   "particles_that_lost_at_least_one_leg": 0,
+   "note": "map corners x, y in [-4000, 4000] mm. Applied PER LEG, not per particle: a particle whose backward leg leaves the map still contributes its forward one. Dropping the particle would remove the soft tracks preferentially, which are the ones the extrapolator finds hardest."
+  }
+ ],
+ "cuts": {
+  "eta_range": [
+   2.0,
+   5.0
+  ],
+  "p_range": [
+   1.0,
+   200.0
+  ],
+  "drop_electrons": true,
+  "require_ut_plane": true,
+  "ut_velo_boundary_mm": 1500.0,
+  "require_both_directions": true
+ },
+ "plane_clusters": {
+  "pre_magnet_all_leg_B_rows": [
+   {
+    "z_lo": -124.4,
+    "z_hi": 750.7,
+    "n_rows": 2476
+   },
+   {
+    "z_lo": 2306.8,
+    "z_hi": 2383.2,
+    "n_rows": 188
+   },
+   {
+    "z_lo": 2586.8,
+    "z_hi": 2663.3,
+    "n_rows": 38734
+   }
+  ],
+  "pre_magnet_selected": [
+   {
+    "z_lo": 2328.2,
+    "z_hi": 2383.2,
+    "n_rows": 56
+   },
+   {
+    "z_lo": 2586.8,
+    "z_hi": 2663.3,
+    "n_rows": 30458
+   }
+  ],
+  "post_magnet_selected": [
+   {
+    "z_lo": 7818.3,
+    "z_hi": 8036.3,
+    "n_rows": 29786
+   },
+   {
+    "z_lo": 8507.7,
+    "z_hi": 8718.1,
+    "n_rows": 448
+   },
+   {
+    "z_lo": 9192.7,
+    "z_hi": 9403.0,
+    "n_rows": 280
+   }
+  ]
+ },
+ "strata": [
+  {
+   "index": 0,
+   "name": "0.05-0.2 mm",
+   "abs_dz_mm": [
+    0.05,
+    0.2
+   ],
+   "draw": "|dz| log-uniform, direction drawn at random"
+  },
+  {
+   "index": 1,
+   "name": "0.5-2 mm",
+   "abs_dz_mm": [
+    0.5,
+    2.0
+   ],
+   "draw": "|dz| log-uniform, direction drawn at random"
+  },
+  {
+   "index": 2,
+   "name": "5-20 mm",
+   "abs_dz_mm": [
+    5.0,
+    20.0
+   ],
+   "draw": "|dz| log-uniform, direction drawn at random"
+  },
+  {
+   "index": 3,
+   "name": "50-200 mm",
+   "abs_dz_mm": [
+    50.0,
+    200.0
+   ],
+   "draw": "|dz| log-uniform, direction drawn at random"
+  },
+  {
+   "index": 4,
+   "name": "500-2000 mm",
+   "abs_dz_mm": [
+    500.0,
+    2000.0
+   ],
+   "draw": "|dz| log-uniform, direction drawn at random"
+  },
+  {
+   "index": 5,
+   "name": "full crossing",
+   "abs_dz_mm": null,
+   "draw": "every leg, start plane to end plane, the track's own direction"
+  }
+ ],
+ "counts_per_stratum_direction_split": {
+  "0.05-0.2 mm": {
+   "train": {
+    "forward(dz>0)": 2997,
+    "backward(dz<0)": 3003,
+    "total": 6000
+   },
+   "val": {
+    "forward(dz>0)": 983,
+    "backward(dz<0)": 1017,
+    "total": 2000
+   },
+   "test": {
+    "forward(dz>0)": 1017,
+    "backward(dz<0)": 983,
+    "total": 2000
+   },
+   "all": 10000
+  },
+  "0.5-2 mm": {
+   "train": {
+    "forward(dz>0)": 2976,
+    "backward(dz<0)": 3024,
+    "total": 6000
+   },
+   "val": {
+    "forward(dz>0)": 1014,
+    "backward(dz<0)": 986,
+    "total": 2000
+   },
+   "test": {
+    "forward(dz>0)": 1000,
+    "backward(dz<0)": 1000,
+    "total": 2000
+   },
+   "all": 10000
+  },
+  "5-20 mm": {
+   "train": {
+    "forward(dz>0)": 2964,
+    "backward(dz<0)": 3036,
+    "total": 6000
+   },
+   "val": {
+    "forward(dz>0)": 1030,
+    "backward(dz<0)": 970,
+    "total": 2000
+   },
+   "test": {
+    "forward(dz>0)": 994,
+    "backward(dz<0)": 1006,
+    "total": 2000
+   },
+   "all": 10000
+  },
+  "50-200 mm": {
+   "train": {
+    "forward(dz>0)": 3002,
+    "backward(dz<0)": 2998,
+    "total": 6000
+   },
+   "val": {
+    "forward(dz>0)": 989,
+    "backward(dz<0)": 1011,
+    "total": 2000
+   },
+   "test": {
+    "forward(dz>0)": 968,
+    "backward(dz<0)": 1032,
+    "total": 2000
+   },
+   "all": 10000
+  },
+  "500-2000 mm": {
+   "train": {
+    "forward(dz>0)": 3040,
+    "backward(dz<0)": 2960,
+    "total": 6000
+   },
+   "val": {
+    "forward(dz>0)": 975,
+    "backward(dz<0)": 1025,
+    "total": 2000
+   },
+   "test": {
+    "forward(dz>0)": 988,
+    "backward(dz<0)": 1012,
+    "total": 2000
+   },
+   "all": 10000
+  },
+  "full crossing": {
+   "train": {
+    "forward(dz>0)": 3014,
+    "backward(dz<0)": 2986,
+    "total": 6000
+   },
+   "val": {
+    "forward(dz>0)": 993,
+    "backward(dz<0)": 1007,
+    "total": 2000
+   },
+   "test": {
+    "forward(dz>0)": 1001,
+    "backward(dz<0)": 999,
+    "total": 2000
+   },
+   "all": 10000
+  }
+ },
+ "counts_per_stratum_and_split": [
+  {
+   "stratum": "0.05-0.2 mm",
+   "index": 0,
+   "split": "train",
+   "target": 6000,
+   "drawn": 6000,
+   "population_available": 3756902,
+   "population_limited": false
+  },
+  {
+   "stratum": "0.05-0.2 mm",
+   "index": 0,
+   "split": "val",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1251596,
+   "population_limited": false
+  },
+  {
+   "stratum": "0.05-0.2 mm",
+   "index": 0,
+   "split": "test",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1250136,
+   "population_limited": false
+  },
+  {
+   "stratum": "0.5-2 mm",
+   "index": 1,
+   "split": "train",
+   "target": 6000,
+   "drawn": 6000,
+   "population_available": 3756902,
+   "population_limited": false
+  },
+  {
+   "stratum": "0.5-2 mm",
+   "index": 1,
+   "split": "val",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1251596,
+   "population_limited": false
+  },
+  {
+   "stratum": "0.5-2 mm",
+   "index": 1,
+   "split": "test",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1250136,
+   "population_limited": false
+  },
+  {
+   "stratum": "5-20 mm",
+   "index": 2,
+   "split": "train",
+   "target": 6000,
+   "drawn": 6000,
+   "population_available": 3756902,
+   "population_limited": false
+  },
+  {
+   "stratum": "5-20 mm",
+   "index": 2,
+   "split": "val",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1251596,
+   "population_limited": false
+  },
+  {
+   "stratum": "5-20 mm",
+   "index": 2,
+   "split": "test",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1250136,
+   "population_limited": false
+  },
+  {
+   "stratum": "50-200 mm",
+   "index": 3,
+   "split": "train",
+   "target": 6000,
+   "drawn": 6000,
+   "population_available": 3756902,
+   "population_limited": false
+  },
+  {
+   "stratum": "50-200 mm",
+   "index": 3,
+   "split": "val",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1251596,
+   "population_limited": false
+  },
+  {
+   "stratum": "50-200 mm",
+   "index": 3,
+   "split": "test",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1250136,
+   "population_limited": false
+  },
+  {
+   "stratum": "500-2000 mm",
+   "index": 4,
+   "split": "train",
+   "target": 6000,
+   "drawn": 6000,
+   "population_available": 3756902,
+   "population_limited": false
+  },
+  {
+   "stratum": "500-2000 mm",
+   "index": 4,
+   "split": "val",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1251596,
+   "population_limited": false
+  },
+  {
+   "stratum": "500-2000 mm",
+   "index": 4,
+   "split": "test",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 1250136,
+   "population_limited": false
+  },
+  {
+   "stratum": "full crossing",
+   "index": 5,
+   "split": "train",
+   "target": 6000,
+   "drawn": 6000,
+   "population_available": 7200,
+   "population_limited": false
+  },
+  {
+   "stratum": "full crossing",
+   "index": 5,
+   "split": "val",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 2400,
+   "population_limited": false
+  },
+  {
+   "stratum": "full crossing",
+   "index": 5,
+   "split": "test",
+   "target": 2000,
+   "drawn": 2000,
+   "population_available": 2400,
+   "population_limited": false
+  }
+ ],
+ "momentum_bands_GeV": [
+  [
+   1.0,
+   2.0
+  ],
+  [
+   2.0,
+   5.0
+  ],
+  [
+   5.0,
+   10.0
+  ],
+  [
+   10.0,
+   25.0
+  ],
+  [
+   25.0,
+   200.0
+  ]
+ ],
+ "counts_per_momentum_band": {
+  "1-2": {
+   "all": 327,
+   "train": 209,
+   "val": 76,
+   "test": 42
+  },
+  "2-5": {
+   "all": 20692,
+   "train": 12382,
+   "val": 4048,
+   "test": 4262
+  },
+  "5-10": {
+   "all": 17545,
+   "train": 10684,
+   "val": 3167,
+   "test": 3694
+  },
+  "10-25": {
+   "all": 15445,
+   "train": 9305,
+   "val": 3413,
+   "test": 2727
+  },
+  "25-200": {
+   "all": 5991,
+   "train": 3420,
+   "val": 1296,
+   "test": 1275
+  }
+ },
+ "legs": {
+  "n_legs": 12000,
+  "n_particles": 6000,
+  "forward": 6000,
+  "backward": 6000,
+  "dense_states": 6258634
+ },
+ "split": {
+  "by": "particle",
+  "seed": 20260718,
+  "fractions": [
+   0.6,
+   0.2,
+   0.2
+  ],
+  "particles": {
+   "train": 3600,
+   "val": 1200,
+   "test": 1200
+  },
+  "warning": "this is NOT the v2 training set's 80/10/10 split; a particle in this set's train split may be in the v2 test split. The v2 label is carried as SPLIT_V2 in the dense file for anyone who needs to intersect them."
+ },
+ "clipping": {
+  "direction_flipped_to_fit": 2390,
+  "magnitude_clipped_to_the_window": 0,
+  "rule": "the drawn direction is used if the step fits inside [UT plane, SciFi plane]; otherwise it is flipped; |dz| is clipped only if neither fits"
+ },
+ "format": {
+  "X": "(x, y, tx, ty, qop, z0, dz) fp64",
+  "Y": "(x, y, tx, ty, qop) at z0 + dz, fp64",
+  "DIRECTION": "sign(dz)",
+  "LEG_DIR": "+1 if the parent leg runs UT -> SciFi, -1 back",
+  "LEG_INDEX": "row in the dense file's leg_* arrays"
+ },
+ "wall_s": 2942.2,
+ "dense_wall_s": 1607.3,
+ "built_by": "Magnet_tracks_dataset/build_dataset.py",
+ "dense_states_file": "results/dense_states.npz",
+ "dataset_file": "results/magnet_tracks_v3.npz"
+}

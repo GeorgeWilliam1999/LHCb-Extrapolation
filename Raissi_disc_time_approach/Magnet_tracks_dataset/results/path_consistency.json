@@ -1,0 +1,106 @@
+{
+ "dataset": "results/magnet_tracks_v3.npz",
+ "rows_checked": 240,
+ "per_stratum": 40,
+ "rk6_step_mm": 0.1,
+ "field": "up",
+ "1_restart_vs_whole_march": {
+  "n": 240,
+  "median_um": 8.910205906431656e-09,
+  "p95_um": 4.0719783100939815e-08,
+  "max_um": 8.571987564209849e-08,
+  "what": "RK6 from the stored start state to z0+dz, against RK6 from the leg's own start plane to z0+dz in one march"
+ },
+ "1_by_stratum": {
+  "0.05-0.2 mm": {
+   "n": 40,
+   "median_um": 9.379164112033322e-09,
+   "p95_um": 3.3662672649370473e-08,
+   "max_um": 7.139533408917487e-08
+  },
+  "0.5-2 mm": {
+   "n": 40,
+   "median_um": 6.821210263296962e-09,
+   "p95_um": 4.167475253780136e-08,
+   "max_um": 6.048139766789973e-08
+  },
+  "5-20 mm": {
+   "n": 40,
+   "median_um": 4.472866521609831e-09,
+   "p95_um": 2.2170354441186633e-08,
+   "max_um": 2.8194335754960775e-08
+  },
+  "50-200 mm": {
+   "n": 40,
+   "median_um": 7.077005648170598e-09,
+   "p95_um": 3.6828851079917506e-08,
+   "max_um": 4.530420483206399e-08
+  },
+  "500-2000 mm": {
+   "n": 40,
+   "median_um": 8.270717444247566e-09,
+   "p95_um": 2.2083668227423907e-08,
+   "max_um": 4.1154635255225e-08
+  },
+  "full crossing": {
+   "n": 40,
+   "median_um": 1.588507103633674e-08,
+   "p95_um": 7.494804776797534e-08,
+   "max_um": 8.571987564209849e-08
+  }
+ },
+ "2_stored_dense_state_vs_march_to_z0": {
+  "n": 240,
+  "median_um": 4.490630090003833e-09,
+  "p95_um": 3.313971319585101e-08,
+  "max_um": 7.139533408917487e-08,
+  "what": "the stored start state against RK6 from the leg's start plane to that same z0"
+ },
+ "3_row_closure": {
+  "n": 240,
+  "median_um": 3.552713678800501e-10,
+  "p95_um": 6.0887302311129805e-06,
+  "max_um": 3.103946255578194e-05,
+  "what": "each row integrated back from its own end state"
+ },
+ "3_by_stratum": {
+  "0.05-0.2 mm": {
+   "n": 40,
+   "median_um": 0.0,
+   "p95_um": 5.6843418860808015e-11,
+   "max_um": 2.2737367544323206e-10
+  },
+  "0.5-2 mm": {
+   "n": 40,
+   "median_um": 2.8421709430404007e-11,
+   "p95_um": 1.733724275254643e-10,
+   "max_um": 3.410605131648481e-10
+  },
+  "5-20 mm": {
+   "n": 40,
+   "median_um": 1.9184653865522705e-10,
+   "p95_um": 7.105427357600985e-10,
+   "max_um": 1.8189894035458565e-09
+  },
+  "50-200 mm": {
+   "n": 40,
+   "median_um": 1.1226575225009583e-09,
+   "p95_um": 1.3156409295334012e-08,
+   "max_um": 3.916511559509672e-08
+  },
+  "500-2000 mm": {
+   "n": 40,
+   "median_um": 1.0204814770986559e-07,
+   "p95_um": 2.194411763412057e-06,
+   "max_um": 4.747448656416964e-06
+  },
+  "full crossing": {
+   "n": 40,
+   "median_um": 3.117797575669101e-06,
+   "p95_um": 1.707297769826254e-05,
+   "max_um": 3.103946255578194e-05
+  }
+ },
+ "qop_passthrough_exact": true,
+ "verdict": "the stored dense state is a state of the same RK6 trajectory: restarting from it and marching the whole way agree to 8.91e-09 um (median) and 8.57e-08 um (worst) over 240 rows"
+}
