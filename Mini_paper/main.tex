@@ -67,8 +67,8 @@ cleanest available demonstration that the loss does what it claims. Where the
 network is the limiting factor the shortfall is optimisation and not capacity:
 over $96$ converged runs spanning $12$ architectures and $10$ seeds, the
 Spearman rank correlation between final training loss and held-out endpoint
-error is $+0.965$. Trained on the reversed magnet polarity, for which no
-labelled sample exists anywhere in the project, the same construction reaches
+error is $+0.965$. Trained on the magnet-up polarity, for which no labelled
+sample exists anywhere in the project, the same construction reaches
 the same floor, $229\um$ against $222\um$, and sits the same distance above that
 polarity's own ceiling. Generalising to one network for every kind of step, with
 the start plane and the step length as inputs, first cost a factor $14$ on the
@@ -921,6 +921,7 @@ on an objective the physics arm is not.
 \label{sec:data}
 
 \subsection{The sample}
+\label{sec:sample}
 
 The training population is derived from official LHCb simulation, not from
 anything I generated. This was a deliberate change of policy on 21 July 2026:
@@ -935,6 +936,52 @@ plus the packed simulation truth, with detector description
 data-taking. Five of the entry's eight files, $19$ GB, are mirrored on the local
 CVMFS filesystem, and $200$ events were read from them. No grid access was
 needed.
+
+\begin{center}
+\fbox{\parbox{0.95\linewidth}{\small
+\textbf{Correction, 6 September 2026: the sample is magnet-up.}
+The conditions tag \texttt{sim-20231017-vc-mu100} is the \textbf{magnet-up}
+configuration. This was established while building the magnet-to-magnet data set
+of the next block, by propagating each particle's forward cross-magnet leg from
+its last upstream-tracker plane and comparing the result with that particle's
+\emph{own} first scintillating-fibre state, which the sample supplies for free.
+Over all $15{,}257$ selected particles the leg propagated with
+\texttt{field.v8r1.up.bin} lands a median $1.73\mm$ from the real state
+($14.8\mm$ at $1$--$2$ GeV, $0.28\mm$ at $25$--$200$ GeV), with the sign of the
+bend correct for $100.0$ percent of particles; propagated with
+\texttt{field.v8r1.down.bin} it lands $883\mm$ away ($3973\mm$ and $169\mm$ in
+the same two bands) with the sign wrong for $100$ percent, and $2$ percent of
+legs leave the field map altogether. The two maps are exact negatives, so
+polarity changes only the sign of the bend.
+\smallskip
+
+\textbf{Every label and score in this paper was computed with the magnet-down
+map}: the $Y$ column of the training set, the frozen-leg experiments of
+Sections~\ref{sec:baseline} to~\ref{sec:size}, and the general-leg and
+residual experiments of Sections~\ref{sec:general} and~\ref{sec:residual}. Four
+consequences follow, and no more.
+\begin{enumerate}\setlength{\itemsep}{1pt}
+  \item \textbf{Every method conclusion stands.} Each experiment compared a
+  network against the same equations and the same engine: scheme-limited against
+  network-limited, the optimisation-limited floor, the residual redesign, and
+  chaining are all internal comparisons and are untouched.
+  \item \textbf{Any statement that those labels are where the simulated
+  particle went is wrong}, and the material-floor gate G2 of
+  Section~\ref{sec:gates} must be re-read on the magnet-up map.
+  \item \textbf{The magnet-up experiment of Section~\ref{sec:magnetup} is not
+  ``a polarity with no labels'' but the sample's true polarity}, and it is the
+  only experiment here scored against the physically right field. Its result is
+  unchanged --- the same floor, $229$ against $222\um$ --- and its framing is
+  not.
+  \item The magnet-to-magnet data set, the fine reference and the tables now in
+  progress are built on the magnet-up map.
+\end{enumerate}
+\smallskip
+
+{\raggedright Source:
+\texttt{R/Magnet\_tracks\_dataset/}\allowbreak\texttt{results/polarity\_check.json}
+and \texttt{R/Magnet\_tracks\_dataset/README.md}.\par}}}
+\end{center}
 
 \subsection{The harvest, and the four leg types}
 
@@ -951,8 +998,12 @@ needed.
   \item Compute the label for each leg by integrating
   Eqs.~\eqref{eq:eom1} to \eqref{eq:eom4} with fourth-order Runge--Kutta in
   double precision with $5\mm$ steps, using the canonical field map at
-  magnet-down polarity. The labels are used to score every experiment and to
-  train the data twin; the physics loss never touches them.
+  magnet-down polarity.\footnote{The sample itself is magnet-up; see the
+  correction box in Section~\ref{sec:sample}. The labels are therefore
+  field-only propagations of the right start states through the wrong polarity,
+  which is a statement about what the labels \emph{are} and not about any
+  comparison made with them.} The labels are used to score every experiment and
+  to train the data twin; the physics loss never touches them.
   \item Split by \textbf{particle}, $80/10/10$, with seed $20260718$, so that no
   particle contributes legs to more than one split. This matters: legs from one
   particle are highly correlated, and splitting by leg would leak.
@@ -989,6 +1040,7 @@ needed.
 \end{table}
 
 \subsection{The integrity gates on the labels}
+\label{sec:gates}
 
 Four gates were run on the labels and are recorded in the dataset metadata.
 
@@ -1021,7 +1073,10 @@ particle's real next hit by an amount that grows as momentum falls, following
 the characteristic $1/p$ behaviour of multiple scattering off detector material.
 That residual is not an error in the labels. It is the material effect, which is
 deliberately outside the surrogate's remit and stays with the existing
-extrapolator.
+extrapolator.\footnote{G2 as tabulated was measured against labels computed with
+the magnet-down map, so on the cross-magnet leg it is not a material-only
+residual and must be re-read on the magnet-up map. See the correction box in
+Section~\ref{sec:sample}.}
 
 \begin{figure}[tbp]
   \centering
@@ -1380,14 +1435,19 @@ the curve, where a result reports the network size as much as the physics.
   \label{fig:lossvserror}
 \end{figure}
 
-\subsection{Training where no labels exist: the reversed magnet polarity}
+\subsection{Training where no labels exist: the magnet-up polarity}
 \label{sec:magnetup}
 
 \textbf{Question.} The claim of the technique is that no labels are needed. The
 strongest available test of that claim is to train on a configuration for which
 no labelled sample has ever been produced. LHCb periodically reverses the
 magnet's polarity, so there is a second field map, and no training labels have
-ever been made for it in this project.
+ever been made for it in this project.\footnote{Magnet up is in fact the
+polarity the sample was simulated with, established after this experiment was
+run; see the correction box in Section~\ref{sec:sample}. The experiment is
+therefore the only one in this paper scored against the physically right field.
+Its numbers are unchanged; ``no labels have been made for it'' remains true, and
+``a polarity the sample is not'' would not be.}
 
 \textbf{Design.} The identical $4 \times 50$ network, the identical protocol,
 the identical training population, with the single change that the loss is built
@@ -1411,7 +1471,9 @@ on the original.
   \caption{The reversed magnet polarity against the original, on the frozen
   cross-magnet leg, $4 \times 50$, $q = 8$. Test-split median endpoint error in
   micrometres, median over seeds with the seed range in brackets. No labelled
-  sample has ever been produced for the reversed polarity in this project.
+  sample has ever been produced for the magnet-up polarity in this project,
+  which is nonetheless the sample's own polarity
+  (Section~\ref{sec:sample}).
   Source: \texttt{Magnet\_up\_field/results/summary.csv} and
   \texttt{Magnet\_up\_field/results/ceiling\_summary.json}.}
   \label{tab:magnetup}
@@ -1444,10 +1506,10 @@ sign.
 
 One genuine asymmetry was found, and it is in the tracks rather than in the map.
 The fiducial requirement removes $21$, $20$ and $15$ states from the three
-splits on the original polarity and \emph{none} on the reversed one: the
-sample's charge and angular distribution is not symmetric in $x$, and the
-original polarity is the one that bends these particular soft tracks out of the
-map while the reversed polarity bends them back in. The same asymmetry appears
+splits on magnet down and \emph{none} on magnet up: the
+sample's charge and angular distribution is not symmetric in $x$, and magnet
+down is the one that bends these particular soft tracks out of the
+map while magnet up bends them back in. The same asymmetry appears
 in the exact scheme's worst case, $38\mm$ reversed against $258\mm$ original. A
 control that re-scores the reversed networks on only the $2018$ tracks the
 original polarity also keeps moves the median from $229.4$ to $226.6\um$, about
@@ -2129,7 +2191,7 @@ $z = 2648\mm$ to $z = 7826\mm$ with $q = 8$ stages.
   \centering
   \caption{The whole programme on one page. Test-split median endpoint error in
   micrometres. Columns 1 and 2 are the frozen cross-magnet leg at two network
-  sizes; column 3 is the same leg on the reversed magnet polarity; columns 4 and
+  sizes; column 3 is the same leg on the magnet-up polarity; columns 4 and
   5 are the single network serving legs A, B and C, quoted per leg, under the
   two output parameterisations; column 6 is that network walked four legs along
   a real particle path. Each column's ceiling is measured on that column's own
@@ -2210,8 +2272,10 @@ correlation of $+0.965$ over $96$ converged runs
 (Figure~\ref{fig:lossvserror}). \textbf{At $4 \times 200$ the label-free loss
 beats its own supervised twin}, whose median is $12$ percent higher with a wider
 seed spread. And \textbf{on a field polarity for which no labels exist anywhere
-in the project} it reaches the same floor, $229$ against $222\um$, and sits the
-same distance above that polarity's own ceiling (Table~\ref{tab:magnetup}).
+in the project} --- which is, in fact, the sample's own polarity
+(Section~\ref{sec:sample}) --- it reaches the same floor, $229$ against
+$222\um$, and sits the same distance above that polarity's own ceiling
+(Table~\ref{tab:magnetup}).
 
 \subsection{Question 2, can it be used: the residual design changed the answer}
 
@@ -2430,7 +2494,8 @@ to within a percent. Where the network limits, the limit is the optimiser rather
 than capacity, evidenced by a loss-error rank correlation of $+0.965$ across
 $96$ converged runs. The method works without labels in the strongest sense
 available: it reaches the same accuracy on a field polarity for which no
-labelled sample exists.
+labelled sample exists, and which is the polarity the sample itself was
+simulated with (Section~\ref{sec:sample}).
 
 The product is closer than it was but not there. A single network serving every
 leg type, with its outputs parameterised as the deviation from a straight line
@@ -2505,7 +2570,11 @@ metadata \texttt{train\_official\_v2.meta.json} (sample block corrected
 eight files mirrored on CVMFS ($19$ GB), $200$ events, detector description
 \texttt{dddb-20231017}, conditions \texttt{sim-20231017-vc-mu100}, data type
 2024. $323{,}533$ rows, split by particle $258{,}857 / 32{,}389 / 32{,}287$ with
-seed $20260718$.
+seed $20260718$. The conditions tag is \textbf{magnet-up}, while every label in
+the set was computed with \texttt{field.v8r1.down.bin}; the test that settles it
+is \texttt{R/Magnet\_tracks\_dataset/results/polarity\_check.json}, and the
+correction box in Section~\ref{sec:sample} states what it does and does not
+affect.
 
 Field maps:
 \texttt{/cvmfs/lhcb.cern.ch/lib/lhcb/}\allowbreak\texttt{DBASE/FieldMap/v8r1/cdf/}\allowbreak\texttt{field.v8r1.down.bin},

@@ -70,6 +70,7 @@ Numbers quoted in prose but not in a table:
 | dataset size rule, N = 8000, leg mix 1317/1060/5558 | `R/General_leg_network/results/dataset_meta.json`, `results/general_legs_meta.json` |
 | chain construction counts (4563 test particles, 23500 legs) | `R/Chained_legs/results/chains_meta.json` |
 | field map grid, md5s, polarity parity | `R/_shared/results/vendoring_parity.json`; `R/Magnet_up_field/results/field_up_parity.json` |
+| the sample's polarity, and the correction box in §4.1 (1.73 mm vs 883 mm; 14.8 / 0.28 mm and 3973 / 169 mm by band; 100.0 % vs 0.0 % bend sign; 2 % of legs leaving the map; 15,257 particles) | `R/Magnet_tracks_dataset/results/polarity_check.json`; `R/Magnet_tracks_dataset/README.md`; figure `R/Magnet_tracks_dataset/figures/field_polarity.png` |
 | restart counts and wall times, both waves | `R/General_leg_network/README_residual.md` ("The farm"); the `*_history.csv` files |
 | cluster identifiers | the `README.md` / `README_residual.md` of each experiment folder |
 
@@ -165,6 +166,44 @@ and now reads 46 to 200. Every other number in the paper was already taken from
 the CSVs and needed no change, including the whole-split 273 um and the twin
 values 0.06 / 512 / 0.01 um. The paper was rebuilt after the caption fix.
 
+### Correction, 6 September 2026: the sample is magnet-up (applied 2026-09-07)
+
+Established by the magnet-to-magnet data set build
+(`R/Magnet_tracks_dataset/check_polarity.py`, output
+`results/polarity_check.json`): the official sample's conditions tag
+`sim-20231017-vc-mu100` is **magnet-up**. Propagating each particle's forward
+cross-magnet leg with `field.v8r1.up.bin` lands a median 1.73 mm from that
+particle's own real first-SciFi state, with the bend sign right for 100.0 % of
+15,257 particles; with `field.v8r1.down.bin` it lands 883 mm away, the sign
+wrong for 100 %, and 2 % of legs leave the field map. Every label and score in
+this paper used the down map.
+
+No result number in the paper changed. What changed is a boxed correction and
+seven sentences:
+
+| where | before | after |
+|---|---|---|
+| §4.1, end of "The sample" | -- | new boxed **"Correction, 6 September 2026: the sample is magnet-up"** with the up-vs-down numbers and the four consequences; `\label{sec:sample}` added |
+| abstract | "Trained on the reversed magnet polarity, for which no labelled sample exists anywhere in the project" | "Trained on the **magnet-up** polarity, for which no labelled sample exists anywhere in the project" |
+| §4.2, harvest step 4 | "...using the canonical field map at magnet-down polarity." | same sentence + footnote: "The sample itself is magnet-up; see the correction box in Section 4.1. The labels are therefore field-only propagations of the right start states through the wrong polarity..." |
+| §4.3, after the G2 paragraph | "...deliberately outside the surrogate's remit and stays with the existing extrapolator." | same sentence + footnote: "G2 as tabulated was measured against labels computed with the magnet-down map, so on the cross-magnet leg it is not a material-only residual and must be re-read on the magnet-up map." |
+| §5.4 heading | "Training where no labels exist: the reversed magnet polarity" | "Training where no labels exist: **the magnet-up polarity**" |
+| §5.4, Question paragraph | "...no training labels have ever been made for it in this project." | same sentence + footnote: "Magnet up is in fact the polarity the sample was simulated with, established after this experiment was run... the only one in this paper scored against the physically right field. Its numbers are unchanged." |
+| Table 6 caption | "No labelled sample has ever been produced for the reversed polarity in this project." | "No labelled sample has ever been produced for the **magnet-up** polarity in this project, **which is nonetheless the sample's own polarity** (Section 4.1)." |
+| §5.4, fiducial-asymmetry sentence | "...removes 21, 20 and 15 states from the three splits on the original polarity and none on the reversed one: ...the original polarity is the one that bends these particular soft tracks out of the map while the reversed polarity bends them back in." | "...on **magnet down** and none on **magnet up**: ... **magnet down** is the one that bends these particular soft tracks out of the map while **magnet up** bends them back in." |
+| Table 16 caption | "column 3 is the same leg on the reversed magnet polarity" | "column 3 is the same leg on the **magnet-up** polarity" |
+| §6.1 | "And on a field polarity for which no labels exist anywhere in the project it reaches the same floor" | "...**-- which is, in fact, the sample's own polarity (Section 4.1) --** it reaches the same floor" |
+| §8 Conclusion | "it reaches the same accuracy on a field polarity for which no labelled sample exists." | "...for which no labelled sample exists, **and which is the polarity the sample itself was simulated with (Section 4.1)**." |
+| Appendix A, data set and field maps | "...split by particle 258,857 / 32,389 / 32,287 with seed 20260718." | same + "The conditions tag is **magnet-up**, while every label in the set was computed with `field.v8r1.down.bin`; the test that settles it is `R/Magnet_tracks_dataset/results/polarity_check.json`..." |
+
+The four consequences are stated in the box and nowhere softened: every method
+conclusion stands (each experiment compared a network against the same equations
+and the same engine); any claim that the labels are where the simulated particle
+went is wrong and G2 must be re-read on the up map; the magnet-up experiment is
+the sample's true polarity rather than "a polarity with no labels", with its
+result (229 against 222 um) unchanged and its framing not; the magnet-to-magnet
+data set and the fine reference are built on the up map.
+
 ### Noted, not changed
 
 `README_residual.md`'s whole-split paragraph rounds three ratios loosely: the
@@ -175,12 +214,13 @@ disagreements, and they are outside the corrections above.
 
 ## Length
 
-38 pages. The van der Pol mini-paper it mirrors is 35. The brief asked for
+39 pages (38 before the polarity correction box of 7 September 2026). The van der Pol mini-paper it mirrors is 35. The brief asked for
 20-30; the content list in the brief (seven sections, a full theory derivation,
 six results subsections each with a table and a figure, the assembled verdict,
 the caveat list and the provenance appendix) does not compress below this
 without dropping required material. 13 figures, 16 tables, 12 bibliography
-entries.
+entries. As built: no LaTeX warnings, no overfull boxes, 15 underfull hboxes,
+all of them loose spacing around long typewriter paths.
 
 ## Scope note
 
