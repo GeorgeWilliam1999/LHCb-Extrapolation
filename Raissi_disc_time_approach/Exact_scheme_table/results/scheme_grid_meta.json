@@ -1,0 +1,56 @@
+{
+ "kind": "exact_scheme_table_rows",
+ "created": "2026-09-07 19:32:13",
+ "what": "the exact q-stage Gauss-Legendre scheme solved on the v3 test states, no network anywhere",
+ "dataset": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Raissi_disc_time_approach/Magnet_tracks_dataset/results/magnet_tracks_v3.npz",
+ "split": "test",
+ "cap_per_stratum": 2000,
+ "strata": [
+  "0.05-0.2 mm",
+  "0.5-2 mm",
+  "5-20 mm",
+  "50-200 mm",
+  "500-2000 mm",
+  "full crossing"
+ ],
+ "q_values": [
+  2,
+  4,
+  6,
+  8,
+  10,
+  12,
+  14,
+  16,
+  18,
+  20
+ ],
+ "solver": {
+  "module": "Exact_scheme_table/exact_solver.py",
+  "generalised_from": "../Simple_first_pass/exact_scheme.py solve_leg",
+  "method": "scipy.optimize.root, method='hybr', numerical jacobian",
+  "unknowns_per_state": "4 * q (q/p held fixed)",
+  "residual_units": "mm, mm, mrad, mrad",
+  "residual_tol": 1e-09,
+  "step_tol_passed_to_root": 1e-12,
+  "initial_guess": "straight line from the input state at the nodes",
+  "convergence_judged_on": "the residual, not the solver's flag",
+  "nodes": "z0 + c_j * dz, per sample z0 and dz"
+ },
+ "field": {
+  "which": "up",
+  "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+  "md5": "9e49ddc4313b589f273540e7e0bb513b"
+ },
+ "reference": {
+  "integrator": "fp64 RK6 (Butcher, 7 stages, order 6)",
+  "step_mm": 0.1,
+  "floor_um": 5e-05,
+  "source": "the dataset's own Y column"
+ },
+ "measure": {
+  "endpoint_um": "max(|dx|, |dy|) * 1e3",
+  "slope_mrad": "max(|dtx|, |dty|) * 1e3"
+ },
+ "wall_s": 2888.5
+}

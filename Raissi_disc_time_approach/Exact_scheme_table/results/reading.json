@@ -1,0 +1,335 @@
+{
+ "headline": {
+  "reference_floor_um": 5e-05,
+  "field_cell_mm": 100.0,
+  "states_per_cell": 2000,
+  "cells_in_the_grid": 60,
+  "solves": 120000,
+  "converged_frac_min": 1.0,
+  "full_crossing_q8_med_um": 32.62632016858902,
+  "full_crossing_q8_p95_um": 666.9194525158695,
+  "full_crossing_best_q": 14,
+  "full_crossing_best_med_um": 20.359926257235372,
+  "full_crossing_plateau_q_ge_8_um": [
+   32.63,
+   32.49,
+   41.5,
+   20.36,
+   36.13,
+   38.62,
+   23.56
+  ],
+  "full_crossing_plateau_range_um": [
+   20.36,
+   41.5
+  ],
+  "straight_line_full_crossing_um": 456075.1746171858,
+  "grid_wall_s": 2856.690479897894
+ },
+ "per_stratum": [
+  {
+   "stratum": "0.05-0.2 mm",
+   "median_abs_dz_mm": 0.09822287894675868,
+   "field_cells_crossed": 0.000982228789467587,
+   "med_q2_um": 1.4210854715202004e-11,
+   "med_q20_um": 1.4210854715202004e-11,
+   "gain_med": 1.0,
+   "p95_q2_um": 2.2737367544323206e-10,
+   "p95_q20_um": 2.2737367544323206e-10,
+   "gain_p95": 1.0,
+   "best_q": 2,
+   "best_med_um": 1.4210854715202004e-11,
+   "straight_line_um": 0.0001305794636863311,
+   "beats_straight_line_by": 9188712.875,
+   "verdict": "at the reference floor - the scheme's own error is smaller than the reference can resolve"
+  },
+  {
+   "stratum": "0.5-2 mm",
+   "median_abs_dz_mm": 0.9965707658995944,
+   "field_cells_crossed": 0.009965707658995944,
+   "med_q2_um": 2.3447910280083306e-10,
+   "med_q20_um": 2.3447910280083306e-10,
+   "gain_med": 1.0,
+   "p95_q2_um": 1.5347723092418164e-09,
+   "p95_q20_um": 1.4793499758525273e-09,
+   "gain_p95": 1.0374639769452458,
+   "best_q": 18,
+   "best_med_um": 2.2737367544323206e-10,
+   "straight_line_um": 0.013896570703053612,
+   "beats_straight_line_by": 59265710.833333336,
+   "verdict": "at the reference floor - the scheme's own error is smaller than the reference can resolve"
+  },
+  {
+   "stratum": "5-20 mm",
+   "median_abs_dz_mm": 10.00463580137827,
+   "field_cells_crossed": 0.10004635801378271,
+   "med_q2_um": 3.183231456205249e-09,
+   "med_q20_um": 2.9842794901924208e-09,
+   "gain_med": 1.0666666666666667,
+   "p95_q2_um": 7.969215864989095e-06,
+   "p95_q20_um": 7.049720807117409e-08,
+   "gain_p95": 113.04299961699707,
+   "best_q": 20,
+   "best_med_um": 2.9842794901924208e-09,
+   "straight_line_um": 1.4150646893398289,
+   "beats_straight_line_by": 474172976.75714284,
+   "verdict": "at the reference floor - the scheme's own error is smaller than the reference can resolve"
+  },
+  {
+   "stratum": "50-200 mm",
+   "median_abs_dz_mm": 101.91578686308067,
+   "field_cells_crossed": 1.0191578686308067,
+   "med_q2_um": 0.0032110356933401363,
+   "med_q20_um": 3.4109497448753245e-05,
+   "gain_med": 94.13905022096726,
+   "p95_q2_um": 0.12990599686348844,
+   "p95_q20_um": 0.0013569687126846475,
+   "gain_p95": 95.73249231847096,
+   "best_q": 20,
+   "best_med_um": 3.4109497448753245e-05,
+   "straight_line_um": 141.05070694597543,
+   "beats_straight_line_by": 4135232.633019372,
+   "verdict": "resolved - the scheme's own error is being measured"
+  },
+  {
+   "stratum": "500-2000 mm",
+   "median_abs_dz_mm": 997.8958374614399,
+   "field_cells_crossed": 9.978958374614399,
+   "med_q2_um": 12.785494020459254,
+   "med_q20_um": 0.14568162826841813,
+   "gain_med": 87.76325589182738,
+   "p95_q2_um": 511.56646333198796,
+   "p95_q20_um": 4.421201547597774,
+   "gain_p95": 115.70756452167254,
+   "best_q": 20,
+   "best_med_um": 0.14568162826841813,
+   "straight_line_um": 15985.931709538963,
+   "beats_straight_line_by": 109731.96757579422,
+   "verdict": "resolved - the scheme's own error is being measured"
+  },
+  {
+   "stratum": "full crossing",
+   "median_abs_dz_mm": 5174.685791015625,
+   "field_cells_crossed": 51.74685791015625,
+   "med_q2_um": 9255.981777696734,
+   "med_q20_um": 23.559801899295962,
+   "gain_med": 392.87179990988506,
+   "p95_q2_um": 55839.126783410655,
+   "p95_q20_um": 139.61894069876163,
+   "gain_p95": 399.9394817347008,
+   "best_q": 14,
+   "best_med_um": 20.359926257235372,
+   "straight_line_um": 456075.1746171858,
+   "beats_straight_line_by": 19358.19225334041,
+   "verdict": "resolved - the scheme's own error is being measured"
+  }
+ ],
+ "step_length_order": [
+  {
+   "q": 2,
+   "classical_local_order": 5,
+   "n_points": 3,
+   "measured_slope": 3.7777321592799935
+  },
+  {
+   "q": 4,
+   "classical_local_order": 9,
+   "n_points": 3,
+   "measured_slope": 3.876433298438363
+  },
+  {
+   "q": 6,
+   "classical_local_order": 13,
+   "n_points": 3,
+   "measured_slope": 3.4143833139071984
+  },
+  {
+   "q": 8,
+   "classical_local_order": 17,
+   "n_points": 3,
+   "measured_slope": 3.0873176625269645
+  },
+  {
+   "q": 10,
+   "classical_local_order": 21,
+   "n_points": 3,
+   "measured_slope": 3.179054347848763
+  },
+  {
+   "q": 12,
+   "classical_local_order": 25,
+   "n_points": 3,
+   "measured_slope": 3.322702240489013
+  },
+  {
+   "q": 14,
+   "classical_local_order": 29,
+   "n_points": 3,
+   "measured_slope": 3.2521739466856685
+  },
+  {
+   "q": 16,
+   "classical_local_order": 33,
+   "n_points": 3,
+   "measured_slope": 3.4326810265378636
+  },
+  {
+   "q": 18,
+   "classical_local_order": 37,
+   "n_points": 2,
+   "measured_slope": 3.3069567575431296
+  },
+  {
+   "q": 20,
+   "classical_local_order": 41,
+   "n_points": 2,
+   "measured_slope": 3.0900540542131885
+  }
+ ],
+ "ceiling_row": [
+  {
+   "stratum": "0.05-0.2 mm",
+   "q": 8,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 1.4210854715202004e-11,
+   "p95_um": 2.2737367544323206e-10,
+   "slope_med_mrad": 3.469446951953614e-15,
+   "median_n_eval": 37.0,
+   "evals_per_cell": 74000.0,
+   "wall_s": 29.354426675708964
+  },
+  {
+   "stratum": "0.05-0.2 mm",
+   "q": 20,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 1.4210854715202004e-11,
+   "p95_um": 2.2737367544323206e-10,
+   "slope_med_mrad": 3.469446951953614e-15,
+   "median_n_eval": 85.0,
+   "evals_per_cell": 170000.0,
+   "wall_s": 67.88753599347547
+  },
+  {
+   "stratum": "0.5-2 mm",
+   "q": 8,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 2.3447910280083306e-10,
+   "p95_um": 1.5077716852829314e-09,
+   "slope_med_mrad": 6.938893903907228e-14,
+   "median_n_eval": 37.0,
+   "evals_per_cell": 74000.0,
+   "wall_s": 30.133297299034894
+  },
+  {
+   "stratum": "0.5-2 mm",
+   "q": 20,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 2.3447910280083306e-10,
+   "p95_um": 1.4793499758525273e-09,
+   "slope_med_mrad": 6.938893903907228e-14,
+   "median_n_eval": 85.0,
+   "evals_per_cell": 170000.0,
+   "wall_s": 69.64667706913315
+  },
+  {
+   "stratum": "5-20 mm",
+   "q": 8,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 3.04822833641083e-09,
+   "p95_um": 4.314372858971178e-07,
+   "slope_med_mrad": 9.43689570931383e-13,
+   "median_n_eval": 74.0,
+   "evals_per_cell": 148000.0,
+   "wall_s": 49.27716247434728
+  },
+  {
+   "stratum": "5-20 mm",
+   "q": 20,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 2.9842794901924208e-09,
+   "p95_um": 7.049720807117409e-08,
+   "slope_med_mrad": 9.43689570931383e-13,
+   "median_n_eval": 170.0,
+   "evals_per_cell": 340000.0,
+   "wall_s": 114.4637042323593
+  },
+  {
+   "stratum": "50-200 mm",
+   "q": 8,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 0.00020070312167774773,
+   "p95_um": 0.009132940408562717,
+   "slope_med_mrad": 4.230909199376409e-06,
+   "median_n_eval": 38.0,
+   "evals_per_cell": 76000.0,
+   "wall_s": 37.00193087360822
+  },
+  {
+   "stratum": "50-200 mm",
+   "q": 20,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 3.4109497448753245e-05,
+   "p95_um": 0.0013569687126846475,
+   "slope_med_mrad": 7.494418089587507e-07,
+   "median_n_eval": 86.0,
+   "evals_per_cell": 172000.0,
+   "wall_s": 82.44944510585628
+  },
+  {
+   "stratum": "500-2000 mm",
+   "q": 8,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 0.6958437800790307,
+   "p95_um": 11.632978850353481,
+   "slope_med_mrad": 0.0012946249010117872,
+   "median_n_eval": 40.0,
+   "evals_per_cell": 80000.0,
+   "wall_s": 32.5938514850568
+  },
+  {
+   "stratum": "500-2000 mm",
+   "q": 20,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 0.14568162826841813,
+   "p95_um": 4.421201547597774,
+   "slope_med_mrad": 0.00027901280688635843,
+   "median_n_eval": 88.0,
+   "evals_per_cell": 176000.0,
+   "wall_s": 72.68395232362673
+  },
+  {
+   "stratum": "full crossing",
+   "q": 8,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 32.62632016858902,
+   "p95_um": 666.9194525158695,
+   "slope_med_mrad": 0.012080976101362748,
+   "median_n_eval": 42.0,
+   "evals_per_cell": 84000.0,
+   "wall_s": 35.64736206503585
+  },
+  {
+   "stratum": "full crossing",
+   "q": 20,
+   "n": 2000,
+   "converged_frac": 1.0,
+   "med_um": 23.559801899295962,
+   "p95_um": 139.61894069876163,
+   "slope_med_mrad": 0.009563533965171317,
+   "median_n_eval": 90.0,
+   "evals_per_cell": 180000.0,
+   "wall_s": 71.90479353070259
+  }
+ ]
+}
