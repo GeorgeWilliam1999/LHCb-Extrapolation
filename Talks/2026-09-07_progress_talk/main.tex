@@ -1164,7 +1164,8 @@
       {\small The harvest: dump the simulation truth; turn each tracker hit into
        a state with position, local slopes and truth momentum; form legs from
        each particle's own geometry; label by fourth-order Runge--Kutta at
-       $5\mm$; split by particle, because legs from one particle are highly
+       $5\mm$ \bad{with the magnet-down map (the sample is up; see the next
+       slide)}; split by particle, because legs from one particle are highly
        correlated and splitting by leg would leak.
        \smallskip
 
@@ -1185,6 +1186,66 @@
         Kolmogorov--Smirnov distances printed. Distances $0.006$ to $0.069$, so
         switching sample changed the provenance of the population and not its
         physics. The three clusters in the $z$ panel are the detector itself.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- 25b  (correction slide, added 2026-09-07) ---------------------------
+\begin{frame}[shrink=25]{Correction found last night: the sample is magnet-up}
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.42\textwidth}
+      {\footnotesize The conditions tag \texttt{sim-20231017-vc-mu100} is
+       \bad{magnet-up}. Established 6 September while building the
+       magnet-to-magnet data set: propagate each particle's forward
+       cross-magnet leg and compare with that particle's \emph{own} real first
+       SciFi state, on $15{,}257$ particles.}
+      \smallskip
+
+      \resizebox{\linewidth}{!}{\footnotesize
+      \begin{tabular}{@{}lrr@{}}
+        \toprule
+        forward leg vs the real state & v8r1.up & v8r1.down \\
+        \midrule
+        median miss, all $15{,}257$ & \hl{$1.73\mm$} & $883\mm$ \\
+        \quad $1$--$2$ GeV & $14.8\mm$ & $3973\mm$ \\
+        \quad $25$--$200$ GeV & $0.28\mm$ & $169\mm$ \\
+        bend sign correct & \hl{$100.0\,\%$} & \bad{$0.0\,\%$} \\
+        legs leaving the field map & $0\,\%$ & $2\,\%$ \\
+        \bottomrule
+      \end{tabular}}
+      \smallskip
+
+      {\footnotesize The two maps are exact negatives, so polarity changes only
+       the sign of the bend. \bad{Every July and Block A label and score used
+       the down map}: the training set's $Y$ column, the frozen-leg
+       experiments, the general-leg and residual experiments.}
+    \end{column}
+    \begin{column}{0.56\textwidth}
+      \includegraphics[width=\linewidth]{lhcb_field_polarity.png}
+      \srcnote{Left: the forward cross-magnet leg against the particle's own
+        real first-SciFi state, per particle, both maps, with band medians.
+        Middle: the fraction of particles whose bend has the right sign, by
+        momentum band. Right: one $3.3$ GeV track, its own hits and the
+        reference path through each map.}
+      \vspace{1mm}
+
+      {\footnotesize\textbf{Four consequences, no more and no less.}
+      \begin{itemize}\setlength{\itemsep}{2pt}
+        \item \hl{Every method conclusion stands.} Each experiment compared a
+              network against the same equations and the same engine:
+              scheme-limited against network-limited, the optimisation-limited
+              floor, the residual redesign, chaining.
+        \item \bad{Any statement that those labels are where the simulated
+              particle went is wrong}, and the material-floor gate G2 must be
+              re-read on the up map.
+        \item The magnet-up experiment is \bad{not ``a polarity with no
+              labels''} but the sample's true polarity, and the only one here
+              scored against the physically right field. Its result (same
+              floor, $229$ against $222\um$) is unchanged; its framing is.
+        \item The new magnet-to-magnet set, the fine reference and the tables
+              in progress are \hl{built on the up map}.
+      \end{itemize}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -1214,7 +1275,9 @@
       {\small G2 defines the scope of the project. The label disagrees with the
        real next hit by an amount growing as $1/p$, the signature of multiple
        scattering. That residual is not an error in the labels; it is the
-       material effect, deliberately outside the surrogate's remit.}
+       material effect, deliberately outside the surrogate's remit.
+       \bad{G2 was measured with down-map labels and must be re-read on the up
+       map (previous slide).}}
     \end{column}
     \begin{column}{0.54\textwidth}
       \textbf{The fiducial requirement, and why it is the portability lesson}
@@ -2242,12 +2305,12 @@
 \end{frame}
 
 % ---- 42 ------------------------------------------------------------------
-\begin{frame}[shrink=25]{Training where no labels exist: the reversed magnet polarity reaches the same floor}
+\begin{frame}[shrink=25]{Training where no labels exist: the magnet-up polarity, the sample's own, reaches the same floor}
   \vspace{2mm}
   \centering\small
   \begin{tabular}{@{}lrr@{}}
     \toprule
-    quantity & magnet up (reversed) & magnet down (original) \\
+    quantity & magnet up (the sample's own) & magnet down (as labelled) \\
     \midrule
     network, label-free physics loss & \hl{$229$} [$171$--$296$], 10 seeds & \hl{$222$} [$165$--$244$], 10 seeds \\
     network, supervised data twin    & $204$ [$187$--$230$], 3 seeds  & $192$ [$162$--$208$], 3 seeds \\
@@ -2294,7 +2357,12 @@
        the reversed bends them back in. A control re-scoring the reversed
        networks on only the tracks the original also keeps moves the median from
        $229.4$ to $226.6\um$, about one percent, so medians are unaffected.
-       Statements about \emph{tails}, however, must say which polarity.}
+       Statements about \emph{tails}, however, must say which polarity.
+       \smallskip
+
+       \bad{Correction, 6 September.} Magnet up is the sample's own polarity,
+       so this is the only experiment here scored against the physically right
+       field. The numbers are unchanged; the framing is.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -2905,7 +2973,8 @@
         the network sits on the scheme's error to $0.1$ and $0.6$ percent where
         the scheme limits; the shortfall where the network limits is identified
         as optimisation at $+0.965$ over $96$ runs; at $4\times200$ it beats its
-        own twin; and it reaches the same floor on a polarity with no labels.}}
+        own twin; and it reaches the same floor on a polarity with no labels of
+        its own, which is in fact the sample's own polarity.}}
     \end{column}
     \begin{column}{0.47\textwidth}
       \fbox{\parbox{0.93\textwidth}{\small
@@ -3316,6 +3385,8 @@
        description and conditions of 17 October 2023, five of eight files
        mirrored locally ($19$ GB), $200$ events. $323{,}533$ rows split by
        particle $258{,}857 / 32{,}389 / 32{,}287$ with seed $20260718$.
+       The conditions tag is magnet-\textbf{up}; every label was computed with
+       the magnet-down map.
        Canonical field maps at both polarities, grid $81 \times 81 \times 146$
        at $100\mm$ spacing spanning $(-4000, -4000, -500)$ to
        $(4000, 4000, 14000)\mm$, trilinear interpolation, checksums recorded in

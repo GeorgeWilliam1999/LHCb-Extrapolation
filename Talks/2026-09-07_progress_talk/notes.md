@@ -236,7 +236,25 @@ switching to an official sample changed the provenance and not the physics. The
 policy change of 21 July is worth stating plainly: home-grown generation caused
 silent problems.
 
-**26. Gates and the fiducial requirement**
+**26. Correction found last night: the sample is magnet-up**
+
+I stop the talk here and say it plainly, because it is a fact about the data and
+not a result: the sample's conditions tag is magnet-up, and every label and
+score in this deck up to the magnet-up slide was computed with the magnet-down
+map. I give the one measurement that settles it -- the forward cross-magnet leg
+against the particle's own real first-SciFi state, 1.73 mm with the up map
+against 883 mm with the down one, and the bend sign right for 100 percent of
+15,257 particles against 0 percent -- and then I am careful to state exactly
+what it costs and what it does not. It does not touch a single method
+conclusion, because every experiment scored a network against the same equations
+and the same engine. It does kill any claim that those labels are where the
+simulated particle went, it means G2 has to be re-read on the up map, and it
+turns the magnet-up experiment from "a polarity with no labels" into the only
+experiment in the deck scored against the physically right field. I say the new
+magnet-to-magnet set is built on the up map, and I invite the room to push on
+whether the rest of the line should follow.
+
+**27. Gates and the fiducial requirement**
 
 I give the four gates quickly and stop on G2, because that is the material
 effect and therefore the scope boundary of the project. Then the fiducial
@@ -250,7 +268,7 @@ trajectory the way a supervised loss silently does.
 
 ## Results, van der Pol
 
-**27. The cliff**
+**28. The cliff**
 
 I give the table and the two pictures together, because the phase plane is what
 makes the failure legible: the fit abandons the loop and spirals into the
@@ -260,11 +278,11 @@ initialisation accident. Below one period the reproduction is at or better than
 the source work's own reported accuracy, which is the check that the machinery
 is built correctly.
 
-**28. The classical anchor at the same step**
+**29. The classical anchor at the same step**
 
 I put this in so nobody thinks the networks are being compared only with each other. At a step of 0.8 the explicit order-6 method blows up, the implicit one of the same order is fine at every horizon, and inside the networks' working range the network beats the implicit method. The point I want to land is the last box: fine steps favour classical integration by miles; at a coarse step only implicit structure works, whether solved or learned, and that is the discrete-time column's whole premise.
 
-**29. Causal weighting**
+**30. Causal weighting**
 
 I show the improvement at two periods and then spend most of the time on the one
 run that produced a training loss of $9.7\times10^{-6}$ with an error of $0.71$.
@@ -272,11 +290,11 @@ That run is the splice theorem in the wild, found before I knew what it was: an
 out-of-phase near-solution joined to the truth inside an unsampled interval. I
 say that finding it is what sent me to the stability literature.
 
-**30. The resource axes under the original protocol**
+**31. The resource axes under the original protocol**
 
 This is the 700 runs that earned the right to say the failure is structural. I walk the three axes quickly: size does nothing and depth hurts, density does nothing at the failing horizons, placement does nothing. I dwell on the success map, because the start deciding the outcome is what pointed at the objective. And I state the qualification myself before anyone asks: under the converged protocol density does help at two periods, and I show that later; the four-period wall is what the null results are about.
 
-**31. The supervised control**
+**32. The supervised control**
 
 I present this as the cleanest possible experiment: change the loss and nothing
 else. Twenty-four supervised runs all fit four periods; every physics run at the
@@ -284,7 +302,7 @@ same horizon sits between $0.4$ and $2.0$. So the network can express the answer
 and the optimiser can find it, and the fault is in what the residual objective
 accepts.
 
-**32. Eight objectives**
+**33. Eight objectives**
 
 I explain that a fixed-budget first pass would have given a different and wrong
 answer, which is why every run here is trained to a demonstrated plateau. Every
@@ -292,7 +310,7 @@ fix works at two periods, which is exactly where the regulariser paper tested
 it, so this is not a criticism of that paper. Past two periods only pseudo-time
 stepping survives, and I let the column of zeros do the work.
 
-**33. The three failure classes**
+**34. The three failure classes**
 
 I use the phase plane to show that the failures are not noise but three
 reproducible shapes. The fact I most want stated is that the polish drives the
@@ -301,11 +319,11 @@ loss and error decouple on that branch. That is the silent failure in its fully
 converged form, and it is why I do not trust a converged loss on this
 construction.
 
-**34. The eight arms in pictures**
+**35. The eight arms in pictures**
 
 I let the residual panel do the talking. Every regulariser variant is quiet across the whole window and pays one enormous spike right after the anchor: that is a splice, placed where the fixed set cannot see it. The parks look different, a moderate residual across the hand-over. I say that the classification on the previous slide is read off this panel, not asserted, and that the summary and trajectory panels on the left are the same 240 runs seen two other ways.
 
-**35. The two resource axes**
+**36. The two resource axes**
 
 I make the honest correction first: an earlier null verdict on density does not
 survive training to convergence at two periods, so I have changed that
@@ -313,7 +331,7 @@ statement. Past four periods it stands, and pseudo-time stepping's six-period
 rate does not move in any direction with density. I say clearly that ten seeds
 cannot separate those rates, so I am not claiming a trend I cannot resolve.
 
-**36. The two axes as pictures**
+**37. The two axes as pictures**
 
 The three panels are the same two axes drawn out, and the right-hand one is the
 part I want people to look at. The long-horizon failures are late parks: the
@@ -323,7 +341,7 @@ consequence, that the classifier reads a late park as diffuse, so the
 periods-survived panel is the honest readout at long horizon rather than the
 success rate.
 
-**37. The $1/T$ price**
+**38. The $1/T$ price**
 
 This is the slide where the theory becomes a measurement: over sixty-five parked
 runs, loss times $T$ has a median of $0.85$ and a range of $0.84$ to $0.90$ from
@@ -332,7 +350,7 @@ a resampled method's wall by pricing, because the parked branch is already fully
 sampled. What density can do is make the descent to the truth cheaper in more
 seeds, which is exactly what the four-period column shows.
 
-**38. The discrete-time floor**
+**39. The discrete-time floor**
 
 I contrast this immediately with everything before it: the loss is an honest
 proxy for the error here, a squared-residual loss of $10^{-5}$ resolving outputs
@@ -341,7 +359,7 @@ scheme's own error, and from four stages the scheme runs away to roundoff while
 the network stays flat. That flatness is what fixes eight stages for everything
 afterwards.
 
-**39. The same floor twice**
+**40. The same floor twice**
 
 I put the stage curve and the architecture map side by side because they are two
 views of one statement. More stages cannot help once the scheme's error is below
@@ -350,7 +368,7 @@ reason is how far the optimiser got. I say here that the LHCb architecture grid
 then reproduced this independently on a completely different system, which is
 the transfer claim in its cleanest form.
 
-**40. Size and seed on van der Pol**
+**41. Size and seed on van der Pol**
 
 I give the correlation of $+0.974$ as the evidence that the floor is
 optimisation and not capacity, and note that there is no capacity-rich,
@@ -359,7 +377,7 @@ ranks six-period chained error at only $+0.35$. So one-step quality and
 long-horizon quality are different properties, and the seed decides the second
 one.
 
-**41. Selection**
+**42. Selection**
 
 I give the protocol as three steps and the payoff as a factor of three to
 ninety-six over the median seed. The far-horizon check is what separated the
@@ -368,7 +386,7 @@ while its siblings grew by factors of nine to twenty-four. The caveat is real
 and I state it: the validation window has to match the horizon the map will
 actually be used at.
 
-**42. Routes and the data twin**
+**43. Routes and the data twin**
 
 I show that chaining a reusable one-step map beats one giant step by a factor of
 ten, and that the reason the giant step is limited is nonlinear solvability
@@ -382,15 +400,15 @@ five orders below either error.
 
 ## Results, LHCb
 
-**43. The discrete-time column in pictures**
+**44. The discrete-time column in pictures**
 
 Three pictures for the three claims of the previous table: the head-to-head shows where each formulation wins, the test-set panel shows the error as a distribution rather than one lucky trajectory, and the label bill shows what the physics loss buys. I say plainly that the growth in the middle panel belongs to unselected seeds, and that the selected network's flat line was on the slide before.
 
-**44. Steps 0 and 1 on LHCb**
+**45. Steps 0 and 1 on LHCb**
 
 Before any network I show the function to be learned and the ceiling under it. The field is smooth and uniform across real paths, which is why a one-step method can hope to work; the bending correction falls as one over momentum, which is why the soft tracks are the hard ones. The exact scheme converged on every one of 640 legs, including a single step across the whole magnet, and it floors at about 23 micrometres because of the field map's interpolation, not the scheme. Every network number that follows is measured against this curve on the same states.
 
-**45. The July baseline**
+**46. The July baseline**
 
 I give the three things that were fixed in July and have not moved since, and
 why that leg was chosen: it is the modal cross-magnet plane pair and the hardest
@@ -399,7 +417,7 @@ which is what the fiducial requirement bought. I say that the factor-two gap the
 July experiments chased was a budget artefact, because that is a mistake worth
 owning in public.
 
-**46. The stage sweep**
+**47. The stage sweep**
 
 This is the result I am proudest of, so I slow down. At two and four stages the
 label-free network lands within $0.1$ and $0.6$ percent of the scheme's own
@@ -408,7 +426,7 @@ are five millimetres wrong on this leg. The twin is thirty times better there
 precisely because it never sees the scheme. I also give the two surprises, since
 four stages being no better than two is genuinely counterintuitive.
 
-**47. The same sweep as a picture**
+**48. The same sweep as a picture**
 
 I point at where the blue and green curves lie on top of one another and where
 they separate, because that is the whole argument in one image. Then I make the
@@ -417,7 +435,7 @@ momentum-stratified population is a harder population and the number is not
 comparable. Both curves are in the figure so the difference is visible rather
 than argued about.
 
-**48. The architecture grid**
+**49. The architecture grid**
 
 I put the whole grid up because I would rather be asked about a specific cell
 than show a summary. Depth four is the optimum and it is interior, which is a
@@ -426,7 +444,7 @@ unconverged runs are all at width thirty-two or depth six and none of them
 diverged: they failed the confirmation pass, which is a different and milder
 statement.
 
-**49. The loss-error band**
+**50. The loss-error band**
 
 This is the evidence slide for the optimisation-floor claim, and the picture
 does the work: three decades of loss onto one and a half decades of error, all
@@ -434,7 +452,7 @@ on one band. If the floor were capacity the small architectures would form their
 own branches above it, and they do not. The footnote about the two systems
 agreeing to two decimal places is genuinely unexplained and I say so.
 
-**50. Returns and the twin**
+**51. Returns and the twin**
 
 I give the diminishing-returns arithmetic, then the result I did not expect: at
 the largest size the label-free loss beats its own supervised twin, with a
@@ -443,7 +461,7 @@ validation selection is safe here and stops being safe the moment the network is
 chained. The recommendation at the bottom is what the later experiments should
 have followed and only partly did, because they were already running.
 
-**51. The reversed polarity**
+**52. The reversed polarity**
 
 I frame this as the strongest available test of the label-free claim: train
 where no labelled sample has ever existed. I give the three pre-submission
@@ -452,7 +470,7 @@ ignored, and the probe run rules that out. The one genuine asymmetry is in the
 tracks rather than the map, and it affects tails and not medians, so I state
 which statements need a polarity attached.
 
-**52. The reversed polarity in pictures**
+**53. The reversed polarity in pictures**
 
 I use the right-hand panel, the two sets of trajectories curving in opposite
 directions, as the check that the network learned the sign of the bending rather
@@ -460,7 +478,7 @@ than the geometry. The left panel shows the two polarities lying on top of one
 another with both ceilings marked. The middle panel is the momentum dependence,
 which is the same curve for both.
 
-**53. One network for all legs**
+**54. One network for all legs**
 
 I say the honest thing first: it works mechanically and is nowhere near any of
 the ceilings. Making the leg an input costs a factor of fourteen on the magnet
@@ -469,7 +487,7 @@ nothing, which is the failure that mattered. The twin being uniformly ahead
 here, where on the frozen leg the two were indistinguishable, is the clue that
 the gap opens exactly where the geometry varies.
 
-**54. The hypothesis**
+**55. The hypothesis**
 
 I present the four pieces of evidence in the order I actually had them, and I
 make the point that this was stated as a hypothesis before it was tested. The
@@ -478,7 +496,7 @@ correction on an output whose scale is six hundred millimetres. Then the second
 wave separated the parameterisation explanation from the capacity one, and it
 came out on the parameterisation side.
 
-**55. Chaining the absolute network**
+**56. Chaining the absolute network**
 
 I give the table and then the diagnosis: growth ratios of about two per leg, in
 every architecture and both losses, which is systematic bias rather than
@@ -486,7 +504,7 @@ independent random error. Width shifts the curve down and does not change its
 slope, which is the sense in which chained error is not bounded. The seed lesson
 is the same one the oscillator taught, and it transferred exactly.
 
-**56. Leg D**
+**57. Leg D**
 
 I use this as the out-of-training test, since no leg of that geometry was in any
 training set. Under absolute outputs, splitting a hard step into two easier ones
@@ -496,7 +514,7 @@ earlier conclusion that composite stepping actively destroys accuracy is now
 only marginally true, and I would rather retract that cleanly than leave it
 standing.
 
-**57. The absolute-output network in pictures**
+**58. The absolute-output network in pictures**
 
 Three panels, one per result I have just tabulated, for anyone who reads a cloud
 faster than a column. On the by-leg panel the thing to see is that on the two
@@ -505,7 +523,7 @@ the curves are straight on a log axis over the first four legs, which is
 geometric growth rather than square-root growth, and on the leg-D panel the
 composite route is worse than the single step at every momentum.
 
-**58. The residual redesign**
+**59. The residual redesign**
 
 I stress that exactly one thing changed and everything else is byte for byte
 identical, because that is what makes the comparison mean something. The two
@@ -513,7 +531,7 @@ short legs transform by factors of ninety-two and a hundred and ninety and cross
 from above the straight line to below it. The magnet crossing improves by only
 two and a half, and that is the whole of the remaining problem.
 
-**59. Reading it across**
+**60. Reading it across**
 
 I go through the five readings and make sure the fourth and fifth land: the twin
 is extraordinary on the short legs, and the distance-to-ceiling scorecard says
@@ -523,7 +541,7 @@ an untrained residual network already beats a straight line by construction. And
 the optimisation got easier, not just the answer better, which is the strongest
 form of the conditioning claim.
 
-**60. Inside the step, and the tails**
+**61. Inside the step, and the tails**
 
 The stage-error table is the clearest single piece of evidence that the
 diagnosis was right: flat means an offset, rising means accumulation, and the
@@ -532,7 +550,7 @@ unwelcome thing: a small population got worse while the bulk got thousands of
 times better. An extrapolator with a bounded time budget has to survive its
 tail, so this is a real limitation and not a presentational one.
 
-**61. The redesign in pictures**
+**62. The redesign in pictures**
 
 The left panel is the crossing I care about: the residual cloud moves from above
 the straight line to below it on the two short leg types, uniformly in momentum.
@@ -542,7 +560,7 @@ than a straight line, the stiff seventy-millimetre hop above twenty GeV, because
 there is essentially nothing to predict there and the network's own noise floor
 sits above it.
 
-**62. Chaining the residual networks**
+**63. Chaining the residual networks**
 
 Two things are true at once here and they pull in opposite directions, so I say
 both. The chain is better everywhere, by four to thirteen times, and the whole
@@ -550,7 +568,7 @@ distribution moves rather than just the median. But the compounding got worse,
 and the reason is that after two or three steps the chain is dominated by the
 one leg the redesign barely improved.
 
-**63. The cross-magnet leg on one axis**
+**64. The cross-magnet leg on one axis**
 
 I use this as the summary of the product story: making the leg an input costs a
 factor of fourteen and the redesign recovers two and a half of it. The
@@ -559,7 +577,7 @@ and I point out that the same label-free expression lands within ten percent of
 the truth on three geometries spanning five orders of magnitude. That gap, and
 not the output scale, is what the next experiments attack.
 
-**64. The verdict**
+**65. The verdict**
 
 I put everything on one page and read the two boxes. Question one is yes on
 every one of its pre-stated clauses. Question two is closer than it was and not
@@ -570,7 +588,7 @@ not want the operation count travelling further than it should.
 
 ## What is not working
 
-**65. Two ceilings and a floor**
+**66. Two ceilings and a floor**
 
 I separate the three limits cleanly: the field map caps the scheme, the
 optimiser caps the network a factor of five above that, and one leg caps the
@@ -579,7 +597,7 @@ that leg is the key fact, because it means the problem is not the label-free
 objective. And the thirteen-percent share is the uncomfortable irony: fixing the
 conditioning handed the optimisation budget to the easy legs.
 
-**66. What I cannot claim**
+**67. What I cannot claim**
 
 I go through these deliberately, including that labels are free at LHCb so the
 label-free advantage is methodological rather than economic. The harness lessons
@@ -587,7 +605,7 @@ are on the right because they cost me a day each and I would like them to cost
 somebody else nothing. I say explicitly that no result changes because of the
 restart-cap incident, and why.
 
-**67. What would falsify the edge**
+**68. What would falsify the edge**
 
 I present two tests with pass and fail criteria written before running them, so
 the outcome cannot be reinterpreted afterwards. For the throughput test the
@@ -600,7 +618,7 @@ is exactly why it is worth running first.
 
 ## Direction
 
-**68. The queue**
+**69. The queue**
 
 I put the field surrogate first because it lifts the ceiling for everyone and
 not only for me, and flag that it changes what is being solved, which is a
@@ -608,7 +626,7 @@ question for the room. The second-order scale is the tail fix and it stays label
 free, which matters for the portability argument. The two small items are
 housekeeping and I mention them only so they are on the record.
 
-**69. What the theory predicts, and the thesis framing**
+**70. What the theory predicts, and the thesis framing**
 
 I record the predictions before opening the continuous-time column rather than
 after, because that is the only way they are worth anything. There is no
@@ -617,7 +635,7 @@ flow-following splice, and the intervention to reach for is pseudo-time stepping
 rather than the regulariser. Then the two boxes: the method is validated and the
 product edge is unproven, and I say which of those the thesis can carry today.
 
-**70. Feedback**
+**71. Feedback**
 
 I read the six questions and say which one I most want answered, which is the
 third: I do not have an accuracy or tail requirement to score against, and
@@ -629,18 +647,18 @@ talking.
 
 ## Reference slides
 
-**71. Protocol and gates**
+**72. Protocol and gates**
 
 Only if asked. The seven-step protocol and the three package gates, all passing,
 including the bitwise reproduction of the July baseline dataset and first
 optimiser restart.
 
-**72. Provenance**
+**73. Provenance**
 
 Only if asked. Commits, the sample, the field maps and the cluster identifiers,
 with the two commits that are still local and pending push flagged as such.
 
-**73. Where the record lives**
+**74. Where the record lives**
 
 Only if asked, or at the end if people want to read further: the two papers, the
 five write-ups and the repository.
