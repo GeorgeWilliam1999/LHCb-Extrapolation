@@ -1,0 +1,194 @@
+{
+ "what": "C1.2 / C1.3 - the fine reference's convergence and cost",
+ "node": "stbc-i2.nikhef.nl",
+ "python": "3.10.19",
+ "numpy": "2.2.6",
+ "field": {
+  "which": "up",
+  "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+  "md5": "9e49ddc4313b589f273540e7e0bb513b",
+  "grid": "trilinear on a 100 mm cell, so C0 in the derivative"
+ },
+ "legs": {
+  "n": 200,
+  "per_cell": 20,
+  "seed": 20260906,
+  "cells": [
+   {
+    "p_band_GeV": [
+     1.0,
+     2.0
+    ],
+    "direction": 1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     1.0,
+     2.0
+    ],
+    "direction": -1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     2.0,
+     5.0
+    ],
+    "direction": 1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     2.0,
+     5.0
+    ],
+    "direction": -1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     5.0,
+     10.0
+    ],
+    "direction": 1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     5.0,
+     10.0
+    ],
+    "direction": -1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     10.0,
+     25.0
+    ],
+    "direction": 1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     10.0,
+     25.0
+    ],
+    "direction": -1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     25.0,
+     200.0
+    ],
+    "direction": 1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   },
+   {
+    "p_band_GeV": [
+     25.0,
+     200.0
+    ],
+    "direction": -1,
+    "candidates": 80,
+    "in_map": 80,
+    "taken": 20
+   }
+  ],
+  "span_mm": {
+   "min": 5159.390869140625,
+   "max": 6536.676025390625,
+   "median": 5174.269775390625
+  },
+  "selection": "magnet_leg_rows() then a coarse in-map check"
+ },
+ "step_ladder_mm": [
+  0.8,
+  0.4,
+  0.2,
+  0.1,
+  0.05
+ ],
+ "successive_halving_median_um": {
+  "0.8": 9.423615665582474e-05,
+  "0.4": 1.1750774131513708e-05,
+  "0.2": 7.810488256154713e-06,
+  "0.1": 2.075968730252953e-06
+ },
+ "successive_halving_ratios": [
+  8.02,
+  1.504,
+  3.762
+ ],
+ "ideal_ratio_for_order_6": 64,
+ "smooth_control_median_um": {
+  "0.8 vs 0.2": 9.912355380947702e-07,
+  "0.2 vs 0.05": 3.969461204178515e-06
+ },
+ "closure_median_um": 3.6571226047499295e-06,
+ "cross_check_other_polarity": {
+  "field": "v8r1.down",
+  "step_halving_0.1_vs_0.05_median_um": 2.8038300570187857e-06,
+  "closure_median_um": 3.6413574378002522e-06,
+  "why": "the map's grid, not its sign, sets the floor; these legs were chosen on the up map so this is the same 200 start states integrated through the other polarity"
+ },
+ "rk4_vs_rk6_median_um": {
+  "5.0": 0.012694930724421738,
+  "1.0": 0.0008174113403924821
+ },
+ "cost": {
+  "wall_s": {
+   "rk6_0.8_mm_wall_s": 36.06,
+   "rk6_0.4_mm_wall_s": 62.5,
+   "rk6_0.2_mm_wall_s": 109.56,
+   "rk6_0.1_mm_wall_s": 208.65,
+   "rk6_0.05_mm_wall_s": 422.52,
+   "closure_wall_s": 210.13,
+   "rk4_5_mm_wall_s": 2.33,
+   "rk4_1_mm_wall_s": 11.63
+  },
+  "seconds_per_track_at_0.1_mm": 1.0433,
+  "crossing_mm": 5174.269775390625,
+  "batch": {
+   "200": {
+    "wall_s_for_20mm": 0.675,
+    "extrapolated_s_per_track_for_the_crossing": 0.8727
+   },
+   "1000": {
+    "wall_s_for_20mm": 1.007,
+    "extrapolated_s_per_track_for_the_crossing": 0.2604
+   },
+   "5000": {
+    "wall_s_for_20mm": 2.587,
+    "extrapolated_s_per_track_for_the_crossing": 0.1339
+   },
+   "20000": {
+    "wall_s_for_20mm": 9.276,
+    "extrapolated_s_per_track_for_the_crossing": 0.12
+   }
+  },
+  "peak_rss_MB": 145.5,
+  "note": "one thread; the field call is the whole cost, and it amortises over the batch, so the per-track figure falls until the batch stops fitting in cache"
+ },
+ "wall_s": 2228.6
+}

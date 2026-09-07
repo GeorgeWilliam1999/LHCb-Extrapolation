@@ -1,0 +1,153 @@
+{
+ "what": "C1.1 verification battery for _shared.reference.rk6_rows",
+ "tableau": "Butcher, seven stages, order six (explicit)",
+ "kappa": 0.001,
+ "node": "stbc-i2.nikhef.nl",
+ "python": "3.10.19",
+ "numpy": "2.2.6",
+ "wall_s": 71.68,
+ "checks": {
+  "1_provenance": {
+   "source_file": "/data/bfys/gscriven/Van_Der_Pole/RK_Truth/rk6.py",
+   "compared": "element by element, exact equality (no tolerance)",
+   "identical": {
+    "C": true,
+    "A": true,
+    "B": true,
+    "ORDER": true,
+    "N_STAGES": true
+   },
+   "max_abs_difference": {
+    "C": 0.0,
+    "A": 0.0,
+    "B": 0.0
+   },
+   "passes": true
+  },
+  "2_identities": {
+   "what": "each row of A sums to its node c; b sums to 1; A strictly lower triangular (explicit)",
+   "max_row_sum_error": 2.220446049250313e-16,
+   "weight_sum_error": 0.0,
+   "upper_triangle_max": 0.0,
+   "tolerance": 1e-15,
+   "passes": true
+  },
+  "3_order_on_exact_solution_problems": {
+   "what": "global error at t = 1 against the exact solution; the slope of log(error) vs log(h) is the order",
+   "step_sizes": [
+    0.2,
+    0.13036726897376782,
+    0.08497812409839364,
+    0.05539182980610754,
+    0.036106407876409945,
+    0.023535468936502525,
+    0.015341274046343915,
+    0.01
+   ],
+   "expected_order": 6,
+   "tolerance_on_slope": 0.35,
+   "problems": {
+    "linear:  dy/dt = -y": {
+     "errors": [
+      1.8879679208883005e-08,
+      1.0468588218515151e-09,
+      8.82898198995008e-11,
+      7.546463454133345e-12,
+      5.224709553885987e-13,
+      4.518607710224387e-14,
+      3.3306690738754696e-15,
+      2.220446049250313e-16
+     ],
+     "points_above_roundoff": 5,
+     "fitted_order": 6.0572059971243775,
+     "passes": true
+    },
+    "nonlinear:  dy/dt = -y^2": {
+     "errors": [
+      1.0388318583687273e-06,
+      4.57359746741659e-08,
+      3.3584593994717693e-09,
+      2.6076935055741046e-10,
+      1.6831203097922298e-11,
+      1.3993806113887786e-12,
+      9.797718192317006e-14,
+      7.216449660063518e-15
+     ],
+     "points_above_roundoff": 6,
+     "fitted_order": 6.266628604234597,
+     "passes": true
+    },
+    "non-autonomous:  dy/dt = y cos t": {
+     "errors": [
+      3.538339354847153e-08,
+      2.5274804471564494e-09,
+      2.442956947845687e-10,
+      2.283417899207052e-11,
+      1.6848744621711376e-12,
+      1.5187850976872141e-13,
+      1.199040866595169e-14,
+      8.881784197001252e-16
+     ],
+     "points_above_roundoff": 6,
+     "fitted_order": 5.748400434409905,
+     "passes": true
+    }
+   },
+   "passes": true
+  },
+  "4_order_of_rk6_rows_on_a_smooth_field": {
+   "what": "the LHCb ODE with a smooth analytic field in place of the trilinear map, integrated by rk6_rows itself; error against the same routine at step 0.5 mm",
+   "why": "the v8r1 map is trilinear, hence only C0, so its own convergence flattens at the order the kinks allow (C1.2). A smooth field is the only way to measure the SCHEME's order through this code path.",
+   "field": "analytic gaussian blob, peak |B| ~ 1.05 T at z = 4700 mm",
+   "leg_mm": [
+    2648.2,
+    7826.0
+   ],
+   "n_rows": 6,
+   "step_sizes_mm": [
+    640.0,
+    320.0,
+    160.0,
+    80.0
+   ],
+   "max_abs_error_mm": [
+    1.662444134353791e-05,
+    2.1220193957560696e-07,
+    2.9346551855269354e-09,
+    4.200728653813712e-11
+   ],
+   "points_above_floor": 3,
+   "fitted_order": 6.233913619788573,
+   "expected_order": 6,
+   "tolerance_on_slope": 0.35,
+   "passes": true
+  },
+  "5_mechanics": {
+   "span_not_a_whole_number_of_steps_mm": 5177.8,
+   "forward_then_back_closure_mm": 1.8118839761882555e-12,
+   "backward_leg_runs": true,
+   "batch_vs_one_at_a_time_max_abs_diff": 0.0,
+   "batch_legs": [
+    [
+     2648.2,
+     2648.2,
+     3000.0,
+     7826.0,
+     5000.0
+    ],
+    [
+     7826.0,
+     5000.0,
+     7826.0,
+     2648.2,
+     2648.2
+    ]
+   ],
+   "leg_shorter_than_one_step_finite": true,
+   "zero_length_leg_returns_start_exactly": true,
+   "qop_passthrough_exact": true,
+   "passes": true
+  }
+ },
+ "all_pass": true
+}
