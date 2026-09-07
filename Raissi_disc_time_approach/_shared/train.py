@@ -10,11 +10,20 @@ stopped rather than starting again.
 
 Confirmation pass. A stall can be an artefact of the optimiser's curvature
 history rather than a property of the loss, so unless `--no-confirm` is given
-the run continues with a FRESH optimiser once it has stalled. The run counts as
-converged only if it stalls again within two restarts and the endpoint medians
-on train, val and test are unchanged (less than 1% relative). If the fresh
-optimiser finds real improvement, training simply carries on to the next stall
-and the run is reported as not converged.
+the run continues with a FRESH optimiser once it has stalled. The confirmation
+holds only if the run stalls again within two restarts and the endpoint medians
+on train, val and test are unchanged (less than 1% relative).
+
+A confirmation that does not hold sends the run BACK TO THE STALL PHASE and the
+cycle repeats - train to a stall, confirm it, train on if it does not hold -
+until a confirmation holds or the `--outer-cap` restart cap is reached. That is
+the honest reading of a failed confirmation: the fresh optimiser either kept
+improving the loss or moved the endpoint medians, and either way the run had
+not finished training. Before 2026-09-07 such a run stopped and was recorded
+`converged = false`, and resubmitting it only repeated the confirmation from
+where it stood; on the Block C grid that was 77 of the first 107 runs. A run
+that confirms at its first attempt is unaffected, restart for restart. The
+json records how many confirmation passes were started as `confirm_attempts`.
 
 Usage:
     PYTHONNOUSERSITE=1 OMP_NUM_THREADS=1 python train.py \\
@@ -72,6 +81,58 @@ def append_history(path, row):
         if new:
             w.writeheader()
         w.writerow(row)
+
+
+def _improved(previous, loss):
+    """The stall test: did this restart improve the loss by at least 1%?
+
+    The one place the rule is written down, so the live loop and the history
+    reader below cannot drift apart.
+    """
+    return (previous - loss) >= 1e-2 * max(loss, 1e-30)
+
+
+def _trailing_confirm_block(rows):
+    """The rows of the confirmation pass a stopped run was last in, if any."""
+    if not rows or rows[-1]["phase"] != "confirm":
+        return []
+    k = len(rows)
+    while k > 0 and rows[k - 1]["phase"] == "confirm":
+        k -= 1
+    return rows[k:]
+
+
+def resume_phase(rows):
+    """The phase a resumed run should carry on in, read off its own history.
+
+    A run whose last history row says 'confirm' is in one of two quite
+    different situations, and the row alone does not say which: either the
+    confirmation pass was still running when the job stopped, or it had just
+    finished and did not hold, so the run needs more training rather than
+    another confirmation. The stall rule is therefore re-applied to the
+    trailing block of confirmation restarts, exactly as the live loop applies
+    it. If it has already fired there the confirmation is over and the run goes
+    back to the stall phase; if it has not, the confirmation is picked up where
+    it stopped.
+    """
+    block = _trailing_confirm_block(rows)
+    if len(block) < 2:
+        return "stall" if not block else "confirm"
+    start = rows.index(block[0])
+    previous = float(rows[start - 1]["loss"]) if start else float("inf")
+    stalled = 0
+    for r in block:
+        loss = float(r["loss"])
+        stalled = 0 if _improved(previous, loss) else stalled + 1
+        previous = loss
+    return "stall" if stalled >= 2 else "confirm"
+
+
+def count_confirm_attempts(rows):
+    """How many confirmation passes this run has already started."""
+    return sum(1 for i, r in enumerate(rows)
+               if r["phase"] == "confirm"
+               and (i == 0 or rows[i - 1]["phase"] != "confirm"))
 
 
 # ---------------------------------------------------------------- the data --
@@ -146,7 +207,7 @@ def main(argv=None):
         model.load_state_dict(torch.load(ckpt, weights_only=True))
         outer = 1 + max(int(r["outer"]) for r in rows)
         previous = float(rows[-1]["loss"])
-        phase = rows[-1]["phase"]
+        phase = resume_phase(rows)
         print("resuming %s seed %d in phase '%s' at restart %d (loss %.6e)"
               % (a.mode, a.seed, phase, outer, previous), flush=True)
     else:
@@ -183,7 +244,7 @@ def main(argv=None):
                                        loss=loss, wall_s=wall))
         print("  %s seed %d %s restart %d: loss %.6e (%.0f s)"
               % (a.mode, a.seed, tag_phase, outer, loss, wall), flush=True)
-        improved = (previous - loss) >= 1e-2 * max(loss, 1e-30)
+        improved = _improved(previous, loss)
         previous = loss
         outer += 1
         return loss, improved
@@ -192,49 +253,88 @@ def main(argv=None):
         return {s: score_split(model, data, s)[0]["endpoint_med_um"]
                 for s in ("train", "val", "test")}
 
-    # -- phase 1: restart until the stall criterion fires ---------------------
+    # -- the stall / confirm cycle --------------------------------------------
+    # Phase 1 restarts until the stall criterion fires - two consecutive
+    # restarts each improving the loss by less than 1%. Phase 2 then confirms
+    # that stall with a fresh optimiser: without it the honest claim is only
+    # "it stalled"; with it, "it stalled, and a fresh optimiser could not move
+    # it".
+    #
+    # A confirmation that does NOT hold is not the end of the run. It means one
+    # of two things - the fresh optimiser went on improving the loss for more
+    # than two restarts, or it left the loss alone but moved the endpoint
+    # medians by more than 1% - and both say the same thing: the run had not
+    # finished training. Until 2026-09-07 such a run was written
+    # `converged = false` and stopped there, and because the phase was read
+    # straight off the last history row, resubmitting it only re-ran the
+    # confirmation from where it stood, which is the one thing that could not
+    # help. On the Block C magnet-to-magnet grid that was 77 of the first 107
+    # runs.
+    #
+    # So a failed confirmation now drops back to the stall phase and the cycle
+    # repeats - train to a stall, confirm it, train on if it does not hold -
+    # until a confirmation passes or the restart cap is reached. `--outer-cap`
+    # remains the only bound on the total work. A run that confirms at its
+    # first attempt follows exactly the path it followed before, restart for
+    # restart, and `resume_phase` reads the cycle position back out of the
+    # history so a job that is evicted mid-cycle carries on rather than
+    # starting the confirmation again.
     loss = previous
-    stalled = 0
     hit_cap = False
-    if phase == "stall":
-        while outer < a.outer_cap:
-            loss, improved = one_restart("stall")
-            stalled = 0 if improved else stalled + 1
-            if stalled >= 2 and outer >= 3:
-                print("  %s seed %d: stalled at restart %d"
-                      % (a.mode, a.seed, outer - 1), flush=True)
+    converged = False
+    confirm_attempts = count_confirm_attempts(rows)
+    while True:
+        if phase == "stall":
+            stalled, fired = 0, False
+            while outer < a.outer_cap:
+                loss, improved = one_restart("stall")
+                stalled = 0 if improved else stalled + 1
+                if stalled >= 2 and outer >= 3:
+                    print("  %s seed %d: stalled at restart %d"
+                          % (a.mode, a.seed, outer - 1), flush=True)
+                    fired = True
+                    break
+            if not fired:
+                hit_cap = True
+                print("  %s seed %d: hit the %d-restart cap without stalling"
+                      % (a.mode, a.seed, a.outer_cap), flush=True)
                 break
-        else:
-            hit_cap = True
-            print("  %s seed %d: hit the %d-restart cap without stalling"
-                  % (a.mode, a.seed, a.outer_cap), flush=True)
+            phase = "confirm"
 
-    # -- phase 2: confirm with a fresh optimiser ------------------------------
-    # Without the confirmation pass the honest claim is only "it stalled";
-    # with it, "it stalled, and a fresh optimiser could not move it".
-    converged = not hit_cap
-    if not a.no_confirm and not hit_cap and outer < a.outer_cap:
+        converged = True                  # it stalled; the question is whether
+        if a.no_confirm or outer >= a.outer_cap:
+            break                         # that stall survives a fresh optimiser
+
         before = medians()
-        opt = make_opt()                      # curvature history deliberately reset
-        phase = "confirm"
-        n_conf, stalled = 0, 0
+        opt = make_opt()                  # curvature history deliberately reset
+        confirm_attempts += 1
+        n_conf, stalled, restalled = 0, 0, False
         while outer < a.outer_cap:
             loss, improved = one_restart("confirm")
             n_conf += 1
             stalled = 0 if improved else stalled + 1
             if stalled >= 2:
-                after = medians()
-                unchanged = all(abs(after[s] - before[s])
-                                <= 1e-2 * max(before[s], 1e-30) for s in before)
-                converged = bool(n_conf <= 2 and unchanged)
-                print("  %s seed %d: re-stalled after %d confirmation restarts; "
-                      "medians unchanged = %s -> converged = %s"
-                      % (a.mode, a.seed, n_conf, unchanged, converged), flush=True)
+                restalled = True
                 break
-        else:
+        if not restalled:
             print("  %s seed %d: confirmation hit the restart cap"
                   % (a.mode, a.seed), flush=True)
             converged = False
+            break
+        after = medians()
+        unchanged = all(abs(after[s] - before[s])
+                        <= 1e-2 * max(before[s], 1e-30) for s in before)
+        converged = bool(n_conf <= 2 and unchanged)
+        print("  %s seed %d: re-stalled after %d confirmation restarts; "
+              "medians unchanged = %s -> converged = %s"
+              % (a.mode, a.seed, n_conf, unchanged, converged), flush=True)
+        if converged:
+            break
+        print("  %s seed %d: confirmation %d did not hold; back to the stall "
+              "phase (restart %d of %d)"
+              % (a.mode, a.seed, confirm_attempts, outer, a.outer_cap),
+              flush=True)
+        phase = "stall"
 
     # -- the record -----------------------------------------------------------
     rows = read_history(hist_path)
@@ -247,6 +347,7 @@ def main(argv=None):
         "restarts": len(rows),
         "final_loss": float(rows[-1]["loss"]) if rows else float("nan"),
         "converged": bool(converged),
+        "confirm_attempts": int(confirm_attempts),
         "wall_s": wall_s,
         "outer_cap": a.outer_cap, "max_iter": a.max_iter,
         "confirmed": not a.no_confirm,
