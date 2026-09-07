@@ -315,26 +315,59 @@ tenth as many stage planes, so the q = 2 end of each row is several times
 cheaper. Summing the table over the grid gives an expectation of roughly
 250–550 core-hours for the whole cluster.
 
-### The confirmation gate
+### The confirmation gate, and the harness change it forced
 
-**Expect a resubmission round, and probably more than one.** Of the first 107
-runs to land, **30 confirmed and 77 did not** — the shared stall criterion (two
+Of the first 107 runs to land, **30 confirmed and 77 did not**, and the reason
+was the harness rather than the runs. The shared stall criterion (two
 consecutive restarts each improving the loss by less than 1%) fires while the
-endpoint medians are still moving by more than 1%, so the confirmation pass
-re-stalls at once and the run stops although it was still improving. That is
-harness issue A1, which hit three of the twenty-six residual runs; on this
-dataset it is the common case rather than the exception, and the width-32
-column is the worst of it. The scores are recorded either way, and
-`resubmit_grid.py` hands each such run back its own checkpoint:
+endpoint medians are still moving by more than 1%; the confirmation pass then
+re-stalls at once, and until 2026-09-07 `../_shared/train.py` wrote
+`converged = false` and **stopped there**. Because the phase was read straight
+off the last history row, resubmitting such a run only re-ran the confirmation
+it had just failed, from the same point, with the same outcome. That is harness
+issue A1, which hit three of the twenty-six residual runs and is the common
+case on this dataset.
+
+It is now fixed at source. A confirmation that does not hold sends the run
+**back to the stall phase**, and the stall/confirm cycle repeats until a
+confirmation holds or `--outer-cap` (400) is reached; `resume_phase()` reads
+the cycle position back out of the history, so a job that stopped mid-cycle
+carries on training rather than re-confirming — including the records written
+before the change, since nothing new is stored. A run that confirms at its
+first attempt is untouched, restart for restart. The json keeps every field it
+had and gains `confirm_attempts`.
+
+Measured on a 30-restart run the old code abandoned: every loss in the shared
+prefix is identical to the last digit (only the wall-clock column differs), and
+resumed under the new code the same run went back to the stall phase, needed
+three more confirmation attempts and converged at restart 42.
+`_shared/smoke_tests.py` passes in full, including the bitwise first-restart
+parity gate against the original baseline model.
+
+### Running a resubmission pass
+
+`resubmit_grid.py` is **idempotent and safe to run on a schedule**: it picks up
+only records whose json says `converged = false` and whose tag is not already
+idle or running in the queue — two processes writing one checkpoint would
+corrupt it — so a pass run while a round is still draining selects nothing, and
+a pass run after more records land selects exactly the new ones. Each pass
+writes its own numbered round files and `--round` defaults to the next number
+not yet used. The command, suitable for an hourly schedule:
 
 ```bash
-python resubmit_grid.py --round 2            # write the list
-python resubmit_grid.py --round 2 --submit   # and submit it
+cd /data/bfys/gscriven/LHCb_Extrapolation_Project/Raissi_disc_time_approach/Step_size_and_stage_grid && \
+  PYTHONNOUSERSITE=1 /data/bfys/gscriven/conda/envs/TE/bin/python resubmit_grid.py --submit
 ```
 
-Runs still in the queue are never included — two processes writing one
-checkpoint would corrupt it. `plot_grid.py` marks any cell no seed of which
-confirmed rather than dropping it, so C4 sees which conclusions rest on
+Drop `--submit` to see what a pass would send without sending it. A run that
+hit the restart cap rather than failing to confirm is skipped unless
+`--include-capped` is given, since resuming it without also raising the cap
+would simply cap again.
+
+**Round 2: cluster 5783191, 137 runs, submitted 2026-09-07 19:54 CEST** — every
+unconfirmed record on disk at that moment, resuming from its own checkpoint
+under the new cycle. `plot_grid.py` marks any cell no seed of which confirmed
+rather than dropping it, so C4 always sees which conclusions rest on
 unconfirmed runs.
 
 ---

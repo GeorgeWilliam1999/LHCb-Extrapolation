@@ -1,25 +1,32 @@
 #!/usr/bin/env python
 """Send the grid runs that did not confirm back to the farm to continue.
 
-The pattern is `../General_leg_network/resubmit_residual.py`'s, for the same
-reason. The shared stall criterion - two consecutive restarts each improving
-the loss by less than 1% - can fire while the endpoint medians are still moving
-by more than 1%; the confirmation pass then re-stalls at once, the run is
-recorded `converged = false`, and it stops even though it was still improving.
-That is harness issue A1, and the fix is not to change the criterion (which
-would break comparability with every earlier experiment) but to hand the run
-back its own checkpoint: `train_grid.py` inherits the shared trainer's
-checkpoint-every-restart, so submitting the identical command line again
-resumes with a fresh optimiser and another confirmation attempt.
+The pattern is `../General_leg_network/resubmit_residual.py`'s. A run that
+stops with `converged = false` has not failed - it has run out of the harness's
+patience - and `train_grid.py` inherits the shared trainer's
+checkpoint-every-restart, so submitting the identical command line again picks
+the run up from its own checkpoint and carries on.
 
-A run still in the queue is never included - two processes writing one
-checkpoint would corrupt it - and neither is one whose json says it hit the
-restart cap rather than failing to confirm, unless `--include-capped` is given:
-a capped run has not stalled at all and resuming it will simply cap again
-unless the cap is also raised.
+Since `../_shared/train.py` was changed on 2026-09-07 a failed confirmation no
+longer ends the run: it drops back to the stall phase and the stall/confirm
+cycle repeats until a confirmation holds or `--outer-cap` is reached, and
+`resume_phase` reads that position back out of the history. So a run resumed by
+this script now continues *training* where it previously only re-ran the
+confirmation it had just failed. Records written before that change resume the
+same way, because the phase is derived from their history rather than stored.
 
-    python resubmit_grid.py --round 2            # write the list
-    python resubmit_grid.py --round 2 --submit   # write it and submit it
+**This script is idempotent and safe to run on a schedule.** It picks up only
+records whose json says `converged = false` and whose tag is not currently
+idle or running in the queue - two processes writing one checkpoint would
+corrupt it - so running it again while a round is still draining selects
+nothing, and running it after more records land selects exactly the new ones.
+Each pass writes its own numbered round files; `--round` defaults to the next
+number not yet used. A run that hit the restart cap rather than failing to
+confirm is skipped unless `--include-capped` is given, since resuming it
+without also raising the cap would simply cap again.
+
+    python resubmit_grid.py --submit             # one pass; safe to repeat
+    python resubmit_grid.py                      # write the list, submit nothing
 """
 from __future__ import annotations
 
@@ -47,11 +54,19 @@ def running_tags():
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--round", type=int, required=True)
+    ap.add_argument("--round", type=int, default=None,
+                    help="round number for the generated files; default: the "
+                         "next one not yet used")
     ap.add_argument("--outer-cap", type=int, default=400)
     ap.add_argument("--include-capped", action="store_true")
     ap.add_argument("--submit", action="store_true")
     a = ap.parse_args(argv)
+    if a.round is None:
+        used = [int(m.group(1)) for m in
+                (re.search(r"jobs_grid_round(\d+)\.txt$", p) for p in
+                 glob.glob(os.path.join(HERE, "condor",
+                                        "jobs_grid_round*.txt"))) if m]
+        a.round = max(used) + 1 if used else 2
 
     with open(BASE_TXT) as f:
         lines = {}
