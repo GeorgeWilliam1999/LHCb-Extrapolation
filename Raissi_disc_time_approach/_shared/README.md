@@ -56,7 +56,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 ```python
 V8R1_DOWN, V8R1_UP                  # the two field-map paths on CVMFS
 KAPPA, C_QP, RK4_STEP, FROZEN_LEG   # Allen constants; the baseline leg
-DATA_NPZ                            # the v2 (official-sample) training set
+DATA_NPZ, LOAD_FIELDS               # the v2 training set; its default columns
+RK6_A, RK6_B, RK6_C, RK6_STEP       # the sixth-order tableau and its step
+RK6_ORDER, RK6_STAGES               # 6 and 7
 
 make_field(which='down') -> FieldV8R1          # 'down' | 'up', cached per process
 field_path(which='down') -> str
@@ -64,12 +66,34 @@ field_md5(which='down', chunk=1<<20) -> str
 field_bounds(field) -> (lo, hi)                # map corners in mm, 3-vectors each
 deriv(S, z, field=None) -> (N, 5)              # dS/dz; field defaults to MagDown
 rk4_rows(S0, z0, z1, step=5.0, field=None) -> (N, 5)
+rk6_rows(S0, z0, z1, step=0.1, field=None) -> (N, 5)
+rk6_dense_rows(S0, z0, z1, sample_mm=10.0, step=0.1, field=None)
+                                   -> (Zg (N,K), Sg (N,K,5), valid (N,K))
 rho(y_ref, y_pred) -> (N,)                     # the agreed scalar relative error
-load_training(split=None, leg=None, core_only=False, npz=None) -> dict
+load_training(split=None, leg=None, core_only=False, npz=None,
+              fields=None) -> dict             # fields=None -> LOAD_FIELDS
 leg_indices(leg) -> list[int]                  # 'B' -> [1]; ('A','B') -> [0,1]
 gauss_legendre(q, verify=True) -> (c, A, b)    # re-exported from irk.py
 card(field_which='down') -> dict
 ```
+
+**`rk6_rows`** (added 2026-09-06 for Block C) is the fine reference: Butcher's
+seven-stage explicit method of order six, same contract as `rk4_rows` - fp64,
+per-row `(z0, z1)`, masked stepping, the last step of each row shortened to land
+exactly on `z1`, and `z1 < z0` integrating backwards. Its coefficients are
+copied from `/data/bfys/gscriven/Van_Der_Pole/RK_Truth/rk6.py`; the battery in
+`../Fine_reference/check_tableau.py` compares them with that file element by
+element, re-runs its identity checks and its three order measurements, and
+measures the order of `rk6_rows` **itself** on the LHCb ODE with a smooth
+analytic field (the real map is trilinear, hence C0, so it cannot show order
+six - see `../Fine_reference/README.md`). `rk6_dense_rows` is the same march
+keeping the state every `sample_mm`; `sample_mm` must be a whole number of
+steps, so the stored states are step boundaries of the march and can be
+integrated onwards without re-basing (checked in
+`../Magnet_tracks_dataset/check_path_consistency.py`).
+
+`load_training` gained a `fields=` argument rather than a wider default, so
+every caller written before that date gets exactly the dict it got then.
 
 ### `field_torch.py`
 
@@ -109,8 +133,37 @@ general_leg_dataset(legs=('A','B','C'), q=8, n_train=2000, field='down',
                     fiducial=True, training_npz=None, verbose=True) -> dict
 ```
 
-Both write `<out_npz>` and `<out_npz without .npz>_meta.json` (counts, scales,
-how many states the fiducial cut removed). Contents:
+plus the Block C builder and its selection and loader:
+
+```python
+UT_VELO_BOUNDARY_MM, STRATA, STRATUM_NAMES, P_BANDS, p_band_index(P)
+
+magnet_leg_rows(training_npz=None, eta_range=(2.0, 5.0), p_range=(1.0, 200.0),
+                drop_electrons=True, require_ut_plane=True,
+                require_both_directions=True, verbose=True) -> dict
+
+magnet_tracks_dataset(out_npz=None, dense_npz=None, n_particles=6000,
+                      n_train=6000, n_eval=2000, sample_mm=10.0, step=0.1,
+                      field='up', seed=20260718, training_npz=None,
+                      eta_range=(2.0, 5.0), p_range=(1.0, 200.0),
+                      verbose=True) -> dict
+
+load_magnet_tracks(npz, split=None, stratum=None, direction=None,
+                   p_range=None) -> dict
+```
+
+`magnet_leg_rows` is the cross-magnet selection with its cut cascade recorded
+(rows in, removed by each cut, rows out, particles left); both
+`../Magnet_tracks_dataset` and `../Fine_reference` draw from it, so the two
+studies are on the same population by construction. `magnet_tracks_dataset`
+builds `magnet_tracks_v3.npz`: X = (x, y, tx, ty, qop, z0, dz) fp64, Y = the
+RK6 end state, in six equal |dz| strata from 0.05 mm to the whole crossing.
+**Its `field` defaults to `'up'`, not `'down'`** - see
+`../Magnet_tracks_dataset/check_polarity.py` and the note in the function's own
+docstring.
+
+Both frozen-leg builders write `<out_npz>` and `<out_npz without .npz>_meta.json`
+(counts, scales, how many states the fiducial cut removed). Contents:
 
 | key | frozen | general |
 |---|---|---|
