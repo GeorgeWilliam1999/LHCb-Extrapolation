@@ -269,7 +269,7 @@ step-halving and the closure measurements, rounded up. It is a *floor*, not an
 error bar on any single number: it says nothing built on this reference can
 claim accuracy better than 0.05 nm, and it sits
 
-* 6 × 10⁻⁴ of the way to the fp32 rounding of a millimetre-scale coordinate,
+* 1/2400 of the fp32 rounding step on a metre-scale coordinate (0.12 µm),
 * 1/250 of the 0.0127 µm the 5 mm RK4 engine differs from it,
 * 1/900,000 of the q = 8 exact-scheme ceiling on leg B (46 µm), and
 * 1/20,000,000 of the best network so far on that leg (~1 mm).
