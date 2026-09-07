@@ -1,0 +1,25 @@
+{
+ "n_train": 4002,
+ "q": 20,
+ "width": 256,
+ "depth": 8,
+ "mode": "physics",
+ "seed": 0,
+ "max_iter": 200,
+ "n_parameters": 484180,
+ "field_evaluations_per_loss": 80040,
+ "restart_wall_s": 201.8,
+ "loss_before": 0.04576853875550161,
+ "loss_after": 0.00015372018654199839,
+ "closure_calls": 205,
+ "s_per_closure": 0.985,
+ "setup_s": 0.5,
+ "peak_rss_mb": 2276.5,
+ "host": "wn-sate-061.nikhef.nl",
+ "load_average_1_5_15": [
+  32.1,
+  31.5,
+  31.4
+ ],
+ "requested_n_train": 4000
+}

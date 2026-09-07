@@ -1,0 +1,25 @@
+{
+ "n_train": 4002,
+ "q": 20,
+ "width": 128,
+ "depth": 4,
+ "mode": "physics",
+ "seed": 0,
+ "max_iter": 200,
+ "n_parameters": 61396,
+ "field_evaluations_per_loss": 80040,
+ "restart_wall_s": 34.4,
+ "loss_before": 0.049708589016346616,
+ "loss_after": 0.00011851854567168627,
+ "closure_calls": 203,
+ "s_per_closure": 0.17,
+ "setup_s": 0.1,
+ "peak_rss_mb": 1228.9,
+ "host": "wn-lot-044.nikhef.nl",
+ "load_average_1_5_15": [
+  55.2,
+  55.2,
+  54.7
+ ],
+ "requested_n_train": 4002
+}

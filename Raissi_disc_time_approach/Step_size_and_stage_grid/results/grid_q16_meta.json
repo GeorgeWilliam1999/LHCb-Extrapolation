@@ -1,0 +1,90 @@
+{
+ "kind": "general",
+ "built_by": "Step_size_and_stage_grid/prepare_nodes.py",
+ "source_dataset": "results/magnet_tracks_v3_residual.npz",
+ "q": 16,
+ "n_train_requested": 4002,
+ "n_eval_requested": 12000,
+ "counts": {
+  "train": 4002,
+  "val": 12000,
+  "test": 12000
+ },
+ "counts_per_stratum": {
+  "train": {
+   "0.05-0.2 mm": 667,
+   "0.5-2 mm": 667,
+   "5-20 mm": 667,
+   "50-200 mm": 667,
+   "500-2000 mm": 667,
+   "full crossing": 667
+  },
+  "val": {
+   "0.05-0.2 mm": 2000,
+   "0.5-2 mm": 2000,
+   "5-20 mm": 2000,
+   "50-200 mm": 2000,
+   "500-2000 mm": 2000,
+   "full crossing": 2000
+  },
+  "test": {
+   "0.05-0.2 mm": 2000,
+   "0.5-2 mm": 2000,
+   "5-20 mm": 2000,
+   "50-200 mm": 2000,
+   "500-2000 mm": 2000,
+   "full crossing": 2000
+  }
+ },
+ "reference": {
+  "integrator": "fp64 fixed-step RK6 (Butcher, 7 stages, order 6)",
+  "step_mm": 0.1,
+  "marched": "segment by segment through the q Gauss nodes; the endpoint row is the dataset's own Y",
+  "field": {
+   "which": "up",
+   "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+   "md5": "9e49ddc4313b589f273540e7e0bb513b"
+  }
+ },
+ "endpoint_composition_vs_dataset_um": {
+  "train": {
+   "median_um": 6.989964163039986e-10,
+   "p95_um": 4.549856669200378e-06,
+   "max_um": 4.357889338280074e-05
+  },
+  "val": {
+   "median_um": 6.821210263296962e-10,
+   "p95_um": 4.628864758160488e-06,
+   "max_um": 0.00011566032753762556
+  },
+  "test": {
+   "median_um": 6.821210263296962e-10,
+   "p95_um": 4.897216854260476e-06,
+   "max_um": 0.00013328190107131377
+  }
+ },
+ "row_seed": 20260907,
+ "in_scale": [
+  494.7882566584753,
+  377.6241327308551,
+  0.17024814390939672,
+  0.06941811073176796,
+  0.06011972288388557
+ ],
+ "out_scale": [
+  467.8391384807606,
+  378.6545508698862,
+  0.17024814390939477,
+  0.06941811073176701,
+  0.06011972288388606
+ ],
+ "extra_mean": [
+  5243.767214415253,
+  49.15180079733278
+ ],
+ "extra_scale": [
+  1748.341888489792,
+  2174.829250981867
+ ],
+ "wall_s": 1330.3
+}

@@ -1,0 +1,112 @@
+{
+ "rule": "one L-BFGS restart of the heaviest grid point (depth 8, width 256, q from the dataset, physics loss, one thread); take the largest N under 120 s",
+ "dataset": "results/grid_q20_timing.npz",
+ "limit_s": 120.0,
+ "ladder": [
+  {
+   "n_train": 4002,
+   "q": 20,
+   "width": 256,
+   "depth": 8,
+   "mode": "physics",
+   "seed": 0,
+   "max_iter": 200,
+   "n_parameters": 484180,
+   "field_evaluations_per_loss": 80040,
+   "restart_wall_s": 201.8,
+   "loss_before": 0.04576853875550161,
+   "loss_after": 0.00015372018654199839,
+   "closure_calls": 205,
+   "s_per_closure": 0.985,
+   "setup_s": 0.5,
+   "peak_rss_mb": 2276.5,
+   "host": "wn-sate-061.nikhef.nl",
+   "load_average_1_5_15": [
+    32.1,
+    31.5,
+    31.4
+   ],
+   "requested_n_train": 4000
+  },
+  {
+   "n_train": 8004,
+   "q": 20,
+   "width": 256,
+   "depth": 8,
+   "mode": "physics",
+   "seed": 0,
+   "max_iter": 200,
+   "n_parameters": 484180,
+   "field_evaluations_per_loss": 160080,
+   "restart_wall_s": 216.0,
+   "loss_before": 0.0465529235567254,
+   "loss_after": 0.00016748364139086892,
+   "closure_calls": 206,
+   "s_per_closure": 1.048,
+   "setup_s": 0.5,
+   "peak_rss_mb": 2698.8,
+   "host": "wn-pijl-007.nikhef.nl",
+   "load_average_1_5_15": [
+    185.7,
+    183.0,
+    184.3
+   ],
+   "requested_n_train": 8000
+  },
+  {
+   "n_train": 16002,
+   "q": 20,
+   "width": 256,
+   "depth": 8,
+   "mode": "physics",
+   "seed": 0,
+   "max_iter": 200,
+   "n_parameters": 484180,
+   "field_evaluations_per_loss": 320040,
+   "restart_wall_s": 489.6,
+   "loss_before": 0.04881430992369415,
+   "loss_after": 0.00016649738925462475,
+   "closure_calls": 206,
+   "s_per_closure": 2.376,
+   "setup_s": 1.8,
+   "peak_rss_mb": 4037.1,
+   "host": "wn-lot-003.nikhef.nl",
+   "load_average_1_5_15": [
+    57.4,
+    56.9,
+    55.9
+   ],
+   "requested_n_train": 16000
+  },
+  {
+   "n_train": 36000,
+   "q": 20,
+   "width": 256,
+   "depth": 8,
+   "mode": "physics",
+   "seed": 0,
+   "max_iter": 200,
+   "n_parameters": 484180,
+   "field_evaluations_per_loss": 720000,
+   "restart_wall_s": 1055.6,
+   "loss_before": 0.04909326002508058,
+   "loss_after": 0.00016058995991167677,
+   "closure_calls": 209,
+   "s_per_closure": 5.051,
+   "setup_s": 2.3,
+   "peak_rss_mb": 4868.0,
+   "host": "wn-pijl-002.nikhef.nl",
+   "load_average_1_5_15": [
+    174.0,
+    175.0,
+    178.1
+   ],
+   "requested_n_train": 36000
+  }
+ ],
+ "chosen_n_train": 4002,
+ "chosen_restart_wall_s": 201.8,
+ "chosen_peak_rss_mb": 2276.5,
+ "no_rung_under_the_limit": true,
+ "note": "no rung of the ladder came in under the limit, so the smallest rung was taken and the wall time per restart is reported as measured"
+}
