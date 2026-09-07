@@ -1,0 +1,284 @@
+{
+ "source_dataset": "../Magnet_tracks_dataset/results/magnet_tracks_v3.npz",
+ "output_dataset": "results/magnet_tracks_v3_residual.npz",
+ "n_rows": 60000,
+ "field": {
+  "which": "up",
+  "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+  "md5": "9e49ddc4313b589f273540e7e0bb513b"
+ },
+ "definition": {
+  "kappa": 0.001,
+  "qop_convention": "qop = 0.299792458 q / p[GeV] (Allen); |q/p| in the scale is |S[:, 4]| = |qop|",
+  "I_B": "INT_{z0}^{z0+dz} |B(x_s, y_s, z)| dz along the straight line, 16-point midpoint rule, T mm",
+  "scale_pos_mm": "kappa * |qop| * I_B * |dz| / 2, floored at 1e-09 mm",
+  "scale_slope": "kappa * |qop| * I_B, floored at 1e-12",
+  "floors_vs_residual_design": "the residual wave used 1e-3 mm and 1e-6; lowered here because stratum 0 (|dz| ~ 0.1 mm) has a true deviation of order 1e-7 mm",
+  "node_profile": "flat; at the endpoint the poly profile coincides with it (cout[-1] = 1), so there is nothing to choose between here",
+  "label_free": "only the start state and the leg enter the scale; the RK6 reference is used below for the diagnostic only"
+ },
+ "criterion": "the endpoint deviation/scale median must lie in 0.1-10 in every stratum",
+ "per_stratum": {
+  "0.05-0.2 mm": {
+   "index": 0,
+   "n": 10000,
+   "abs_dz_mm": {
+    "median": 0.10055355399594301,
+    "min": 0.05000556475672667,
+    "max": 0.1999690581829766
+   },
+   "I_B_Tmm_median": 0.06913351944165202,
+   "scale_pos_mm_median": 1.3525467467178904e-07,
+   "scale_slope_median": 2.832345293849137e-06,
+   "floored_pos": 2,
+   "floored_slope": 0,
+   "ratio_position_endpoint": {
+    "n": 10000,
+    "p05": 0.9277688757849261,
+    "median": 1.0053719426168373,
+    "p95": 1.182831240187246,
+    "max": 1.7309485613512694
+   },
+   "ratio_slope_endpoint": {
+    "n": 10000,
+    "p05": 0.9279075264522425,
+    "median": 1.005369433953048,
+    "p95": 1.182828140864066,
+    "max": 1.7309087509320078
+   },
+   "straight_line_endpoint_error_um": {
+    "median": 0.000137455160142963,
+    "p95": 0.0009929135627473329,
+    "max": 0.002879049702642078,
+    "fraction_below_1um": 1.0,
+    "fraction_below_0.1um": 1.0,
+    "median_train": 0.00013943576959718484,
+    "median_val": 0.00013977896173855697,
+    "median_test": 0.0001305794636863311,
+    "median_forward": 0.00013641147234011441,
+    "median_backward": 0.0001387984696066269
+   }
+  },
+  "0.5-2 mm": {
+   "index": 1,
+   "n": 10000,
+   "abs_dz_mm": {
+    "median": 1.003832351083143,
+    "min": 0.5001231349792097,
+    "max": 1.9998344542291004
+   },
+   "I_B_Tmm_median": 0.6991653096377608,
+   "scale_pos_mm_median": 1.3473638203300918e-05,
+   "scale_slope_median": 2.8171973460511312e-05,
+   "floored_pos": 0,
+   "floored_slope": 0,
+   "ratio_position_endpoint": {
+    "n": 10000,
+    "p05": 0.9287009828465623,
+    "median": 1.0057369957333624,
+    "p95": 1.1817724363240554,
+    "max": 1.7943012988892832
+   },
+   "ratio_slope_endpoint": {
+    "n": 10000,
+    "p05": 0.9285871785781561,
+    "median": 1.0057129282479653,
+    "p95": 1.1816619793957797,
+    "max": 1.794350251630602
+   },
+   "straight_line_endpoint_error_um": {
+    "median": 0.013823951277913693,
+    "p95": 0.10249770662937835,
+    "max": 0.4217748073642724,
+    "fraction_below_1um": 1.0,
+    "fraction_below_0.1um": 0.9478,
+    "median_train": 0.013831184777046701,
+    "median_val": 0.013709354546698194,
+    "median_test": 0.013896570703053612,
+    "median_forward": 0.013792891365937976,
+    "median_backward": 0.013859350723066655
+   }
+  },
+  "5-20 mm": {
+   "index": 2,
+   "n": 10000,
+   "abs_dz_mm": {
+    "median": 10.136170737420233,
+    "min": 5.00006928570071,
+    "max": 19.99925504413877
+   },
+   "I_B_Tmm_median": 7.004244127183069,
+   "scale_pos_mm_median": 0.00137314519934139,
+   "scale_slope_median": 0.0002852583111550149,
+   "floored_pos": 0,
+   "floored_slope": 0,
+   "ratio_position_endpoint": {
+    "n": 10000,
+    "p05": 0.9291121540677936,
+    "median": 1.0053052990417055,
+    "p95": 1.176834392036262,
+    "max": 1.752158344837174
+   },
+   "ratio_slope_endpoint": {
+    "n": 10000,
+    "p05": 0.9296640564219327,
+    "median": 1.0052141779804558,
+    "p95": 1.1760834631796586,
+    "max": 1.7472472803727725
+   },
+   "straight_line_endpoint_error_um": {
+    "median": 1.3918474143963522,
+    "p95": 10.091066414525503,
+    "max": 35.76824954473068,
+    "fraction_below_1um": 0.3987,
+    "fraction_below_0.1um": 0.0263,
+    "median_train": 1.385945749106554,
+    "median_val": 1.3815279362461297,
+    "median_test": 1.4150646893398289,
+    "median_forward": 1.3660899840743923,
+    "median_backward": 1.4112058563497953
+   }
+  },
+  "50-200 mm": {
+   "index": 3,
+   "n": 10000,
+   "abs_dz_mm": {
+    "median": 99.77469039436093,
+    "min": 50.013806334233486,
+    "max": 199.99866963439024
+   },
+   "I_B_Tmm_median": 69.72987252223272,
+   "scale_pos_mm_median": 0.1349714077851988,
+   "scale_slope_median": 0.002779482884077845,
+   "floored_pos": 0,
+   "floored_slope": 0,
+   "ratio_position_endpoint": {
+    "n": 10000,
+    "p05": 0.926281349898114,
+    "median": 1.0092942666398055,
+    "p95": 1.181692383475405,
+    "max": 1.729251681615079
+   },
+   "ratio_slope_endpoint": {
+    "n": 10000,
+    "p05": 0.9315229646142139,
+    "median": 1.0054489026760447,
+    "p95": 1.1819440529743848,
+    "max": 1.7346113132597982
+   },
+   "straight_line_endpoint_error_um": {
+    "median": 136.94514002886038,
+    "p95": 982.1663655564357,
+    "max": 2879.592517004369,
+    "fraction_below_1um": 0.0,
+    "fraction_below_0.1um": 0.0,
+    "median_train": 137.66947491653968,
+    "median_val": 129.96536147640825,
+    "median_test": 141.05070694597543,
+    "median_forward": 135.6333941201342,
+    "median_backward": 137.7329583082485
+   }
+  },
+  "500-2000 mm": {
+   "index": 4,
+   "n": 10000,
+   "abs_dz_mm": {
+    "median": 998.7157698222834,
+    "min": 500.1637895434466,
+    "max": 1999.4941924178565
+   },
+   "I_B_Tmm_median": 800.2272752257543,
+   "scale_pos_mm_median": 15.388754181055187,
+   "scale_slope_median": 0.03200975798647675,
+   "floored_pos": 0,
+   "floored_slope": 0,
+   "ratio_position_endpoint": {
+    "n": 10000,
+    "p05": 0.8164632693928531,
+    "median": 1.0098174071922554,
+    "p95": 1.1926404395195216,
+    "max": 1.877095704402064
+   },
+   "ratio_slope_endpoint": {
+    "n": 10000,
+    "p05": 0.9611862231389793,
+    "median": 1.0066827405930012,
+    "p95": 1.175102573107821,
+    "max": 1.9400141407381077
+   },
+   "straight_line_endpoint_error_um": {
+    "median": 15661.563297132361,
+    "p95": 106670.3311765555,
+    "max": 301664.4610961857,
+    "fraction_below_1um": 0.0,
+    "fraction_below_0.1um": 0.0,
+    "median_train": 15577.937752423906,
+    "median_val": 15408.515420144415,
+    "median_test": 15985.931709538963,
+    "median_forward": 16096.141715353788,
+    "median_backward": 15017.136876412622
+   }
+  },
+  "full crossing": {
+   "index": 5,
+   "n": 10000,
+   "abs_dz_mm": {
+    "median": 5175.042236328125,
+    "min": 5156.414794921875,
+    "max": 6754.758544921875
+   },
+   "I_B_Tmm_median": 3773.005656983239,
+   "scale_pos_mm_median": 432.3911648170746,
+   "scale_slope_median": 0.16684782422761546,
+   "floored_pos": 0,
+   "floored_slope": 0,
+   "ratio_position_endpoint": {
+    "n": 10000,
+    "p05": 0.9639649412976847,
+    "median": 1.0214610047087227,
+    "p95": 1.1390143463156728,
+    "max": 1.401311213520587
+   },
+   "ratio_slope_endpoint": {
+    "n": 10000,
+    "p05": 0.9798886114600628,
+    "median": 1.0081935275551048,
+    "p95": 1.134015024337835,
+    "max": 1.3642241945132398
+   },
+   "straight_line_endpoint_error_um": {
+    "median": 437669.97385508486,
+    "p95": 1307433.9548457551,
+    "max": 2137116.5562906666,
+    "fraction_below_1um": 0.0,
+    "fraction_below_0.1um": 0.0,
+    "median_train": 438690.43080789456,
+    "median_val": 418003.17999508075,
+    "median_test": 456075.1746171858,
+    "median_forward": 445633.6830210001,
+    "median_backward": 429777.15549511206
+   }
+  }
+ },
+ "per_split": {
+  "train": {
+   "n": 36000,
+   "ratio_position_endpoint_median": 1.0084103246542953,
+   "straight_line_endpoint_median_um": 12.063069701966356
+  },
+  "val": {
+   "n": 12000,
+   "ratio_position_endpoint_median": 1.0072636883917958,
+   "straight_line_endpoint_median_um": 11.660928643891566
+  },
+  "test": {
+   "n": 12000,
+   "ratio_position_endpoint_median": 1.0088677661985388,
+   "straight_line_endpoint_median_um": 12.07131072872647
+  }
+ },
+ "all_strata_within_band": true,
+ "verdict": "the endpoint deviation/scale median is inside 0.1-10 in every stratum (0.05-0.2 mm 1.01, 0.5-2 mm 1.01, 5-20 mm 1.01, 50-200 mm 1.01, 500-2000 mm 1.01, full crossing 1.02), so the target is O(1) on the whole four-decade range of |dz|",
+ "torch_numpy_field_integral_max_rel_diff": 1.2250151894411832e-15,
+ "torch_numpy_leg_max_abs_diff_mm": 3.3306690738754696e-16
+}
