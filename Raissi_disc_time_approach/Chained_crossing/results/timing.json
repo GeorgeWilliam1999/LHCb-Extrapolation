@@ -1,0 +1,168 @@
+{
+ "created": "2026-09-08 13:13:35",
+ "host": "stbc-i2.nikhef.nl",
+ "rule": "if the projected 8 x 256 job exceeds 8 h the 0.1 mm column is cut to 100 + 100 tracks",
+ "median_steps_at_0.1mm": 51758,
+ "columns": [
+  {
+   "name": "0.1 mm",
+   "nominal_dz_mm": 0.1,
+   "n_per_direction": 250
+  },
+  {
+   "name": "1 mm",
+   "nominal_dz_mm": 1.0,
+   "n_per_direction": 500
+  },
+  {
+   "name": "10 mm",
+   "nominal_dz_mm": 10.0,
+   "n_per_direction": 500
+  },
+  {
+   "name": "100 mm",
+   "nominal_dz_mm": 100.0,
+   "n_per_direction": 500
+  },
+  {
+   "name": "1000 mm",
+   "nominal_dz_mm": 1000.0,
+   "n_per_direction": 500
+  },
+  {
+   "name": "full crossing",
+   "nominal_dz_mm": null,
+   "n_per_direction": 500
+  }
+ ],
+ "column_probes": [
+  {
+   "tag": "w256_d8_q20_physics_s0",
+   "architecture": "8x256",
+   "q": 20,
+   "n_parameters": 484180,
+   "n_tracks": 10,
+   "steps_per_track_median": 51730,
+   "sample_steps": 517422,
+   "wall_s": 178.93,
+   "us_per_sample_step": 345.81,
+   "peak_rss_gb": 0.6
+  },
+  {
+   "tag": "w32_d4_q02_physics_s0",
+   "architecture": "4x32",
+   "q": 2,
+   "n_parameters": 3820,
+   "n_tracks": 10,
+   "steps_per_track_median": 51730,
+   "sample_steps": 517422,
+   "wall_s": 109.26,
+   "us_per_sample_step": 211.16,
+   "peak_rss_gb": 0.61
+  }
+ ],
+ "batch_probes": [
+  {
+   "tag": "w256_d8_q20_physics_s0",
+   "architecture": "8x256",
+   "q": 20,
+   "batch": 10,
+   "n_steps": 200,
+   "ms_per_step": 3.416,
+   "us_per_sample_step": 341.64
+  },
+  {
+   "tag": "w256_d8_q20_physics_s0",
+   "architecture": "8x256",
+   "q": 20,
+   "batch": 500,
+   "n_steps": 200,
+   "ms_per_step": 41.023,
+   "us_per_sample_step": 82.05
+  },
+  {
+   "tag": "w256_d8_q20_physics_s0",
+   "architecture": "8x256",
+   "q": 20,
+   "batch": 1000,
+   "n_steps": 200,
+   "ms_per_step": 80.819,
+   "us_per_sample_step": 80.82
+  },
+  {
+   "tag": "w32_d4_q02_physics_s0",
+   "architecture": "4x32",
+   "q": 2,
+   "batch": 10,
+   "n_steps": 200,
+   "ms_per_step": 2.058,
+   "us_per_sample_step": 205.83
+  },
+  {
+   "tag": "w32_d4_q02_physics_s0",
+   "architecture": "4x32",
+   "q": 2,
+   "batch": 500,
+   "n_steps": 200,
+   "ms_per_step": 5.669,
+   "us_per_sample_step": 11.34
+  },
+  {
+   "tag": "w32_d4_q02_physics_s0",
+   "architecture": "4x32",
+   "q": 2,
+   "batch": 1000,
+   "n_steps": 200,
+   "ms_per_step": 9.168,
+   "us_per_sample_step": 9.17
+  }
+ ],
+ "projection": [
+  {
+   "tag": "w256_d8_q20_physics_s0",
+   "architecture": "8x256",
+   "n_per_direction_0.1mm": 250,
+   "sample_steps": 31631000,
+   "projected_hours": 0.73,
+   "step_cost_ms_intercept": 2.397,
+   "step_cost_ms_per_track": 0.07819,
+   "projected_hours_from_10_track_probe": 3.04
+  },
+  {
+   "tag": "w256_d8_q20_physics_s0",
+   "architecture": "8x256",
+   "n_per_direction_0.1mm": 100,
+   "sample_steps": 16103600,
+   "projected_hours": 0.39,
+   "step_cost_ms_intercept": 2.397,
+   "step_cost_ms_per_track": 0.07819,
+   "projected_hours_from_10_track_probe": 1.55
+  },
+  {
+   "tag": "w32_d4_q02_physics_s0",
+   "architecture": "4x32",
+   "n_per_direction_0.1mm": 250,
+   "sample_steps": 31631000,
+   "projected_hours": 0.1,
+   "step_cost_ms_intercept": 2.017,
+   "step_cost_ms_per_track": 0.00718,
+   "projected_hours_from_10_track_probe": 1.86
+  },
+  {
+   "tag": "w32_d4_q02_physics_s0",
+   "architecture": "4x32",
+   "n_per_direction_0.1mm": 100,
+   "sample_steps": 16103600,
+   "projected_hours": 0.06,
+   "step_cost_ms_intercept": 2.017,
+   "step_cost_ms_per_track": 0.00718,
+   "projected_hours_from_10_track_probe": 0.94
+  }
+ ],
+ "decision": {
+  "projected_hours_8x256_at_250_plus_250": 0.73,
+  "limit_hours": 8.0,
+  "n_per_direction_0.1mm": 250,
+  "peak_rss_gb": 0.61
+ }
+}

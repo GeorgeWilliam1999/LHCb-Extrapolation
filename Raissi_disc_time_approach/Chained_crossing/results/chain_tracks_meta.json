@@ -1,0 +1,53 @@
+{
+ "kind": "chain_tracks_v1",
+ "created": "2026-09-08 13:02:49",
+ "what": "the 1,000 whole-magnet crossings every network is chained over in Block C step C6",
+ "source": "../Step_size_and_stage_grid/results/magnet_tracks_v3_residual.npz",
+ "rows": "the full-crossing stratum of the v3 TEST split, in prepare_nodes.pick_rows order; the first 500 forward and the first 500 backward",
+ "split_parity_vs_grid_q08": {
+  "start_state_max_abs_diff": 0.0,
+  "z0_max_abs_diff": 0.0,
+  "dz_max_abs_diff": 0.0,
+  "end_state_max_abs_diff": 0.0,
+  "n": 12000
+ },
+ "n_tracks": 1000,
+ "n_forward": 500,
+ "n_backward": 500,
+ "n_particles": 581,
+ "crossing_length_mm": {
+  "min": 5156.414794921875,
+  "median": 5175.7919921875,
+  "max": 6669.541748046875
+ },
+ "momentum_GeV": {
+  "min": 1.844138264656067,
+  "median": 6.34235405921936,
+  "max": 142.15945434570312
+ },
+ "far_plane_hit": {
+  "source": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Data_generation_exploration/Official_xdigi/results/states.npz",
+  "rule": "forward -> the particle's first FT crossing; backward -> its last UT crossing",
+  "never_uses": "the v2 training set's Y column (MagDown field-only propagation of a MagUp sample)",
+  "hit_z_minus_far_plane_z_mm": {
+   "max_abs": 0.0004625625006156042,
+   "median_abs": 6.445312465075403e-05
+  },
+  "hit_vs_fine_reference_um": {
+   "median": 1643.2567734308777,
+   "p95": 12172.39264489399,
+   "median_forward": 2079.5127323756687,
+   "median_backward": 1327.2048108105564
+  }
+ },
+ "dense_reference": {
+  "source": "../Magnet_tracks_dataset/results/dense_states.npz",
+  "sample_mm": 10.0,
+  "matched_by": "LEG_INDEX, cross-checked against EVT, MCKEY and DIRECTION",
+  "states_per_track": {
+   "min": 517,
+   "max": 668
+  }
+ },
+ "wall_s": 3.1
+}
