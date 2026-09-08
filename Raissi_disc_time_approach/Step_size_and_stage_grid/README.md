@@ -49,6 +49,9 @@ re-stalls within two restarts with the endpoint medians unchanged;
 | [resubmit_grid.py](resubmit_grid.py) | sends the runs that did not confirm back to continue from their checkpoints | `condor/jobs_grid_round<N>.txt` / `.sub` |
 | [aggregate_grid.py](aggregate_grid.py) | **C3.5.** the jsons → the two tables C4 reads | `results/summary.csv`, `results/error_vs_dz_q.csv` |
 | [plot_grid.py](plot_grid.py) | **C3.5.** the heat maps and the two families of curves | `figures/heatmap_w<W>_d<D>.png`, `figures/error_vs_dz.png`, `figures/error_vs_q.png` |
+| [tables.py](tables.py) | **C4.1 / C4.3.** the long table → the per-architecture display tables, the references from `../Exact_scheme_table`, and the eight csvs the readings rest on | `results/table_cells.csv`, `results/table_<D>x<W>.csv`, `results/table_<D>x<W>_by_direction.csv`, `results/pending_cells.csv`, `results/reading_*.csv` |
+| [plot_tables.py](plot_tables.py) | **C4.2.** the six C4 figures, from the C4 csvs alone | `figures/heatmap_<D>x<W>.png`, `figures/error_vs_dz.png`, `figures/error_vs_q.png`, `figures/physics_over_twin.png`, `figures/cost_vs_error.png`, `figures/best_architecture_per_cell.png` |
+| [analysis.ipynb](analysis.ipynb) | loads all of the above and displays it; computes nothing | — |
 
 ```bash
 PY=/data/bfys/gscriven/conda/envs/TE/bin/python
@@ -63,7 +66,14 @@ condor_submit condor/jobs_arch_cost.sub   # C3.3, one restart per architecture
 $PY measure_timing.py --collect           # C3.3, the ladder -> results/timing.json
 $PY make_jobs.py && condor_submit condor/jobs_grid.sub   # C3.4
 $PY aggregate_grid.py && $PY plot_grid.py                # C3.5
+$PY tables.py && $PY plot_tables.py                      # C4.1, C4.2
 ```
+
+**`plot_tables.py` must be run after `plot_grid.py`.** Both write
+`figures/error_vs_dz.png` and `figures/error_vs_q.png`; the committed versions
+are C4's, which carry the exact scheme as a reference curve and distil the
+twelve architectures rather than drawing one panel each. Nothing else clashes —
+C3's heat maps are `heatmap_w<W>_d<D>.png` and C4's are `heatmap_<D>x<W>.png`.
 
 `results/*.npz` and `results/*.pt` are gitignored; the scripts, the seeds and
 the meta json regenerate them.
@@ -435,3 +445,456 @@ confirmed, the median over all of its seeds is used and the cell is marked.
    endpoint is recorded per split in each `grid_q<qq>_meta.json` under
    `endpoint_composition_vs_dataset_um`; the interior nodes carry that same
    difference and it is not separately measurable.
+
+---
+---
+
+# C4 — the error(dz, q) tables, and what they say
+
+**What C4 is.** The 720 run records of C3 read as one surface: the endpoint
+error as a function of the step length |dz|, the number of Gauss-Legendre
+stages q, the network size, and which of the two losses trained it — with the
+exact scheme of [`../Exact_scheme_table`](../Exact_scheme_table) and the
+straight line printed underneath every table as the two things a cell has to be
+read against. Nothing here retrains or re-scores anything: `tables.py` and
+`plot_tables.py` read `results/error_vs_dz_q.csv`, which C3's
+`aggregate_grid.py` builds out of the run jsons.
+
+**What had landed when this was written.** 715 of the 720 records, all 715
+confirmed. The five missing are one seed each of five cells of the **8 x 256
+data-twin** row — `w256_d8_q{06,08,12,18,20}_data_s{2,0,2,1,0}` — which were
+still running under the `--outer-cap 400` ceiling. Those five cells are built
+from **two seeds instead of three**; they carry `(2/3 seeds)` in the tables,
+`pending = true` in `results/table_cells.csv`, a red hatch in the heat maps, and
+a row each in `results/pending_cells.csv`. No conclusion below rests on them:
+the 8 x 256 twin is not the best architecture in any column.
+
+## C4.1 The tables
+
+`results/table_cells.csv` is the tidy master — one row per (architecture, arm,
+q, stratum, direction, split), with the median over the seeds that confirmed,
+the min and max over those seeds, the p95, the slope error, ρ, the straight
+line on exactly those rows, the seed count and the pending flag. Everything
+else in C4 is computed from it.
+
+`results/table_<D>x<W>.csv` is the display table, one per architecture: rows
+q = 2 … 20, columns the six strata, cells `median [min-max]` in µm for the
+physics arm and the data twin, then the exact scheme at each q, the straight
+line, and the fine reference's floor as a note.
+`results/table_<D>x<W>_by_direction.csv` is the same split into forward
+(dz > 0) and backward (dz < 0).
+
+**The fine reference's own floor is 5e-5 µm over a whole crossing**
+([`../Fine_reference`](../Fine_reference) C1.4) and far lower over a short step,
+since that figure is the worst case of a ~52,000-step march and a 0.1 mm step
+takes one. It is quoted as a note rather than a table row because it is not a
+constant down the columns.
+
+### 4 x 64, test split, both directions pooled
+
+| row | arm | 0.05-0.2 mm | 0.5-2 mm | 5-20 mm | 50-200 mm | 500-2000 mm | full crossing |
+|---|---|---|---|---|---|---|---|
+| q=2 | physics | 1.75e-05 [1.47e-05-2.51e-05] | 0.0018 [0.00149-0.00276] | 0.186 [0.14-0.273] | 13.5 [12.4-20.7] | 312 [304-318] | 9.92e+03 [9.74e+03-1.03e+04] |
+| q=2 | twin | 1.55e-06 [1.4e-06-1.78e-06] | 0.000141 [0.000133-0.000175] | 0.0172 [0.0164-0.0199] | 2.16 [2.12-3.03] | 323 [314-405] | 3.57e+03 [2.87e+03-4.02e+03] |
+| q=4 | physics | 1.18e-05 [9.43e-06-1.21e-05] | 0.00124 [0.00098-0.00125] | 0.126 [0.105-0.127] | 10.2 [9.14-11.1] | 272 [259-272] | 3.58e+03 [3.53e+03-3.72e+03] |
+| q=4 | twin | 1.67e-06 [1.31e-06-3.25e-06] | 0.00015 [0.00013-0.000216] | 0.0168 [0.015-0.0226] | 2.18 [1.85-2.46] | 367 [260-487] | 3.86e+03 [3.21e+03-6.33e+03] |
+| q=6 | physics | 7.86e-06 [6.16e-06-2.45e-05] | 0.000802 [0.000655-0.00261] | 0.0841 [0.0652-0.257] | 8.18 [8.04-16.2] | 295 [269-299] | 755 [737-785] |
+| q=6 | twin | 2.43e-06 [1.16e-06-3.02e-06] | 0.000221 [0.00011-0.000252] | 0.0237 [0.0114-0.0277] | 2.84 [1.76-3.47] | 481 [274-575] | 5.78e+03 [3.72e+03-7.25e+03] |
+| q=8 | physics | 2.35e-05 [1.44e-05-2.48e-05] | 0.00246 [0.00153-0.00267] | 0.245 [0.154-0.27] | 15.1 [13.2-16.3] | 276 [275-310] | 776 [733-807] |
+| q=8 | twin | 1.77e-06 [1.42e-06-4.11e-06] | 0.000182 [0.000167-0.000344] | 0.0225 [0.0172-0.0309] | 2.78 [2.21-3.47] | 392 [384-927] | 4.77e+03 [4.57e+03-8.17e+03] |
+| q=10 | physics | 1.85e-05 [8.38e-06-3.02e-05] | 0.00193 [0.000855-0.00331] | 0.2 [0.0986-0.325] | 15.9 [11.3-26.7] | 290 [261-298] | 736 [706-749] |
+| q=10 | twin | 2.11e-06 [2.06e-06-2.22e-06] | 0.000203 [0.000178-0.000254] | 0.0193 [0.0186-0.0263] | 2.52 [2.2-2.55] | 409 [343-579] | 5.42e+03 [3.93e+03-6.17e+03] |
+| q=12 | physics | 1.91e-05 [4.75e-06-2.25e-05] | 0.00191 [0.000482-0.00241] | 0.193 [0.0522-0.242] | 15.1 [8.18-21.6] | 303 [274-340] | 726 [699-889] |
+| q=12 | twin | 3.11e-06 [2.76e-06-3.57e-06] | 0.000281 [0.000198-0.000286] | 0.0286 [0.0218-0.0288] | 3 [2.9-4.03] | 668 [431-714] | 5.85e+03 [5.72e+03-6.55e+03] |
+| q=14 | physics | 2.07e-05 [1.08e-05-2.95e-05] | 0.00216 [0.00115-0.00315] | 0.22 [0.112-0.317] | 15.1 [13.9-25.1] | 330 [282-333] | 814 [752-820] |
+| q=14 | twin | 3.05e-06 [2.41e-06-3.15e-06] | 0.000209 [0.000177-0.000272] | 0.0215 [0.0165-0.0289] | 2.44 [2.41-3.29] | 442 [368-480] | 6.2e+03 [5.23e+03-7.52e+03] |
+| q=16 | physics | 9.63e-06 [9.6e-06-1e-05] | 0.00105 [0.000994-0.00105] | 0.108 [0.101-0.111] | 9.42 [9.4-10.6] | 288 [271-297] | 766 [657-770] |
+| q=16 | twin | 1.83e-06 [1.81e-06-2.91e-06] | 0.000198 [0.000144-0.000239] | 0.021 [0.0175-0.0236] | 2.47 [2.08-2.68] | 415 [324-668] | 4.97e+03 [3.35e+03-6.52e+03] |
+| q=18 | physics | 1.81e-05 [9.92e-06-3.13e-05] | 0.00185 [0.000958-0.00332] | 0.194 [0.103-0.335] | 16.8 [10.6-27] | 285 [282-309] | 770 [697-780] |
+| q=18 | twin | 1.98e-06 [1.54e-06-2.77e-06] | 0.000218 [0.000159-0.000237] | 0.0199 [0.016-0.0276] | 2.22 [2.19-2.7] | 387 [355-396] | 4.83e+03 [4.36e+03-5.25e+03] |
+| q=20 | physics | 1.12e-05 [7.82e-06-1.72e-05] | 0.00119 [0.0008-0.00181] | 0.117 [0.0862-0.193] | 11.6 [10.2-15.2] | 302 [267-367] | 735 [714-853] |
+| q=20 | twin | 3.21e-06 [2.5e-06-3.33e-06] | 0.00019 [0.000177-0.000217] | 0.0217 [0.0189-0.0245] | 2.65 [2.45-2.66] | 465 [361-495] | 5.66e+03 [3.7e+03-6.4e+03] |
+| exact scheme q=2 | exact scheme | 1.42e-11 | 2.34e-10 | 3.18e-09 | 0.00321 | 12.8 | 9.26e+03 |
+| exact scheme q=4 | exact scheme | 1.42e-11 | 2.35e-10 | 3.07e-09 | 0.000749 | 1.22 | 3.62e+03 |
+| exact scheme q=6 | exact scheme | 1.42e-11 | 2.34e-10 | 3.07e-09 | 0.000348 | 0.825 | 233 |
+| exact scheme q=8 | exact scheme | 1.42e-11 | 2.34e-10 | 3.05e-09 | 0.000201 | 0.696 | 32.6 |
+| exact scheme q=10 | exact scheme | 1.42e-11 | 2.31e-10 | 3.04e-09 | 0.000137 | 0.504 | 32.5 |
+| exact scheme q=12 | exact scheme | 1.42e-11 | 2.34e-10 | 3.02e-09 | 9.71e-05 | 0.396 | 41.5 |
+| exact scheme q=14 | exact scheme | 1.42e-11 | 2.34e-10 | 3.04e-09 | 6.5e-05 | 0.304 | 20.4 |
+| exact scheme q=16 | exact scheme | 1.42e-11 | 2.34e-10 | 3.01e-09 | 5.34e-05 | 0.219 | 36.1 |
+| exact scheme q=18 | exact scheme | 1.42e-11 | 2.27e-10 | 3e-09 | 4.21e-05 | 0.167 | 38.6 |
+| exact scheme q=20 | exact scheme | 1.42e-11 | 2.34e-10 | 2.98e-09 | 3.41e-05 | 0.146 | 23.6 |
+| straight line | straight line | 0.000131 | 0.0139 | 1.42 | 141 | 1.6e+04 | 4.56e+05 |
+
+### 8 x 256, test split, both directions pooled
+
+| row | arm | 0.05-0.2 mm | 0.5-2 mm | 5-20 mm | 50-200 mm | 500-2000 mm | full crossing |
+|---|---|---|---|---|---|---|---|
+| q=2 | physics | 1.73e-05 [1.56e-05-4.07e-05] | 0.00164 [0.00156-0.00418] | 0.17 [0.159-0.416] | 10 [9.94-19.7] | 282 [278-299] | 9.68e+03 [9.55e+03-9.93e+03] |
+| q=2 | twin | 3.11e-06 [2.14e-06-3.5e-06] | 0.000272 [0.000217-0.000276] | 0.0271 [0.0227-0.0304] | 3.17 [3.11-3.51] | 498 [495-738] | 4.98e+03 [4.44e+03-6.33e+03] |
+| q=4 | physics | 3.71e-05 [3.11e-05-3.8e-05] | 0.0039 [0.00331-0.004] | 0.377 [0.311-0.385] | 20.6 [19.3-24.9] | 241 [240-261] | 3.53e+03 [3.51e+03-3.57e+03] |
+| q=4 | twin | 3.89e-06 [9.73e-07-4.81e-06] | 0.000325 [5.21e-05-0.000332] | 0.031 [0.00684-0.0337] | 3.5 [0.928-4.3] | 743 [138-783] | 5.78e+03 [1.06e+03-7.34e+03] |
+| q=6 | physics | 2.73e-05 [1.09e-05-4.46e-05] | 0.00282 [0.0012-0.00456] | 0.267 [0.113-0.444] | 12.5 [7.72-20.5] | 261 [242-271] | 769 [709-770] |
+| q=6 | twin | 2.78e-06 [2.6e-06-2.96e-06] (2/3 seeds) | 0.000231 [0.000228-0.000235] (2/3 seeds) | 0.0253 [0.0241-0.0265] (2/3 seeds) | 2.66 [2.6-2.71] (2/3 seeds) | 426 [415-437] (2/3 seeds) | 4.59e+03 [4.48e+03-4.69e+03] (2/3 seeds) |
+| q=8 | physics | 3.05e-05 [2.63e-05-4.16e-05] | 0.00304 [0.00281-0.00442] | 0.299 [0.264-0.427] | 16.2 [12.8-25.1] | 229 [215-272] | 660 [632-669] |
+| q=8 | twin | 4.2e-06 [4.16e-06-4.25e-06] (2/3 seeds) | 0.000336 [0.000282-0.000389] (2/3 seeds) | 0.0312 [0.03-0.0323] (2/3 seeds) | 4.01 [3.57-4.46] (2/3 seeds) | 860 [806-913] (2/3 seeds) | 6.43e+03 [6.39e+03-6.47e+03] (2/3 seeds) |
+| q=10 | physics | 2.09e-05 [1.55e-05-3.86e-05] | 0.00218 [0.00161-0.00399] | 0.216 [0.161-0.388] | 12.4 [12-17.7] | 228 [227-259] | 747 [705-759] |
+| q=10 | twin | 2.92e-06 [2.46e-06-3.57e-06] | 0.000258 [0.000197-0.000303] | 0.0257 [0.0212-0.0287] | 3.06 [2.62-3.13] | 572 [475-607] | 5.22e+03 [4.36e+03-5.35e+03] |
+| q=12 | physics | 2.5e-05 [1.69e-05-2.8e-05] | 0.00271 [0.0019-0.00297] | 0.258 [0.195-0.271] | 17.1 [16.7-19.2] | 244 [216-252] | 645 [602-738] |
+| q=12 | twin | 4.39e-06 [4.36e-06-4.42e-06] (2/3 seeds) | 0.000285 [0.000271-0.000298] (2/3 seeds) | 0.0289 [0.0287-0.029] (2/3 seeds) | 3.56 [3.41-3.71] (2/3 seeds) | 831 [769-892] (2/3 seeds) | 6.09e+03 [5.29e+03-6.89e+03] (2/3 seeds) |
+| q=14 | physics | 2.02e-05 [1.11e-05-4.29e-05] | 0.00224 [0.00117-0.00437] | 0.212 [0.126-0.422] | 14.9 [10.1-27] | 248 [247-260] | 621 [591-698] |
+| q=14 | twin | 2.73e-06 [2.69e-06-2.83e-06] | 0.000235 [0.000233-0.000286] | 0.0219 [0.0202-0.0226] | 2.47 [2.26-2.47] | 444 [441-482] | 5.11e+03 [4.2e+03-5.45e+03] |
+| q=16 | physics | 3.56e-05 [1.21e-05-5.24e-05] | 0.00369 [0.00126-0.00547] | 0.355 [0.126-0.532] | 17.6 [10.5-39.3] | 225 [224-301] | 670 [625-736] |
+| q=16 | twin | 3.62e-06 [2.55e-06-4.95e-06] | 0.00028 [0.000223-0.000412] | 0.0276 [0.0193-0.0385] | 2.83 [2.26-4.03] | 579 [397-974] | 5.96e+03 [4.02e+03-8.1e+03] |
+| q=18 | physics | 2.81e-05 [2.24e-05-4.46e-05] | 0.00292 [0.00241-0.0047] | 0.311 [0.23-0.446] | 21.8 [17.9-27.8] | 230 [223-264] | 593 [582-659] |
+| q=18 | twin | 3.39e-06 [2.71e-06-4.07e-06] (2/3 seeds) | 0.000263 [0.000171-0.000354] (2/3 seeds) | 0.0238 [0.0185-0.0291] (2/3 seeds) | 2.6 [2.32-2.88] (2/3 seeds) | 506 [384-627] (2/3 seeds) | 4.85e+03 [4.11e+03-5.58e+03] (2/3 seeds) |
+| q=20 | physics | 3e-05 [7.83e-06-3.06e-05] | 0.00317 [0.000818-0.00325] | 0.301 [0.0862-0.317] | 16.2 [9.19-17.8] | 255 [229-260] | 656 [647-684] |
+| q=20 | twin | 3.81e-06 [3.68e-06-3.95e-06] (2/3 seeds) | 0.000257 [0.000257-0.000258] (2/3 seeds) | 0.0301 [0.0296-0.0306] (2/3 seeds) | 3.49 [3.47-3.51] (2/3 seeds) | 959 [929-989] (2/3 seeds) | 6.89e+03 [6.88e+03-6.89e+03] (2/3 seeds) |
+| exact scheme q=2 | exact scheme | 1.42e-11 | 2.34e-10 | 3.18e-09 | 0.00321 | 12.8 | 9.26e+03 |
+| exact scheme q=4 | exact scheme | 1.42e-11 | 2.35e-10 | 3.07e-09 | 0.000749 | 1.22 | 3.62e+03 |
+| exact scheme q=6 | exact scheme | 1.42e-11 | 2.34e-10 | 3.07e-09 | 0.000348 | 0.825 | 233 |
+| exact scheme q=8 | exact scheme | 1.42e-11 | 2.34e-10 | 3.05e-09 | 0.000201 | 0.696 | 32.6 |
+| exact scheme q=10 | exact scheme | 1.42e-11 | 2.31e-10 | 3.04e-09 | 0.000137 | 0.504 | 32.5 |
+| exact scheme q=12 | exact scheme | 1.42e-11 | 2.34e-10 | 3.02e-09 | 9.71e-05 | 0.396 | 41.5 |
+| exact scheme q=14 | exact scheme | 1.42e-11 | 2.34e-10 | 3.04e-09 | 6.5e-05 | 0.304 | 20.4 |
+| exact scheme q=16 | exact scheme | 1.42e-11 | 2.34e-10 | 3.01e-09 | 5.34e-05 | 0.219 | 36.1 |
+| exact scheme q=18 | exact scheme | 1.42e-11 | 2.27e-10 | 3e-09 | 4.21e-05 | 0.167 | 38.6 |
+| exact scheme q=20 | exact scheme | 1.42e-11 | 2.34e-10 | 2.98e-09 | 3.41e-05 | 0.146 | 23.6 |
+| straight line | straight line | 0.000131 | 0.0139 | 1.42 | 141 | 1.6e+04 | 4.56e+05 |
+
+## C4.2 The figures
+
+| figure | what it is |
+|---|---|
+| `figures/heatmap_<D>x<W>.png` | one per architecture: rows q, columns the six strata, the physics arm and the data twin side by side on one log colour scale, with the exact scheme's ten rows and the straight line beneath them. A cell with fewer than three seeds is hatched in red. |
+| `figures/error_vs_dz.png` | log-log error against \|dz\|, one curve per q, each point the **best of the twelve architectures** at that stratum; the straight line solid, the q = 8 exact scheme dashed |
+| `figures/error_vs_q.png` | error against q, one curve per stratum, at 4 x 64 and 8 x 256, with the straight line dotted and the exact scheme at that q dashed in the matching colour |
+| `figures/physics_over_twin.png` | the ratio map, physics median / twin median, per cell, twelve panels |
+| `figures/cost_vs_error.png` | parameters and forward-pass multiply-adds against error at 50–200 mm and the full crossing, with the best error at or below each cost drawn as a line |
+| `figures/best_architecture_per_cell.png` | which of the twelve architectures wins each (q, stratum) cell, and the error it reaches |
+
+Multiply-adds are the MLP's alone,
+`7·W + (D−1)·W² + W·4·(q+1)` — 7 inputs (5 state + 2 extras), D hidden layers of
+width W, a linear layer to 4(q+1) outputs. The residual wrapper's 16 field
+lookups per sample are the same for every architecture and are not in that
+number. Parameters and multiply-adds differ by less than the biases, so the two
+panels of `cost_vs_error.png` are near-identical by construction; both are drawn
+because the second is the one that matters if this ever runs in a trigger.
+
+## C4.3 Reading the tables
+
+### (a) q only matters in one column, and only for the physics loss
+
+`results/reading_q_sensitivity.csv`. For each (architecture, arm, stratum) it
+records the spread of the cell medians over the ten stage counts, and — as the
+control that makes the spread mean something — the **typical spread over the
+three seeds inside one cell**. q is called out as mattering only when the first
+exceeds twice the second.
+
+| arm | stratum | median spread over q | median seed spread inside a cell | architectures where q matters |
+|---|---|---|---|---|
+| physics | 0.05–0.2 mm | 2.30 | 1.93 | 1 of 12 |
+| physics | 0.5–2 mm | 2.40 | 1.91 | 1 of 12 |
+| physics | 5–20 mm | 2.39 | 1.91 | 1 of 12 |
+| physics | 50–200 mm | 2.04 | 1.73 | 1 of 12 |
+| physics | 500–2000 mm | 1.25 | 1.15 | **0 of 12** |
+| physics | full crossing | **13.4** | 1.11 | **12 of 12** |
+| twin | 0.05–0.2 mm | 1.71 | 1.43 | 1 of 12 |
+| twin | 0.5–2 mm | 1.57 | 1.35 | 1 of 12 |
+| twin | 5–20 mm | 1.49 | 1.30 | 0 of 12 |
+| twin | 50–200 mm | 1.46 | 1.27 | 0 of 12 |
+| twin | 500–2000 mm | 1.84 | 1.24 | 0 of 12 |
+| twin | full crossing | 1.55 | 1.33 | 1 of 12 |
+
+**Only the full crossing, and only under the physics loss.** In the other five
+columns the answer moves with q by a factor 1.2–2.4 while three seeds of one
+cell move by 1.1–1.9: the q dependence is inside the optimiser's own scatter.
+The 500–2000 mm column, which the plan expected to show a q dependence, does
+not — 0 of 12 architectures, a spread of 1.25 against a seed spread of 1.15.
+
+At the full crossing the picture is the one the exact scheme predicts, and it is
+sharp. Over the twelve architectures:
+
+| q | physics-arm network, full crossing | exact scheme at the same q | ratio |
+|---|---|---|---|
+| 2 | 9,676 – 10,050 µm | 9,256 µm | **1.045 – 1.085** |
+| 4 | 3,477 – 4,050 µm | 3,617 µm | **0.96 – 1.12** |
+| 6 – 20 | 593 – 1,745 µm | 20.4 – 233 µm | 18 – 54 × the q = 8 ceiling |
+
+**At q = 2 and q = 4 the network sits on the scheme**, within 9 % and 12 %
+respectively: those two stage counts are so inaccurate on a 5.2 m step that the
+scheme's own discretisation error is the whole error, and the network reproduces
+it. **From q = 6 the network is on its own floor**: the scheme drops by a
+further factor 15 (3,617 → 233 µm) and then to 32.6 µm at q = 8, while the
+network flattens at 593–1,745 µm and stays there to q = 20. The plateau starts
+at q = 6 in every one of the twelve architectures
+(`plateau_from_q` in the csv). The data twin shows none of this — 906 –
+10,200 µm at the crossing with no trend in q at all — because it is fitted to
+labels rather than to the scheme's equations and the stage count only changes
+how many intermediate labels it is also asked to fit.
+
+**The practical reading: past q = 6 the stages are free accuracy the network
+does not collect.** Nothing above q = 6 is worth its cost in this grid.
+
+### (b) The floor scales as |dz|² — the twin exactly, the physics arm not quite
+
+`results/reading_dz_slope.csv`, a straight-line fit of log10(median) against
+log10(median |dz|) over the five interior strata (the full crossing is a
+different population — whole legs, not a log-uniform draw — and is excluded from
+the fit; it is fitted as well and reported as `slope_all_six`).
+
+The prediction is 2. The residual scale the network's output is measured in is
+`kappa · |qop| · I_B · |dz| / 2` with `I_B` itself proportional to |dz|, so a
+network that lands a fixed fraction of one residual scale from the truth has an
+error going as |dz|².
+
+| arm | slope over strata 0–4, median | range over the twelve architectures | by depth (2 / 4 / 8) |
+|---|---|---|---|
+| **twin** | **2.088** | 2.032 – 2.212 | 2.117 / 2.074 / 2.077 |
+| **physics** | **1.859** | 1.708 – 2.012 | 1.934 / 1.861 / 1.762 |
+
+The twin is on the prediction to within 5 % at every one of the twelve
+architectures. The physics arm is systematically **shallower**, and the shortfall
+grows with depth. A slope below 2 means the error falls with |dz| more slowly
+than the residual scale does, i.e. relative to what it is asked to emit the
+network is worse on short steps than on long ones — which is (c).
+
+### (c) Against the straight line: flat for the twin, 70× better at the crossing for the physics arm
+
+`results/reading_ratio_straight.csv`, the cell median divided by the straight
+line's median **on exactly the same rows**.
+
+| stratum | physics, median over architectures | physics, best cell | twin, median | twin, best cell |
+|---|---|---|---|---|
+| 0.05–0.2 mm | 0.120 | 0.068 | 0.023 | 0.0041 |
+| 0.5–2 mm | 0.117 | 0.067 | 0.019 | 0.0041 |
+| 5–20 mm | 0.119 | 0.067 | 0.019 | 0.0045 |
+| 50–200 mm | 0.092 | 0.066 | 0.023 | 0.0072 |
+| 500–2000 mm | 0.019 | 0.014 | 0.039 | 0.011 |
+| full crossing | **0.0017** | 0.0015 | 0.013 | 0.0027 |
+
+The physics arm behaves exactly as the plan expected: about **0.1 of the
+straight line at short steps, improving to 1.7e-3 at the crossing** — a factor
+70 between the two ends. The twin does not: its ratio is **flat at 0.013–0.039
+across four and a half decades of step length**, which is the same statement as
+its |dz|² slope of 2.09.
+
+**The reason is the normalisation, and the two arms are normalised
+differently.** `_shared/model.reconstruction_residuals` divides the physics
+loss's residual by `model.in_scale[:4]` — **one population-wide input scale**,
+the same four numbers (495 mm, 378 mm, 0.170, 0.0694) for every row of the set.
+The deviation a step has to resolve goes as |dz|², so measured on that fixed
+scale a 0.101 mm row's residual is (0.101 / 5175)² = **3.8e-10** of a
+full-crossing row's, and its contribution to the mean *squared* residual is
+that squared again, of order 1e-19. The optimiser has effectively no incentive
+to fit the short rows at all. `grid_data_loss` (in `grid_model.py`) divides instead by the **per-sample
+residual scale**, so every row contributes an O(1) target whatever its length —
+and its ratio to the straight line comes out constant, which is what a
+per-sample normalisation is for.
+
+That is also why the short columns of the physics arm **do not improve with
+network size** while the twin's do. The best cell in each column, over all q:
+
+| stratum | physics, w = 32 | 64 | 128 | 256 | twin, w = 32 | 64 | 128 | 256 |
+|---|---|---|---|---|---|---|---|---|
+| 0.05–0.2 mm | 5.75e-06 | 7.86e-06 | 1.02e-05 | 6.95e-06 | 1.92e-06 | 1.55e-06 | 7.30e-07 | **4.31e-07** |
+| 0.5–2 mm | 5.80e-04 | 8.02e-04 | 1.09e-03 | 6.95e-04 | 2.22e-04 | 1.41e-04 | 5.78e-05 | **4.47e-05** |
+| 5–20 mm | 0.0609 | 0.0841 | 0.107 | 0.0755 | 0.0206 | 0.0168 | 0.0064 | **0.0051** |
+| 50–200 mm | 7.43 | 8.18 | 11.2 | 7.42 | 2.74 | 2.16 | 0.947 | **0.776** |
+| 500–2000 mm | 215 | 192 | 216 | 225 | 436 | 323 | **132** | 143 |
+| full crossing | 725 | 639 | 632 | **593** | 5,953 | 3,565 | 970 | **906** |
+
+The physics arm's three short columns are **flat in width to within the seed
+scatter** — an eightfold increase in width moves 0.05–0.2 mm from 5.8e-6 to
+7.0e-6 µm, i.e. not at all, and the narrowest network is nominally the best of
+the four. The twin's improve monotonically: a factor 4.5 at 0.05–0.2 mm, 5.0 at
+0.5–2 mm, 4.0 at 5–20 mm and 3.5 at 50–200 mm from w = 32 to w = 256. **The
+short columns are not limited by capacity; they are limited by how much the loss
+weights them**, and swapping the population-wide normalisation for a per-sample
+one is what unlocks them.
+
+Two things this does *not* say. It does not say the twin is a better
+extrapolator — see (d), where the ordering reverses on the long steps. And it
+does not make stratum 0 a result: the straight line there is 1.31e-4 µm against a
+reference floor of 5e-5 µm, so the best twin cell, 4.3e-7 µm, is three hundred
+times *below* the floor of the truth it is being scored against and is a
+statement about the fit, not about accuracy.
+
+### (d) Physics against twin: the twin owns the short steps, the physics loss owns the crossing
+
+`results/reading_physics_vs_twin.csv`, physics median / twin median, cell by
+cell, 720 cells.
+
+| stratum | quartile 1 | median | quartile 3 | min | max |
+|---|---|---|---|---|---|
+| 0.05–0.2 mm | 4.90 | **7.81** | 11.8 | 1.93 | 29.1 |
+| 0.5–2 mm | 5.89 | **9.29** | 13.7 | 1.92 | 32.4 |
+| 5–20 mm | 5.92 | **8.32** | 12.9 | 1.78 | 30.8 |
+| 50–200 mm | 3.41 | **5.04** | 6.75 | 2.11 | 16.3 |
+| 500–2000 mm | 0.35 | **0.62** | 1.20 | 0.19 | 3.40 |
+| full crossing | 0.12 | **0.163** | 0.60 | 0.072 | 10.7 |
+
+Supervision wins the four short columns by 5–9× in the median and never loses
+one (the minimum ratio is 1.78, i.e. the twin is ahead in every one of the 480
+cells of those four columns). The crossover is the 500–2000 mm column, where
+the ratio straddles 1. At the **full crossing the label-free loss wins by a
+factor 6**, and by more than that at every q ≥ 6: at 8 x 256 the ratio is 1.94
+at q = 2, 0.61 at q = 4 and 0.095–0.17 from q = 6 on.
+
+That reversal is the interesting one, because it is the case the whole
+discrete-time line is about. On the crossing the twin is fitting an RK6 label it
+cannot reach — 906 µm at best — while the physics arm is solving the collocation
+equations, which on that step *are* an accurate description, and reaches 593 µm.
+On short steps the twin's label is essentially exact and easy, and the physics
+arm's population-wide normalisation stops it from caring. The two effects are
+different mechanisms and both are visible in one grid.
+
+### (e) Which architecture wins each column, and what depth 8 costs
+
+`results/reading_best_architecture.csv` and
+`figures/best_architecture_per_cell.png`.
+
+| arm | stratum | winner | q | median [µm] | parameters |
+|---|---|---|---|---|---|
+| physics | 0.05–0.2 mm | **2 x 32** | 12 | 5.75e-06 | 3,028 |
+| physics | 0.5–2 mm | **2 x 32** | 12 | 5.80e-04 | 3,028 |
+| physics | 5–20 mm | **2 x 32** | 12 | 0.0609 | 3,028 |
+| physics | 50–200 mm | **2 x 256** | 2 | 7.42 | 70,924 |
+| physics | 500–2000 mm | **8 x 64** | 18 | 192 | 34,572 |
+| physics | full crossing | **8 x 256** | 18 | 593 | 482,124 |
+| twin | 0.05–0.2 mm | **2 x 256** | 8 | 4.31e-07 | 77,092 |
+| twin | 0.5–2 mm | **2 x 256** | 8 | 4.47e-05 | 77,092 |
+| twin | 5–20 mm | **2 x 256** | 8 | 0.0051 | 77,092 |
+| twin | 50–200 mm | **4 x 256** | 2 | 0.776 | 202,508 |
+| twin | 500–2000 mm | **4 x 128** | 4 | 132 | 53,140 |
+| twin | full crossing | **4 x 256** | 2 | 906 | 202,508 |
+
+The winner moves down the column in a way that is consistent across the two
+arms: **shallow and wide on the short steps, deep on the long ones for the
+physics arm, and never deeper than 4 for the twin.** For the physics arm the
+short-column winner is meaningless — (c) showed those columns are flat in size —
+but the long-column pattern is real: 8 x 64 and 8 x 256 win the two longest
+columns by 28 % and 17 % over the best depth-4 network.
+
+**Depth 8 is a liability everywhere except the physics arm's two longest
+columns**, which is a sharper statement than "depth 6 hurt" was. Best cell of
+each depth:
+
+| arm | stratum | depth 2 | depth 4 | depth 8 | depth 8 / best |
+|---|---|---|---|---|---|
+| physics | 0.05–0.2 mm | 5.75e-06 | 7.86e-06 | 1.26e-05 | **2.19** |
+| physics | 0.5–2 mm | 5.80e-04 | 8.02e-04 | 1.33e-03 | **2.29** |
+| physics | 5–20 mm | 0.0609 | 0.0841 | 0.142 | **2.33** |
+| physics | 50–200 mm | 7.42 | 8.18 | 7.43 | 1.00 |
+| physics | 500–2000 mm | 448 | 267 | **192** | 1.00 (depth 8 wins) |
+| physics | full crossing | 848 | 718 | **593** | 1.00 (depth 8 wins) |
+| twin | 0.05–0.2 mm | 4.31e-07 | 5.41e-07 | 2.27e-06 | **5.27** |
+| twin | 0.5–2 mm | 4.47e-05 | 5.32e-05 | 1.84e-04 | **4.10** |
+| twin | 5–20 mm | 0.0051 | 0.0058 | 0.0204 | **3.98** |
+| twin | 50–200 mm | 1.04 | **0.776** | 2.43 | 3.13 |
+| twin | 500–2000 mm | 258 | **132** | 426 | 3.24 |
+| twin | full crossing | 1,458 | **906** | 4,170 | 4.60 |
+
+For the twin, depth 8 costs a factor 3.1–5.3 in every column. For the physics
+arm it costs a factor 2.2–2.3 on the three short columns, breaks even at
+50–200 mm and **is the only thing that helps** on the two longest ones. That is
+a coherent picture: on the crossing the map is being asked for a strongly
+non-linear function of the inputs and depth buys it; on a 0.1 mm step the answer
+is nearly the straight line plus a small quadratic, and eight tanh layers are
+harder to optimise than two for no gain.
+
+### (f) The network shows no forward/backward asymmetry, and the exact scheme does
+
+`results/reading_direction.csv`, the backward median divided by the forward one,
+over all 720 cells.
+
+| stratum | physics | twin | exact scheme, q = 8 |
+|---|---|---|---|
+| 0.05–0.2 mm | 1.003 | 0.966 | — |
+| 0.5–2 mm | 0.952 | 1.019 | — |
+| 5–20 mm | 0.966 | 1.036 | — |
+| 50–200 mm | 1.033 | 0.838 | 0.81 |
+| 500–2000 mm | 1.044 | 0.886 | 0.86 |
+| full crossing | 1.043 | 1.171 | **1.56** |
+
+C2 found the exact scheme's backward legs on the crossing **1.56× worse** than
+its forward ones at q = 8 (39.19 against 25.05 µm) and 2.09× at q = 20. The
+network shows no such thing: 1.04 for the physics arm and 1.17 for the twin,
+against a seed scatter of 1.1–1.9 per cell. **The asymmetry is a property of
+where the collocation nodes fall on the field profile, and it lives four orders
+of magnitude below the level at which the network is operating**, so the network
+cannot see it. The direction split is therefore doing here what C3.1 said it
+would — checking the scoring, not measuring physics. The full per-direction
+tables are `results/table_<D>x<W>_by_direction.csv`.
+
+### (g) The tails
+
+`results/reading_p95.csv`. p95 over median, per cell:
+
+| stratum | physics, median over cells | twin |
+|---|---|---|
+| 0.05–0.2 mm | 8.6 | 20.8 |
+| 0.5–2 mm | 8.6 | 22.9 |
+| 5–20 mm | 8.2 | 20.1 |
+| 50–200 mm | 7.2 | 18.2 |
+| 500–2000 mm | 10.2 | 13.0 |
+| full crossing | 11.1 | 12.9 |
+
+**The twin's distribution is about twice as heavy-tailed as the physics arm's on
+the short steps** and they converge at the crossing. Both are far heavier than
+the straight line's own p95/median, which the C3.1 table puts at 6.8–7.4 on
+every interior stratum and 3.0 on the crossing. Measured against the straight
+line's *p95* rather than its median, the picture of (c) survives at the tail:
+
+| stratum | physics p95 / straight-line p95 | twin |
+|---|---|---|
+| 0.05–0.2 mm | 0.142 | 0.047 |
+| 0.5–2 mm | 0.147 | 0.048 |
+| 5–20 mm | 0.144 | 0.045 |
+| 50–200 mm | 0.084 | 0.047 |
+| 500–2000 mm | 0.031 | 0.069 |
+| full crossing | **0.0076** | 0.050 |
+
+Same shape, same crossover, so the medians are not hiding a different tail
+story. The one place the tail is worse than the median suggests is the physics
+arm on the two longest strata, where p95/median rises from 7.2 to 11.1 — those
+are the soft tracks, and they are the rows that also drive (a).
+
+### (h) Cost
+
+`results/reading_cost.csv` and `figures/cost_vs_error.png`. The measure is the
+gain over the straight line (straight-line median / cell median) per thousand
+parameters.
+
+| stratum | arm | best error per parameter | its error | best error outright | its cost |
+|---|---|---|---|---|---|
+| 50–200 mm | physics | **2 x 32, q = 12** — 3,028 params, gain 16.0× | 8.81 µm | 2 x 256, q = 2 (70,924 params) | 7.42 µm |
+| 50–200 mm | twin | **2 x 32, q = 2** — 1,708 params, gain 39.7× | 3.55 µm | 4 x 256, q = 2 (202,508 params) | 0.776 µm |
+| full crossing | physics | **2 x 32, q = 6** — 2,236 params, gain 288× | 1,582 µm | 8 x 256, q = 18 (482,124 params) | 593 µm |
+| full crossing | twin | **2 x 32, q = 2** — 1,708 params, gain 52.9× | 8,623 µm | 4 x 256, q = 2 (202,508 params) | 906 µm |
+
+**The cost-error front is very flat.** At the full crossing the physics arm goes
+from 1,582 µm at 2,236 parameters to 593 µm at 482,124 — a factor 2.7 in error
+for a factor **216 in parameters and multiply-adds**, and four fifths of that
+gain is already collected by 8,836 parameters (8 x 32, q = 8, 767 µm). At
+50–200 mm the physics arm's front is flat from 8,044 parameters (7.90 µm) to
+70,924 (7.42 µm): a factor 8.8 in cost for 6 % in error.
+
+The 17-point front at the crossing is in
+`results/reading_cost.csv`; the practical entries are
+
+| architecture | q | parameters | multiply-adds | full-crossing median |
+|---|---|---|---|---|
+| 2 x 32 | 6 | 2,236 | 2,144 | 1,582 µm |
+| 4 x 32 | 6 | 4,348 | 4,192 | 885 µm |
+| 8 x 32 | 8 | 8,836 | 8,544 | 767 µm |
+| 8 x 64 | 20 | 35,092 | 34,496 | 639 µm |
+| 8 x 256 | 18 | 482,124 | 480,000 | 593 µm |
+
+For comparison, the exact q = 8 root-finder reaches 32.6 µm on the same step at
+37 residual evaluations, i.e. 37 field lookups at 8 planes each, and 17.8 ms of
+one core (C2.3). The whole grid is between 18 and 54 times worse than that, at
+any cost, so **the limit is not the network's size and not the stage count; it
+is whatever the physics loss actually converges to.** That is the question C4
+hands on.
+
