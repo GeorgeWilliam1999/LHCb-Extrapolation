@@ -1,6 +1,1 @@
 tag,width,depth,q,mode,seed,cell,seeds_present_in_cell
-w256_d8_q06_data_s2,256,8,6,data,2,8x256 data q=6,2
-w256_d8_q08_data_s0,256,8,8,data,0,8x256 data q=8,2
-w256_d8_q12_data_s2,256,8,12,data,2,8x256 data q=12,2
-w256_d8_q18_data_s1,256,8,18,data,1,8x256 data q=18,2
-w256_d8_q20_data_s0,256,8,20,data,0,8x256 data q=20,2

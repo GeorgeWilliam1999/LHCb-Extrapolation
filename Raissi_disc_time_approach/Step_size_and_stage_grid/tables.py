@@ -449,11 +449,22 @@ def reading_cost(idx):
     return rows
 
 
-def write_rows(path, rows):
-    if not rows:
-        return
+PENDING_FIELDS = ["tag", "width", "depth", "q", "mode", "seed", "cell",
+                  "seeds_present_in_cell"]
+
+
+def write_rows(path, rows, fields=None):
+    """Write `rows` as a csv, header included even when there are none.
+
+    An empty result has to overwrite the file rather than skip it: once the
+    grid has finished, `pending_cells.csv` must become an empty table, not
+    keep yesterday's rows.
+    """
+    fields = fields or (list(rows[0].keys()) if rows else None)
+    if fields is None:
+        raise ValueError("write_rows needs field names to write an empty csv")
     with open(path, "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
         w.writeheader()
         w.writerows(rows)
 
@@ -491,7 +502,8 @@ def main(argv=None):
         c = idx.get(("%dx%d" % (m["depth"], m["width"]), m["mode"], m["q"],
                      "full crossing"))
         m["seeds_present_in_cell"] = c["n_seeds"] if c else 0
-    write_rows(os.path.join(RESULTS, "pending_cells.csv"), miss)
+    write_rows(os.path.join(RESULTS, "pending_cells.csv"), miss,
+               fields=PENDING_FIELDS)
 
     write_rows(os.path.join(RESULTS, "reading_q_sensitivity.csv"),
                reading_q_sensitivity(idx, scheme, straight))
