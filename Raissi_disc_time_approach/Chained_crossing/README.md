@@ -320,6 +320,10 @@ the shape of it: 767 µm in one step, 2,750 µm in five or six steps of 1000 mm,
 43 % of the straight line's 478,300 µm, i.e. the chain has thrown away most of
 what the network knew about the magnet.
 
+**713 of the 720 networks are worse at 0.1 mm than in one step**, by a median
+factor of **105** — 242 for the physics arm and 20 for the twin — and the seven
+exceptions are all within 10 % of breaking even rather than gaining anything.
+
 This is the reverse of what a discretisation argument predicts and it is not
 subtle: shrinking the step improves the **single** step monotonically — the same
 4 x 64 network goes from 767 µm over the crossing to 1.2e-5 µm over 0.1 mm — and
