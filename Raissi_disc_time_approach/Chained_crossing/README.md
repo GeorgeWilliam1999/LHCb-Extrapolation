@@ -272,3 +272,200 @@ A chained job is stateless — it reads a checkpoint and the track list and writ
 one record — so a failure is simply re-run rather than resumed. `resubmit.py` is
 idempotent and safe on a schedule: it selects only tags with no record on disk
 and no job of their own already idle or running.
+
+**All 720 records landed and the queue emptied at 14:15 on 2026-09-08**, about
+55 minutes after submission, with **no failures and no resubmission round**.
+Total cost **134.3 core-hours**; a job took a median of **511 s**, from 220 s at
+2 x 32, q = 2 to **2,651 s** (44 min) at 8 x 256 — against the 0.73 h the
+projection gave for that point, which is the projection to within 1 %.
+
+`results/landed.csv` carries the wall time and the worker node of every record;
+`results/pending.csv` is a header and no rows.
+
+### The single-step gate
+
+Every job re-scores the network's single step on the whole v3 test split
+through the grid's own path — `grid_model.build_grid_model` and
+`_shared.evaluate.predict` — and asserts that the max(\|dx\|, \|dy\|) medians
+per stratum reproduce that run's own `by_stratum` block in
+`../Step_size_and_stage_grid/results/<tag>.json`. Over the 720 records and the
+**5,040 stratum cells** the worst relative difference is **exactly 0.0**: the
+per-component numbers here are the grid's own single-step numbers split into
+components and nothing else.
+
+---
+---
+
+# C6.4 — reading the tables
+
+## (a) Chaining never helps. The single step across the whole magnet is the best step.
+
+`results/ranking.csv`, every network's best chained far-plane median over the
+six columns:
+
+| the column that reached a network's best error | physics arm | data twin | all |
+|---|---|---|---|
+| **full crossing (one step)** | **291 of 360** | 130 of 360 | **421 of 720** |
+| 1000 mm | 69 | 23 | 92 |
+| 100 mm | 0 | 69 | 69 |
+| 10 mm | 0 | 93 | 93 |
+| 1 mm | 0 | 45 | 45 |
+| **0.1 mm** | **0** | **0** | **0** |
+
+**Not one of the 720 networks is at its best when it walks the crossing in
+0.1 mm steps**, and the physics arm is at its best in one step for 291 of its
+360 networks, at 1000 mm for the other 69. The 4 x 64 physics arm at q = 20 is
+the shape of it: 767 µm in one step, 2,750 µm in five or six steps of 1000 mm,
+14,300 µm at 100 mm, 151,000 µm at 10 mm and **207,000 µm at 0.1 mm** — which is
+43 % of the straight line's 478,300 µm, i.e. the chain has thrown away most of
+what the network knew about the magnet.
+
+This is the reverse of what a discretisation argument predicts and it is not
+subtle: shrinking the step improves the **single** step monotonically — the same
+4 x 64 network goes from 767 µm over the crossing to 1.2e-5 µm over 0.1 mm — and
+makes the **chain** monotonically worse. The single step and the chain are
+measured on the same networks in the same job, so the two statements are not
+about different populations.
+
+## (b) The growth law: a coherent slope bias, integrating into position
+
+`results/growth_exponent.csv` fits log10(median error) against log10(fraction of
+the crossing walked) over the checkpoints from a tenth of the crossing on. The
+three hypotheses give different exponents: **0.5** if the per-step errors are
+independent and add in quadrature, **1** if one bias repeats identically at every
+step, and **2** if that coherent bias is in the *slope*, because a slope error
+held for a distance z displaces the position by z².
+
+Median exponent over 720 networks, forward and backward pooled:
+
+| arm | column | x | tx |
+|---|---|---|---|
+| physics | 0.1 mm | **2.31** | **1.20** |
+| physics | 1 mm | **2.31** | **1.20** |
+| physics | 10 mm | **2.32** | **1.23** |
+| physics | 100 mm | 2.11 | 1.02 |
+| physics | 1000 mm | 1.41 | 0.63 |
+| twin | 0.1 mm | **2.33** | **1.33** |
+| twin | 1 mm | **2.08** | **1.04** |
+| twin | 10 mm | **2.04** | **0.97** |
+| twin | 100 mm | 1.99 | 0.92 |
+| twin | 1000 mm | 1.51 | 0.74 |
+
+**The slope exponent sits on 1 and the position exponent on 2, in both arms and
+at every step length short enough for the chain to have many steps.** Over the
+four columns with more than 50 steps, **99.8 %** of the 2,880 (network,
+direction) fits have a position exponent above 1.5 and **not one** is below 1.0.
+A random walk is excluded: it would put the slope at 0.5 and the position at
+1.5.
+
+So the mechanism is: the network makes the *same* small mistake in tx at every
+step of a track, that mistake adds up linearly, and the position error it causes
+grows as the square of the distance walked. Halving the step doubles the number
+of steps and does not halve the per-step slope bias by enough to compensate,
+which is why the error rises as the step shrinks.
+
+The 1000 mm column's exponents fall to 1.4 and 0.6 because it has only five or
+six steps: the fit there is over too short a lever arm to separate the laws, and
+it is reported rather than read.
+
+## (c) Which component: x by a factor 3 to 40, and it is spread, not offset
+
+`results/component_reading.csv`, medians over the twelve architectures:
+
+| arm | column | x / µm | y / µm | x / y | tx / mrad | ty / mrad | tx / ty |
+|---|---|---|---|---|---|---|---|
+| physics | 0.1 mm | 2.38e5 | 5,572 | **42.7** | 81.2 | 2.12 | **38.4** |
+| physics | 10 mm | 1.58e5 | 5,252 | 30.0 | 55.5 | 1.88 | 29.4 |
+| physics | 100 mm | 1.43e4 | 3,078 | 4.7 | 5.41 | 1.04 | 5.2 |
+| physics | 1000 mm | 2,579 | 1,006 | 2.6 | 1.03 | 0.41 | 2.5 |
+| physics | full crossing | **732** | **266** | 2.7 | **0.203** | **0.078** | 2.6 |
+| twin | 0.1 mm | 1.26e5 | 2,393 | **52.7** | 52.8 | 0.77 | **68.8** |
+| twin | 10 mm | 5,306 | 1,762 | 3.0 | 2.00 | 0.52 | 3.9 |
+| twin | full crossing | 4,635 | 1,806 | 2.6 | 1.98 | 0.51 | 3.9 |
+
+**The bending plane carries the error.** In one step the ratio x/y is 2.3–3.6 in
+every stratum of both arms — the magnet bends in x, and so does the part of it
+the network gets wrong. Chaining does not preserve that ratio: it *amplifies*
+it, to 43 in the physics arm and 53 in the twin at 0.1 mm, because the thing
+that accumulates is the bend. The slope ratio tx/ty moves the same way, from
+2.6–4.3 in one step to 38–69 at 0.1 mm. **The chain is not a uniform
+degradation; it is a degradation of the bend.**
+
+**It is spread, not a shared offset.** |mean| / rms of the signed component is
+**0.04–0.17** for x and 0.02–0.08 for tx everywhere: the population's mean error
+is at most a sixth of its rms, so there is no common displacement that a
+constant correction would remove. What is coherent is coherent *along one
+track*, not across tracks — each track has its own sign and size of slope bias
+and holds it for the whole crossing. The tails widen the other way: p95/median
+is 4.7–5.5 for the physics arm on the short columns against 11.4 in one step, so
+the chain makes the *typical* track much worse without making the tail
+relatively worse.
+
+## (d) The ranking
+
+`results/ranking.csv` and `results/ranking_extremes.csv`, best chained far-plane
+median over the six columns against the fine reference:
+
+| | network | q | best | at | its single step over the crossing (grid C4) | rank of 720 |
+|---|---|---|---|---|---|---|
+| **physics, best** | 8 x 128 seed 0 | 14 | **549 µm** | full crossing | 673 µm | 1 |
+| | 8 x 128 seed 2 | 12 | 573 µm | full crossing | 677 µm | 2 |
+| | 8 x 128 seed 0 | 18 | 590 µm | full crossing | 674 µm | 3 |
+| **physics, worst** | 2 x 256 seed 2 | 2 | 5,394 µm | 1000 mm | 10,050 µm | 562 |
+| | 2 x 256 seed 1 | 2 | 5,086 µm | 1000 mm | 10,050 µm | 548 |
+| | 2 x 32 seed 1 | 2 | 4,669 µm | 1000 mm | 9,831 µm | 527 |
+| **twin, best** | 4 x 256 seed 1 | 2 | **894 µm** | 10 mm | 906 µm | 175 |
+| | 4 x 256 seed 0 | 2 | 928 µm | full crossing | 906 µm | 196 |
+| | 4 x 128 seed 1 | 4 | 955 µm | full crossing | 970 µm | 213 |
+| **twin, worst** | 2 x 32 seed 2 | 10 | 10,480 µm | full crossing | 9,615 µm | 720 |
+| | 2 x 32 seed 2 | 14 | 10,160 µm | 1 mm | 9,877 µm | 719 |
+| | 2 x 64 seed 0 | 20 | 9,850 µm | 1000 mm | 10,180 µm | 718 |
+
+Two things are worth saying about that table. **The best number in the whole
+experiment, 549 µm, is a single step**, and it is 18 % below that network's own
+single-step cell in the grid's C4 table only because it is measured on 1,000 of
+the grid's 2,000 full-crossing test rows. **And the ranking is essentially the
+single-step ranking**: the worst networks are the q = 2 ones, which C4 already
+showed sit on the exact scheme's own q = 2 discretisation error, and no network
+climbs the ranking by being chained.
+
+## (e) Against real hits: the chain leaves the floor far behind
+
+`results/chained_table_<D>x<W>_hit.csv`. The material floor on these 1,000
+tracks — the particle's real far-plane hit against the fine reference — is
+**1,643 µm** (median; 2,080 µm forward, 1,327 µm backward, p95 12,172 µm),
+consistent with [`../MC_hit_comparison`](../MC_hit_comparison)'s 1,815 µm on its
+own cross-magnet population.
+
+| architecture | arm | column | vs the fine reference | vs the real hit | ratio |
+|---|---|---|---|---|---|
+| 4 x 64 | physics | full crossing | 802 µm | 2,038 µm | **2.54** |
+| 4 x 64 | physics | 1000 mm | 2,877 µm | 3,621 µm | 1.26 |
+| 4 x 64 | physics | 100 mm | 15,100 µm | 14,940 µm | 0.99 |
+| 4 x 64 | physics | 0.1 mm | 204,500 µm | 205,000 µm | **1.00** |
+| 8 x 256 | physics | full crossing | 726 µm | 2,008 µm | **2.77** |
+| 8 x 256 | physics | 0.1 mm | 124,600 µm | 126,200 µm | **1.00** |
+
+This is C5's reading arriving from the other side. In **one** step the network's
+field-only error (726–802 µm) is *below* the 1,643 µm floor, so the vs-hit
+number is dominated by the material and is 2.5–2.8 times the field-only one.
+**As soon as the chain is more than about a thousand microns wrong the two
+columns coincide**, and by the 0.1 mm column they agree to 1 %: a chained error
+of 200 mm is a hundred times the material floor, so comparing it with a real hit
+measures the chain and nothing else.
+
+## (f) What this says about the discrete-time surrogate
+
+1. **On this problem the one-step network should be used as a one-step
+   network.** Its accuracy over the whole magnet, 549–800 µm at the good
+   architectures, is not reached by any subdivision of the crossing, and the
+   finest subdivision loses two and a half orders of magnitude.
+2. **The obstacle is a per-track slope bias, not capacity and not noise.** The
+   exponents say it plainly, and (c) says it is not a shared offset that a
+   calibration could remove. A network whose *slope* output were unbiased per
+   track would chain; these do not, and nothing in either loss asks them to —
+   the physics loss scores the reconstruction residual and the twin scores the
+   endpoint label, and both are one-step criteria.
+3. **That is the experiment this suggests next**: a loss with a term over two
+   or more chained steps, so the slope is trained where it is used. This folder
+   measures the problem; it does not fix it.
