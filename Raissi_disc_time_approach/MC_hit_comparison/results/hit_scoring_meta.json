@@ -1,5 +1,5 @@
 {
- "created": "2026-09-08 05:32:33",
+ "created": "2026-09-08 08:49:24",
  "n_rows": 13228,
  "field": {
   "which": "up",
@@ -83,11 +83,11 @@
    "8x128 physics 20-200 mm": 2,
    "8x128 physics 200-2000 mm": 1,
    "8x128 physics cross-magnet": 0,
-   "8x256 data 0.05-2 mm": 1,
-   "8x256 data 2-20 mm": 2,
-   "8x256 data 20-200 mm": 1,
-   "8x256 data 200-2000 mm": 1,
-   "8x256 data cross-magnet": 1,
+   "8x256 data 0.05-2 mm": 0,
+   "8x256 data 2-20 mm": 0,
+   "8x256 data 20-200 mm": 0,
+   "8x256 data 200-2000 mm": 0,
+   "8x256 data cross-magnet": 0,
    "8x256 physics 0.05-2 mm": 1,
    "8x256 physics 2-20 mm": 1,
    "8x256 physics 20-200 mm": 2,
@@ -96,5 +96,5 @@
   }
  },
  "label_caveat": "the end state is the particle's own next MCHit state; the v2 rows' Y column (MagDown field-only) is never read",
- "wall_s": 807.1
+ "wall_s": 802.5
 }

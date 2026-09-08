@@ -170,8 +170,18 @@ choice can be audited rather than believed. The map that came out:
 | 200–2000 mm | 472 mm | 500–2000 mm |
 | cross-magnet | 5,183 mm | full crossing |
 
-Total cost 807 s on one thread: 522 s the fine reference, 271 s the exact
+Total cost 803 s on one thread: 519 s the fine reference, 271 s the exact
 scheme, the rest the eight networks' forward passes.
+
+**Re-run on the finished grid.** This table was first built while five records
+of the 8 x 256 data-twin row were still training. When they landed the seed
+that had been missing at q = 8 turned out to be the best of the three by a wide
+margin on validation (a full-crossing val median of 1,785 µm against 5,313 and
+5,780), so the selection rule now picks **seed 0 in every stratum** for
+8 x 256 twin, and only that one row of the table changed. Its cross-magnet
+median went from 8,633 µm to 3,694 µm; the other seven models, the exact scheme
+and the floor are identical to the digit. The readings below are written on the
+finished grid.
 
 ---
 
@@ -191,7 +201,7 @@ all momenta, both directions pooled:
 | 2 x 256 twin | 0.1094 | 0.5704 | 7.933 | 73.91 | 3,088 |
 | 4 x 64 twin | 0.1094 | 0.5887 | 8.467 | 77.31 | 6,902 |
 | 8 x 128 twin | 0.1094 | 0.5888 | 8.174 | 75.76 | 6,343 |
-| 8 x 256 twin | 0.1094 | 0.5796 | 8.295 | 76.63 | 8,633 |
+| 8 x 256 twin | 0.1094 | 0.5773 | 7.933 | 70.17 | 3,694 |
 | straight line | 0.1082 | 0.6889 | 20.96 | 620.7 | 5.258e+05 |
 | rows | 436 | 382 | 6,000 | 4,000 | 2,410 |
 
@@ -202,7 +212,7 @@ perfect field propagation:
 |---|---|---|---|---|---|
 | exact scheme q = 8 | 1.000 | 1.000 | 1.000 | 1.000 | **1.017** |
 | physics arm, the four architectures | 0.992–0.996 | 1.02–1.06 | 1.16–1.23 | 1.51–1.97 | **1.31–1.48** |
-| twin, the four architectures | 1.000–1.001 | 0.995–1.03 | 1.06–1.13 | 1.45–1.51 | **1.70–4.76** |
+| twin, the four architectures | 1.000 | 0.995–1.03 | 1.06–1.13 | 1.37–1.51 | **1.70–3.80** |
 | straight line | 0.990 | 1.20 | 2.81 | 12.1 | **290** |
 
 ### By momentum band
@@ -258,11 +268,11 @@ floor on the short steps:
 
 | stratum | material floor | network field-only error, the eight models | ratio |
 |---|---|---|---|
-| 0.05–2 mm | 0.1094 µm | 5.0e-05 – 3.6e-04 µm | **300 – 2,200 × below** |
-| 2–20 mm | 0.5732 µm | 0.0013 – 0.0372 µm | **15 – 440 × below** |
-| 20–200 mm | 7.463 µm | 0.556 – 3.37 µm | 2 – 13 × below |
-| 200–2000 mm | 51.14 µm | 32.9 – 78.5 µm | comparable |
-| cross-magnet | 1,815 µm | 769 – 7,766 µm | comparable |
+| 0.05–2 mm | 0.1094 µm | 5.0e-05 – 3.6e-04 µm | **307 – 2,181 × below** |
+| 2–20 mm | 0.5732 µm | 0.0013 – 0.0372 µm | **15 – 442 × below** |
+| 20–200 mm | 7.463 µm | 0.500 – 3.37 µm | 2 – 15 × below |
+| 200–2000 mm | 51.14 µm | 25.7 – 78.5 µm | comparable |
+| cross-magnet | 1,815 µm | 769 – 6,371 µm | comparable |
 
 and the vs-hit column shows exactly what that implies: at 0.05–2 mm every
 predictor — reference, exact scheme, all eight networks and even the **straight
@@ -280,10 +290,10 @@ the field-only comparison of C4 is the only measurement that means anything.
 
 At 20–200 mm the network costs **6–23 %** over a perfect field propagation
 (twin 6–13 %, physics arm 16–23 %); the exact scheme costs 0.0 %. At
-200–2000 mm it costs **45–97 %**. At the crossing the physics arm costs
-**31–48 %** and the twin **70–376 %** — and there the ordering of C4 (d)
+200–2000 mm it costs **37–97 %**. At the crossing the physics arm costs
+**31–48 %** and the twin **70–280 %** — and there the ordering of C4 (d)
 survives contact with real hits: the physics arm's 2,370–2,682 µm against the
-twin's 3,088–8,633 µm, on a floor of 1,815 µm.
+twin's 3,088–6,902 µm, on a floor of 1,815 µm.
 
 By momentum band the excess **grows with momentum**, and sharply:
 
@@ -292,7 +302,7 @@ By momentum band the excess **grows with momentum**, and sharply:
 | 20–200 mm, physics arm | 1.12 – 1.18 | 1.04 – 1.12 | 1.12 – 1.28 |
 | 200–2000 mm, physics arm | 1.58 – 1.92 | 1.42 – 1.74 | 1.93 – 2.39 |
 | cross-magnet, physics arm | **1.26 – 1.37** | **1.20 – 1.40** | **2.17 – 6.40** |
-| cross-magnet, twin | 2.26 – 6.23 | 1.64 – 4.87 | 2.24 – 5.79 |
+| cross-magnet, twin | 2.26 – 5.60 | 1.64 – 3.33 | 2.24 – 5.79 |
 
 The reason is that the two terms scale differently. The material term goes as
 1/p — 6,203 → 236.9 µm from the softest band to the hardest, a factor 26 — while
@@ -320,14 +330,14 @@ p95 against the real hit, all momenta, microns:
 | material floor | 0.9476 | 6.002 | 59.35 | 416 | 20,160 |
 | exact scheme q = 8 | 0.9476 | 6.002 | 59.35 | 416 | 22,140 |
 | physics arm | 0.944–0.945 | 6.04–6.13 | 64.6–69.3 | 901–980 | 56,300–67,500 |
-| twin | 0.945–0.947 | 6.01–6.09 | 61.5–66.7 | 847–1,149 | 103,800–221,700 |
+| twin | 0.945–0.947 | 6.01–6.09 | 61.4–66.7 | 831–1,149 | 103,800–205,200 |
 
 The floor's own p95 is 8.7 times its median at 0.05–2 mm and 11 times at the
 crossing — the tail is decays in flight and hard hadronic interactions, states
 after which the particle genuinely is not where any extrapolator would put it
 (the v1 characterisation's note on the same tail). The networks do not widen
 that tail on the short steps at all, multiply it by 2.0–2.8 at 200–2000 mm, and
-at the crossing by 2.8–3.3 (physics arm) or **5.1–11.0** (twin) — the same
+at the crossing by 2.8–3.3 (physics arm) or **5.1–10.2** (twin) — the same
 architecture-dependent instability C4 (d) saw, and larger at the tail than at
 the median.
 
