@@ -30,8 +30,8 @@ read-only.
 | [chain_one.py](chain_one.py) | **C6.1 + C6.2.** one network: the per-component single step on the v3 test split, and the chain at every step length | `results/single_step/<tag>.npz`, `results/chains/<tag>.npz`, `results/records/<tag>.json` |
 | [make_jobs.py](make_jobs.py) | **C6.3b.** the 720-line job list and its submit file | `condor/jobs_chain.txt`, `condor/jobs_chain.sub` |
 | [resubmit.py](resubmit.py) | **C6.3c.** sends back the tags whose record has not landed and which are not already queued | `condor/jobs_chain_round<N>.txt` / `.sub` |
-| [aggregate.py](aggregate.py) | **C6.1 / C6.2 summaries.** the records → the long tables | `results/single_step_components.csv`, `results/chained_components.csv`, `results/chain_growth.csv`, `results/reference_rows.csv`, `results/landed.csv`, `results/pending.csv` |
-| [tables.py](tables.py) | **C6.4a.** the long tables → the display tables and the ranking | `results/chained_table_<D>x<W>*.csv`, `results/single_step_table_<D>x<W>_<component>.csv`, `results/ranking.csv`, `results/ranking_extremes.csv` |
+| [aggregate.py](aggregate.py) | **C6.1 / C6.2 summaries.** the records → the long tables | `results/single_step_components.csv`, `results/chained_components.csv`, `results/chain_growth.csv`, `results/growth_exponent.csv`, `results/reference_rows.csv`, `results/landed.csv`, `results/pending.csv` |
+| [tables.py](tables.py) | **C6.4a.** the long tables → the display tables, the ranking and the component reading | `results/chained_table_<D>x<W>*.csv`, `results/single_step_table_<D>x<W>_<component>.csv`, `results/ranking.csv`, `results/ranking_extremes.csv`, `results/component_reading.csv` |
 | [plot.py](plot.py) | **C6.4b.** the figures, from the csvs alone | `figures/chain_growth_<D>x<W>.png`, `figures/chained_heatmap_<D>x<W>.png`, `figures/mini_fig2_<tag>.png`, `figures/mini_fig3_<tag>.png`, `figures/components_<tag>.png`, `figures/best_vs_worst_components.png` |
 | [analysis.ipynb](analysis.ipynb) | loads all of the above and displays it; computes nothing | — |
 
@@ -136,9 +136,10 @@ lengths, and a cell is `median [min-max over the three seeds]`.
 | `results/chained_table_<D>x<W>.csv` | chained far-plane max(\|dx\|, \|dy\|) against the **fine reference**, µm |
 | `results/chained_table_<D>x<W>_x.csv`, `_y.csv` | the signed component, \|dx\| or \|dy\|, µm |
 | `results/chained_table_<D>x<W>_tx.csv`, `_ty.csv` | the slope component, mrad |
-| `results/chained_table_<D>x<W>_max_xy.csv` | the same as the unsuffixed file, written for symmetry |
 | `results/chained_table_<D>x<W>_hit.csv` | chained far-plane max(\|dx\|, \|dy\|) against the **particle's real hit**, µm |
-| `results/single_step_table_<D>x<W>_<component>.csv` | the **single step** on the v3 test split: rows q, columns the six training strata, per component |
+| `results/single_step_table_<D>x<W>_<component>.csv` | the **single step** on the v3 test split: rows q, columns the six training strata, one file per component including `max_xy` |
+| `results/growth_exponent.csv` | the power-law exponent of the growth curve per (network, column, direction, **component**), written by `aggregate.py` from the full per-component growth in the records: **0.5** is a random walk, **1** is a coherent bias repeating every step, **2** is a coherent bias in the *slope* integrating into position |
+| `results/component_reading.csv` | per (architecture, arm, column, component): the median error, the tail, and how much of it is bias rather than spread |
 
 Four reference rows sit beneath the network rows of every chained table:
 
@@ -220,7 +221,45 @@ python make_jobs.py
 condor_submit condor/jobs_chain.sub
 ```
 
-One job per network, 720 jobs, one cluster; 1 CPU and 4 GB each,
+### What a job costs
+
+The 0.1 mm column is the whole experiment's cost: a 5.2 m crossing at a 0.1 mm
+step is about 51,700 network evaluations per track, against 5,200 at 1 mm and
+one at the full crossing. `measure_timing.py` measures it twice.
+
+**The plan's probe — the whole 0.1 mm column on ten tracks:**
+
+| network | parameters | tracks x steps | wall | per sample-step | peak RSS |
+|---|---|---|---|---|---|
+| 8 x 256, q = 20 | 484,180 | 10 x 51,730 | 178.9 s | 345.8 µs | 0.60 GB |
+| 4 x 32, q = 2 | 3,220 | 10 x 51,730 | 109.3 s | 211.2 µs | 0.61 GB |
+
+**The batch probe, which is what the projection is built on.** A chain is a loop
+over steps with the whole batch of tracks inside it, so the per-track cost falls
+steeply with the batch — at ten tracks the fp64 matrix multiplies are far too
+small to amortise torch's own per-operation overhead:
+
+| network | batch 10 | batch 500 | batch 1000 | one step of a batch of n |
+|---|---|---|---|---|
+| 8 x 256, q = 20 | 3.42 ms (341.6 µs each) | 41.02 ms (82.1 µs each) | 80.82 ms (80.8 µs each) | **2.397 + 0.07819 n ms** |
+| 4 x 32, q = 2 | 2.06 ms (205.8 µs each) | 5.67 ms (11.3 µs each) | 9.17 ms (9.2 µs each) | **2.017 + 0.00718 n ms** |
+
+A whole job is 31,631,000 sample-steps — 25.9 million of them the 0.1 mm column.
+At the fitted rates that is **0.73 h at 8 x 256, q = 20** and **0.10 h at
+4 x 32, q = 2**. The ten-track probe, charged to every column, would have said
+3.04 h and 1.86 h; the difference is the batch, and it is recorded rather than
+hidden.
+
+**The rule was fixed before measuring: over 8 h at 8 x 256 and the 0.1 mm column
+is cut to 100 + 100 tracks. 0.73 h is well under it, so the column keeps its
+250 + 250 tracks** and nothing was reduced. Peak resident set 0.61 GB, so the
+4 GB request is generous; there is no optimiser history here, which is what made
+the training jobs heavy.
+
+### The cluster
+
+**Cluster 5783753, 720 jobs, submitted 2026-09-08 13:20 CEST.**
+One job per network, 1 CPU and 4 GB each,
 `+JobCategory "medium"`, `+UseOS "el9"`, `getenv = False`, no file transfer —
 the repository, the checkpoints and the results are all on `/data` and visible
 from the worker nodes. `condor/jobs_chain.sub` points at

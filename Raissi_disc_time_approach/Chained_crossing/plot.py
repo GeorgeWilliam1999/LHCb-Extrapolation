@@ -47,9 +47,24 @@ COLUMN_COLOUR = dict(zip(COLUMN_NAMES,
                                                              len(COLUMN_NAMES)))))
 
 
+GRID = os.path.join(os.path.dirname(HERE), "Step_size_and_stage_grid")
+
+
 def read_csv(path):
     with open(path) as f:
         return list(csv.DictReader(f))
+
+
+def straight_by_stratum():
+    """The straight line's own median per training stratum, from the grid."""
+    out = {}
+    for r in read_csv(os.path.join(GRID, "results", "table_cells.csv")):
+        if r["split"] == "test" and r["direction"] == "all":
+            out[r["stratum"]] = float(r["straight_um"])
+    return out
+
+
+STRAIGHT_BY_STRATUM = {}
 
 
 def f(x):
@@ -238,9 +253,15 @@ def mini_fig3(tag, chained, single, refs, out_dir):
             ax[1].plot(xs, ys, "-s", color=colour, label="%s, %s" % (name, t))
     sl = ref.get(("straight line", "full crossing"), np.nan)
     mf = ref.get(("material floor", "full crossing"), np.nan)
-    for a in ax:
-        a.axhline(sl, ls="--", color="grey",
+    ax[0].axhline(sl, ls="--", color="grey",
                   label="straight line across the magnet, %.0f um" % sl)
+    # the single-step panel's null is the straight line *of that step length*,
+    # which is a curve, not a level: it is what the grid records per stratum.
+    have = [s for s in strata_dz if s in STRAIGHT_BY_STRATUM]
+    ax[1].plot([strata_dz[s] for s in have],
+               [STRAIGHT_BY_STRATUM[s] for s in have],
+               "--", color="grey", label="straight line of that step length")
+    for a in ax:
         a.axhline(mf, ls="-.", color="tab:green",
                   label="material floor, %.0f um" % mf)
         a.axhline(C.REFERENCE_FLOOR_UM, ls=":", color="k",
@@ -283,13 +304,14 @@ def mini_fig2(tag, chains_dir, refs, ranking, out_dir):
             continue
         mx = np.abs(d[key][:, :2]).max(axis=1) * 1e3
         ax[0].hist(mx, bins=bins, histtype="step", lw=1.3,
-                   color=COLUMN_COLOUR[col], label=col, density=True)
+                   color=COLUMN_COLOUR[col], label=col,
+                   weights=np.full(len(mx), 1.0 / len(mx)))
         meds.append(np.median(mx))
         p95s.append(np.quantile(mx, 0.95))
         names.append(col)
     ax[0].set_xscale("log")
     ax[0].set_xlabel("chained far-plane max(|dx|, |dy|) / um")
-    ax[0].set_ylabel("density")
+    ax[0].set_ylabel("fraction of tracks per bin")
     ax[0].axvline(ref.get(("straight line", "full crossing"), np.nan),
                   color="grey", ls="--")
     ax[0].axvline(ref.get(("material floor", "full crossing"), np.nan),
@@ -432,6 +454,7 @@ def main(argv=None):
     ap.add_argument("--figures", default=FIGURES)
     a = ap.parse_args(argv)
     os.makedirs(a.figures, exist_ok=True)
+    STRAIGHT_BY_STRATUM.update(straight_by_stratum())
 
     chained = read_csv(os.path.join(a.results, "chained_components.csv"))
     single = read_csv(os.path.join(a.results, "single_step_components.csv"))

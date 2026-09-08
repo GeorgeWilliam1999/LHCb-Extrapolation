@@ -259,6 +259,61 @@ def ranking(rows, grid, out_dir):
     return out, extremes
 
 
+def component_reading(chained, out_dir):
+    """Which component dominates, and how much of it is bias rather than spread.
+
+    One row per (architecture, arm, column, component), pooling the ten stage
+    counts and three seeds: the median of the cell medians, and the median of
+    |mean| / rms - the fraction of the error that is a systematic offset of the
+    whole population rather than scatter within it.
+    """
+    by = defaultdict(lambda: defaultdict(list))
+    for r in chained:
+        if r["direction"] != "all" or r["reference"] != "fine":
+            continue
+        k = ("%sx%s" % (r["depth"], r["width"]), r["mode"], r["column"],
+             r["component"])
+        by[k]["median"].append(float(r["median_abs"]))
+        by[k]["p95"].append(float(r["p95_abs"]))
+        m, rms = abs(float(r["mean"])), float(r["rms"])
+        if rms > 0:
+            by[k]["bias_over_rms"].append(m / rms)
+        med = float(r["median_abs"])
+        if med > 0:
+            by[k]["bias_over_median"].append(m / med)
+            by[k]["p95_over_median"].append(float(r["p95_abs"]) / med)
+    rows = []
+    for (arch, mode, col, comp), v in by.items():
+        rows.append(dict(arch=arch, mode=mode, column=col, component=comp,
+                         unit=C.UNITS[comp],
+                         median_abs=float(np.median(v["median"])),
+                         p95_abs=float(np.median(v["p95"])),
+                         bias_over_rms=(float(np.median(v["bias_over_rms"]))
+                                        if v["bias_over_rms"]
+                                        and comp != "max_xy"
+                                        else float("nan")),
+                         bias_over_median=(float(np.median(
+                             v["bias_over_median"]))
+                             if v["bias_over_median"] and comp != "max_xy"
+                             else float("nan")),
+                         p95_over_median=float(np.median(
+                             v["p95_over_median"]))
+                         if v["p95_over_median"] else float("nan"),
+                         n_cells=len(v["median"])))
+    with open(os.path.join(out_dir, "component_reading.csv"), "w",
+              newline="") as f:
+        wr = csv.writer(f)
+        cols = ["arch", "mode", "column", "component", "unit", "median_abs",
+                "p95_abs", "bias_over_rms", "bias_over_median",
+                "p95_over_median", "n_cells"]
+        wr.writerow(cols)
+        for r in sorted(rows, key=lambda r: (r["arch"], r["mode"], r["column"],
+                                             r["component"])):
+            wr.writerow([("%.6g" % r[c]) if isinstance(r[c], float) else r[c]
+                         for c in cols])
+    return rows
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--results", default=RESULTS)
@@ -276,6 +331,8 @@ def main(argv=None):
     made = chained_tables(chained, refs, grid, a.results)
     made += single_step_tables(single, straight_by_stratum, a.results)
     rank, extremes = ranking(chained, grid, a.results)
+    comps = component_reading(chained, a.results)
+    print("component_reading.csv %d rows" % len(comps))
 
     print("%d display tables written" % len(made))
     print("ranking over %d networks" % len(rank))

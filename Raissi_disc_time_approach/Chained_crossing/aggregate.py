@@ -108,6 +108,27 @@ def reference_rows(tracks_npz, out):
     return rows
 
 
+def growth_exponent(fractions, medians, lo=0.1, hi=1.0):
+    """The power law the error follows along the chain, or None.
+
+    log10(median) fitted against log10(fraction of the crossing walked), over
+    the checkpoints from a tenth of the crossing on. The exponent is the
+    reading: independent per-step errors adding in quadrature give **0.5**, a
+    bias that repeats identically at every step accumulates coherently and
+    gives **1**, and a coherent error in the *slope* integrates into a position
+    error going as the square of the distance, which gives **2**.
+    """
+    x, y = [], []
+    for fr, v in zip(fractions, medians):
+        if lo <= fr <= hi and v > 0 and np.isfinite(v) and np.isfinite(fr):
+            x.append(np.log10(fr))
+            y.append(np.log10(v))
+    if len(x) < 5 or max(x) - min(x) < 1e-9:
+        return None
+    slope, _ = np.polyfit(np.array(x), np.array(y), 1)
+    return float(slope), len(x)
+
+
 def write_csv(path, rows, cols):
     with open(path, "w", newline="") as f:
         w = csv.writer(f)
@@ -123,7 +144,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
     rec_dir = os.path.join(a.results, "records")
 
-    single, chained, growth, landed = [], [], [], []
+    single, chained, growth, landed, exps = [], [], [], [], []
     have = set()
     for path in sorted(glob.glob(os.path.join(rec_dir, "*.json"))):
         with open(path) as f:
@@ -148,6 +169,14 @@ def main(argv=None):
                     checkpoint_z_fraction=g["z_fraction"][k],
                     component=GROWTH_COMPONENT,
                     median_abs=c["median_abs"][k], p95_abs=c["p95_abs"][k]))
+            for comp, cc in g["components"].items():
+                e = growth_exponent(g["z_fraction"], cc["median_abs"])
+                if e is None:
+                    continue
+                exps.append(dict(**who, column=g["column"],
+                                 direction=g["direction"], component=comp,
+                                 unit=cc["unit"], exponent=e[0],
+                                 n_checkpoints=e[1]))
 
     write_csv(os.path.join(a.results, "single_step_components.csv"), single,
               ["tag", "width", "depth", "q", "mode", "seed", "stratum",
@@ -160,6 +189,9 @@ def main(argv=None):
     write_csv(os.path.join(a.results, "chain_growth.csv"), growth,
               ["tag", "column", "direction", "checkpoint_z_fraction",
                "component", "median_abs", "p95_abs"])
+    write_csv(os.path.join(a.results, "growth_exponent.csv"), exps,
+              ["tag", "width", "depth", "q", "mode", "seed", "column",
+               "direction", "component", "unit", "exponent", "n_checkpoints"])
     write_csv(os.path.join(a.results, "landed.csv"), landed,
               ["tag", "width", "depth", "q", "mode", "seed", "wall_s", "host",
                "created"])
@@ -176,7 +208,8 @@ def main(argv=None):
     print("%d / %d records landed; %d pending -> results/pending.csv"
           % (len(have), len(tags), len(missing)))
     print("single_step_components.csv %d rows, chained_components.csv %d rows, "
-          "chain_growth.csv %d rows" % (len(single), len(chained), len(growth)))
+          "chain_growth.csv %d rows, growth_exponent.csv %d rows"
+          % (len(single), len(chained), len(growth), len(exps)))
 
 
 if __name__ == "__main__":
