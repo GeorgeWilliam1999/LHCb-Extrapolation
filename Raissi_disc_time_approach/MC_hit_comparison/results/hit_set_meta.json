@@ -1,0 +1,177 @@
+{
+ "kind": "hit_to_hit_v1",
+ "created": "2026-09-08 05:13:24",
+ "what": "steps whose start and end states are both measured MCHit crossings of the same simulated particle",
+ "source_states": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Data_generation_exploration/Official_xdigi/results/states.npz",
+ "split_source": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Data_generation_exploration/Official_xdigi/training_v2/train_official_v2.npz",
+ "leak_guard_source": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Raissi_disc_time_approach/Magnet_tracks_dataset/results/magnet_tracks_v3.npz",
+ "label_caveat": "the v2 rows' Y column is field-only propagation on the MagDown map and is NOT used anywhere in this folder; the end state is the particle's own next hit",
+ "cuts": {
+  "eta": [
+   2.0,
+   5.0
+  ],
+  "p_GeV": [
+   1.0,
+   200.0
+  ],
+  "z_window_mm": [
+   2200.0,
+   9500.0
+  ],
+  "abs_dz_min_mm": 0.05,
+  "drop_electrons": true
+ },
+ "cut_cascade": [
+  {
+   "cut": "consecutive plane crossings of one particle (forward)",
+   "pairs_out": 1080237,
+   "particles_out": 147609,
+   "note": "sorted by z within the particle"
+  },
+  {
+   "cut": "|dz| >= 0.05 mm",
+   "pairs_out": 1072707,
+   "particles_out": 146983,
+   "note": "below this the two hits are the two faces of one sensor"
+  },
+  {
+   "cut": "both planes inside 2200 < z < 9500 mm",
+   "pairs_out": 688406,
+   "particles_out": 105170,
+   "note": "the network's (z0, dz) normalisation is the magnet-to-magnet one; 384301 pairs removed, almost all VELO-to-VELO"
+  },
+  {
+   "cut": "2 < eta < 5",
+   "pairs_out": 510748,
+   "particles_out": 67477,
+   "note": ""
+  },
+  {
+   "cut": "1 < p < 200 GeV",
+   "pairs_out": 398317,
+   "particles_out": 38871,
+   "note": ""
+  },
+  {
+   "cut": "non-electron",
+   "pairs_out": 317315,
+   "particles_out": 29535,
+   "note": "an electron's residual is bremsstrahlung, a different measurement"
+  },
+  {
+   "cut": "the particle is in the v2 TEST split",
+   "pairs_out": 31640,
+   "particles_out": 2926,
+   "note": "80/10/10 by particle, seed 20260718"
+  },
+  {
+   "cut": "the particle is NOT in the magnet_tracks_v3 train or val split",
+   "pairs_out": 24598,
+   "particles_out": 2436,
+   "note": "7042 pairs removed: the v3 split is 60/20/20 on its own seed, so a v2-test particle can be a v3-train one and its dense path is what the grid trained on"
+  },
+  {
+   "cut": "both directions",
+   "pairs_out": 49196,
+   "particles_out": 2436,
+   "note": "the reversed pair ends on the earlier hit's measured state"
+  }
+ ],
+ "seed": 20260908,
+ "per_stratum": [
+  {
+   "stratum": "0.05-2 mm",
+   "index": 0,
+   "abs_dz_mm": [
+    0.05,
+    2.0
+   ],
+   "available": 436,
+   "cap": 4000,
+   "drawn": 436
+  },
+  {
+   "stratum": "2-20 mm",
+   "index": 1,
+   "abs_dz_mm": [
+    2.0,
+    20.0
+   ],
+   "available": 382,
+   "cap": 4000,
+   "drawn": 382
+  },
+  {
+   "stratum": "20-200 mm",
+   "index": 2,
+   "abs_dz_mm": [
+    20.0,
+    200.0
+   ],
+   "available": 36150,
+   "cap": 6000,
+   "drawn": 6000
+  },
+  {
+   "stratum": "200-2000 mm",
+   "index": 3,
+   "abs_dz_mm": [
+    200.0,
+    2000.0
+   ],
+   "available": 9818,
+   "cap": 4000,
+   "drawn": 4000
+  },
+  {
+   "stratum": "cross-magnet",
+   "index": 4,
+   "abs_dz_mm": [
+    2000.0,
+    null
+   ],
+   "available": 2410,
+   "cap": 3000,
+   "drawn": 2410
+  }
+ ],
+ "n_rows": 13228,
+ "n_particles": 2268,
+ "direction_counts": {
+  "forward": 6669,
+  "backward": 6559
+ },
+ "abs_dz_mm": {
+  "min": 0.12345200000027035,
+  "median": 70.22465149999971,
+  "max": 6754.7820065
+ },
+ "p_bands": [
+  {
+   "name": "1-5 GeV",
+   "lo": 1.0,
+   "hi": 5.0,
+   "n": 6526
+  },
+  {
+   "name": "5-20 GeV",
+   "lo": 5.0,
+   "hi": 20.0,
+   "n": 5212
+  },
+  {
+   "name": "20-200 GeV",
+   "lo": 20.0,
+   "hi": 200.0,
+   "n": 1490
+  }
+ ],
+ "plane_pairs": {
+  "FT->FT": 8113,
+  "FT->UT": 1205,
+  "UT->FT": 1205,
+  "UT->UT": 2705
+ },
+ "wall_s": 1.2
+}

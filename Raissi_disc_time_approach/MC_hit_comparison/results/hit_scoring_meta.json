@@ -1,0 +1,100 @@
+{
+ "created": "2026-09-08 05:32:33",
+ "n_rows": 13228,
+ "field": {
+  "which": "up",
+  "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
+  "md5": "9e49ddc4313b589f273540e7e0bb513b"
+ },
+ "reference": {
+  "integrator": "fp64 RK6 (Butcher, 7 stages)",
+  "step_mm": 0.1,
+  "role": "field-only propagation from the start hit; its miss against the real hit IS the material floor"
+ },
+ "scheme": {
+  "q": 8,
+  "solver": "Exact_scheme_table/exact_solver.py",
+  "converged_fraction": 1.0,
+  "max_residual": 4.451994328746878e-11
+ },
+ "networks": {
+  "q": 8,
+  "architectures": [
+   "4x64",
+   "8x128",
+   "2x256",
+   "8x256"
+  ],
+  "modes": [
+   "physics",
+   "data"
+  ],
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "checkpoints_loaded": 24
+ },
+ "seed_selection": {
+  "rule": "the seed with the lowest validation median in the grid stratum whose median |dz| is nearest in log space",
+  "stratum_match": {
+   "0.05-2 mm": "0.5-2 mm",
+   "2-20 mm": "5-20 mm",
+   "20-200 mm": "50-200 mm",
+   "200-2000 mm": "500-2000 mm",
+   "cross-magnet": "full crossing"
+  },
+  "median_abs_dz_mm": {
+   "0.05-2 mm": 0.6499827500010724,
+   "2-20 mm": 6.3070000000006985,
+   "20-200 mm": 69.804950499999,
+   "200-2000 mm": 472.2208000000005,
+   "cross-magnet": 5175.346389
+  },
+  "chosen": {
+   "2x256 data 0.05-2 mm": 2,
+   "2x256 data 2-20 mm": 2,
+   "2x256 data 20-200 mm": 2,
+   "2x256 data 200-2000 mm": 2,
+   "2x256 data cross-magnet": 2,
+   "2x256 physics 0.05-2 mm": 2,
+   "2x256 physics 2-20 mm": 2,
+   "2x256 physics 20-200 mm": 2,
+   "2x256 physics 200-2000 mm": 0,
+   "2x256 physics cross-magnet": 1,
+   "4x64 data 0.05-2 mm": 1,
+   "4x64 data 2-20 mm": 1,
+   "4x64 data 20-200 mm": 1,
+   "4x64 data 200-2000 mm": 1,
+   "4x64 data cross-magnet": 1,
+   "4x64 physics 0.05-2 mm": 1,
+   "4x64 physics 2-20 mm": 1,
+   "4x64 physics 20-200 mm": 1,
+   "4x64 physics 200-2000 mm": 0,
+   "4x64 physics cross-magnet": 1,
+   "8x128 data 0.05-2 mm": 2,
+   "8x128 data 2-20 mm": 0,
+   "8x128 data 20-200 mm": 0,
+   "8x128 data 200-2000 mm": 0,
+   "8x128 data cross-magnet": 0,
+   "8x128 physics 0.05-2 mm": 2,
+   "8x128 physics 2-20 mm": 2,
+   "8x128 physics 20-200 mm": 2,
+   "8x128 physics 200-2000 mm": 1,
+   "8x128 physics cross-magnet": 0,
+   "8x256 data 0.05-2 mm": 1,
+   "8x256 data 2-20 mm": 2,
+   "8x256 data 20-200 mm": 1,
+   "8x256 data 200-2000 mm": 1,
+   "8x256 data cross-magnet": 1,
+   "8x256 physics 0.05-2 mm": 1,
+   "8x256 physics 2-20 mm": 1,
+   "8x256 physics 20-200 mm": 2,
+   "8x256 physics 200-2000 mm": 2,
+   "8x256 physics cross-magnet": 1
+  }
+ },
+ "label_caveat": "the end state is the particle's own next MCHit state; the v2 rows' Y column (MagDown field-only) is never read",
+ "wall_s": 807.1
+}
