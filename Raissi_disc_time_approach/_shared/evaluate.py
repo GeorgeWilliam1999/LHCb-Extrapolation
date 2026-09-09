@@ -1,7 +1,7 @@
 """Scoring helpers, and the leg-by-leg chaining used by the chaining experiment.
 
 The metrics are exactly those of the baseline experiment
-(`One_step_network_v2/training.py::score` plus the endpoint slope added by its
+(`S2b_One_step_network_v2/training.py::score` plus the endpoint slope added by its
 continuation pass), lifted out so every experiment reports the same numbers:
 
   endpoint_med_um / endpoint_p95_um  median and 95th percentile of the endpoint

@@ -1,0 +1,1 @@
+Block_A_technique_works/A3a_General_leg_network --data results/general_legs.npz --mode physics --seed 3 --q 8 --width 100 --depth 4 --out results --tag w100_physics_s3 --outer-cap 400

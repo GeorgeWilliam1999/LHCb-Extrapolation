@@ -1,0 +1,17 @@
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q02.npz --mode data --seed 1 --q 2 --width 64 --depth 4 --out results --tag w64_d4_q02_data_s1 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q02.npz --mode data --seed 2 --q 2 --width 64 --depth 4 --out results --tag w64_d4_q02_data_s2 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q04.npz --mode data --seed 1 --q 4 --width 64 --depth 4 --out results --tag w64_d4_q04_data_s1 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q04.npz --mode data --seed 2 --q 4 --width 64 --depth 4 --out results --tag w64_d4_q04_data_s2 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q06.npz --mode data --seed 0 --q 6 --width 64 --depth 4 --out results --tag w64_d4_q06_data_s0 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q10.npz --mode data --seed 1 --q 10 --width 64 --depth 4 --out results --tag w64_d4_q10_data_s1 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q10.npz --mode data --seed 2 --q 10 --width 64 --depth 4 --out results --tag w64_d4_q10_data_s2 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q14.npz --mode data --seed 0 --q 14 --width 64 --depth 4 --out results --tag w64_d4_q14_data_s0 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q14.npz --mode data --seed 1 --q 14 --width 64 --depth 4 --out results --tag w64_d4_q14_data_s1 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q16.npz --mode data --seed 0 --q 16 --width 64 --depth 4 --out results --tag w64_d4_q16_data_s0 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q16.npz --mode data --seed 1 --q 16 --width 64 --depth 4 --out results --tag w64_d4_q16_data_s1 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q18.npz --mode data --seed 0 --q 18 --width 64 --depth 4 --out results --tag w64_d4_q18_data_s0 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q18.npz --mode data --seed 2 --q 18 --width 64 --depth 4 --out results --tag w64_d4_q18_data_s2 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --mode data --seed 2 --q 20 --width 64 --depth 4 --out results --tag w64_d4_q20_data_s2 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q04.npz --mode data --seed 0 --q 4 --width 64 --depth 8 --out results --tag w64_d8_q04_data_s0 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q04.npz --mode data --seed 1 --q 4 --width 64 --depth 8 --out results --tag w64_d8_q04_data_s1 --outer-cap 400
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q08.npz --mode physics --seed 0 --q 8 --width 64 --depth 8 --out results --tag w64_d8_q08_physics_s0 --outer-cap 400

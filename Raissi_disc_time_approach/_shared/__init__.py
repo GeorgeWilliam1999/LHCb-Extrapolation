@@ -4,7 +4,7 @@ Every experiment (one folder each) imports the physics, the model, the data
 builders and the training driver from here, so that any difference between two
 experiments comes from the experiment and not from a drifted copy of the code.
 
-The physics and the optimiser protocol are those of `One_step_network_v2` (the
+The physics and the optimiser protocol are those of `S2b_One_step_network_v2` (the
 verified baseline). Nothing here changes them; the modules only generalise the
 frozen-leg special case to any number of stages, either field polarity, and
 per-sample start planes and step lengths.

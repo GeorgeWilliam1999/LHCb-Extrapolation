@@ -5,7 +5,7 @@ scripts, `results/`, `figures/` and notebook. This package holds the pieces they
 all need, so that a difference between two experiments is a difference in the
 experiment and never a drifted copy of the physics or the optimiser.
 
-**The physics and the optimiser protocol are those of `../One_step_network_v2`,
+**The physics and the optimiser protocol are those of `../Block_0_first_pass/S2b_One_step_network_v2`,
 unchanged.** That experiment is the verified baseline; this package only lifts
 its hard-wired assumptions — one fixed leg, eight stages, the MagDown map — so
 that the same code can also handle any number of stages, either field polarity,
@@ -21,7 +21,7 @@ bit (`smoke_tests.py`).
 |---|---|
 | [field_v8r1.py](field_v8r1.py) | the canonical v8r1 field-map loader (numpy), **vendored** from the archive at commit `1faa97e0`. Nothing imports the archive any more. |
 | [vendoring_parity.py](vendoring_parity.py) | the gate on that copy: field values on 200,000 random in-map points must be *bit-identical* to the archive import, and the map md5 must be `af284c6954d2273c637a5e766b82b58e` → [results/vendoring_parity.json](results/vendoring_parity.json) |
-| [irk.py](irk.py) | the Gauss-Legendre tableau for any number of stages plus its verification battery, vendored from `../Simple_first_pass/irk.py`. `python irk.py` reruns every identity check. |
+| [irk.py](irk.py) | the Gauss-Legendre tableau for any number of stages plus its verification battery, vendored from `../Block_0_first_pass/S1_Simple_first_pass/irk.py`. `python irk.py` reruns every identity check. |
 | [reference.py](reference.py) | the reference card: the ODE (`deriv`), the fp64 RK4 reference (`rk4_rows`), the metric `rho`, the field paths and loaders, the frozen leg, and `load_training` for the event-derived sample |
 | [field_torch.py](field_torch.py) | the differentiable fp64 torch twin of the field, so the physics loss can take gradients through **B**(x, y, z); `parity()` is its gate against the numpy loader |
 | [model.py](model.py) | the one-step network, the rates, the reconstruction residuals, and the physics and data losses |
@@ -82,15 +82,15 @@ seven-stage explicit method of order six, same contract as `rk4_rows` - fp64,
 per-row `(z0, z1)`, masked stepping, the last step of each row shortened to land
 exactly on `z1`, and `z1 < z0` integrating backwards. Its coefficients are
 copied from `/data/bfys/gscriven/Van_Der_Pole/RK_Truth/rk6.py`; the battery in
-`../Fine_reference/check_tableau.py` compares them with that file element by
+`../Block_C_step_size_and_stages/C1_Fine_reference/check_tableau.py` compares them with that file element by
 element, re-runs its identity checks and its three order measurements, and
 measures the order of `rk6_rows` **itself** on the LHCb ODE with a smooth
 analytic field (the real map is trilinear, hence C0, so it cannot show order
-six - see `../Fine_reference/README.md`). `rk6_dense_rows` is the same march
+six - see `../Block_C_step_size_and_stages/C1_Fine_reference/README.md`). `rk6_dense_rows` is the same march
 keeping the state every `sample_mm`; `sample_mm` must be a whole number of
 steps, so the stored states are step boundaries of the march and can be
 integrated onwards without re-basing (checked in
-`../Magnet_tracks_dataset/check_path_consistency.py`).
+`../Block_C_step_size_and_stages/C0_Magnet_tracks_dataset/check_path_consistency.py`).
 
 `load_training` gained a `fields=` argument rather than a wider default, so
 every caller written before that date gets exactly the dict it got then.
@@ -154,12 +154,12 @@ load_magnet_tracks(npz, split=None, stratum=None, direction=None,
 
 `magnet_leg_rows` is the cross-magnet selection with its cut cascade recorded
 (rows in, removed by each cut, rows out, particles left); both
-`../Magnet_tracks_dataset` and `../Fine_reference` draw from it, so the two
+`../Block_C_step_size_and_stages/C0_Magnet_tracks_dataset` and `../Block_C_step_size_and_stages/C1_Fine_reference` draw from it, so the two
 studies are on the same population by construction. `magnet_tracks_dataset`
 builds `magnet_tracks_v3.npz`: X = (x, y, tx, ty, qop, z0, dz) fp64, Y = the
 RK6 end state, in six equal |dz| strata from 0.05 mm to the whole crossing.
 **Its `field` defaults to `'up'`, not `'down'`** - see
-`../Magnet_tracks_dataset/check_polarity.py` and the note in the function's own
+`../Block_C_step_size_and_stages/C0_Magnet_tracks_dataset/check_polarity.py` and the note in the function's own
 docstring.
 
 Both frozen-leg builders write `<out_npz>` and `<out_npz without .npz>_meta.json`
@@ -242,11 +242,11 @@ printed at the end.
    parameters, physics loss, data loss and gradients, bitwise.
 3. `train.py --mode physics --seed 0` reproduces the baseline's first L-BFGS
    restart bitwise (4.927638009365614e-03). The number recorded in
-   `../One_step_network_v2/results/hist_physics_seed0.csv` is
+   `../Block_0_first_pass/S2b_One_step_network_v2/results/hist_physics_seed0.csv` is
    4.924321332318405e-03, 6.7e-4 relative away, **because those runs used four
    BLAS threads and everything here runs on one**: a different reduction order
    changes the last bits, and 200 L-BFGS iterations with a line search amplify
-   that into the fourth digit. The original `One_step_network/model.py` run on
+   that into the fourth digit. The original `S2_One_step_network/model.py` run on
    one thread gives the same 4.927638009365614e-03.
 4. `general_leg_dataset(('A','B','C'))` builds and a physics restart runs on it.
 5. `make_field('up')` loads and the torch twin agrees with it (1.3e-15 T).

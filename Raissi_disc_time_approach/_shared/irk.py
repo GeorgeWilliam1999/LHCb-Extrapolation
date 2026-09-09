@@ -1,7 +1,7 @@
 """Gauss-Legendre implicit Runge-Kutta: the tableau for any number of stages.
 
 VENDORED (construction + verification unchanged) from
-`../Simple_first_pass/irk.py`, which was itself ported verbatim from the van
+`../Block_0_first_pass/S1_Simple_first_pass/irk.py`, which was itself ported verbatim from the van
 der Pol study. Copied here on 2026-09-05 so the shared package has no upward
 dependency on a sibling experiment folder; only this header and the
 `gauss_legendre` wrapper at the bottom are new. `python irk.py` reruns every

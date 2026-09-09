@@ -1,0 +1,2 @@
+Block_A_technique_works/A3a_General_leg_network --data results/general_legs.npz --mode data --seed 0 --q 8 --width 100 --depth 4 --out results --tag w100_data_s0 --outer-cap 400
+Block_A_technique_works/A3a_General_leg_network --data results/general_legs.npz --mode data --seed 2 --q 8 --width 100 --depth 4 --out results --tag w100_data_s2 --outer-cap 400

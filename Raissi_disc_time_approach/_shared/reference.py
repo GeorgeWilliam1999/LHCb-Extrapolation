@@ -1,7 +1,7 @@
 """The reference card, generalised: constants, the ODE, the fp64 RK4 engine,
 the metric, the tableau and the training set.
 
-This is `Baseline_data_exploration/reference_card.py` with two changes and no
+This is `S0_Baseline_data_exploration/reference_card.py` with two changes and no
 others:
 
   * the field loader is the vendored copy in this package (`field_v8r1.py`),
@@ -151,7 +151,7 @@ def rk4_rows(S0, z0, z1, step=RK4_STEP, field=None):
 # ---- the fine reference: Butcher's seven-stage explicit method of order six --
 # Coefficients copied from /data/bfys/gscriven/Van_Der_Pole/RK_Truth/rk6.py
 # (the van der Pol study's reference machinery, read-only there). They are not
-# re-derived here; `Fine_reference/check_tableau.py` compares these arrays with
+# re-derived here; `C1_Fine_reference/check_tableau.py` compares these arrays with
 # that file element by element, re-runs its identity battery, and re-measures
 # the order both on its three exact-solution problems and on `rk6_rows` itself.
 RK6_C = np.array([0.0, 1 / 3, 2 / 3, 1 / 3, 5 / 6, 1 / 6, 1.0])

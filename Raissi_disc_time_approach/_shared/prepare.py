@@ -6,7 +6,7 @@ the counts and scales) so that `train.py` can consume either:
   frozen_leg_dataset  the baseline geometry - every sample starts on the same
                       plane and ends on the same plane, so the q stage planes
                       are constants of the problem. This is
-                      `One_step_network_v2/prepare_data.py` generalised to any
+                      `S2b_One_step_network_v2/prepare_data.py` generalised to any
                       number of stages and to either field polarity; with
                       q = 8 and the MagDown map it reproduces that file's
                       output (checked in `smoke_tests.py`).
@@ -15,7 +15,7 @@ the counts and scales) so that `train.py` can consume either:
                       length dz, so the stage planes are per sample and the
                       network gets (z0, dz) as two extra normalised inputs.
 
-Both apply the fiducial requirement introduced in One_step_network_v2: the
+Both apply the fiducial requirement introduced in S2b_One_step_network_v2: the
 reference trajectory must stay inside the field map, i.e. inside the region
 where the ODE being solved is defined at all. A soft track that bends out past
 |x| = 4 m is outside both the map and the LHCb acceptance, and its "reference"
@@ -304,12 +304,12 @@ def general_leg_dataset(legs=("A", "B", "C"), q=8, n_train=2000, field="down",
 # Block C: the magnet-to-magnet track dataset                              #
 # ======================================================================== #
 # One builder and one loader, plus the selection they share with the fine
-# reference study (`../Fine_reference`). Nothing above this line is touched.
+# reference study (`../Block_C_step_size_and_stages/C1_Fine_reference`). Nothing above this line is touched.
 
 # |dz| strata: five log-uniform bands plus the whole crossing. The bands are
 # equal in size by construction, so a network trained on this set sees the
 # short steps as often as the long ones - which is the defect wave 1 of
-# ../General_leg_network ran into from the other side.
+# ../Block_A_technique_works/A3a_General_leg_network ran into from the other side.
 STRATA = (
     ("0.05-0.2 mm", 0.05, 0.2),
     ("0.5-2 mm", 0.5, 2.0),
@@ -494,7 +494,7 @@ def magnet_tracks_dataset(out_npz=None, dense_npz=None, n_particles=6000,
     sample the start states come from is a MagUp sample. Propagating its states
     through the MagDown map bends them the wrong way - by 0.9 m at the median
     across the magnet, and with the sign of the bend wrong for 100% of the
-    15,257 particles. `../Magnet_tracks_dataset/check_polarity.py` measures it.
+    15,257 particles. `../Block_C_step_size_and_stages/C0_Magnet_tracks_dataset/check_polarity.py` measures it.
     Building this dataset on 'down' would make the fiducial cut throw away
     almost every soft backward leg for a reason that is an artefact, so the
     default is the polarity the events were simulated with. Pass field='down'
@@ -745,7 +745,7 @@ def magnet_tracks_dataset(out_npz=None, dense_npz=None, n_particles=6000,
                       "md5": field_md5(field)},
             "kappa": KAPPA,
             "qop_convention": "qop = 0.299792458 q / p[GeV] (Allen)",
-            "verification": "../Fine_reference/results/tableau_checks.json and "
+            "verification": "../Block_C_step_size_and_stages/C1_Fine_reference/results/tableau_checks.json and "
                             "reference_convergence.csv",
         },
         "cut_cascade": cascade,

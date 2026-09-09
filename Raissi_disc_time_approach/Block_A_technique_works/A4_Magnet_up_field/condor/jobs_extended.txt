@@ -1,0 +1,3 @@
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 4 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s4 --outer-cap 300
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 9 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s9 --outer-cap 300
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 1 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s1 --outer-cap 300

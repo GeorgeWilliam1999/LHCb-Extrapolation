@@ -1,7 +1,7 @@
 """The paper's discrete-time network for an LHCb magnet crossing, generalised.
 
-This is `One_step_network/model.py` (the verified baseline, used unchanged by
-One_step_network_v2) with the frozen-leg assumptions lifted and nothing else
+This is `S2_One_step_network/model.py` (the verified baseline, used unchanged by
+S2b_One_step_network_v2) with the frozen-leg assumptions lifted and nothing else
 touched:
 
   * the network may take `n_extra` further inputs, already normalised by the

@@ -3,7 +3,7 @@
 
 Five checks, each of which must pass before any experiment is built on top:
 
-  1. `frozen_leg_dataset(q=8)` reproduces `One_step_network_v2`'s dataset -
+  1. `frozen_leg_dataset(q=8)` reproduces `S2b_One_step_network_v2`'s dataset -
      the same 1979 / 2062 / 2018 states per split and the same input and
      output scales to 1e-9.
   2. `train.py --mode physics --seed 0` reproduces the baseline's very first
@@ -11,7 +11,7 @@ Five checks, each of which must pass before any experiment is built on top:
 
      A note on what "exactly" means here, because the obvious comparison is
      the wrong one. The number recorded in
-     `One_step_network_v2/results/hist_physics_seed0.csv` at restart 0 is
+     `S2b_One_step_network_v2/results/hist_physics_seed0.csv` at restart 0 is
      4.924321332318405e-03, and the shared driver produces
      4.927638009365614e-03 - a relative difference of 6.7e-4, far outside any
      tolerance one would want. That difference is NOT a code difference. The
@@ -21,7 +21,7 @@ Five checks, each of which must pass before any experiment is built on top:
      different reduction order inside the BLAS matrix products, so the loss
      and its gradient differ in the last bits, and 200 L-BFGS iterations with
      a strong-Wolfe line search amplify last-bit differences into the fourth
-     digit. Running the ORIGINAL `One_step_network/model.py` on one thread
+     digit. Running the ORIGINAL `S2_One_step_network/model.py` on one thread
      gives 4.927638009365614e-03 - bit-for-bit what the shared driver gives.
 
      So this test recomputes the baseline reference on one thread and requires
@@ -53,7 +53,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 
-BASELINE = os.path.join(ROOT, "One_step_network_v2", "results")
+BASELINE = os.path.join(ROOT, "Block_0_first_pass", "S2b_One_step_network_v2", "results")
 
 
 def check_frozen_dataset(tmp):
@@ -76,16 +76,16 @@ def check_frozen_dataset(tmp):
 
 
 def baseline_first_restart(data_npz):
-    """Run the ORIGINAL One_step_network model/loss for one L-BFGS restart.
+    """Run the ORIGINAL S2_One_step_network model/loss for one L-BFGS restart.
 
     This is the reference the shared driver must reproduce. It is recomputed
     rather than read from the recorded history because the recorded runs used
     four BLAS threads and we run on one - see `check_first_restart`.
     """
     import torch
-    sys.path.insert(0, os.path.join(ROOT, "Baseline_data_exploration"))
-    sys.path.insert(0, os.path.join(ROOT, "Simple_first_pass"))
-    sys.path.insert(0, os.path.join(ROOT, "One_step_network"))
+    sys.path.insert(0, os.path.join(ROOT, "Block_0_first_pass", "S0_Baseline_data_exploration"))
+    sys.path.insert(0, os.path.join(ROOT, "Block_0_first_pass", "S1_Simple_first_pass"))
+    sys.path.insert(0, os.path.join(ROOT, "Block_0_first_pass", "S2_One_step_network"))
     import model as baseline_model                                # noqa: E402
     from irk import tableau                                       # noqa: E402
 
@@ -152,9 +152,9 @@ def check_model_equivalence(data_npz):
     data and the same seed.
     """
     import torch
-    sys.path.insert(0, os.path.join(ROOT, "Baseline_data_exploration"))
-    sys.path.insert(0, os.path.join(ROOT, "Simple_first_pass"))
-    sys.path.insert(0, os.path.join(ROOT, "One_step_network"))
+    sys.path.insert(0, os.path.join(ROOT, "Block_0_first_pass", "S0_Baseline_data_exploration"))
+    sys.path.insert(0, os.path.join(ROOT, "Block_0_first_pass", "S1_Simple_first_pass"))
+    sys.path.insert(0, os.path.join(ROOT, "Block_0_first_pass", "S2_One_step_network"))
     import model as baseline_model                                # noqa: E402
     from irk import tableau                                       # noqa: E402
     from _shared import model as shared_model                     # noqa: E402

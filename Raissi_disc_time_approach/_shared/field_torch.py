@@ -6,7 +6,7 @@ module re-implements the vendored numpy loader's trilinear interpolation
 (`field_v8r1.py`, mirrored index arithmetic) on torch tensors; the grid data are
 loaded once via the numpy loader, so the two share bytes.
 
-Generalised from `One_step_network/field_torch.py` in exactly one way: the
+Generalised from `S2_One_step_network/field_torch.py` in exactly one way: the
 constructor takes ANY `FieldV8R1` instance, so the MagDown and MagUp maps can
 both be used in one process. Called with no argument it uses MagDown, as
 before, and the arithmetic is unchanged.

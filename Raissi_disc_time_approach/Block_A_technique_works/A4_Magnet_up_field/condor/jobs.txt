@@ -1,0 +1,13 @@
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 0 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s0
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 1 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s1
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 2 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s2
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 3 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s3
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 4 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s4
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 5 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s5
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 6 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s6
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 7 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s7
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 8 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s8
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode physics --seed 9 --q 8 --width 50 --depth 4 --field up --out results --tag up_physics_s9
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode data --seed 0 --q 8 --width 50 --depth 4 --field up --out results --tag up_data_s0
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode data --seed 1 --q 8 --width 50 --depth 4 --field up --out results --tag up_data_s1
+Block_A_technique_works/A4_Magnet_up_field --data results/frozen_leg_up.npz --mode data --seed 2 --q 8 --width 50 --depth 4 --field up --out results --tag up_data_s2

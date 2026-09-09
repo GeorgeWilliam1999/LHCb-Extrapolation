@@ -1,0 +1,4 @@
+8192 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20_timing.npz --single 4000
+8192 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20_timing.npz --single 8000
+8192 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20_timing.npz --single 16000
+8192 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20_timing.npz --single 36000

@@ -1,4 +1,0 @@
-8192 Step_size_and_stage_grid --data results/grid_q20_timing.npz --single 4000
-8192 Step_size_and_stage_grid --data results/grid_q20_timing.npz --single 8000
-8192 Step_size_and_stage_grid --data results/grid_q20_timing.npz --single 16000
-8192 Step_size_and_stage_grid --data results/grid_q20_timing.npz --single 36000

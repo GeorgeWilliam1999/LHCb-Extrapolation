@@ -1,0 +1,12 @@
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 32 --depth 2 --label w32_d2_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 32 --depth 4 --label w32_d4_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 32 --depth 8 --label w32_d8_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 64 --depth 2 --label w64_d2_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 64 --depth 4 --label w64_d4_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 64 --depth 8 --label w64_d8_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 128 --depth 2 --label w128_d2_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 128 --depth 4 --label w128_d4_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 128 --depth 8 --label w128_d8_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 256 --depth 2 --label w256_d2_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 256 --depth 4 --label w256_d4_q20
+4096 Block_C_step_size_and_stages/C3_Step_size_and_stage_grid --data results/grid_q20.npz --single 4002 --width 256 --depth 8 --label w256_d8_q20
