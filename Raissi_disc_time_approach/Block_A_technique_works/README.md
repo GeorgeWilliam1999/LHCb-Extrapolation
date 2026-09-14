@@ -1,5 +1,8 @@
 # Block A — does the technique work, and what limits it?
 
+> **Removed 2026-09-14 (George).** The experiments that trained or re-scored networks taking (z0, dz) as inputs — A3a_General_leg_network and A3b_Chained_legs — diverged from the plan (one network per fixed step) and were removed from this repository together with their models and results. Their tracked files remain in git history at `a062bd8`; the untracked models are parked outside the repo. The replacement study (fixed-step networks chained across the magnet) has its own folder.
+
+
 5–6 September 2026. Block 0 showed the scheme could be solved and a network
 could be trained on one frozen magnet crossing. Block A asks the two questions
 that decide whether the technique is worth pursuing: **does it work**, and

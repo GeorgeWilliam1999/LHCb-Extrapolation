@@ -1,5 +1,8 @@
 # Block C — the error as a function of step length and stage count
 
+> **Removed 2026-09-14 (George).** The experiments that trained or re-scored networks taking (z0, dz) as inputs — C3_Step_size_and_stage_grid, C5_MC_hit_comparison and C6_Chained_crossing — diverged from the plan (one network per fixed step) and were removed from this repository together with their models and results. Their tracked files remain in git history at `a062bd8`; the untracked models are parked outside the repo. The replacement study (fixed-step networks chained across the magnet) has its own folder.
+
+
 7–8 September 2026. This block exists to answer a question my supervisors asked
 directly: for a range of network widths and depths, give the error
 `error(dz, q)` as a table — stage count `q` from 2 to 20 against step length

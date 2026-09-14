@@ -1,5 +1,8 @@
 # Raissi_disc_time_approach — the discrete-time technique on LHCb track extrapolation
 
+> **Removed 2026-09-14 (George).** The experiments that trained or re-scored networks taking (z0, dz) as inputs — A3a, A3b, C3, C5 and C6 — diverged from the plan (one network per fixed step) and were removed from this repository together with their models and results. Their tracked files remain in git history at `a062bd8`; the untracked models are parked outside the repo. The replacement study (fixed-step networks chained across the magnet) has its own folder.
+
+
 The discrete-time construction of Raissi, Perdikaris and Karniadakis (2019, §3.2)
 applied to the LHCb extrapolation problem: a network emits all of an implicit
 Runge–Kutta scheme's internal stage states at once, and is trained by requiring
