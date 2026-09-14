@@ -13,6 +13,11 @@
                                       chain's error at its plane
     figures/vs_real_scifi.png         the best chain against the real SciFi
                                       state, per momentum band, with the floor
+    figures/components_vs_q.png       x, y, tx, ty separately against q, one
+                                      line per N, the exact scheme dashed
+    figures/components_growth.png     x, y, tx, ty separately along the
+                                      crossing, one panel per component, best
+                                      q per N
 
 Colours: the five step counts in a fixed categorical order (blue, orange, aqua,
 yellow, magenta), magnitudes on a single-hue blue ramp; every series carries a
@@ -225,6 +230,59 @@ def main():
         ax.set_title("Best chain (N = %d, q = %d) against both truths, per momentum band" % best)
         fig.tight_layout()
         fig.savefig(os.path.join(FIGURES, "vs_real_scifi.png"), dpi=140)
+        plt.close(fig)
+    # 7. the components against q
+    comps = read("components.csv")
+    if comps:
+        cm = defaultdict(dict)
+        for r in comps:
+            if r["split"] == "test":
+                cm[(r["comparator"], r["component"])][(int(r["N"]), int(r["q"]))] = fnum(r["med"])
+        fig, axes = plt.subplots(2, 2, figsize=(12, 8), sharex=True)
+        for ax, (name, unit) in zip(axes.ravel(), (("x", "µm"), ("y", "µm"), ("tx", "mrad"), ("ty", "mrad"))):
+            for N in N_VALUES:
+                ys = [cm[("vs_rk6_endpoint", name)].get((N, q), np.nan) for q in QS]
+                ax.plot(QS, ys, "-o", ms=3.5, lw=1.6, color=CAT[N], label="N = %d" % N)
+                ye = [cm.get(("exact_scheme_vs_rk6_endpoint", name), {}).get((N, q), np.nan) for q in QS]
+                if np.isfinite(ye).any():
+                    ax.plot(QS, ye, "--", lw=1.1, color=CAT[N], alpha=0.8)
+            ax.set_yscale("log")
+            ax.set_title("%s: median |Δ%s| at z1 vs RK6  [%s]" % (name, name, unit))
+            ax.set_xticks(QS)
+        for ax in axes[1]:
+            ax.set_xlabel("stages q  (solid: networks; dashed: exact scheme)")
+        axes[0][0].legend(loc="upper right")
+        fig.suptitle("Each component separately (test split); q/p is carried through unchanged")
+        fig.tight_layout()
+        fig.savefig(os.path.join(FIGURES, "components_vs_q.png"), dpi=140)
+        plt.close(fig)
+
+        # 8. the components along the crossing, best q per N
+        g2 = defaultdict(list)
+        for r in growth:
+            if r["split"] == "test":
+                g2[(int(r["N"]), int(r["q"]))].append(r)
+        fig, axes = plt.subplots(2, 2, figsize=(12, 8), sharex=True)
+        for ax, (name, unit) in zip(axes.ravel(), (("x", "um"), ("y", "um"), ("tx", "mrad"), ("ty", "mrad"))):
+            key = "%s_med_%s" % (name, unit)
+            for N in N_VALUES:
+                cands = {q: cm[("vs_rk6_endpoint", name)].get((N, q), np.nan) for q in QS}
+                cands = {q: v for q, v in cands.items() if np.isfinite(v)}
+                if not cands:
+                    continue
+                qb = min(cands, key=cands.get)
+                pts = sorted(g2.get((N, qb), []), key=lambda r: int(r["plane"]))
+                if pts and pts[0].get(key, "") != "":
+                    ax.plot([fnum(r["z_mm"]) for r in pts], [max(fnum(r[key]), 1e-5) for r in pts],
+                            "-", lw=1.6, color=CAT[N], label="N = %d (q = %d)" % (N, qb))
+            ax.set_yscale("log")
+            ax.set_title("%s: median |Δ%s| along the crossing  [%s]" % (name, name, unit.replace("um", "µm")))
+        for ax in axes[1]:
+            ax.set_xlabel("z  [mm]")
+        axes[0][0].legend(fontsize=8)
+        fig.suptitle("Each component along the crossing, at each N's best q (test split)")
+        fig.tight_layout()
+        fig.savefig(os.path.join(FIGURES, "components_growth.png"), dpi=140)
         plt.close(fig)
     print("figures written to", FIGURES)
 

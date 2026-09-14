@@ -1,0 +1,44 @@
+{
+ "tag": "twin",
+ "mode": "data",
+ "seed": 0,
+ "q": 0,
+ "width": 128,
+ "depth": 2,
+ "n_extra": 0,
+ "dataset": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Raissi_disc_time_approach/Block_D_fixed_step_crossing/D2_Comparators/results/twin/twin_data.npz",
+ "dataset_kind": "frozen",
+ "field": "up",
+ "restarts": 17,
+ "final_loss": 5.455654955410228e-07,
+ "converged": true,
+ "confirm_attempts": 1,
+ "wall_s": 112.9,
+ "outer_cap": 400,
+ "max_iter": 200,
+ "confirmed": true,
+ "train": {
+  "endpoint_med_um": 149.59274902417974,
+  "endpoint_p95_um": 1331.6329282339775,
+  "stage_med_um": NaN,
+  "slope_med_mrad": 0.06947036164560438,
+  "straight_med_um": 467890.49384526664,
+  "n": 2000
+ },
+ "val": {
+  "endpoint_med_um": 168.2784783661475,
+  "endpoint_p95_um": 2577.2253649360337,
+  "stage_med_um": NaN,
+  "slope_med_mrad": 0.06852366090254192,
+  "straight_med_um": 452941.9385569637,
+  "n": 1463
+ },
+ "test": {
+  "endpoint_med_um": 145.41130034970706,
+  "endpoint_p95_um": 2328.3153467026987,
+  "stage_med_um": NaN,
+  "slope_med_mrad": 0.06583602256859858,
+  "straight_med_um": 450541.20897316607,
+  "n": 1452
+ }
+}

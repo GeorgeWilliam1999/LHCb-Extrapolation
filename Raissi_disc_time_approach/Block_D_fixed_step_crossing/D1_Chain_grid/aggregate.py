@@ -16,6 +16,11 @@ records and the twin of ../D2_Comparators) and writes:
                                 along the crossing
     results/by_p_band.csv       the endpoint errors per momentum band
     results/status.csv          which chains are finished
+    results/components.csv      one row per (N, q, split, comparator, component):
+                                median, p95, mean and bias of |dx|, |dy|, |dtx|,
+                                |dty|; the q/p check
+    results/table_<comparator>_<split>_<component>_med.csv
+                                the 5 x 20 tables per component
 
 Computes nothing new: every number is copied from a record.
 """
@@ -34,6 +39,7 @@ N_VALUES = (1, 4, 16, 64, 128)
 QS = tuple(range(1, 21))
 COMPARATORS = ("vs_rk6_endpoint", "vs_real_scifi_state",
                "straight_line_vs_rk6_endpoint", "rk6_truth_vs_real_scifi_state")
+COMPONENTS = (("x", "um"), ("y", "um"), ("tx", "mrad"), ("ty", "mrad"))
 
 
 def write_csv(path, rows, fields=None):
@@ -86,7 +92,7 @@ def main():
         with open(tp) as f:
             twin = json.load(f)
 
-    table, per_leg, growth, bands, status = [], [], [], [], []
+    table, per_leg, growth, bands, status, comps = [], [], [], [], [], []
     for N in N_VALUES:
         for q in QS:
             c = chains.get((N, q))
@@ -107,19 +113,47 @@ def main():
                                   "total_restarts": c["total_restarts"],
                                   "total_train_wall_s": c["total_train_wall_s"],
                                   "n_parameters_per_leg": c["n_parameters_per_leg"]})
+                    cs = s.get("components")
+                    if cs:
+                        for name, unit in COMPONENTS:
+                            comps.append({"N": N, "q": q, "split": split, "comparator": comp,
+                                          "component": name, "unit": unit,
+                                          "med": cs["%s_med_%s" % (name, unit)],
+                                          "p95": cs["%s_p95_%s" % (name, unit)],
+                                          "mean": cs["%s_mean_%s" % (name, unit)],
+                                          "bias": cs["%s_bias_%s" % (name, unit)],
+                                          "qop_max_abs_change": cs.get("qop_max_abs_change", ""),
+                                          "qop_passthrough_max_abs_change":
+                                              c[split].get("qop_passthrough_max_abs_change", "")})
                     if "by_p_band" in s:
                         for band, v in s["by_p_band"].items():
                             bands.append({"N": N, "q": q, "split": split, "comparator": comp,
                                           "p_band": band, **v})
                 pp = c[split]["per_plane"]
                 for k, z in enumerate(c["planes"]):
-                    growth.append({"N": N, "q": q, "split": split, "plane": k, "z_mm": z,
-                                   "pos_med_um": pp["pos_med_um"][k],
-                                   "pos_p95_um": pp["pos_p95_um"][k],
-                                   "slope_med_mrad": pp["slope_med_mrad"][k]})
+                    row = {"N": N, "q": q, "split": split, "plane": k, "z_mm": z,
+                           "pos_med_um": pp["pos_med_um"][k],
+                           "pos_p95_um": pp["pos_p95_um"][k],
+                           "slope_med_mrad": pp["slope_med_mrad"][k]}
+                    for name, unit in COMPONENTS:
+                        key = "%s_med_%s" % (name, unit)
+                        row[key] = pp[key][k] if key in pp else ""
+                    growth.append(row)
             for r in c["legs"]:
                 per_leg.append({"N": N, "q": q, **r})
             e = exact.get((N, q))
+            if e and e.get("components"):
+                for name, unit in COMPONENTS:
+                    cs = e["components"]
+                    comps.append({"N": N, "q": q, "split": "test",
+                                  "comparator": "exact_scheme_vs_rk6_endpoint",
+                                  "component": name, "unit": unit,
+                                  "med": cs["%s_med_%s" % (name, unit)],
+                                  "p95": cs["%s_p95_%s" % (name, unit)],
+                                  "mean": cs["%s_mean_%s" % (name, unit)],
+                                  "bias": cs["%s_bias_%s" % (name, unit)],
+                                  "qop_max_abs_change": cs.get("qop_max_abs_change", ""),
+                                  "qop_passthrough_max_abs_change": ""})
             if e:
                 table.append({"N": N, "q": q, "dz_mm": c["dz_mm"], "split": "test",
                               "comparator": "exact_scheme_vs_rk6_endpoint",
@@ -139,6 +173,14 @@ def main():
                 vals = {(r["N"], r["q"]): r[stat] for r in table
                         if r["split"] == split and r["comparator"] == comp}
                 write_csv(os.path.join(RESULTS, "table_%s_%s_%s.csv" % (comp, split, stat)),
+                          pivot(vals))
+    write_csv(os.path.join(RESULTS, "components.csv"), comps)
+    for comp in ("vs_rk6_endpoint", "vs_real_scifi_state", "exact_scheme_vs_rk6_endpoint"):
+        for name, unit in COMPONENTS:
+            vals = {(r["N"], r["q"]): r["med"] for r in comps
+                    if r["split"] == "test" and r["comparator"] == comp and r["component"] == name}
+            if vals:
+                write_csv(os.path.join(RESULTS, "table_%s_test_%s_med.csv" % (comp, name)),
                           pivot(vals))
     if exact:
         write_csv(os.path.join(RESULTS, "table_exact_scheme_test_pos_med_um.csv"),

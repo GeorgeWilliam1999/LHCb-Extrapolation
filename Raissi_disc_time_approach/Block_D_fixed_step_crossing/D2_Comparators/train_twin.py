@@ -44,7 +44,7 @@ from _shared.reference import RK6_STEP, make_field, rk6_rows
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "D1_Chain_grid"))
 from chain_model import (DEPTH, WIDTH, FrozenResidualNetwork,   # noqa: E402
                          residual_data_loss, straight_line_states)
-from train_chain import pos_err_um, slope_err_mrad, stats       # noqa: E402
+from metrics import component_stats, pos_err_um, slope_err_mrad, stats   # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_DATA = os.path.join(HERE, "..", "D0_Crossing_dataset", "results",
@@ -62,6 +62,8 @@ def main(argv=None):
     ap.add_argument("--outer-cap", type=int, default=400)
     ap.add_argument("--n-train", type=int, default=None)
     ap.add_argument("--no-confirm", action="store_true")
+    ap.add_argument("--score-only", action="store_true",
+                    help="do not train: rebuild the twin from its checkpoint and rescore")
     a = ap.parse_args(argv)
     t0 = time.time()
     D = {k: v for k, v in np.load(os.path.abspath(a.data), allow_pickle=False).items()}
@@ -114,11 +116,16 @@ def main(argv=None):
 
     shared_train.score_split = score_split_q0
 
-    record = shared_train.main([
+    rec_path = os.path.join(a.out, "twin.json")
+    if a.score_only and os.path.exists(rec_path):
+        with open(rec_path) as f:
+            record = json.load(f)
+    else:
+        record = shared_train.main([
         "--data", data_path, "--mode", "data", "--seed", str(a.seed), "--q", "0",
         "--width", str(a.width), "--depth", str(a.depth), "--out", a.out,
         "--tag", "twin", "--field", field, "--outer-cap", str(a.outer_cap)]
-        + (["--no-confirm"] if a.no_confirm else []))
+            + (["--no-confirm"] if a.no_confirm else []))
 
     torch.manual_seed(a.seed)
     model = factory(0, arrays["in_scale"], arrays["out_scale"])
@@ -134,12 +141,13 @@ def main(argv=None):
         pred = np.concatenate([out, S[:, 4:5]], axis=1)
         truth = D["%s_truth" % s][:, n_max]
         carried = rk6_rows(pred, Z1, D["%s_z_post" % s], step=RK6_STEP, field=fld)
+        pb = D["%s_PBAND" % s]
         scores[s] = {
-            "vs_rk6_endpoint": stats(pos_err_um(pred, truth), slope_err_mrad(pred, truth),
-                                     D["%s_PBAND" % s]),
-            "vs_real_scifi_state": stats(pos_err_um(carried, D["%s_S_post" % s]),
-                                         slope_err_mrad(carried, D["%s_S_post" % s]),
-                                         D["%s_PBAND" % s])}
+            "vs_rk6_endpoint": dict(stats(pos_err_um(pred, truth), slope_err_mrad(pred, truth), pb),
+                                    components=component_stats(pred, truth, pb)),
+            "vs_real_scifi_state": dict(stats(pos_err_um(carried, D["%s_S_post" % s]),
+                                              slope_err_mrad(carried, D["%s_S_post" % s]), pb),
+                                        components=component_stats(carried, D["%s_S_post" % s], pb))}
     with open(os.path.join(a.out, "twin_scores.json"), "w") as f:
         json.dump(scores, f, indent=1)
     os.remove(data_path)

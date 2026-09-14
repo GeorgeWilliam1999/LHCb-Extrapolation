@@ -76,7 +76,7 @@ inherited.
 | `leg<kkk>_history.csv` | one row per L-BFGS restart (phase, loss, wall) |
 | `leg<kkk>.json` | the shared trainer's record: convergence, restarts, the leg's own-step scores on train/val/test |
 | `states.npz` | the chain's predicted states on every plane for the train, val and test particles |
-| `chain.json` | the chain's scores against the RK6 endpoint, the real SciFi state, the straight line; per-plane growth; the per-leg summary; cost |
+| `chain.json` | the chain's scores against the RK6 endpoint, the real SciFi state, the straight line — the summary measures and, under `components`, x, y, tx and ty separately with their bias; per-plane growth per component; `qop_passthrough_max_abs_change` (must be 0); the per-leg summary; cost |
 
 Every leg was trained with seed 0 (`torch.manual_seed(0)` before construction);
 `converged = true` in a leg record means the shared trainer's stall-and-confirm

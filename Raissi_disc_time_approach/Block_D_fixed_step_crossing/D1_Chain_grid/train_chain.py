@@ -65,9 +65,9 @@ import torch
 import use_shared                                        # noqa: F401
 from _shared import train as shared_train
 from _shared.evaluate import predict
-from _shared.prepare import P_BANDS
 from _shared.reference import RK6_STEP, gauss_legendre, make_field, rk6_rows
 from chain_model import DEPTH, WIDTH, FrozenResidualNetwork, straight_line_states
+from metrics import chain_scores, pos_err_um, slope_err_mrad, stats
 
 torch.set_num_threads(1)
 torch.set_default_dtype(torch.float64)
@@ -141,31 +141,13 @@ def rebuild(factory, data, ckpt, seed, width, depth):
     return model
 
 
-def pos_err_um(pred, truth):
-    return np.abs(pred[:, :2] - truth[:, :2]).max(axis=1) * 1e3
 
 
-def slope_err_mrad(pred, truth):
-    return np.abs(pred[:, 2:4] - truth[:, 2:4]).max(axis=1) * 1e3
 
 
-def stats(pos, slope, pband=None):
-    out = {"pos_med_um": float(np.median(pos)),
-           "pos_p95_um": float(np.quantile(pos, 0.95)),
-           "pos_mean_um": float(pos.mean()),
-           "slope_med_mrad": float(np.median(slope)),
-           "slope_p95_mrad": float(np.quantile(slope, 0.95)),
-           "n": int(len(pos))}
-    if pband is not None:
-        out["by_p_band"] = {}
-        for i, (lo, hi) in enumerate(P_BANDS):
-            m = pband == i
-            if m.any():
-                out["by_p_band"]["%g-%g GeV" % (lo, hi)] = {
-                    "pos_med_um": float(np.median(pos[m])),
-                    "pos_p95_um": float(np.quantile(pos[m], 0.95)),
-                    "slope_med_mrad": float(np.median(slope[m])), "n": int(m.sum())}
-    return out
+
+
+
 
 
 # ------------------------------------------------------------------ main --
@@ -310,7 +292,7 @@ def main(argv=None):
         print("smoke run: %d of %d legs; no chain.json" % (n_legs, a.N))
         return None
 
-    # -- the chain's verdict ---------------------------------------------------
+    # -- the chain's verdict: metrics.chain_scores, per component ----------------
     result = {"N": a.N, "q": a.q, "dz_mm": dz, "seed": a.seed, "width": a.width,
               "depth": a.depth, "field": field, "planes": planes.tolist(),
               "n_parameters_per_leg": int(sum(p.numel() for p in model.parameters())),
@@ -319,34 +301,7 @@ def main(argv=None):
               "all_legs_converged": bool(all(r["converged"] for r in legs)),
               "total_restarts": int(sum(r["restarts"] for r in legs)),
               "total_train_wall_s": float(sum(r["wall_s"] for r in legs))}
-    for s in SCORED:
-        truth_end = D["%s_truth" % s][:, n_max]
-        pred_end = states[s][:, a.N]
-        S0 = D["%s_S0" % s]
-        pband = D["%s_PBAND" % s]
-        straight = np.concatenate([S0[:, :2] + S0[:, 2:4] * L, S0[:, 2:4]], axis=1)
-        # carried to the particle's own SciFi plane, against its real state
-        carried = rk6_rows(pred_end, Z1, D["%s_z_post" % s], step=RK6_STEP, field=fld)
-        real = D["%s_S_post" % s]
-        truth_carried = D["%s_truth_zpost" % s]
-        per_plane = {"pos_med_um": [], "pos_p95_um": [], "slope_med_mrad": []}
-        for kk in range(a.N + 1):
-            t = D["%s_truth" % s][:, kk * stride]
-            p = states[s][:, kk]
-            per_plane["pos_med_um"].append(float(np.median(pos_err_um(p, t))))
-            per_plane["pos_p95_um"].append(float(np.quantile(pos_err_um(p, t), 0.95)))
-            per_plane["slope_med_mrad"].append(float(np.median(slope_err_mrad(p, t))))
-        result[s] = {
-            "vs_rk6_endpoint": stats(pos_err_um(pred_end, truth_end),
-                                     slope_err_mrad(pred_end, truth_end), pband),
-            "vs_real_scifi_state": stats(pos_err_um(carried, real),
-                                         slope_err_mrad(carried, real), pband),
-            "rk6_truth_vs_real_scifi_state": stats(pos_err_um(truth_carried, real),
-                                                   slope_err_mrad(truth_carried, real), pband),
-            "straight_line_vs_rk6_endpoint": stats(pos_err_um(straight, truth_end),
-                                                   slope_err_mrad(straight, truth_end)),
-            "per_plane": per_plane,
-        }
+    result.update(chain_scores(states, D, a.N, fld))
     result["wall_s_this_run"] = round(time.time() - t_start, 1)
     with open(os.path.join(cdir, "chain.json"), "w") as f:
         json.dump(result, f, indent=1)

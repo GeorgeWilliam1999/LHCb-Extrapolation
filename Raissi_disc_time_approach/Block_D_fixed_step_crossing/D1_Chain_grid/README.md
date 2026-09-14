@@ -30,7 +30,9 @@ own q, and nowhere else.
 | [make_jobs.py](make_jobs.py) | the 100-line job list (long chains first) | `condor/jobs_chain.txt`, `condor/jobs_chain.sub` |
 | [resubmit_chain.py](resubmit_chain.py) | resubmits unfinished chains not in the queue; they resume | `condor/jobs_chain_round<N>.*` |
 | [apply_chain.py](apply_chain.py) | `load_chain(results, N, q)` → `Chain.extrapolate(S0)`; `--check` reproduces the record | — |
-| [aggregate.py](aggregate.py) | the records → the tables | `results/chain_table.csv`, `table_*.csv`, `per_leg.csv`, `growth.csv`, `by_p_band.csv`, `status.csv` |
+| [metrics.py](metrics.py) | the scoring, per component: x, y [µm], tx, ty [mrad] separately (median, p95, mean, bias) beside the summary measures pos = max(\|dx\|,\|dy\|) and slope = max(\|dtx\|,\|dty\|); q/p is asserted unchanged along every chain | — |
+| [score_components.py](score_components.py) | rescores a finished chain from its `states.npz` (for records written before the per-component scoring) | rewrites the val/test blocks of `chain.json` |
+| [aggregate.py](aggregate.py) | the records → the tables | `results/chain_table.csv`, `table_*.csv`, `components.csv`, `table_*_<x,y,tx,ty>_med.csv`, `per_leg.csv`, `growth.csv`, `by_p_band.csv`, `status.csv` |
 | [plot.py](plot.py) | the figures, from the tables alone | `figures/*.png` |
 | [analysis.ipynb](analysis.ipynb) | loads the tables and figures; computes nothing | — |
 
