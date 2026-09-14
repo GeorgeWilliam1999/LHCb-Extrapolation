@@ -30,3 +30,11 @@ Data_generation_exploration/Official_xdigi/dump.log
 Raissi_disc_time_approach/**/results/*.pt
 Raissi_disc_time_approach/**/results/*.npz
 Raissi_disc_time_approach/**/condor/logs/
+# Block D (2026-09-14): chains write one folder per (N, q) under results/, so
+# the weights and prepared datasets sit one level deeper than before; the smoke
+# and timing runs are scratch.
+Raissi_disc_time_approach/**/results/**/*.pt
+Raissi_disc_time_approach/**/results/**/*.npz
+Raissi_disc_time_approach/Block_D_fixed_step_crossing/*/results/smoke/
+Raissi_disc_time_approach/Block_D_fixed_step_crossing/*/results/smoke_twin/
+Raissi_disc_time_approach/Block_D_fixed_step_crossing/D1_Chain_grid/results/timing/

@@ -1,0 +1,178 @@
+{
+ "what": "Block D crossing particles: start state at z0, RK6 truth at 129 planes, real state on the first SciFi plane",
+ "created": "2026-09-14 12:15",
+ "source_training_set": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Data_generation_exploration/Official_xdigi/training_v2/train_official_v2.npz",
+ "field": {
+  "which": "up",
+  "md5": "9e49ddc4313b589f273540e7e0bb513b"
+ },
+ "crossing": {
+  "z0_mm": 2648.2,
+  "z1_mm": 7826.0,
+  "L_mm": 5177.8,
+  "N_values": [
+   1,
+   4,
+   16,
+   64,
+   128
+  ],
+  "dz_mm": {
+   "1": 5177.8,
+   "4": 1294.45,
+   "16": 323.6125,
+   "64": 80.903125,
+   "128": 40.4515625
+  },
+  "planes": "z0 + k L/128, k = 0..128; chain N uses every 128/N-th"
+ },
+ "reference": "RK6 (Butcher 7-stage, order 6) at 0.1 mm, marched plane to plane; transport z_pre -> z0 and z1 -> z_post with the same",
+ "cut_cascade": [
+  {
+   "cut": "leg-B rows in the training set (both directions)",
+   "rows_in": 41398,
+   "rows_removed": 0,
+   "rows_out": 41398,
+   "particles_out": 21932,
+   "note": "load_training(leg='B')"
+  },
+  {
+   "cut": "pre-magnet plane is a UT plane",
+   "rows_in": 41398,
+   "rows_removed": 2476,
+   "rows_out": 38922,
+   "particles_out": 20655,
+   "note": "z_pre > 1500 mm; below it the particle had no UT hit and the row starts on a VELO plane"
+  },
+  {
+   "cut": "both directions kept for the particle",
+   "rows_in": 38922,
+   "rows_removed": 2388,
+   "rows_out": 36534,
+   "particles_out": 18267,
+   "note": "forward and backward legs are a matched pair"
+  },
+  {
+   "cut": "2 < eta < 5",
+   "rows_in": 36534,
+   "rows_removed": 1240,
+   "rows_out": 35294,
+   "particles_out": 17647,
+   "note": "truth pseudorapidity at the particle's origin (ETA column)"
+  },
+  {
+   "cut": "1 < p < 200 GeV",
+   "rows_in": 35294,
+   "rows_removed": 0,
+   "rows_out": 35294,
+   "particles_out": 17647,
+   "note": "already the training set's own domain cut, so it removes little"
+  },
+  {
+   "cut": "non-electron",
+   "rows_in": 35294,
+   "rows_removed": 4780,
+   "rows_out": 30514,
+   "particles_out": 15257,
+   "note": "|PID| != 11"
+  },
+  {
+   "cut": "both directions still kept after the cuts",
+   "rows_in": 30514,
+   "rows_removed": 0,
+   "rows_out": 30514,
+   "particles_out": 15257,
+   "note": ""
+  },
+  {
+   "cut": "forward rows only",
+   "rows_in": 30514,
+   "rows_removed": 15257,
+   "rows_out": 15257,
+   "particles_out": 15257,
+   "note": "one row per particle"
+  },
+  {
+   "cut": "|z_pre - z0| < 60 mm and |z_post - z1| < 60 mm",
+   "rows_in": 15257,
+   "rows_removed": 775,
+   "rows_out": 14482,
+   "particles_out": 14482,
+   "note": "z0 = 2648.2, z1 = 7826.0 mm"
+  },
+  {
+   "cut": "fiducial: RK6 trajectory stays inside the field map",
+   "rows_in": 14482,
+   "rows_removed": 0,
+   "rows_out": 14482,
+   "particles_out": 14482,
+   "note": "x, y within the map at all 129 planes, all finite"
+  }
+ ],
+ "counts": {
+  "train": 2000,
+  "val": 1463,
+  "test": 1452
+ },
+ "particles_before_train_cap": {
+  "train": 11567,
+  "val": 1463,
+  "test": 1452
+ },
+ "train_cap": {
+  "n_train": 2000,
+  "seed": 20260718
+ },
+ "material_floor_real_SciFi_state_vs_field_only_truth": {
+  "all": {
+   "pos_med_um": 1735.8463253863654,
+   "pos_p95_um": 12628.277565672994,
+   "slope_med_mrad": 0.4938396491392708,
+   "n": 14482
+  },
+  "1-2 GeV": {
+   "pos_med_um": 14723.385809148225,
+   "pos_p95_um": 35183.105089053046,
+   "slope_med_mrad": 6.4398826581631985,
+   "n": 89
+  },
+  "2-5 GeV": {
+   "pos_med_um": 5135.658096655902,
+   "pos_p95_um": 18293.871669075816,
+   "slope_med_mrad": 1.7431841562868948,
+   "n": 5117
+  },
+  "5-10 GeV": {
+   "pos_med_um": 1607.920474256666,
+   "pos_p95_um": 5791.486970727874,
+   "slope_med_mrad": 0.46373158091300887,
+   "n": 4286
+  },
+  "10-25 GeV": {
+   "pos_med_um": 622.2083141458938,
+   "pos_p95_um": 3222.6521579526816,
+   "slope_med_mrad": 0.17082750758276588,
+   "n": 3697
+  },
+  "25-200 GeV": {
+   "pos_med_um": 251.02265067974372,
+   "pos_p95_um": 1937.757388170816,
+   "slope_med_mrad": 0.07155000300158171,
+   "n": 1293
+  }
+ },
+ "pre_plane_z_mm": {
+  "min": 2593.153564453125,
+  "max": 2663.263671875
+ },
+ "post_plane_z_mm": {
+  "min": 7818.7451171875,
+  "max": 7833.4501953125
+ },
+ "cost": {
+  "rk6_wall_s": 283.4,
+  "workers": 12,
+  "total_wall_s": 285.0
+ },
+ "file": "results/crossing_particles.npz"
+}
