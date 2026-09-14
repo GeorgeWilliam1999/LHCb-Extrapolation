@@ -1,0 +1,23 @@
+{
+ "index_in_test_split": 208,
+ "EVT": 22,
+ "MCKEY": 5348,
+ "p_GeV": 6.860853672027588,
+ "eta": 3.8473730087280273,
+ "PID": 2212,
+ "S0_at_z0": [
+  84.31620174079329,
+  -75.48618346271215,
+  0.026426106505600715,
+  -0.027891195834389194,
+  0.0436960868537426
+ ],
+ "truth_at_z1": [
+  -215.16648112103843,
+  -219.14160367328685,
+  -0.13928731763982355,
+  -0.027426981336962242,
+  0.0436960868537426
+ ],
+ "why": "the test particle with momentum closest to the test median (6.86 GeV) among those in the inner half of the transverse start positions"
+}

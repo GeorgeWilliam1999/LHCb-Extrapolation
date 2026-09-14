@@ -1,0 +1,11 @@
+N,q,networks_per_crossing,parameters_per_leg,parameters_per_crossing,forward_us_per_track_per_crossing_batch1452,test_med_um_vs_rk6,note
+1,8,1,21924,21924,12.504642561972675,225.63428206032654,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+1,16,1,26052,26052,12.53663154263447,211.42911627640615,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+4,5,4,20376,81504,47.16267631010851,211.98930568031216,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+4,8,4,21924,87696,47.11536983515202,237.3630615337987,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+16,8,16,21924,350784,188.3873443529167,971.1077053271424,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+16,15,16,25536,408576,198.94117148830068,717.9271777965255,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+64,7,64,21408,1370112,745.5569084037758,1982.5968187053604,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+64,8,64,21924,1403136,755.2143849851027,2219.012884629965,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+128,7,128,21408,2740224,1518.812609503569,2539.3699197086335,"one thread, fp64, PyTorch eager, includes the field integral for the scale"
+128,8,128,21924,2806272,1511.0275564724407,3116.1112812940246,"one thread, fp64, PyTorch eager, includes the field integral for the scale"

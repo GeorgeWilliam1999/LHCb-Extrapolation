@@ -52,8 +52,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "results")
 FIGURES = os.path.join(HERE, "figures")
 STATES_NPZ = os.path.join(
-    os.path.dirname(os.path.dirname(HERE)), "Data_generation_exploration",
-    "Official_xdigi", "results", "states.npz")
+    os.path.dirname(use_shared.SHARED_ROOT), "Data_generation_exploration",
+    "Official_xdigi", "results", "states.npz")      # via the project root, at any depth
 
 FIELD = "up"
 Z_LO, Z_HI = -300.0, 9600.0

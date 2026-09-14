@@ -1,0 +1,27 @@
+source,q,N,physics_med_um,twin_med_um,scheme_med_um,straight_med_um
+"Block A1 stage sweep, 4x50, magnet-DOWN map, median of 3 seeds",2,1,5202.036912544074,174.1733532596612,5198.153415332456,520444.39568501245
+"Block A1 stage sweep, 4x50, magnet-DOWN map, median of 3 seeds",4,1,5371.003483586066,181.00348525987897,5401.429889457745,520444.33318492764
+"Block A1 stage sweep, 4x50, magnet-DOWN map, median of 3 seeds",8,1,180.94238081681624,176.04395969757647,22.544094616847588,520444.29371907085
+"Block A1 stage sweep, 4x50, magnet-DOWN map, median of 3 seeds",16,1,187.44316646764503,169.7020158902376,19.501024817301982,520444.31402346474
+"Block A2 size and seed, 4x50, q = 8, magnet-DOWN map, median of 10 seeds",8,1,221.5538419852976,,,
+"Block A2 size and seed, 4x200, q = 8, magnet-DOWN map, median of 10 seeds",8,1,114.65304600815296,,,
+"Block D, 2x128, magnet-UP map, one seed",1,1,171524.1322932768,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",2,1,4767.940404871127,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",3,1,17496.009713703643,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",4,1,4642.326611306629,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",5,1,456.41447320812745,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",6,1,324.0139473637669,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",7,1,326.1960330927707,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",8,1,225.63428206032654,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",9,1,222.43732509502934,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",10,1,226.10210290355326,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",11,1,220.5174851213485,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",12,1,280.86483867809875,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",13,1,264.0531962655146,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",14,1,229.54104462297664,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",15,1,232.77115054623465,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",16,1,211.42911627640615,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",17,1,217.31165668467156,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",18,1,284.85574199741137,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",19,1,282.0865837182396,,,450541.20897316607
+"Block D, 2x128, magnet-UP map, one seed",20,1,265.9575751051122,,,450541.20897316607
