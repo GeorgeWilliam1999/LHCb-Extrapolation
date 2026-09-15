@@ -301,6 +301,32 @@ def main():
                          "physics_med_um": v["vs_rk6_endpoint"]["pos_med_um"], "twin_med_um": "",
                          "scheme_med_um": "", "straight_med_um": v["straight_line_vs_rk6_endpoint"]["pos_med_um"]})
     write_csv(os.path.join(RESULTS, "block_a_continuity.csv"), cont)
+    # ---- 8. the slope error each leg adds, and whether it repeats along a track ----
+    rows = []
+    for N in N_VALUES:
+        qs = [q for (n, q) in ch if n == N]
+        if not qs:
+            continue
+        for q in sorted({8, min(qs, key=lambda qq: med[(N, qq)])} & set(qs)):
+            st = test_states(N, q)
+            truth = D["test_truth"][:, ::n_max // N]
+            dtx = (st[:, :, 2] - truth[:, :, 2]) * 1e3
+            dx = (st[:, :, 0] - truth[:, :, 0]) * 1e3
+            inc = np.diff(dtx, axis=1)                      # (n, N) mrad added per leg
+            per_leg_bias = inc.mean(axis=0)                 # population mean per leg
+            per_track_sum = inc.sum(axis=1)                 # = final tx error per track
+            coherent = np.abs(per_track_sum) / np.abs(inc).sum(axis=1)   # 1 = same sign every leg
+            rows.append({"N": N, "q": q,
+                         "median_abs_tx_increment_per_leg_mrad": float(np.median(np.abs(inc))),
+                         "median_over_legs_of_population_bias_mrad": float(np.median(per_leg_bias)),
+                         "legs_with_positive_population_bias": int((per_leg_bias > 0).sum()),
+                         "final_tx_bias_mean_mrad": float(dtx[:, -1].mean()),
+                         "final_tx_abs_median_mrad": float(np.median(np.abs(dtx[:, -1]))),
+                         "final_x_bias_mean_um": float(dx[:, -1].mean()),
+                         "final_x_abs_median_um": float(np.median(np.abs(dx[:, -1]))),
+                         "median_coherence_per_track": float(np.median(coherent)),
+                         "note": "coherence = |sum of a track's per-leg tx increments| / sum of |increments|; 1 means the same sign on every leg"})
+    write_csv(os.path.join(RESULTS, "leg_increments.csv"), rows)
     print("extra tables and figures written")
 
 
