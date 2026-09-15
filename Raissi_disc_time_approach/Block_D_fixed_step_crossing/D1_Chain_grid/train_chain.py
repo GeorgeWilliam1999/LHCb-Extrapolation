@@ -231,6 +231,11 @@ def main(argv=None):
         if os.path.exists(rec_path) and os.path.exists(ckpt) and done[k + 1]:
             with open(rec_path) as f:
                 record = json.load(f)
+            with open(scale_path) as f:
+                sc = json.load(f)
+            model = rebuild(factory, {"q": a.q, "in_scale": sc["in_scale"],
+                                      "out_scale": sc["out_scale"]}, ckpt, a.seed,
+                            a.width, a.depth)
             print("leg %d/%d already trained and applied; skipping" % (k + 1, a.N), flush=True)
         else:
             if os.path.exists(scale_path) and os.path.exists(data_path):
