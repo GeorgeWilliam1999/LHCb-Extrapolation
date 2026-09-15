@@ -170,6 +170,10 @@ def main(argv=None):
                     help="train only the first this-many legs (smoke tests only)")
     ap.add_argument("--no-confirm", action="store_true",
                     help="skip the confirmation pass (smoke tests only)")
+    ap.add_argument("--stall-tol", type=float, default=None,
+                    help="stall threshold passed to the shared trainer (default 1e-2)")
+    ap.add_argument("--log-medians", action="store_true",
+                    help="log the endpoint medians after every restart (continuation study)")
     a = ap.parse_args(argv)
     t_start = time.time()
 
@@ -253,7 +257,9 @@ def main(argv=None):
                     "--q", str(a.q), "--width", str(a.width), "--depth", str(a.depth),
                     "--out", cdir, "--tag", tag, "--field", field,
                     "--outer-cap", str(a.outer_cap), "--max-iter", str(a.max_iter)]
-                    + (["--no-confirm"] if a.no_confirm else []))
+                    + (["--no-confirm"] if a.no_confirm else [])
+                    + (["--stall-tol", str(a.stall_tol)] if a.stall_tol is not None else [])
+                    + (["--log-medians"] if a.log_medians else []))
             model = rebuild(factory, data, ckpt, a.seed, a.width, a.depth)
             for s in SPLITS:
                 S = states[s][:, k]

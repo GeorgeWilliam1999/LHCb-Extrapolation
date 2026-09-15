@@ -64,6 +64,15 @@ torch.set_num_threads(1)
 torch.set_default_dtype(torch.float64)
 
 HISTORY_FIELDS = ["mode", "seed", "phase", "outer", "loss", "wall_s"]
+ERROR_FIELDS = ["outer", "phase", "loss", "train_endpoint_med_um", "val_endpoint_med_um",
+                "test_endpoint_med_um", "val_endpoint_p95_um", "test_endpoint_p95_um",
+                "val_slope_med_mrad", "wall_s"]
+
+# The stall rule's threshold: a restart "improved" when it cut the loss by at
+# least this fraction. 1e-2 is the verified baseline's value and the default;
+# `--stall-tol` lowers it for runs that must train past the usual stall
+# (Block D continuation study, 2026-09-15).
+STALL_TOL = 1e-2
 
 
 # ------------------------------------------------------------- the history --
@@ -89,7 +98,7 @@ def _improved(previous, loss):
     The one place the rule is written down, so the live loop and the history
     reader below cannot drift apart.
     """
-    return (previous - loss) >= 1e-2 * max(loss, 1e-30)
+    return (previous - loss) >= STALL_TOL * max(loss, 1e-30)
 
 
 def _trailing_confirm_block(rows):
@@ -176,13 +185,22 @@ def main(argv=None):
                     help="L-BFGS iterations inside one restart")
     ap.add_argument("--no-confirm", action="store_true",
                     help="stop at the first stall, skip the confirmation pass")
+    ap.add_argument("--stall-tol", type=float, default=None,
+                    help="stall threshold, fraction of loss per restart (default 1e-2)")
+    ap.add_argument("--log-medians", action="store_true",
+                    help="after every restart, score all three splits and append "
+                         "the endpoint medians to <tag>_errors.csv")
     a = ap.parse_args(argv)
+    global STALL_TOL
+    if a.stall_tol is not None:
+        STALL_TOL = float(a.stall_tol)
 
     t_start = time.time()
     os.makedirs(a.out, exist_ok=True)
     ckpt = os.path.join(a.out, a.tag + ".pt")
     hist_path = os.path.join(a.out, a.tag + "_history.csv")
     json_path = os.path.join(a.out, a.tag + ".json")
+    err_path = os.path.join(a.out, a.tag + "_errors.csv")
 
     data = load_dataset(a.data)
     q = int(data["q"])
@@ -245,6 +263,20 @@ def main(argv=None):
         print("  %s seed %d %s restart %d: loss %.6e (%.0f s)"
               % (a.mode, a.seed, tag_phase, outer, loss, wall), flush=True)
         improved = _improved(previous, loss)
+        if a.log_medians:
+            sc = {s_: score_split(model, data, s_)[0] for s_ in ("train", "val", "test")}
+            new = not os.path.exists(err_path)
+            with open(err_path, "a", newline="") as f:
+                w = csv.DictWriter(f, fieldnames=ERROR_FIELDS)
+                if new:
+                    w.writeheader()
+                w.writerow(dict(outer=outer, phase=tag_phase, loss=loss,
+                                train_endpoint_med_um=sc["train"]["endpoint_med_um"],
+                                val_endpoint_med_um=sc["val"]["endpoint_med_um"],
+                                test_endpoint_med_um=sc["test"]["endpoint_med_um"],
+                                val_endpoint_p95_um=sc["val"]["endpoint_p95_um"],
+                                test_endpoint_p95_um=sc["test"]["endpoint_p95_um"],
+                                val_slope_med_mrad=sc["val"]["slope_med_mrad"], wall_s=wall))
         previous = loss
         outer += 1
         return loss, improved
@@ -351,6 +383,7 @@ def main(argv=None):
         "wall_s": wall_s,
         "outer_cap": a.outer_cap, "max_iter": a.max_iter,
         "confirmed": not a.no_confirm,
+        "stall_tol": STALL_TOL, "logged_medians": bool(a.log_medians),
     }
     for split in ("train", "val", "test"):
         record[split] = score_split(model, data, split)[0]
