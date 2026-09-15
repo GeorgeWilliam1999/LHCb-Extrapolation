@@ -1,0 +1,47 @@
+<!-- TITLE: Per momentum band: 1-2 GeV -->
+Test particles with truth momentum in this band, against the fine truth; medians of the absolute error. The material floor in this band is 14,723 µm (median). Each cell is one chain.
+## endpoint position error [µm]
+<table header-row="true" fit-page-width="true">
+	<tr><td>N \\ q</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+	<tr><td>1</td><td>948,072</td><td>3,332</td><td>95,083</td><td>34,428</td><td>4,604</td><td>5,809</td><td>3,764</td><td>4,685</td><td>2,206</td><td>2,004</td><td>3,231</td><td>1,174</td><td>2,674</td><td>2,504</td><td>3,024</td><td>2,790</td><td>4,237</td><td>2,711</td><td>2,275</td><td>4,610</td></tr>
+	<tr><td>4</td><td>16,252</td><td>3,062</td><td>3,895</td><td>3,973</td><td>3,377</td><td>1,566</td><td>2,935</td><td>1,934</td><td>2,673</td><td>1,564</td><td>2,911</td><td>2,776</td><td>3,941</td><td>2,849</td><td>4,095</td><td>2,896</td><td>2,552</td><td>2,661</td><td>3,286</td><td>3,694</td></tr>
+	<tr><td>16</td><td>4,779</td><td>8,926</td><td>5,362</td><td>4,741</td><td>5,935</td><td>7,177</td><td>5,730</td><td>7,503</td><td>6,505</td><td>4,385</td><td>8,312</td><td>5,747</td><td>8,068</td><td>5,581</td><td>8,267</td><td>7,603</td><td>8,925</td><td>8,390</td><td>6,901</td><td>6,996</td></tr>
+	<tr><td>64</td><td>9,643</td><td>9,542</td><td>8,452</td><td>15,965</td><td>11,315</td><td>5,732</td><td>10,499</td><td>11,872</td><td>11,089</td><td>11,142</td><td>10,896</td><td>14,041</td><td>16,953</td><td>9,139</td><td>13,960</td><td>11,260</td><td>13,993</td><td>14,720</td><td>13,271</td><td>15,299</td></tr>
+	<tr><td>128</td><td>19,042</td><td>18,822</td><td>17,531</td><td>24,391</td><td>17,729</td><td>16,298</td><td>19,301</td><td>20,472</td><td>20,559</td><td>24,475</td><td>20,649</td><td>26,203</td><td>28,493</td><td>17,655</td><td>22,906</td><td>20,781</td><td>22,996</td><td>22,053</td><td>26,150</td><td>20,458</td></tr>
+</table>
+## x [µm]
+<table header-row="true" fit-page-width="true">
+	<tr><td>N \\ q</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+	<tr><td>1</td><td>948,072</td><td>3,332</td><td>95,083</td><td>34,428</td><td>3,171</td><td>5,809</td><td>3,764</td><td>4,685</td><td>1,567</td><td>944</td><td>3,231</td><td>967</td><td>1,954</td><td>2,504</td><td>3,024</td><td>2,790</td><td>4,237</td><td>584</td><td>2,006</td><td>2,402</td></tr>
+	<tr><td>4</td><td>16,252</td><td>398</td><td>3,895</td><td>2,927</td><td>3,377</td><td>1,440</td><td>2,524</td><td>754</td><td>2,673</td><td>1,014</td><td>2,911</td><td>2,623</td><td>3,449</td><td>2,699</td><td>4,095</td><td>2,896</td><td>2,552</td><td>2,454</td><td>2,136</td><td>3,694</td></tr>
+	<tr><td>16</td><td>4,480</td><td>8,926</td><td>5,362</td><td>4,741</td><td>5,935</td><td>7,177</td><td>5,730</td><td>7,503</td><td>6,505</td><td>4,385</td><td>8,312</td><td>5,747</td><td>8,068</td><td>5,581</td><td>8,267</td><td>7,603</td><td>8,925</td><td>8,390</td><td>6,901</td><td>6,996</td></tr>
+	<tr><td>64</td><td>5,281</td><td>9,542</td><td>7,848</td><td>15,965</td><td>11,315</td><td>5,732</td><td>10,499</td><td>11,872</td><td>11,089</td><td>11,142</td><td>10,896</td><td>14,041</td><td>16,953</td><td>8,102</td><td>13,960</td><td>11,260</td><td>13,993</td><td>14,720</td><td>13,271</td><td>15,299</td></tr>
+	<tr><td>128</td><td>19,042</td><td>18,822</td><td>17,531</td><td>24,391</td><td>17,729</td><td>16,298</td><td>19,301</td><td>20,472</td><td>20,559</td><td>24,475</td><td>20,649</td><td>26,203</td><td>28,493</td><td>17,655</td><td>22,906</td><td>20,781</td><td>22,996</td><td>22,053</td><td>26,150</td><td>20,458</td></tr>
+</table>
+## y [µm]
+<table header-row="true" fit-page-width="true">
+	<tr><td>N \\ q</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+	<tr><td>1</td><td>58,963</td><td>1,208</td><td>3,997</td><td>3,880</td><td>1,703</td><td>2,314</td><td>1,807</td><td>644</td><td>1,530</td><td>1,511</td><td>431</td><td>749</td><td>678</td><td>602</td><td>1,170</td><td>192</td><td>1,099</td><td>2,593</td><td>1,285</td><td>964</td></tr>
+	<tr><td>4</td><td>3,761</td><td>330</td><td>1,496</td><td>2,121</td><td>1,538</td><td>1,566</td><td>2,013</td><td>1,934</td><td>1,971</td><td>1,379</td><td>2,836</td><td>1,593</td><td>1,771</td><td>1,328</td><td>2,091</td><td>1,349</td><td>1,939</td><td>1,829</td><td>1,739</td><td>1,245</td></tr>
+	<tr><td>16</td><td>1,873</td><td>2,648</td><td>2,017</td><td>2,005</td><td>1,252</td><td>3,099</td><td>1,480</td><td>2,358</td><td>3,836</td><td>1,709</td><td>2,595</td><td>2,214</td><td>3,381</td><td>2,510</td><td>3,894</td><td>3,364</td><td>2,855</td><td>4,339</td><td>3,935</td><td>2,532</td></tr>
+	<tr><td>64</td><td>4,001</td><td>2,792</td><td>4,069</td><td>4,380</td><td>3,260</td><td>4,913</td><td>5,194</td><td>2,223</td><td>5,725</td><td>3,901</td><td>3,036</td><td>3,600</td><td>4,309</td><td>3,018</td><td>7,063</td><td>5,614</td><td>2,863</td><td>5,180</td><td>4,226</td><td>2,899</td></tr>
+	<tr><td>128</td><td>6,551</td><td>4,583</td><td>4,180</td><td>2,879</td><td>4,238</td><td>4,632</td><td>5,702</td><td>6,573</td><td>7,400</td><td>5,398</td><td>3,843</td><td>1,977</td><td>5,976</td><td>4,436</td><td>4,192</td><td>3,902</td><td>2,880</td><td>7,192</td><td>2,643</td><td>2,834</td></tr>
+</table>
+## tx [mrad]
+<table header-row="true" fit-page-width="true">
+	<tr><td>N \\ q</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+	<tr><td>1</td><td>347</td><td>23.6</td><td>32.6</td><td>11.7</td><td>1.25</td><td>2.30</td><td>4.09</td><td>2.33</td><td>1.09</td><td>1.24</td><td>0.63</td><td>1.34</td><td>2.18</td><td>0.937</td><td>1.42</td><td>1.36</td><td>4.03</td><td>1.46</td><td>2.94</td><td>0.409</td></tr>
+	<tr><td>4</td><td>4.61</td><td>0.783</td><td>1.24</td><td>1.37</td><td>1.62</td><td>0.854</td><td>1.18</td><td>1.14</td><td>1.80</td><td>0.553</td><td>1.23</td><td>0.941</td><td>1.23</td><td>1.25</td><td>1.78</td><td>1.25</td><td>1.55</td><td>1.05</td><td>1.37</td><td>1.31</td></tr>
+	<tr><td>16</td><td>1.99</td><td>1.95</td><td>2.57</td><td>2.37</td><td>1.45</td><td>2.25</td><td>2.75</td><td>2.56</td><td>2.37</td><td>1.31</td><td>2.03</td><td>1.45</td><td>1.78</td><td>1.40</td><td>1.81</td><td>1.19</td><td>2.03</td><td>2.74</td><td>2.55</td><td>1.71</td></tr>
+	<tr><td>64</td><td>4.83</td><td>6.18</td><td>5.54</td><td>7.03</td><td>7.75</td><td>5.63</td><td>7.61</td><td>6.63</td><td>9.89</td><td>6.73</td><td>7.97</td><td>8.67</td><td>11.0</td><td>7.05</td><td>6.41</td><td>7.99</td><td>10.8</td><td>8.44</td><td>7.16</td><td>8.10</td></tr>
+	<tr><td>128</td><td>7.00</td><td>8.49</td><td>5.76</td><td>11.5</td><td>8.36</td><td>8.95</td><td>11.0</td><td>8.71</td><td>10.6</td><td>10.6</td><td>8.68</td><td>12.3</td><td>12.4</td><td>7.71</td><td>9.37</td><td>9.60</td><td>9.02</td><td>10.0</td><td>9.53</td><td>10.7</td></tr>
+</table>
+## ty [mrad]
+<table header-row="true" fit-page-width="true">
+	<tr><td>N \\ q</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+	<tr><td>1</td><td>31.5</td><td>3.25</td><td>0.533</td><td>1.52</td><td>0.917</td><td>0.517</td><td>0.672</td><td>0.804</td><td>1.01</td><td>0.605</td><td>0.679</td><td>0.938</td><td>0.429</td><td>0.552</td><td>0.298</td><td>0.632</td><td>1.01</td><td>0.647</td><td>0.5</td><td>0.446</td></tr>
+	<tr><td>4</td><td>1.33</td><td>0.687</td><td>0.28</td><td>0.876</td><td>0.693</td><td>0.326</td><td>0.784</td><td>0.574</td><td>0.728</td><td>0.615</td><td>0.965</td><td>0.308</td><td>0.828</td><td>0.529</td><td>0.0878</td><td>0.225</td><td>0.601</td><td>0.824</td><td>0.566</td><td>0.473</td></tr>
+	<tr><td>16</td><td>0.94</td><td>0.699</td><td>0.441</td><td>0.617</td><td>0.523</td><td>1.00</td><td>0.496</td><td>0.661</td><td>0.5</td><td>0.579</td><td>0.728</td><td>0.521</td><td>0.858</td><td>0.493</td><td>0.885</td><td>0.514</td><td>0.452</td><td>0.365</td><td>0.374</td><td>0.331</td></tr>
+	<tr><td>64</td><td>1.09</td><td>1.38</td><td>1.56</td><td>1.50</td><td>1.31</td><td>1.44</td><td>1.01</td><td>0.724</td><td>1.22</td><td>0.819</td><td>0.705</td><td>1.47</td><td>1.05</td><td>1.48</td><td>0.616</td><td>0.701</td><td>1.27</td><td>0.635</td><td>0.151</td><td>1.17</td></tr>
+	<tr><td>128</td><td>2.02</td><td>1.19</td><td>1.08</td><td>1.97</td><td>1.36</td><td>1.57</td><td>0.972</td><td>1.39</td><td>1.90</td><td>1.50</td><td>1.15</td><td>1.67</td><td>1.68</td><td>2.34</td><td>0.388</td><td>0.599</td><td>1.87</td><td>0.852</td><td>0.484</td><td>1.91</td></tr>
+</table>
