@@ -50,7 +50,7 @@ table-to-file and figure-to-file map.
   its `README.md` (48 pages, 37 figures). Treated as **read-only** for this
   deck: figures were copied out of it and nothing in it was written to.
 
-Abbreviations below: `R/` = `Raissi_disc_time_approach/`,
+Abbreviations below: `R/` = `multi_network_chain_discrete_approach/` (named `Raissi_disc_time_approach/` until 2026-09-16),
 `D/` = `Data_generation_exploration/` (both under the LHCb repository root);
 `V/` = `/data/bfys/gscriven/Van_Der_Pole/`.
 

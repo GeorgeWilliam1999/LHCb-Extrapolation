@@ -1,0 +1,17 @@
+{
+ "restart": 1000,
+ "round": 40,
+ "in_round": 25,
+ "phase": "done",
+ "stalled": 0,
+ "first_gains": [
+  0.4618054547429956,
+  0.20318137922032964
+ ],
+ "round_loss_first": 1.455336172303861e-10,
+ "converged": false,
+ "confirmed": null,
+ "hit_cap": "restarts",
+ "round_wall_s": 1933.0076124668121,
+ "prev_train_end": null
+}

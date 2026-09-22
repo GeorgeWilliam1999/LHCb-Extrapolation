@@ -1,0 +1,49 @@
+{
+ "networks": [
+  "N064_q02",
+  "N128_q08",
+  "N256_q16"
+ ],
+ "best_on_validation": "N064_q02",
+ "checkpoints_of_runs_still_training": [],
+ "straight_line_med_um": 450541.74457507615,
+ "errors": "endpoint (after N steps, at z1) everywhere except the single-step squares of the per-run panel",
+ "band_medians_N064_q02": {
+  "all": 88.82612667434611,
+  "10-50 GeV": 24.76498404528246,
+  "below 5 GeV": 372.98957782459166
+ },
+ "band_medians_N128_q08": {
+  "all": 104.6246983049756,
+  "10-50 GeV": 27.3025169832845,
+  "below 5 GeV": 445.88241337203164
+ },
+ "band_medians_N256_q16": {
+  "all": 92.15880370314537,
+  "10-50 GeV": 34.56216627778913,
+  "below 5 GeV": 357.41342136020035
+ },
+ "three_tracks": [
+  {
+   "index": 455,
+   "p_GeV": 2.3061962127685547,
+   "charge": -1,
+   "x_end_ref_mm": 1287.6921355766992,
+   "x_end_net_mm": 1287.999634148919
+  },
+  {
+   "index": 1368,
+   "p_GeV": 5.930788040161133,
+   "charge": 1,
+   "x_end_ref_mm": -151.0450418679364,
+   "x_end_net_mm": -151.12039919685768
+  },
+  {
+   "index": 366,
+   "p_GeV": 21.923213958740234,
+   "charge": -1,
+   "x_end_ref_mm": -5.419397341788927,
+   "x_end_net_mm": -5.428811789231092
+  }
+ ]
+}

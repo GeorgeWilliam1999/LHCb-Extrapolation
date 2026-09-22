@@ -1,0 +1,22 @@
+{
+ "source": "../../Block_E_single_network_chain/E3_Analysis/results/error_anatomy.csv",
+ "n_steps": 64,
+ "dz_mm": 80.90312499999982,
+ "B_on_axis_T": {
+  "min": 0.22143853591872006,
+  "max": 1.0480383020027488
+ },
+ "slope_error_vs_B": {
+  "spearman": -0.574679487179487,
+  "pearson": -0.6226622958030711
+ },
+ "cost_at_z1_vs_lever": {
+  "spearman": 0.9958791208791208,
+  "pearson": 0.9823344835501552
+ },
+ "cost_at_z1_vs_B": {
+  "spearman": 0.1243131868131868,
+  "pearson": -0.018444328658420106
+ },
+ "reading": "the per-step slope error is largest where |B| is smallest (negative correlation), and a step's cost at z1 follows the distance left, not the field"
+}

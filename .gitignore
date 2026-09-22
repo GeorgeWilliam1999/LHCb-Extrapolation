@@ -21,20 +21,26 @@ Data_generation_exploration/Official_xdigi/dump.log
 
 # Discrete-time experiments: model weights, prepared datasets and farm logs.
 # All regenerable from the scripts, seeds and metadata here (see
-# Raissi_disc_time_approach/_shared/README.md).
+# multi_network_chain_discrete_approach/_shared/README.md).
 #
 # `**` rather than `*`: the experiments were grouped into block folders on
-# 2026-09-08, so they now sit at Raissi_disc_time_approach/<Block>/<Experiment>/
+# 2026-09-08, so they now sit at multi_network_chain_discrete_approach/<Block>/<Experiment>/
 # rather than one level down. A single `*` stopped matching and would have
 # committed 1.23 GB of weights, datasets and farm logs.
-Raissi_disc_time_approach/**/results/*.pt
-Raissi_disc_time_approach/**/results/*.npz
-Raissi_disc_time_approach/**/condor/logs/
+multi_network_chain_discrete_approach/**/results/*.pt
+multi_network_chain_discrete_approach/**/results/*.npz
+multi_network_chain_discrete_approach/**/condor/logs/
 # Block D (2026-09-14): chains write one folder per (N, q) under results/, so
 # the weights and prepared datasets sit one level deeper than before; the smoke
 # and timing runs are scratch.
-Raissi_disc_time_approach/**/results/**/*.pt
-Raissi_disc_time_approach/**/results/**/*.npz
-Raissi_disc_time_approach/Block_D_fixed_step_crossing/*/results/smoke/
-Raissi_disc_time_approach/Block_D_fixed_step_crossing/*/results/smoke_twin/
-Raissi_disc_time_approach/Block_D_fixed_step_crossing/D1_Chain_grid/results/timing/
+multi_network_chain_discrete_approach/**/results/**/*.pt
+multi_network_chain_discrete_approach/**/results/**/*.npz
+multi_network_chain_discrete_approach/Block_D_fixed_step_crossing/*/results/smoke/
+multi_network_chain_discrete_approach/Block_D_fixed_step_crossing/*/results/smoke_twin/
+multi_network_chain_discrete_approach/Block_D_fixed_step_crossing/D1_Chain_grid/results/timing/
+# Block E and later (2026-09-16): the single-network chain approach keeps the same
+# rule — weights, prepared datasets and farm logs are regenerable, never committed.
+single_network_chain_discrete_approach/**/results/**/*.pt
+single_network_chain_discrete_approach/**/results/**/*.npz
+single_network_chain_discrete_approach/**/condor/logs/
+single_network_chain_discrete_approach/**/results/smoke/

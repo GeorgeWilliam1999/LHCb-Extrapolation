@@ -1,0 +1,16 @@
+--N 256 --q 16 --out results --round-restarts 25
+--N 128 --q 16 --out results --round-restarts 25
+--N 64 --q 16 --out results --round-restarts 25
+--N 2 --q 16 --out results --round-restarts 25
+--N 256 --q 8 --out results --round-restarts 25
+--N 128 --q 8 --out results --round-restarts 25
+--N 64 --q 8 --out results --round-restarts 25
+--N 2 --q 8 --out results --round-restarts 25
+--N 256 --q 4 --out results --round-restarts 25
+--N 128 --q 4 --out results --round-restarts 25
+--N 64 --q 4 --out results --round-restarts 25
+--N 2 --q 4 --out results --round-restarts 25
+--N 256 --q 2 --out results --round-restarts 25
+--N 128 --q 2 --out results --round-restarts 25
+--N 64 --q 2 --out results --round-restarts 25
+--N 2 --q 2 --out results --round-restarts 25

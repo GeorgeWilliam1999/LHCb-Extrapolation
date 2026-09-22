@@ -1,0 +1,2 @@
+restart,round,in_round,phase,loss_before,loss_after,gain,factor,factor_renewed,n_iter,func_evals,early_stop,wall_s
+0,1,0,timing,4.445557037036379e-06,8.914524148167494e-09,0.997994734051571,224943.68909652944,1,200,205,0,226.04

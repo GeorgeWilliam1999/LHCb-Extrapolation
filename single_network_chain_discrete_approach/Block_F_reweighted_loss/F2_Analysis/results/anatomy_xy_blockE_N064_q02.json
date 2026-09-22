@@ -1,0 +1,40 @@
+{
+ "label": "blockE_N064_q02",
+ "run": "../../Block_E_single_network_chain/E1_Network_grid/results/N064_q02",
+ "N": 64,
+ "q": 2,
+ "n_tracks": 1452,
+ "final_med_um": 145.74920991109255,
+ "final_band_med_um": 108.14519098643574,
+ "local_step": {
+  "x_um": 0.26157240061763787,
+  "y_um": 0.07404178644776493,
+  "tx_mrad": 0.0013015037216845826,
+  "ty_mrad": 0.0007156091033737322,
+  "radial_um": 0.3325472134043942
+ },
+ "local_step_band": {
+  "x_um": 0.1540448721435439,
+  "y_um": 0.023715765209431083,
+  "tx_mrad": 0.0009485429987559496,
+  "ty_mrad": 0.0003956514425373231
+ },
+ "predicted_endpoint": {
+  "both_slopes_med_um": 143.39907033626383,
+  "x_slope_only_med_um": 106.84839392391714,
+  "positions_only_med_um": 11.453251535809942
+ },
+ "explained": {
+  "both_slopes": 0.9838754558171374,
+  "x_slope_only": 0.7330975858400535,
+  "positions_only": 0.07858191164670093
+ },
+ "x_part_med_um": 107.71253752982368,
+ "y_part_med_um": 51.947560044790954,
+ "coherence": {
+  "tx": 0.35707846827105094,
+  "ty": 0.3971678630888667,
+  "independent": 0.125
+ },
+ "wall_s": 31.7
+}

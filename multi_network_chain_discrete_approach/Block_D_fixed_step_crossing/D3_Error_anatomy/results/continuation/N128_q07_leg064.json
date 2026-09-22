@@ -1,0 +1,58 @@
+{
+ "N": 128,
+ "q": 7,
+ "leg": 64,
+ "z0": 5237.1,
+ "z1": 5277.551562500001,
+ "recorded": {
+  "final_loss": 7.570710686819894e-09,
+  "restarts": 12,
+  "converged": true,
+  "test_own_um": 9.255828939025434,
+  "test_straight_um": 37.62004118141249
+ },
+ "rebuilt": {
+  "loss": 7.570710686819894e-09,
+  "grad_max_abs": 1.8743996132883798e-09,
+  "own": {
+   "train": {
+    "endpoint_med_um": 9.438347791679291,
+    "straight_med_um": 39.05020235491463
+   },
+   "test": {
+    "endpoint_med_um": 9.255828939025434,
+    "straight_med_um": 37.62004118141249
+   }
+  },
+  "dataset_wall_s": 7.5
+ },
+ "after_fresh_optimiser_as_trained": {
+  "loss": 7.54947586135997e-09,
+  "own": {
+   "train": {
+    "endpoint_med_um": 9.429066672112185,
+    "straight_med_um": 39.05020235491463
+   },
+   "test": {
+    "endpoint_med_um": 9.240209693629708,
+    "straight_med_um": 37.62004118141249
+   }
+  }
+ },
+ "after_rescaled": {
+  "restarts": 40,
+  "loss": 1.3446689090702541e-10,
+  "loss_over_start": 0.0177614620964348,
+  "own": {
+   "train": {
+    "endpoint_med_um": 1.0721053931224134,
+    "straight_med_um": 39.05020235491463
+   },
+   "test": {
+    "endpoint_med_um": 1.0780201752851326,
+    "straight_med_um": 37.62004118141249
+   }
+  }
+ },
+ "wall_s": 484.6
+}

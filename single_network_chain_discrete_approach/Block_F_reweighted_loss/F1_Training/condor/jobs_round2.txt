@@ -1,0 +1,1 @@
+--N 256 --q 16 --weighting full --out results --round-restarts 25 --extend --outer-cap 1500 --round-cap 80

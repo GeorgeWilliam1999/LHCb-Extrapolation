@@ -1,0 +1,40 @@
+{
+ "label": "blockE_N128_q08",
+ "run": "../../Block_E_single_network_chain/E1_Network_grid/results/N128_q08",
+ "N": 128,
+ "q": 8,
+ "n_tracks": 1452,
+ "final_med_um": 122.2419291681365,
+ "final_band_med_um": 70.50089013741243,
+ "local_step": {
+  "x_um": 0.12478386965142363,
+  "y_um": 0.04101920278287707,
+  "tx_mrad": 0.0005492454168073979,
+  "ty_mrad": 0.0003152683905457629,
+  "radial_um": 0.17207722461127337
+ },
+ "local_step_band": {
+  "x_um": 0.07497258039990129,
+  "y_um": 0.007775861909919968,
+  "tx_mrad": 0.0003645909005967757,
+  "ty_mrad": 0.00016447408004646724
+ },
+ "predicted_endpoint": {
+  "both_slopes_med_um": 120.20017879679946,
+  "x_slope_only_med_um": 77.55300511445887,
+  "positions_only_med_um": 13.149639472136677
+ },
+ "explained": {
+  "both_slopes": 0.9832974627835861,
+  "x_slope_only": 0.6344222939069403,
+  "positions_only": 0.10757061477694883
+ },
+ "x_part_med_um": 79.03670804838424,
+ "y_part_med_um": 59.12607782778844,
+ "coherence": {
+  "tx": 0.3118727704395814,
+  "ty": 0.4322335989664315,
+  "independent": 0.08838834764831843
+ },
+ "wall_s": 32.8
+}

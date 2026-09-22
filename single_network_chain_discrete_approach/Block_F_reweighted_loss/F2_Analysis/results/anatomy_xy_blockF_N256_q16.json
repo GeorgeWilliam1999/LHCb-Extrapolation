@@ -1,0 +1,40 @@
+{
+ "label": "blockF_N256_q16",
+ "run": "../F1_Training/results/full/N256_q16",
+ "N": 256,
+ "q": 16,
+ "n_tracks": 1452,
+ "final_med_um": 92.15880370314537,
+ "final_band_med_um": 34.56216627778913,
+ "local_step": {
+  "x_um": 0.0420965170206955,
+  "y_um": 0.016817586327988465,
+  "tx_mrad": 0.00018659291753028717,
+  "ty_mrad": 0.00023842624345335461,
+  "radial_um": 0.05808288631576001
+ },
+ "local_step_band": {
+  "x_um": 0.018031628755466045,
+  "y_um": 0.0024456672278461156,
+  "tx_mrad": 5.660776004282747e-05,
+  "ty_mrad": 7.722894505629227e-05
+ },
+ "predicted_endpoint": {
+  "both_slopes_med_um": 91.5893783161946,
+  "x_slope_only_med_um": 33.43055187162683,
+  "positions_only_med_um": 8.035049798448966
+ },
+ "explained": {
+  "both_slopes": 0.993821258913202,
+  "x_slope_only": 0.36274941219192336,
+  "positions_only": 0.08718700195296405
+ },
+ "x_part_med_um": 36.747592689463694,
+ "y_part_med_um": 61.56846802094217,
+ "coherence": {
+  "tx": 0.45357630517012626,
+  "ty": 0.4742516331931723,
+  "independent": 0.0625
+ },
+ "wall_s": 36.4
+}

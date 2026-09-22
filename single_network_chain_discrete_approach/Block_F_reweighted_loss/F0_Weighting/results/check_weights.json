@@ -1,0 +1,265 @@
+{
+ "i_bar_T_mm": 3752.054296250222,
+ "z0": 2648.2,
+ "z1": 7826.0,
+ "L": 5177.8,
+ "gate1": [
+  {
+   "N": 2,
+   "q": 2,
+   "worst_twin_rel": 9.662192060951747e-16,
+   "twin_rel_blockE": 0.0,
+   "twin_rel_full": 9.662192060951747e-16,
+   "twin_rel_no_lever": 7.328451863261125e-16,
+   "twin_rel_no_track": 9.144214771468206e-16,
+   "twin_rel_no_window": 0.0,
+   "lever_max_mm": 7219.601055952511,
+   "lever_min_mm": 2588.9,
+   "lever_expected_max_mm": 7219.601055952511,
+   "ok": true
+  },
+  {
+   "N": 2,
+   "q": 16,
+   "worst_twin_rel": 1.0168730345018648e-15,
+   "twin_rel_blockE": 0.0,
+   "twin_rel_full": 9.662192060951747e-16,
+   "twin_rel_no_lever": 8.283698236269552e-16,
+   "twin_rel_no_track": 1.0168730345018648e-15,
+   "twin_rel_no_window": 0.0,
+   "lever_max_mm": 7752.980040299941,
+   "lever_min_mm": 2588.9,
+   "lever_expected_max_mm": 7752.980040299942,
+   "ok": true
+  },
+  {
+   "N": 256,
+   "q": 2,
+   "worst_twin_rel": 9.92943832158894e-16,
+   "twin_rel_blockE": 0.0,
+   "twin_rel_full": 8.779390241919816e-16,
+   "twin_rel_no_lever": 7.443495244013095e-16,
+   "twin_rel_no_track": 9.92943832158894e-16,
+   "twin_rel_no_window": 0.0,
+   "lever_max_mm": 5193.7515707496295,
+   "lever_min_mm": 20.22578125,
+   "lever_expected_max_mm": 5193.7515707496295,
+   "ok": true
+  },
+  {
+   "N": 256,
+   "q": 16,
+   "worst_twin_rel": 9.98581792734244e-16,
+   "twin_rel_blockE": 0.0,
+   "twin_rel_full": 8.779390241919816e-16,
+   "twin_rel_no_lever": 9.294800375803268e-16,
+   "twin_rel_no_track": 9.98581792734244e-16,
+   "twin_rel_no_window": 0.0,
+   "lever_max_mm": 5197.918594064843,
+   "lever_min_mm": 20.22578125,
+   "lever_expected_max_mm": 5197.918594064843,
+   "ok": true
+  }
+ ],
+ "gate2": [
+  {
+   "N": 2,
+   "q": 2,
+   "shared": 0.18072840152054417,
+   "weighted_path": 0.18072840152054417,
+   "rel": 0.0,
+   "ok": true
+  },
+  {
+   "N": 2,
+   "q": 16,
+   "shared": 0.1378805089929095,
+   "weighted_path": 0.1378805089929095,
+   "rel": 0.0,
+   "ok": true
+  },
+  {
+   "N": 256,
+   "q": 2,
+   "shared": 5.733176114184121e-06,
+   "weighted_path": 5.733176114184121e-06,
+   "rel": 0.0,
+   "ok": true
+  },
+  {
+   "N": 256,
+   "q": 16,
+   "shared": 4.498966222334744e-06,
+   "weighted_path": 4.498966222334744e-06,
+   "rel": 0.0,
+   "ok": true
+  }
+ ],
+ "gate3": [
+  {
+   "N": 2,
+   "q": 2,
+   "solves_not_converged": 0,
+   "worst_ratio": 6.182086884670527e-30,
+   "ratio_blockE": 6.182086884670527e-30,
+   "ratio_full": 4.087103977296894e-31,
+   "ratio_no_lever": 3.62840982488848e-31,
+   "ratio_no_track": 1.4880527479655092e-30,
+   "ratio_no_window": 1.8356373831708678e-30,
+   "ok": true
+  },
+  {
+   "N": 2,
+   "q": 16,
+   "solves_not_converged": 0,
+   "worst_ratio": 6.545152696895618e-30,
+   "ratio_blockE": 6.545152696895618e-30,
+   "ratio_full": 6.982464074163408e-31,
+   "ratio_no_lever": 8.978585043793015e-31,
+   "ratio_no_track": 2.2118928224137166e-30,
+   "ratio_no_window": 2.2925609000556657e-30,
+   "ok": true
+  },
+  {
+   "N": 256,
+   "q": 2,
+   "solves_not_converged": 0,
+   "worst_ratio": 1.3859283234366665e-29,
+   "ratio_blockE": 1.3859283234366665e-29,
+   "ratio_full": 3.514214326549023e-30,
+   "ratio_no_lever": 4.598411820735606e-30,
+   "ratio_no_track": 9.95277706332732e-30,
+   "ratio_no_window": 7.253609442737138e-30,
+   "ok": true
+  },
+  {
+   "N": 256,
+   "q": 16,
+   "solves_not_converged": 0,
+   "worst_ratio": 1.949523331575828e-29,
+   "ratio_blockE": 1.949523331575828e-29,
+   "ratio_full": 3.9061583981163915e-30,
+   "ratio_no_lever": 5.736271222949397e-30,
+   "ratio_no_track": 1.0853520659620568e-29,
+   "ratio_no_window": 7.665422078912787e-30,
+   "ok": true
+  }
+ ],
+ "gate4": {
+  "blockE": {
+   "spearman_share_vs_cost": 0.6899634115672201,
+   "spearman_share_vs_cost_in_band": 0.559113602144856,
+   "share_10_50_GeV_in_first_quarter_pct": 4.27510285846254,
+   "share_10_50_GeV_in_last_quarter_pct": 25.003760552686316,
+   "share_2_5_GeV_pct": 97.49747027204768,
+   "share_10_50_GeV_pct": 1.5091022219480235,
+   "share_above_50_GeV_pct": 0.010917267445758487,
+   "share_first_quarter_pct": 0.5557339912034762,
+   "share_last_quarter_pct": 6.153983992224087,
+   "top_1pct_of_states_share_pct": 97.89225998830176
+  },
+  "full": {
+   "spearman_share_vs_cost": 0.5608349109222651,
+   "spearman_share_vs_cost_in_band": 0.8889211021701056,
+   "share_10_50_GeV_in_first_quarter_pct": 25.74734803619853,
+   "share_10_50_GeV_in_last_quarter_pct": 2.2689683434848362,
+   "share_2_5_GeV_pct": 29.23534752863614,
+   "share_10_50_GeV_pct": 57.81972934048769,
+   "share_above_50_GeV_pct": 6.707482222447641,
+   "share_first_quarter_pct": 21.236625199335403,
+   "share_last_quarter_pct": 1.7471796104186907,
+   "top_1pct_of_states_share_pct": 83.79462683271643
+  },
+  "no_lever": {
+   "spearman_share_vs_cost": 0.23947983776720483,
+   "spearman_share_vs_cost_in_band": 0.5518079317272339,
+   "share_10_50_GeV_in_first_quarter_pct": 10.941654543326587,
+   "share_10_50_GeV_in_last_quarter_pct": 25.713676266233016,
+   "share_2_5_GeV_pct": 24.2257138169995,
+   "share_10_50_GeV_pct": 61.6646462338676,
+   "share_above_50_GeV_pct": 6.425839824250318,
+   "share_first_quarter_pct": 9.690051878581311,
+   "share_last_quarter_pct": 21.21687489862449,
+   "top_1pct_of_states_share_pct": 78.8499355754
+  },
+  "no_track": {
+   "spearman_share_vs_cost": 0.8417158375862125,
+   "spearman_share_vs_cost_in_band": 0.9509062017976968,
+   "share_10_50_GeV_in_first_quarter_pct": 20.628071254711568,
+   "share_10_50_GeV_in_last_quarter_pct": 4.0712444815830535,
+   "share_2_5_GeV_pct": 82.37251551141061,
+   "share_10_50_GeV_pct": 11.33292172864407,
+   "share_above_50_GeV_pct": 0.27303002395100484,
+   "share_first_quarter_pct": 6.942209899388738,
+   "share_last_quarter_pct": 0.9675436505534487,
+   "top_1pct_of_states_share_pct": 93.7944112359827
+  },
+  "no_window": {
+   "spearman_share_vs_cost": 0.7496154438922124,
+   "spearman_share_vs_cost_in_band": 0.881150964139301,
+   "share_10_50_GeV_in_first_quarter_pct": 24.840912891499652,
+   "share_10_50_GeV_in_last_quarter_pct": 2.068867914988087,
+   "share_2_5_GeV_pct": 71.77309917977458,
+   "share_10_50_GeV_pct": 22.220388357086556,
+   "share_above_50_GeV_pct": 3.1461407317942114,
+   "share_first_quarter_pct": 9.447250187772552,
+   "share_last_quarter_pct": 0.8700283125872634,
+   "top_1pct_of_states_share_pct": 91.36409488654166
+  }
+ },
+ "window_at": {
+  "1 GeV": 0.05,
+  "2 GeV": 0.05,
+  "5 GeV": 0.36787944117144233,
+  "10 GeV": 1.0,
+  "20 GeV": 1.0,
+  "50 GeV": 1.0,
+  "100 GeV": 0.36787944117144233,
+  "200 GeV": 0.05
+ },
+ "clamp_scan": {
+  "0": {
+   "share_2_5_GeV_pct": 14.788566896143204,
+   "share_10_50_GeV_pct": 60.87062088303961,
+   "share_above_50_GeV_pct": 19.83632912738471,
+   "top_1pct_of_states_share_pct": 84.03785168097266,
+   "spearman_share_vs_cost": 0.4595936659318599
+  },
+  "2": {
+   "share_2_5_GeV_pct": 80.88601225733346,
+   "share_10_50_GeV_pct": 15.305325062245126,
+   "share_above_50_GeV_pct": 0.5366129903350536,
+   "top_1pct_of_states_share_pct": 94.3845211112279,
+   "spearman_share_vs_cost": 0.8174809417407851
+  },
+  "3": {
+   "share_2_5_GeV_pct": 59.158827453193,
+   "share_10_50_GeV_pct": 33.7247673621344,
+   "share_above_50_GeV_pct": 1.9625514985874264,
+   "top_1pct_of_states_share_pct": 89.9418151486898,
+   "spearman_share_vs_cost": 0.6860107153547984
+  },
+  "5": {
+   "share_2_5_GeV_pct": 29.23534752863614,
+   "share_10_50_GeV_pct": 57.81972934048769,
+   "share_above_50_GeV_pct": 6.707482222447641,
+   "top_1pct_of_states_share_pct": 83.79462683271643,
+   "spearman_share_vs_cost": 0.5608349109222651
+  },
+  "10": {
+   "share_2_5_GeV_pct": 15.012387016306036,
+   "share_10_50_GeV_pct": 61.77046851075884,
+   "share_above_50_GeV_pct": 18.640888610595262,
+   "top_1pct_of_states_share_pct": 84.0056995578361,
+   "spearman_share_vs_cost": 0.4663176919235176
+  },
+  "20": {
+   "share_2_5_GeV_pct": 14.788566896143204,
+   "share_10_50_GeV_pct": 60.87062088303961,
+   "share_above_50_GeV_pct": 19.83632912738471,
+   "top_1pct_of_states_share_pct": 84.03785168097266,
+   "spearman_share_vs_cost": 0.4595936659318599
+  }
+ },
+ "all_pass": true
+}

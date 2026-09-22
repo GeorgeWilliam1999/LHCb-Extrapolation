@@ -1,0 +1,43 @@
+{
+ "finished_runs": [
+  "N064_q02",
+  "N128_q08",
+  "N256_q16"
+ ],
+ "convergence": {
+  "ok": true,
+  "wall_s": 2.0
+ },
+ "tables": {
+  "ok": true,
+  "wall_s": 1.3
+ },
+ "single_step_tables": {
+  "ok": true,
+  "wall_s": 14.0
+ },
+ "along_z": {
+  "ok": true,
+  "wall_s": 1.5
+ },
+ "evaluate_splits": {
+  "ok": true,
+  "wall_s": 96.9
+ },
+ "errors_vs_momentum": {
+  "ok": true,
+  "wall_s": 7.7
+ },
+ "case_study": {
+  "ok": true,
+  "wall_s": 8.4
+ },
+ "case_study_3d": {
+  "ok": true,
+  "wall_s": 4.3
+ },
+ "error_anatomy": {
+  "ok": true,
+  "wall_s": 32.5
+ }
+}

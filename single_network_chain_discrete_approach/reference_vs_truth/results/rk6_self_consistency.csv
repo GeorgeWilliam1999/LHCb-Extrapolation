@@ -1,0 +1,19 @@
+what,value_um,n,source
+"RK6 re-propagation closure, median",2.3034228135987433e-06,2000,Data/results/gates.json G1
+"RK6 re-propagation closure, worst",22.433124039935137,2000,Data/results/gates.json G1
+"RK6 step convergence 5 mm vs 1 mm, median",2.8459027134886128e-05,200,Data/results/gates.json G3
+"RK6 step convergence 5 mm vs 1 mm, worst",2.8483163505370612,200,Data/results/gates.json G3
+"label vs the next hit (short legs), median",11.924541397134725,100660,Data/results/gates.json G2
+"label vs the next hit (short legs), median above 5 GeV",3.8401268404455458,100660,Data/results/gates.json G2
+"label vs the next hit (short legs), median below 2 GeV",38.79689345172199,100660,Data/results/gates.json G2
+"label vs the next hit (short legs), p95",658.8365965266727,100660,Data/results/gates.json G2
+"exact scheme, N = 64 steps, q = 2 stages, dz = 80.9 mm, endpoint radial median",0.14654447091345263,1452,E3_Analysis/results/error_qdz_chain.csv
+"exact scheme, N = 128 steps, q = 8 stages, dz = 40.45 mm, endpoint radial median",0.011479544699298082,1452,E3_Analysis/results/error_qdz_chain.csv
+"exact scheme, N = 256 steps, q = 16 stages, dz = 20.23 mm, endpoint radial median",0.0010500755572652948,1452,E3_Analysis/results/error_qdz_chain.csv
+"exact scheme, N = 64 steps, q = 2 stages, dz = 80.9 mm, endpoint radial median",0.14654447091345263,1452,F3_Analysis/results/error_qdz_chain.csv
+"exact scheme, N = 128 steps, q = 8 stages, dz = 40.45 mm, endpoint radial median",0.011479544699298082,1452,F3_Analysis/results/error_qdz_chain.csv
+"exact scheme, N = 256 steps, q = 16 stages, dz = 20.23 mm, endpoint radial median",0.0010500755572652948,1452,F3_Analysis/results/error_qdz_chain.csv
+"comparator: straight line, endpoint radial median",450541.74457507615,1452,E3_Analysis/results/comparators.csv
+"comparator: material floor (real SciFi state vs the RK6 track), endpoint radial median",1896.348151432535,1452,E3_Analysis/results/comparators.csv
+"comparator: straight line, endpoint radial median",450541.74457507615,1452,F3_Analysis/results/comparators.csv
+"comparator: material floor (real SciFi state vs the RK6 track), endpoint radial median",1896.348151432535,1452,F3_Analysis/results/comparators.csv

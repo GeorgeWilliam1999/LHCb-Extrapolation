@@ -1,0 +1,22 @@
+{
+ "N": 128,
+ "q": 2,
+ "L": 5177.8,
+ "z0": 2648.2,
+ "dz": 40.4515625,
+ "seed": 0,
+ "width": 128,
+ "depth": 2,
+ "y_floor_rel": 0.001,
+ "field": "up",
+ "in_scale": [
+  452.01277443414205,
+  363.9526864294118,
+  0.16545170630073536,
+  0.06895038546640339,
+  0.06248639866107578
+ ],
+ "states_per_round": 32000,
+ "n_train_tracks": 11567,
+ "tracks": "/data/bfys/gscriven/LHCb_Extrapolation_Project/single_network_chain_discrete_approach/Block_E_single_network_chain/E0_Track_dataset/results/tracks.npz"
+}

@@ -1,0 +1,75 @@
+{
+ "block_e": "/data/bfys/gscriven/LHCb_Extrapolation_Project/single_network_chain_discrete_approach/Block_E_single_network_chain/E0_Track_dataset/results/tracks.npz",
+ "block_d": "/data/bfys/gscriven/LHCb_Extrapolation_Project/multi_network_chain_discrete_approach/Block_D_fixed_step_crossing/D0_Crossing_dataset/results/crossing_particles.npz",
+ "tolerances": {
+  "pos_um": 0.001,
+  "slope_mrad": 1e-06
+ },
+ "planes": {
+  "block_e": 257,
+  "block_d": 129,
+  "shared_identical": true
+ },
+ "val": {
+  "n_block_e": 1463,
+  "n_block_d": 1463,
+  "same_particles_same_order": true,
+  "bit_identical": {
+   "S0": true,
+   "S_pre": true,
+   "S_post": true,
+   "z_pre": true,
+   "z_post": true,
+   "P": true,
+   "ETA": true,
+   "PID": true,
+   "PBAND": true
+  },
+  "truth_on_shared_planes": {
+   "pos_max_um": 0.00015225759852910414,
+   "slope_max_mrad": 6.31645846738138e-08,
+   "qop_max_abs": 0.0,
+   "ok": true
+  },
+  "truth_zpost_pos_max_um": 0.00015258206076396164,
+  "ok": true
+ },
+ "test": {
+  "n_block_e": 1452,
+  "n_block_d": 1452,
+  "same_particles_same_order": true,
+  "bit_identical": {
+   "S0": true,
+   "S_pre": true,
+   "S_post": true,
+   "z_pre": true,
+   "z_post": true,
+   "P": true,
+   "ETA": true,
+   "PID": true,
+   "PBAND": true
+  },
+  "truth_on_shared_planes": {
+   "pos_max_um": 0.00014789384294999763,
+   "slope_max_mrad": 5.000527769638552e-08,
+   "qop_max_abs": 0.0,
+   "ok": true
+  },
+  "truth_zpost_pos_max_um": 0.0001482139850850217,
+  "ok": true
+ },
+ "train": {
+  "n_block_e": 11567,
+  "n_block_d": 2000,
+  "block_d_found_in_block_e": 2000,
+  "S0_bit_identical": true,
+  "truth_on_shared_planes": {
+   "pos_max_um": 8.685674401931465e-05,
+   "slope_max_mrad": 3.374237000919322e-08,
+   "qop_max_abs": 0.0,
+   "ok": true
+  },
+  "ok": true
+ },
+ "PASS": true
+}

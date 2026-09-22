@@ -1,0 +1,50 @@
+{
+ "tag": "leg090",
+ "mode": "physics",
+ "seed": 0,
+ "q": 3,
+ "width": 128,
+ "depth": 2,
+ "n_extra": 0,
+ "dataset": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Raissi_disc_time_approach/Block_D_fixed_step_crossing/D1_Chain_grid/results/N128_q03/leg090_data.npz",
+ "dataset_kind": "frozen",
+ "field": "up",
+ "restarts": 18,
+ "final_loss": 7.969949798757138e-09,
+ "converged": true,
+ "confirm_attempts": 1,
+ "wall_s": 189.4,
+ "outer_cap": 400,
+ "max_iter": 200,
+ "confirmed": true,
+ "train": {
+  "endpoint_med_um": 12.924303255282155,
+  "endpoint_p95_um": 43.25990267503811,
+  "stage_med_um": 11.537436108540078,
+  "slope_med_mrad": 0.019508624674896557,
+  "rho_mean": 4.909070993970333e-09,
+  "rho_median": 1.0368068450771809e-09,
+  "straight_med_um": 30.492511191880567,
+  "n": 2000
+ },
+ "val": {
+  "endpoint_med_um": 13.114994038517125,
+  "endpoint_p95_um": 43.266142564996784,
+  "stage_med_um": 11.306440417115482,
+  "slope_med_mrad": 0.01904363648141949,
+  "rho_mean": 5.413365333644243e-09,
+  "rho_median": 1.0319344636333379e-09,
+  "straight_med_um": 29.735635697988982,
+  "n": 1463
+ },
+ "test": {
+  "endpoint_med_um": 12.409963953885494,
+  "endpoint_p95_um": 39.98895487611378,
+  "stage_med_um": 11.217681404687596,
+  "slope_med_mrad": 0.019158186861226167,
+  "rho_mean": 3.158944585950497e-09,
+  "rho_median": 1.0223149609710159e-09,
+  "straight_med_um": 29.171539721531303,
+  "n": 1452
+ }
+}

@@ -1,0 +1,9 @@
+mode,seed,phase,outer,loss,wall_s
+physics,0,stall,0,6.231289149414163e-08,15.5
+physics,0,stall,1,3.9588247082965997e-08,18.1
+physics,0,stall,2,3.865342812699553e-08,18.1
+physics,0,stall,3,3.82379859967061e-08,16.1
+physics,0,stall,4,3.797012275395888e-08,16.9
+physics,0,stall,5,3.7775551910981803e-08,17.1
+physics,0,confirm,6,3.76418783009752e-08,16.1
+physics,0,confirm,7,3.754520388638363e-08,16.2

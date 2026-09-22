@@ -1,0 +1,94 @@
+{
+ "snapshot": "stopped_2026-09-18",
+ "runs_in_the_view": [
+  "N002_q02",
+  "N002_q04",
+  "N002_q08",
+  "N002_q16",
+  "N064_q02",
+  "N064_q04",
+  "N064_q08",
+  "N064_q16",
+  "N128_q02",
+  "N128_q04",
+  "N128_q08",
+  "N128_q16",
+  "N256_q02",
+  "N256_q04",
+  "N256_q08",
+  "N256_q16"
+ ],
+ "ran": {
+  "convergence": {
+   "ok": true,
+   "wall_s": 6.6
+  },
+  "tables": {
+   "ok": true,
+   "wall_s": 2.6
+  },
+  "single_step_tables": {
+   "ok": true,
+   "wall_s": 37.1
+  },
+  "along_z": {
+   "ok": true,
+   "wall_s": 3.0
+  },
+  "evaluate_splits": {
+   "ok": true,
+   "wall_s": 357.5
+  },
+  "errors_vs_momentum": {
+   "ok": true,
+   "wall_s": 37.6
+  },
+  "case_study": {
+   "ok": true,
+   "wall_s": 8.3
+  },
+  "case_study_3d": {
+   "ok": true,
+   "wall_s": 4.6
+  },
+  "error_anatomy": {
+   "ok": true,
+   "wall_s": 34.2
+  }
+ },
+ "figures_copied_to_figures_writeup": [
+  "case_study_components.png",
+  "case_study_components_3d.png",
+  "case_study_components_x0_maps.png",
+  "case_study_loss_vs_p.png",
+  "case_study_overview.png",
+  "convergence_grid.png",
+  "convergence_summary.png",
+  "error_anatomy.png",
+  "error_qdz.png",
+  "error_vs_p_tx.png",
+  "error_vs_p_ty.png",
+  "error_vs_p_x.png",
+  "error_vs_p_y.png",
+  "error_vs_z.png",
+  "single_step.png"
+ ],
+ "reproduction_check": {
+  "error_qdz_chain.csv": {
+   "cells": 64,
+   "mismatches": []
+  },
+  "error_qdz_single_step.csv": {
+   "cells": 48,
+   "mismatches": []
+  },
+  "cost_accuracy.csv": {
+   "cells": 32,
+   "mismatches": []
+  },
+  "tails.csv": {
+   "cells": 48,
+   "mismatches": []
+  }
+ }
+}

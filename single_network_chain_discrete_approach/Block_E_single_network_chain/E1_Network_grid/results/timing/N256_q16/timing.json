@@ -1,0 +1,17 @@
+{
+ "N": 256,
+ "q": 16,
+ "n_states": 32000,
+ "restarts": [
+  {
+   "loss_before": "4.445557037036379e-06",
+   "loss_after": "8.914524148167494e-09",
+   "n_iter": "200",
+   "func_evals": "205",
+   "wall_s": "226.04"
+  }
+ ],
+ "us_per_state_per_evaluation": 34.457317073170735,
+ "host": "stbc-i2.nikhef.nl",
+ "threads": 1
+}

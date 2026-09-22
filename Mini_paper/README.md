@@ -36,7 +36,7 @@ pdfLaTeX; bibliography via BibTeX (`natbib`, `unsrtnat`).
 
 All paths are relative to the repository root
 (`/data/bfys/gscriven/LHCb_Extrapolation_Project`). `R/` abbreviates
-`Raissi_disc_time_approach/`, `D/` abbreviates `Data_generation_exploration/`.
+`multi_network_chain_discrete_approach/` (named `Raissi_disc_time_approach/` until 2026-09-16), `D/` abbreviates `Data_generation_exploration/`.
 
 | table | what it holds | source file(s) |
 |---|---|---|

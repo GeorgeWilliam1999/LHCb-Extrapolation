@@ -1,0 +1,21 @@
+{
+ "N": 1,
+ "q": 4,
+ "dz_mm": 5177.8,
+ "split": "test",
+ "n": 1452,
+ "endpoint_pos_med_um": 4676.923411553389,
+ "endpoint_pos_p95_um": 32354.103912134535,
+ "endpoint_slope_med_mrad": 1.4506056237203397,
+ "per_plane_pos_med_um": [
+  0.0,
+  4676.923411553389
+ ],
+ "per_plane_pos_p95_um": [
+  0.0,
+  32354.103912134535
+ ],
+ "solves_not_converged": 0,
+ "residual_evaluations_per_particle": 26.553030303030305,
+ "wall_s": 15.9
+}

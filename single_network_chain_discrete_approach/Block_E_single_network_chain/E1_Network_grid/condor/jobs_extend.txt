@@ -1,0 +1,15 @@
+--N 256 --q 16 --out results --round-restarts 25 --extend --outer-cap 1050 --round-cap 80
+--N 128 --q 16 --out results --round-restarts 25 --extend --outer-cap 883 --round-cap 80
+--N 64 --q 16 --out results --round-restarts 25 --extend --outer-cap 1046 --round-cap 80
+--N 2 --q 16 --out results --round-restarts 25 --extend --outer-cap 606 --round-cap 80
+--N 256 --q 8 --out results --round-restarts 25 --extend --outer-cap 1115 --round-cap 80
+--N 128 --q 8 --out results --round-restarts 25 --extend --outer-cap 1099 --round-cap 80
+--N 64 --q 8 --out results --round-restarts 25 --extend --outer-cap 1157 --round-cap 80
+--N 2 --q 8 --out results --round-restarts 25 --extend --outer-cap 630 --round-cap 80
+--N 256 --q 4 --out results --round-restarts 25 --extend --outer-cap 1209 --round-cap 80
+--N 128 --q 4 --out results --round-restarts 25 --extend --outer-cap 1213 --round-cap 80
+--N 64 --q 4 --out results --round-restarts 25 --extend --outer-cap 1214 --round-cap 80
+--N 2 --q 4 --out results --round-restarts 25 --extend --outer-cap 659 --round-cap 80
+--N 256 --q 2 --out results --round-restarts 25 --extend --outer-cap 1258 --round-cap 80
+--N 128 --q 2 --out results --round-restarts 25 --extend --outer-cap 1260 --round-cap 80
+--N 64 --q 2 --out results --round-restarts 25 --extend --outer-cap 1260 --round-cap 80

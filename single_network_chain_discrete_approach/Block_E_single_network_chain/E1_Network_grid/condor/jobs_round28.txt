@@ -1,0 +1,6 @@
+--N 2 --q 16 --out results --round-restarts 25 --extend --outer-cap 1106 --round-cap 120
+--N 256 --q 8 --out results --round-restarts 25 --extend --outer-cap 1615 --round-cap 120
+--N 128 --q 8 --out results --round-restarts 25 --extend --outer-cap 1599 --round-cap 120
+--N 256 --q 4 --out results --round-restarts 25 --extend --outer-cap 1709 --round-cap 120
+--N 64 --q 4 --out results --round-restarts 25 --extend --outer-cap 1714 --round-cap 120
+--N 256 --q 2 --out results --round-restarts 25 --extend --outer-cap 1758 --round-cap 120

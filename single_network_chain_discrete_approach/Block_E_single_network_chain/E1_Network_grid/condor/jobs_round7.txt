@@ -1,0 +1,3 @@
+--N 2 --q 16 --out results --round-restarts 25 --extend --outer-cap 800 --round-cap 40
+--N 2 --q 8 --out results --round-restarts 25 --extend --outer-cap 800 --round-cap 40
+--N 2 --q 4 --out results --round-restarts 25 --extend --outer-cap 800 --round-cap 40

@@ -1,0 +1,99 @@
+--- ../../Block_F_reweighted_loss/F1_Training/train_weighted.py
++++ train_windowed.py
+@@ -1,19 +1,22 @@
+ #!/usr/bin/env python
+-"""F1 - Block E's round trainer with ONE change: the weights inside the loss.
++"""G1 - Block F's round trainer with ONE change: where the momentum window sits.
+ 
+-This file is `Block_E_single_network_chain/E1_Network_grid/train_network.py`
+-with the loss swapped for `F0_Weighting/weighted_loss.py` and nothing else
+-touched. `results/train_weighted.diff` is the diff against it, and
+-`--weighting blockE` reproduces Block E's training bit for bit (gate F-1).
+-The network itself is imported from Block E, not copied, so it cannot drift.
++This file is `Block_F_reweighted_loss/F1_Training/train_weighted.py` with the
++loss import swapped for `G0_Weighting/windowed_loss.py` (the same weights, with
++the window read from the run's own constants instead of the module defaults)
++and `--p-lo` / `--p-hi` added. Nothing else is touched:
++`results/train_windowed.diff` is the diff against it. With the default window
++(10-50 GeV) it reproduces Block F's training bit for bit (gate I2), and
++`--weighting blockE` still reproduces Block E's (gate I1). The network, the
++metrics and the rest of the loss are imported, not copied, so they cannot drift.
+ 
+   loss      the label-free RK-PINN residual of `_shared.model`, weighted: each
+             residual is measured as the displacement it would cause at the
+             SciFi plane, as a fraction of that track's total bend, with the
+-            10-50 GeV band weighted up. `--weighting` picks the mode (`full`,
+-            the ablations `no_lever` / `no_track` / `no_window`, or `blockE`
+-            for Block E's own weights). See `weighted_loss.py` for the form
+-            and why each factor is there
++            band between `--p-lo` and `--p-hi` weighted up. `--weighting` picks
++            the mode (`full`, the ablations `no_lever` / `no_track` /
++            `no_window`, or `blockE` for Block E's own weights). See
++            `windowed_loss.py` for the form and why each factor is there
+   states    rounds of (track, start plane) states on the dz planes
+             z0, z0 + dz, ..., z1 - dz:
+               round 1       the RK6 track states of the training tracks
+@@ -52,9 +55,14 @@
+ (with a fresh optimiser). A finished run exits at once.
+ 
+ Usage:
+-    python train_weighted.py --N 64 --q 2
+-    python train_weighted.py --N 64 --q 2 --weighting blockE --n-train 300 --stop-after 3
+-    python train_weighted.py --N 2 --q 2 --n-train 300 --n-eval 200 --round-cap 2 --out results/smoke
++    python train_windowed.py --N 64 --q 2 --p-lo 3 --p-hi 8 --out results/p03-08
++    python train_windowed.py --N 64 --q 2 --weighting blockE --n-train 300 --stop-after 3
++    python train_windowed.py --N 2 --q 2 --n-train 300 --n-eval 200 --round-cap 2 --out results/smoke
++
++The window is recorded in `scale.json["weighting"]` when the run is created and
++is checked against the command line on every resume, the way `--weighting` is:
++a run cannot silently change objective half way through. Put the window in
++`--out` (`results/p03-08`) so two windows can never share a run folder.
+ 
+ Outputs in <out>/<weighting>/N<NNN>_q<qq>/:
+     scale.json      the network's fixed configuration (input spreads, step, planes)
+@@ -92,11 +100,11 @@
+ _HERE = os.path.dirname(os.path.abspath(__file__))
+ sys.path.insert(0, os.path.join(_HERE, "..", "..", "Block_E_single_network_chain",
+                                 "E1_Network_grid"))
+-sys.path.insert(0, os.path.join(_HERE, "..", "F0_Weighting"))
++sys.path.insert(0, os.path.join(_HERE, "..", "G0_Weighting"))
+ from chain_network import (DEPTH, WIDTH, Y_FLOOR_REL, build, carry,  # noqa: E402
+                            znodes_for)
+ from metrics import chain_scores                               # noqa: E402
+-from weighted_loss import (MODES, i_bar, loss_for,             # noqa: E402
++from windowed_loss import (MODES, i_bar, loss_for,             # noqa: E402
+                            reference_constants, weights)
+ 
+ torch.set_num_threads(1)
+@@ -153,6 +161,10 @@
+     ap.add_argument("--seed", type=int, default=0)
+     ap.add_argument("--weighting", default="full", choices=tuple(MODES),
+                     help="which weights go inside the loss (default: full)")
++    ap.add_argument("--p-lo", type=float, default=10.0,
++                    help="GeV: the bottom of the momentum window in the loss (default: 10)")
++    ap.add_argument("--p-hi", type=float, default=50.0,
++                    help="GeV: the top of the momentum window in the loss (default: 50)")
+     ap.add_argument("--width", type=int, default=WIDTH)
+     ap.add_argument("--depth", type=int, default=DEPTH)
+     ap.add_argument("--states-per-round", type=int, default=STATES_PER_ROUND)
+@@ -221,6 +233,10 @@
+         if sc["weighting"]["mode"] != a.weighting:
+             raise SystemExit("this run was started with --weighting %s, not %s"
+                              % (sc["weighting"]["mode"], a.weighting))
++        w_lo, w_hi = sc["weighting"].get("p_lo"), sc["weighting"].get("p_hi")
++        if (w_lo, w_hi) != (None, None) and (float(w_lo), float(w_hi)) != (a.p_lo, a.p_hi):
++            raise SystemExit("this run was started with the window %g-%g GeV, not %g-%g"
++                             % (w_lo, w_hi, a.p_lo, a.p_hi))
+     else:
+         rng1 = np.random.default_rng([a.seed, 1])
+         S1, _, _p1 = draw_states(rk6_on_planes, z_starts, a.states_per_round, rng1)
+@@ -233,7 +249,8 @@
+         # objective cannot drift between rounds
+         _m = build(a.q, a.N, L, Z0, in_scale, fld, width=a.width, depth=a.depth, seed=a.seed)
+         sc["weighting"] = reference_constants(_m, S1, z_starts[np.asarray(_p1)], Z1,
+-                                              i_bar(fld, Z0, Z1), L, mode=a.weighting)
++                                              i_bar(fld, Z0, Z1), L, mode=a.weighting,
++                                              p_lo=a.p_lo, p_hi=a.p_hi)
+         with open(paths["scale"], "w") as f:
+             json.dump(sc, f, indent=1)
+     model = build(a.q, a.N, L, Z0, in_scale, fld, width=a.width, depth=a.depth, seed=a.seed)

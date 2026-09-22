@@ -1,0 +1,30 @@
+{
+ "old": "/data/bfys/gscriven/LHCb_Extrapolation_Project/multi_network_chain_discrete_approach/_shared",
+ "new": "/data/bfys/gscriven/LHCb_Extrapolation_Project/single_network_chain_discrete_approach/_shared",
+ "sha256_identical": {
+  "__init__.py": true,
+  "field_v8r1.py": true,
+  "field_torch.py": true,
+  "irk.py": true,
+  "reference.py": true,
+  "model.py": true,
+  "prepare.py": true,
+  "evaluate.py": true,
+  "train.py": true,
+  "use_shared.py": true
+ },
+ "paths_identical": {
+  "REPO": true,
+  "DATA_NPZ": true,
+  "field_md5_up": true
+ },
+ "numbers_identical": {
+  "tableau_q16": true,
+  "rk6_40mm": true,
+  "rk6_2589mm": true,
+  "physics_loss": true,
+  "physics_grad": true,
+  "physics_loss_value": 1.0980818282490414
+ },
+ "PASS": true
+}

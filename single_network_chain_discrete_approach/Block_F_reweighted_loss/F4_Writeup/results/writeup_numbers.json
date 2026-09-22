@@ -1,0 +1,633 @@
+{
+ "generated_for": "the reweighted-loss write-up, Block_F_reweighted_loss/F4_Writeup",
+ "date": "2026-09-22",
+ "growth_along_z": {
+  "N=64,q=2": {
+   "quarter_um": 9.35217716152043,
+   "half_um": 25.761342134060115,
+   "end_um": 88.82612667434611,
+   "end_over_half": 3.4480395552413974,
+   "half_over_quarter": 2.754582349022991,
+   "chain_med_um": 88.82612667434611,
+   "single_step_med_um": 0.43341515792135354,
+   "chain_over_single_step": 204.94467037182923,
+   "straight_line_step_med_um": 95.22118810134441,
+   "step_over_straight_pct": 0.45516671926007424
+  },
+  "N=128,q=8": {
+   "quarter_um": 11.693224858973387,
+   "half_um": 30.82054561015952,
+   "end_um": 104.6246983049756,
+   "end_over_half": 3.394641341796612,
+   "half_over_quarter": 2.63576096259774,
+   "chain_med_um": 104.6246983049756,
+   "single_step_med_um": 0.22091371803669357,
+   "chain_over_single_step": 473.59982546487913,
+   "straight_line_step_med_um": 23.8174587442814,
+   "step_over_straight_pct": 0.9275285008722236
+  },
+  "N=256,q=16": {
+   "quarter_um": 10.154988121673433,
+   "half_um": 32.34465384021072,
+   "end_um": 92.15880370314537,
+   "end_over_half": 2.8492746949288414,
+   "half_over_quarter": 3.185100115595277,
+   "chain_med_um": 92.15880370314537,
+   "single_step_med_um": 0.05807954292805173,
+   "chain_over_single_step": 1586.7687494943036,
+   "straight_line_step_med_um": 5.955219648431883,
+   "step_over_straight_pct": 0.975271213436185
+  }
+ },
+ "wall_per_restart": {
+  "N=64,q=2": {
+   "history_rows": 1000,
+   "unique_restarts": 1000,
+   "duplicated_rows": 0,
+   "wall_field": "wall_s",
+   "median_s_per_restart": 77.735,
+   "total_h": 21.598822222222225
+  },
+  "N=128,q=8": {
+   "history_rows": 1000,
+   "unique_restarts": 1000,
+   "duplicated_rows": 0,
+   "wall_field": "wall_s",
+   "median_s_per_restart": 118.305,
+   "total_h": 32.828269444444445
+  },
+  "N=256,q=16": {
+   "history_rows": 1807,
+   "unique_restarts": 1500,
+   "duplicated_rows": 307,
+   "wall_field": "wall_s",
+   "median_s_per_restart": 184.1,
+   "total_h": 81.07220000000001
+  }
+ },
+ "constants": {
+  "KAPPA": 0.001,
+  "QOP_TO_GEV": 0.299792458,
+  "P_LO": 10.0,
+  "P_HI": 50.0,
+  "ROLLOFF": 0.6931471805599453,
+  "W_FLOOR": 0.05,
+  "CLAMP": 5.0,
+  "runs": {
+   "N=64,q=2": {
+    "dz_mm": 80.903125,
+    "D_ref_mm": 861.5556435120753,
+    "lev_ref_mm": 2656.3192708333336,
+    "i_bar_T_mm": 3752.054296250222,
+    "lever_min_mm": 80.903125,
+    "lever_max_mm": 5258.703125
+   },
+   "N=128,q=8": {
+    "dz_mm": 40.4515625,
+    "D_ref_mm": 854.9565600538822,
+    "lev_ref_mm": 2627.1042534722224,
+    "i_bar_T_mm": 3752.054296250222,
+    "lever_min_mm": 40.4515625,
+    "lever_max_mm": 5218.251562500001
+   },
+   "N=256,q=16": {
+    "dz_mm": 20.22578125,
+    "D_ref_mm": 858.1525365132031,
+    "lev_ref_mm": 2608.5309053308824,
+    "i_bar_T_mm": 3752.054296250222,
+    "lever_min_mm": 20.22578125,
+    "lever_max_mm": 5198.02578125
+   }
+  }
+ },
+ "worked_example": {
+  "3 GeV track, first output plane": {
+   "p_GeV": 3.0,
+   "qop": 0.09993081933333332,
+   "track_bend_D_mm": 1941.394673946513,
+   "window_W": 0.05,
+   "a_unclamped": 0.09923262957012999,
+   "lever_mm": 5177.8,
+   "weight_on_a_position_residual_per_mm": 0.00011517843370581922,
+   "weight_on_a_slope_residual_per_unit_slope": 0.5963708940419907
+  },
+  "3 GeV track, last output plane": {
+   "p_GeV": 3.0,
+   "qop": 0.09993081933333332,
+   "track_bend_D_mm": 1941.394673946513,
+   "window_W": 0.05,
+   "a_unclamped": 0.09923262957012999,
+   "lever_mm": 80.903125,
+   "weight_on_a_position_residual_per_mm": 0.00011517843370581922,
+   "weight_on_a_slope_residual_per_unit_slope": 0.009318295219406105
+  },
+  "20 GeV track, first output plane": {
+   "p_GeV": 20.0,
+   "qop": 0.0149896229,
+   "track_bend_D_mm": 291.2092010919769,
+   "window_W": 1.0,
+   "a_unclamped": 2.9585454040648855,
+   "lever_mm": 5177.8,
+   "weight_on_a_position_residual_per_mm": 0.003433957430775531,
+   "weight_on_a_slope_residual_per_unit_slope": 17.780344785069545
+  },
+  "20 GeV track, last output plane": {
+   "p_GeV": 20.0,
+   "qop": 0.0149896229,
+   "track_bend_D_mm": 291.2092010919769,
+   "window_W": 1.0,
+   "a_unclamped": 2.9585454040648855,
+   "lever_mm": 80.903125,
+   "weight_on_a_position_residual_per_mm": 0.003433957430775531,
+   "weight_on_a_slope_residual_per_unit_slope": 0.27781788726671164
+  },
+  "ratios": {
+   "slope_20GeV_first_over_3GeV_first": 29.814239699997202,
+   "slope_20GeV_first_over_20GeV_last": 64.0,
+   "slope_20GeV_first_over_3GeV_last": 1908.111340799821,
+   "position_20GeV_over_3GeV": 29.814239699997202
+  },
+  "D_ref_mm": 861.5556435120753,
+  "note": "a_n is shown before the per-batch clamp to [1/5, 5] of the batch median; the clamp is what stops the >50 GeV tail taking a fifth of the loss"
+ },
+ "momentum_content": {
+  "train": {
+   "n": 11567,
+   "frac_10_50_GeV": 0.32471686694907925,
+   "frac_below_5_GeV": 0.3608541540589608,
+   "frac_5_30_GeV": 0.5762081784386617,
+   "frac_4_6_GeV": 0.19330855018587362
+  },
+  "val": {
+   "n": 1463,
+   "frac_10_50_GeV": 0.3212576896787423,
+   "frac_below_5_GeV": 0.36021872863978127,
+   "frac_5_30_GeV": 0.5885167464114832,
+   "frac_4_6_GeV": 0.18660287081339713
+  },
+  "test": {
+   "n": 1452,
+   "frac_10_50_GeV": 0.33539944903581265,
+   "frac_below_5_GeV": 0.3477961432506887,
+   "frac_5_30_GeV": 0.59366391184573,
+   "frac_4_6_GeV": 0.19696969696969696
+  },
+  "total_tracks": 14482
+ },
+ "starting_x": {
+  "x_5.0-7.0_GeV": {
+   "profile": [
+    {
+     "x0_lo": -700.0,
+     "x0_hi": -400.0,
+     "n": 6,
+     "med_um": 183.09653380805457
+    },
+    {
+     "x0_lo": -400.0,
+     "x0_hi": -250.0,
+     "n": 11,
+     "med_um": 87.52043585673164
+    },
+    {
+     "x0_lo": -250.0,
+     "x0_hi": -150.0,
+     "n": 22,
+     "med_um": 51.11933325137841
+    },
+    {
+     "x0_lo": -150.0,
+     "x0_hi": -75.0,
+     "n": 24,
+     "med_um": 30.35745510933907
+    },
+    {
+     "x0_lo": -75.0,
+     "x0_hi": 0.0,
+     "n": 46,
+     "med_um": 40.22534073092743
+    },
+    {
+     "x0_lo": 0.0,
+     "x0_hi": 75.0,
+     "n": 48,
+     "med_um": 58.51837330328635
+    },
+    {
+     "x0_lo": 75.0,
+     "x0_hi": 150.0,
+     "n": 35,
+     "med_um": 31.541824021587672
+    },
+    {
+     "x0_lo": 150.0,
+     "x0_hi": 250.0,
+     "n": 18,
+     "med_um": 54.13498853368992
+    },
+    {
+     "x0_lo": 250.0,
+     "x0_hi": 400.0,
+     "n": 16,
+     "med_um": 106.59683170533185
+    },
+    {
+     "x0_lo": 400.0,
+     "x0_hi": 700.0,
+     "n": 7,
+     "med_um": 349.64531657681164
+    }
+   ],
+   "near_beamline_um": 40.22534073092743,
+   "near_beamline_bin_mm": [
+    -75.0,
+    0.0
+   ],
+   "farthest_um": 183.09653380805457,
+   "farthest_bin_mm": [
+    -700.0,
+    -400.0
+   ],
+   "ratio_far_over_near": 4.551770860881236
+  },
+  "y_5.0-7.0_GeV": {
+   "profile": [
+    {
+     "x0_lo": -700.0,
+     "x0_hi": -400.0,
+     "n": 6,
+     "med_um": 522.0539444952194
+    },
+    {
+     "x0_lo": -400.0,
+     "x0_hi": -250.0,
+     "n": 11,
+     "med_um": 137.84088165601815
+    },
+    {
+     "x0_lo": -250.0,
+     "x0_hi": -150.0,
+     "n": 22,
+     "med_um": 126.11940349415818
+    },
+    {
+     "x0_lo": -150.0,
+     "x0_hi": -75.0,
+     "n": 24,
+     "med_um": 85.32690029871759
+    },
+    {
+     "x0_lo": -75.0,
+     "x0_hi": 0.0,
+     "n": 46,
+     "med_um": 85.6227421445439
+    },
+    {
+     "x0_lo": 0.0,
+     "x0_hi": 75.0,
+     "n": 48,
+     "med_um": 48.12990111854276
+    },
+    {
+     "x0_lo": 75.0,
+     "x0_hi": 150.0,
+     "n": 35,
+     "med_um": 60.47670163837893
+    },
+    {
+     "x0_lo": 150.0,
+     "x0_hi": 250.0,
+     "n": 18,
+     "med_um": 91.05070299708018
+    },
+    {
+     "x0_lo": 250.0,
+     "x0_hi": 400.0,
+     "n": 16,
+     "med_um": 265.46719858252567
+    },
+    {
+     "x0_lo": 400.0,
+     "x0_hi": 700.0,
+     "n": 7,
+     "med_um": 245.00111219441578
+    }
+   ],
+   "near_beamline_um": 85.6227421445439,
+   "near_beamline_bin_mm": [
+    -75.0,
+    0.0
+   ],
+   "farthest_um": 522.0539444952194,
+   "farthest_bin_mm": [
+    -700.0,
+    -400.0
+   ],
+   "ratio_far_over_near": 6.097141149881825
+  },
+  "x_10.0-15.0_GeV": {
+   "profile": [
+    {
+     "x0_lo": -700.0,
+     "x0_hi": -400.0,
+     "n": 1,
+     "med_um": 49.24846387962134
+    },
+    {
+     "x0_lo": -400.0,
+     "x0_hi": -250.0,
+     "n": 1,
+     "med_um": 140.63990871136411
+    },
+    {
+     "x0_lo": -250.0,
+     "x0_hi": -150.0,
+     "n": 12,
+     "med_um": 30.355580247004355
+    },
+    {
+     "x0_lo": -150.0,
+     "x0_hi": -75.0,
+     "n": 28,
+     "med_um": 11.65054451433889
+    },
+    {
+     "x0_lo": -75.0,
+     "x0_hi": 0.0,
+     "n": 58,
+     "med_um": 9.382800812716141
+    },
+    {
+     "x0_lo": 0.0,
+     "x0_hi": 75.0,
+     "n": 69,
+     "med_um": 10.540397959275083
+    },
+    {
+     "x0_lo": 75.0,
+     "x0_hi": 150.0,
+     "n": 26,
+     "med_um": 18.634690160438172
+    },
+    {
+     "x0_lo": 150.0,
+     "x0_hi": 250.0,
+     "n": 4,
+     "med_um": 22.35732275130431
+    },
+    {
+     "x0_lo": 250.0,
+     "x0_hi": 400.0,
+     "n": 3,
+     "med_um": 63.62148260336653
+    },
+    {
+     "x0_lo": 400.0,
+     "x0_hi": 700.0,
+     "n": 6,
+     "med_um": 162.0049823827685
+    }
+   ],
+   "near_beamline_um": 9.382800812716141,
+   "near_beamline_bin_mm": [
+    -75.0,
+    0.0
+   ],
+   "farthest_um": 49.24846387962134,
+   "farthest_bin_mm": [
+    -700.0,
+    -400.0
+   ],
+   "ratio_far_over_near": 5.248802022193291
+  },
+  "y_10.0-15.0_GeV": {
+   "profile": [
+    {
+     "x0_lo": -700.0,
+     "x0_hi": -400.0,
+     "n": 1,
+     "med_um": 459.86681696732035
+    },
+    {
+     "x0_lo": -400.0,
+     "x0_hi": -250.0,
+     "n": 1,
+     "med_um": 41.184724544109486
+    },
+    {
+     "x0_lo": -250.0,
+     "x0_hi": -150.0,
+     "n": 12,
+     "med_um": 61.9823854020467
+    },
+    {
+     "x0_lo": -150.0,
+     "x0_hi": -75.0,
+     "n": 28,
+     "med_um": 30.101285116474585
+    },
+    {
+     "x0_lo": -75.0,
+     "x0_hi": 0.0,
+     "n": 58,
+     "med_um": 16.591243467111383
+    },
+    {
+     "x0_lo": 0.0,
+     "x0_hi": 75.0,
+     "n": 69,
+     "med_um": 19.65517181628229
+    },
+    {
+     "x0_lo": 75.0,
+     "x0_hi": 150.0,
+     "n": 26,
+     "med_um": 20.348014340612508
+    },
+    {
+     "x0_lo": 150.0,
+     "x0_hi": 250.0,
+     "n": 4,
+     "med_um": 45.24358207928003
+    },
+    {
+     "x0_lo": 250.0,
+     "x0_hi": 400.0,
+     "n": 3,
+     "med_um": 150.993674437359
+    },
+    {
+     "x0_lo": 400.0,
+     "x0_hi": 700.0,
+     "n": 6,
+     "med_um": 310.7227094503173
+    }
+   ],
+   "near_beamline_um": 16.591243467111383,
+   "near_beamline_bin_mm": [
+    -75.0,
+    0.0
+   ],
+   "farthest_um": 459.86681696732035,
+   "farthest_bin_mm": [
+    -700.0,
+    -400.0
+   ],
+   "ratio_far_over_near": 27.717441304439216
+  },
+  "note": "bins of the track's x on the last UT plane; the case study's network is N = 64, q = 2, chosen on validation among the three; endpoint errors"
+ },
+ "true_state_ratios": {
+  "all": {
+   "n": 1452,
+   "rk6_vs_true_um": 1693.957184269278,
+   "networks": {
+    "N = 64, q = 2, dz = 81 mm": {
+     "nn_vs_true_um": 1698.2630399615175,
+     "nn_vs_rk6_um": 80.60804977050395,
+     "nn_true_over_rk6_true_pct": 0.25418916913753087,
+     "truth_gap_over_nn_vs_rk6": 21.014739707660436
+    },
+    "N = 128, q = 8, dz = 40 mm": {
+     "nn_vs_true_um": 1649.4861879106252,
+     "nn_vs_rk6_um": 95.54362855938336,
+     "nn_true_over_rk6_true_pct": -2.625272750198604,
+     "truth_gap_over_nn_vs_rk6": 17.729671876722062
+    },
+    "N = 256, q = 16, dz = 20 mm": {
+     "nn_vs_true_um": 1698.8172956724698,
+     "nn_vs_rk6_um": 84.35302863300365,
+     "nn_true_over_rk6_true_pct": 0.28690875119656845,
+     "truth_gap_over_nn_vs_rk6": 20.081758909205387
+    }
+   }
+  },
+  "1-2 GeV": {
+   "n": 5,
+   "rk6_vs_true_um": 17033.803590953128,
+   "networks": {
+    "N = 64, q = 2, dz = 81 mm": {
+     "nn_vs_true_um": 13750.020853150887,
+     "nn_vs_rk6_um": 2214.3463387761813,
+     "nn_true_over_rk6_true_pct": -19.278035702761652,
+     "truth_gap_over_nn_vs_rk6": 7.692474881940701
+    },
+    "N = 128, q = 8, dz = 40 mm": {
+     "nn_vs_true_um": 15091.186826574245,
+     "nn_vs_rk6_um": 2419.1232238889597,
+     "nn_true_over_rk6_true_pct": -11.40448023840449,
+     "truth_gap_over_nn_vs_rk6": 7.04131291153071
+    },
+    "N = 256, q = 16, dz = 20 mm": {
+     "nn_vs_true_um": 17097.730390096258,
+     "nn_vs_rk6_um": 1577.0809808882404,
+     "nn_true_over_rk6_true_pct": 0.3752937434190029,
+     "truth_gap_over_nn_vs_rk6": 10.800842694431191
+    }
+   }
+  },
+  "2-5 GeV": {
+   "n": 500,
+   "rk6_vs_true_um": 5219.285262555715,
+   "networks": {
+    "N = 64, q = 2, dz = 81 mm": {
+     "nn_vs_true_um": 5217.196206675397,
+     "nn_vs_rk6_um": 335.3012259386361,
+     "nn_true_over_rk6_true_pct": -0.0400257080276023,
+     "truth_gap_over_nn_vs_rk6": 15.565959378600374
+    },
+    "N = 128, q = 8, dz = 40 mm": {
+     "nn_vs_true_um": 5250.8425169434,
+     "nn_vs_rk6_um": 382.9270605534525,
+     "nn_true_over_rk6_true_pct": 0.6046278906057134,
+     "truth_gap_over_nn_vs_rk6": 13.62997238955161
+    },
+    "N = 256, q = 16, dz = 20 mm": {
+     "nn_vs_true_um": 5129.847555522588,
+     "nn_vs_rk6_um": 316.11424621667794,
+     "nn_true_over_rk6_true_pct": -1.713600666259285,
+     "truth_gap_over_nn_vs_rk6": 16.510756237724884
+    }
+   }
+  },
+  "5-10 GeV": {
+   "n": 430,
+   "rk6_vs_true_um": 1629.8731971007498,
+   "networks": {
+    "N = 64, q = 2, dz = 81 mm": {
+     "nn_vs_true_um": 1685.8814561662427,
+     "nn_vs_rk6_um": 76.89185853141822,
+     "nn_true_over_rk6_true_pct": 3.436356838379906,
+     "truth_gap_over_nn_vs_rk6": 21.196954114911648
+    },
+    "N = 128, q = 8, dz = 40 mm": {
+     "nn_vs_true_um": 1675.25849611593,
+     "nn_vs_rk6_um": 97.33150736227003,
+     "nn_true_over_rk6_true_pct": 2.7845907949104465,
+     "truth_gap_over_nn_vs_rk6": 16.74558671976923
+    },
+    "N = 256, q = 16, dz = 20 mm": {
+     "nn_vs_true_um": 1687.7031724573044,
+     "nn_vs_rk6_um": 79.2773808173024,
+     "nn_true_over_rk6_true_pct": 3.548127269006174,
+     "truth_gap_over_nn_vs_rk6": 20.559120146222437
+    }
+   }
+  },
+  "10-25 GeV": {
+   "n": 383,
+   "rk6_vs_true_um": 613.4686171761246,
+   "networks": {
+    "N = 64, q = 2, dz = 81 mm": {
+     "nn_vs_true_um": 622.9269730870683,
+     "nn_vs_rk6_um": 24.155317823464806,
+     "nn_true_over_rk6_true_pct": 1.5417831729488851,
+     "truth_gap_over_nn_vs_rk6": 25.396834836103576
+    },
+    "N = 128, q = 8, dz = 40 mm": {
+     "nn_vs_true_um": 627.8632841656417,
+     "nn_vs_rk6_um": 27.670024622153733,
+     "nn_true_over_rk6_true_pct": 2.346439016844526,
+     "truth_gap_over_nn_vs_rk6": 22.170873555528278
+    },
+    "N = 256, q = 16, dz = 20 mm": {
+     "nn_vs_true_um": 610.3231756557363,
+     "nn_vs_rk6_um": 35.821710162110776,
+     "nn_true_over_rk6_true_pct": -0.5127306323943759,
+     "truth_gap_over_nn_vs_rk6": 17.125609425118977
+    }
+   }
+  },
+  "25-200 GeV": {
+   "n": 134,
+   "rk6_vs_true_um": 254.5188989893461,
+   "networks": {
+    "N = 64, q = 2, dz = 81 mm": {
+     "nn_vs_true_um": 275.8066667905439,
+     "nn_vs_rk6_um": 17.068166304980537,
+     "nn_true_over_rk6_true_pct": 8.363924205914808,
+     "truth_gap_over_nn_vs_rk6": 14.91190643690159
+    },
+    "N = 128, q = 8, dz = 40 mm": {
+     "nn_vs_true_um": 270.31755114617795,
+     "nn_vs_rk6_um": 20.01761427084925,
+     "nn_true_over_rk6_true_pct": 6.207260922299196,
+     "truth_gap_over_nn_vs_rk6": 12.71474689968377
+    },
+    "N = 256, q = 16, dz = 20 mm": {
+     "nn_vs_true_um": 274.0867170121106,
+     "nn_vs_rk6_um": 22.607478604797393,
+     "nn_true_over_rk6_true_pct": 7.688159150642715,
+     "truth_gap_over_nn_vs_rk6": 11.25817272410627
+    }
+   }
+  },
+  "summary": {
+   "max_abs_pct_difference_excluding_1_2_GeV": 8.363924205914808,
+   "max_abs_pct_difference_2_to_25_GeV": 3.548127269006174,
+   "truth_gap_over_nn_vs_rk6_min": 7.04131291153071,
+   "truth_gap_over_nn_vs_rk6_max": 25.396834836103576,
+   "note": "the 1-2 GeV band holds 5 test tracks and is an indication only"
+  }
+ }
+}

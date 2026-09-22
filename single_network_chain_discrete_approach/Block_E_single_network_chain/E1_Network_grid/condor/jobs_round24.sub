@@ -1,0 +1,16 @@
+universe                = vanilla
+executable              = /data/bfys/gscriven/LHCb_Extrapolation_Project/single_network_chain_discrete_approach/Block_E_single_network_chain/E1_Network_grid/condor/wrapper.sh
+arguments               = $(args)
+
+output                  = condor/logs/$(Cluster).$(Process).out
+error                   = condor/logs/$(Cluster).$(Process).err
+log                     = condor/logs/$(Cluster).log
+
+request_cpus            = 1
+request_memory          = 8192
+should_transfer_files   = NO
+getenv                  = False
++UseOS                  = "el9"
++JobCategory            = "medium"
+
+queue args from condor/jobs_round24.txt

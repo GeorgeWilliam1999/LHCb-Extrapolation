@@ -1,0 +1,27 @@
+{
+ "N": 64,
+ "q": 2,
+ "dz_mm": 80.903125,
+ "n_tracks": 1452,
+ "final_med_um": 88.82612667434611,
+ "local_step_med_um": 0.433366648227808,
+ "local_step_slope_med_mrad": 0.0007342071857196,
+ "local_step_slope_bias_mrad": -5.3098476870613864e-05,
+ "sum_of_local_steps_um": 33.13318472024419,
+ "lever_arm_prediction_med_um": 33.48558668620448,
+ "lever_arm_over_final": 0.37697902565276953,
+ "coherence_med": 0.4907860047852942,
+ "coherence_if_independent": 0.125,
+ "needed_for": {
+  "10 um target": {
+   "per_step_slope_mrad": 0.0002192606605940345,
+   "factor_better": 3.3485586686204476
+  },
+  "1 um target": {
+   "per_step_slope_mrad": 2.192606605940345e-05,
+   "factor_better": 33.48558668620448
+  }
+ },
+ "rk6_local_step_mm": 1.0,
+ "wall_s": 31.3
+}

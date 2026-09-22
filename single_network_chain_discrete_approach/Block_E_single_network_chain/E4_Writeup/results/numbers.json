@@ -1,0 +1,363 @@
+{
+ "stopped_2026_09_18": {
+  "source": "regen/results/error_qdz_chain.csv (= E3_Analysis/results/error_qdz_chain.csv)",
+  "all_sixteen_min_um": 136.77869248944677,
+  "all_sixteen_max_um": 9249.998624454209,
+  "N_at_least_64_min_um": 136.77869248944677,
+  "N_at_least_64_max_um": 246.23851192374306,
+  "N_at_least_64_min_at": [
+   256,
+   16
+  ],
+  "N_at_least_64_max_at": [
+   128,
+   16
+  ],
+  "exact_scheme_N_at_least_64_min_um": 0.00017644432428063782,
+  "exact_scheme_N_at_least_64_max_um": 0.5106528305357804,
+  "n_test_tracks": 1452
+ },
+ "extended": {
+  "source": "Block_F_reweighted_loss/F2_Analysis/results/headline.csv, rows with weighting = blockE",
+  "n_runs": 16,
+  "N_at_least_64_min_um": 118.55105796361397,
+  "N_at_least_64_max_um": 164.36248179544657,
+  "N_at_least_64_min_at": [
+   64,
+   4
+  ],
+  "N_at_least_64_max_at": [
+   64,
+   16
+  ],
+  "band_10_50_GeV_min_um": 70.50089013741243,
+  "band_10_50_GeV_max_um": 119.495093593754,
+  "band_min_at": [
+   128,
+   8
+  ],
+  "below_5GeV_min_um": 206.41439332718485,
+  "below_5GeV_max_um": 369.5129634747161,
+  "improvement_over_the_stop_pct": {
+   "2_2": 0.0,
+   "2_4": 0.3,
+   "2_8": -2.2,
+   "2_16": -9.1,
+   "64_2": -12.3,
+   "64_4": -31.2,
+   "64_8": -32.5,
+   "64_16": -15.3,
+   "128_2": -31.6,
+   "128_4": -21.0,
+   "128_8": -22.9,
+   "128_16": -41.9,
+   "256_2": -31.8,
+   "256_4": -23.2,
+   "256_8": -33.8,
+   "256_16": 8.0
+  },
+  "restarts_min": 109,
+  "restarts_max": 1758,
+  "rounds_min": 6,
+  "rounds_max": 70,
+  "wall_h_min": 4.2445,
+  "wall_h_max": 76.9853611111111,
+  "wall_h_total": 610.1,
+  "n_plateaued": 9,
+  "n_still_improving": 6,
+  "still_improving": [
+   "N = 64, q = 4",
+   "N = 128, q = 8",
+   "N = 256, q = 2",
+   "N = 256, q = 4",
+   "N = 256, q = 8",
+   "N = 256, q = 16"
+  ],
+  "never_extended": "N = 2, q = 2",
+  "val_spread_pct_min": 0.7,
+  "val_spread_pct_max": 20.6,
+  "val_spread_pct_min_N_at_least_64": 9.0,
+  "val_spread_pct_max_N_at_least_64": 20.6
+ },
+ "single_step": {
+  "source": "regen/results/error_qdz_single_step.csv; the ratio uses the radial endpoint median of error_qdz_chain.csv over the radial single-step median of the same run",
+  "N_at_least_64_min_um": 0.08537160980943401,
+  "N_at_least_64_max_um": 0.8103440734723337,
+  "fraction_of_the_straight_line_pct_min": 0.4359302568667354,
+  "fraction_of_the_straight_line_pct_max": 2.1419596761428576,
+  "chain_over_step": {
+   "2_2": 6.5,
+   "2_4": 3.1,
+   "2_8": 3.0,
+   "2_16": 3.1,
+   "64_2": 400.5,
+   "64_4": 309.6,
+   "64_8": 315.2,
+   "64_16": 239.6,
+   "128_2": 1372.1,
+   "128_4": 761.9,
+   "128_8": 513.8,
+   "128_16": 658.6,
+   "256_2": 2044.4,
+   "256_4": 2290.8,
+   "256_8": 1517.5,
+   "256_16": 1448.6
+  },
+  "chain_over_step_N_at_least_64_min": 240.0,
+  "chain_over_step_N_at_least_64_max": 2291.0,
+  "step_below_5GeV_over_above_10GeV": {
+   "2_2": 14.82,
+   "2_4": 3.79,
+   "2_8": 2.76,
+   "2_16": 2.67,
+   "64_2": 4.59,
+   "64_4": 3.73,
+   "64_8": 4.11,
+   "64_16": 3.77,
+   "128_2": 5.34,
+   "128_4": 3.29,
+   "128_8": 4.16,
+   "128_16": 3.23,
+   "256_2": 4.3,
+   "256_4": 4.55,
+   "256_8": 4.02,
+   "256_16": 6.71
+  }
+ },
+ "growth_along_z": {
+  "source": "regen/results/error_vs_z.csv",
+  "per_run": {
+   "64_2": {
+    "quarter_um": 18.8308941430489,
+    "half_um": 57.19457772447484,
+    "end_um": 166.25818774640442,
+    "end_over_half": 2.91,
+    "half_over_quarter": 3.04
+   },
+   "128_8": {
+    "quarter_um": 21.1667167975735,
+    "half_um": 56.051807668214394,
+    "end_um": 158.56125982817758,
+    "end_over_half": 2.83,
+    "half_over_quarter": 2.65
+   },
+   "256_16": {
+    "quarter_um": 15.011738813248282,
+    "half_um": 46.578473067608485,
+    "end_um": 136.77869248944677,
+    "end_over_half": 2.94,
+    "half_over_quarter": 3.1
+   }
+  }
+ },
+ "loss_share": {
+  "source": "regen/results/case_study_loss_vs_p.csv (N = 64, q = 2)",
+  "share_2_to_5_GeV_pct": 96.9,
+  "share_below_5_GeV_pct": 97.1,
+  "share_above_5_GeV_pct": 2.9,
+  "share_10_to_50_GeV_pct": 0.63,
+  "n_tracks_2_to_5": 500,
+  "n_tracks_above_5": 947
+ },
+ "per_step_networks": {
+  "source": "regen/results/error_qdz_chain.csv, column block_d_med_um (the earlier study's stored chain states, re-scored radially on the same test tracks)",
+  "ratio": {
+   "64_2": 13.9,
+   "64_4": 14.2,
+   "64_8": 11.5,
+   "64_16": 12.5,
+   "128_2": 14.2,
+   "128_4": 16.8,
+   "128_8": 20.3,
+   "128_16": 15.5
+  },
+  "ratio_min": 11.5,
+  "ratio_max": 20.3
+ },
+ "over_training": {
+  "source": "regen/results/overtraining.csv",
+  "n_runs": 16,
+  "test_over_train_min": 0.945,
+  "test_over_train_max": 1.025,
+  "test_over_train_median": 0.98,
+  "loss_ratio_min": 0.13,
+  "loss_ratio_max": 1.37,
+  "loss_ratio_median": 0.28
+ },
+ "eleven_of_eleven": {
+  "source": "Block_F_reweighted_loss/F2_Analysis/README.md table (eleven runs with 20+ rounds at the stop of 2026-09-18), probability computed here",
+  "p_all_eleven_fall_if_noise": 0.000488
+ },
+ "anatomy_two_slopes_extended": {
+  "source": "Block_F_reweighted_loss/F2_Analysis/results/anatomy_xy_blockE_*.json (the EXTENDED networks, not the 2026-09-18 checkpoints)",
+  "per_run": {
+   "64_2": {
+    "explained_both_slopes": 0.984,
+    "explained_x_slope_only": 0.733,
+    "explained_positions_only": 0.079,
+    "x_part_um": 107.7,
+    "y_part_um": 51.9,
+    "coherence_tx": 0.357,
+    "coherence_ty": 0.397,
+    "per_step_tx_mrad": 0.0013015037216845826,
+    "per_step_ty_mrad": 0.0007156091033737322,
+    "final_med_um": 145.7
+   },
+   "128_8": {
+    "explained_both_slopes": 0.983,
+    "explained_x_slope_only": 0.634,
+    "explained_positions_only": 0.108,
+    "x_part_um": 79.0,
+    "y_part_um": 59.1,
+    "coherence_tx": 0.312,
+    "coherence_ty": 0.432,
+    "per_step_tx_mrad": 0.0005492454168073979,
+    "per_step_ty_mrad": 0.0003152683905457629,
+    "final_med_um": 122.2
+   },
+   "256_16": {
+    "explained_both_slopes": 0.989,
+    "explained_x_slope_only": 0.673,
+    "explained_positions_only": 0.1,
+    "x_part_um": 98.9,
+    "y_part_um": 69.3,
+    "coherence_tx": 0.411,
+    "coherence_ty": 0.453,
+    "per_step_tx_mrad": 0.0002986329444044922,
+    "per_step_ty_mrad": 0.00018302517325839707,
+    "final_med_um": 147.7
+   }
+  },
+  "explained_min": 0.983,
+  "explained_max": 0.989
+ },
+ "starting_x": {
+  "source": "E0_Track_dataset/results/tracks.npz, test split, computed here",
+  "n": 1452,
+  "spearman_x0_vs_p": -0.405,
+  "median_abs_x0_mm": 80.7,
+  "p95_abs_x0_mm": 412.5
+ },
+ "starting_x_bands": {
+  "source": "runs_stopped_2026-09-18/results/N064_q02/chain_states.npz and E0_Track_dataset/results/tracks.npz, test split, computed here",
+  "network": "N = 64, q = 2",
+  "metric": "radial endpoint error at z1 [\u00b5m], median",
+  "all_tracks": [
+   {
+    "x0_lo_mm": 0.0,
+    "x0_hi_mm": 75.0,
+    "n": 693,
+    "med_um": 127.4
+   },
+   {
+    "x0_lo_mm": 75.0,
+    "x0_hi_mm": 150.0,
+    "n": 346,
+    "med_um": 165.2
+   },
+   {
+    "x0_lo_mm": 150.0,
+    "x0_hi_mm": 250.0,
+    "n": 199,
+    "med_um": 236.5
+   },
+   {
+    "x0_lo_mm": 250.0,
+    "x0_hi_mm": 400.0,
+    "n": 131,
+    "med_um": 327.7
+   },
+   {
+    "x0_lo_mm": 400.0,
+    "x0_hi_mm": 700.0,
+    "n": 83,
+    "med_um": 650.5
+   }
+  ],
+  "band_10_20_GeV": [
+   {
+    "x0_lo_mm": 0.0,
+    "x0_hi_mm": 75.0,
+    "n": 202,
+    "med_um": 100.9
+   },
+   {
+    "x0_lo_mm": 75.0,
+    "x0_hi_mm": 150.0,
+    "n": 80,
+    "med_um": 129.1
+   },
+   {
+    "x0_lo_mm": 150.0,
+    "x0_hi_mm": 250.0,
+    "n": 22,
+    "med_um": 168.5
+   },
+   {
+    "x0_lo_mm": 250.0,
+    "x0_hi_mm": 400.0,
+    "n": 5,
+    "med_um": 276.5
+   },
+   {
+    "x0_lo_mm": 400.0,
+    "x0_hi_mm": 700.0,
+    "n": 8,
+    "med_um": 719.8
+   }
+  ],
+  "edge_over_centre": 5.1,
+  "median_over_all": 166.3
+ },
+ "case_study_by_coarse_band": {
+  "source": "the same stored chain states as starting_x_bands; these are the three medians printed in the legend of figures_writeup/case_study_overview.png",
+  "network": "N = 64, q = 2",
+  "bands": [
+   {
+    "p_lo": 1.0,
+    "p_hi": 5.0,
+    "n": 505,
+    "med_um": 299.0
+   },
+   {
+    "p_lo": 5.0,
+    "p_hi": 20.0,
+    "n": 747,
+    "med_um": 124.2
+   },
+   {
+    "p_lo": 20.0,
+    "p_hi": 200.0,
+    "n": 200,
+    "med_um": 149.4
+   }
+  ]
+ },
+ "cost": {
+  "source": "regen/results/cost_accuracy.csv",
+  "us_per_track": {
+   "2_2": 26.4,
+   "2_4": 26.0,
+   "2_8": 26.5,
+   "2_16": 28.4,
+   "64_2": 803.2,
+   "64_4": 813.9,
+   "64_8": 833.4,
+   "64_16": 888.4,
+   "128_2": 1592.3,
+   "128_4": 1657.6,
+   "128_8": 1693.4,
+   "128_16": 1778.1,
+   "256_2": 3262.6,
+   "256_4": 3311.5,
+   "256_8": 3324.6,
+   "256_16": 3546.2
+  },
+  "parameters": {
+   "2": 18956,
+   "4": 19988,
+   "8": 22052,
+   "16": 26180
+  }
+ }
+}
