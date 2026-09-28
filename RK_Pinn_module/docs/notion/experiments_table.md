@@ -1,6 +1,13 @@
 # The experiments table on the Notion project page
 
-**Last updated:** 2026-09-28 · **State:** defined and approved by George, not created
+**Last updated:** 2026-09-28 · **State:** published on 2026-09-28
+
+| | |
+|---|---|
+| Database | "Experiments", <https://app.notion.com/p/1db7011d78f04d4fb3179320d56365e4> |
+| Data source | `bb30377e-dd8d-4460-9c7d-7546cc5f857c` |
+| Where | inline on the project page, under "4. Experiments", <https://app.notion.com/p/39f5d544b9d980938d27e70185e12909> |
+| Rows | none yet |
 
 An inline database on the project page. One row per experiment. It answers two questions at a glance: which experiments exist, and where the write-up of each is.
 
@@ -41,6 +48,14 @@ It covers experiments started on or after 28 September 2026. Earlier work is not
 3. A write-up is Provisional until George verifies it. The table does not show trust; the write-up does.
 4. A stopped experiment keeps its row.
 
-## Creating it
+## How it was created
 
-The table is a new database. It needs one `ADD COLUMN … RELATION` to the write-ups data source `3265d544-b9d9-8000-8b4a-000b13a4b7c6` and one to the to-do data source `e535955f-0756-4222-bed8-47f25e2b020f`. George ruled on 2026-09-28 that it is a new database. The workspace rules name four canonical databases, so its data-source ID is added to the table in section 2 of `CLAUDE.md` as soon as it exists.
+George ruled on 2026-09-28 that the table is a new database, the fifth of the workspace. It was created on the same day with one `CREATE TABLE`, with every column above.
+
+| Choice made when creating | Why |
+|---|---|
+| The two relations, to the write-ups data source `3265d544-b9d9-8000-8b4a-000b13a4b7c6` and to the to-do data source `e535955f-0756-4222-bed8-47f25e2b020f`, are one-way | a two-way relation would add a column to the write-ups and to-do databases. One-way leaves both unchanged. It can be made two-way if George wants the experiment shown on the write-up |
+| "Started, finished" is two date columns, `Started` and `Finished` | one column holds one date |
+| Network offers `stage_network` and `whole_crossing_network`; Loss offers `unweighted`, `pooled`, `cost_weighted` and `supervised_endpoint`; Target offers `no_target` and `reference_end_state` | these are the components ruled in. An option is added when a component is registered |
+
+Its data-source ID is in the table of section 2 of `/data/bfys/gscriven/CLAUDE.md` and in the memory of the workspace map.

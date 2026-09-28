@@ -1,10 +1,12 @@
-# Draft of the Notion project page: master index and workflow guide
+# The Notion project page: master index and workflow guide
 
-**Last updated:** 2026-09-28 · **State:** draft, not published · **Page:** LHCb Extrapolator, `39f5d544-b9d9-8093-8d27-e70185e12909`
+**Last updated:** 2026-09-28 · **State:** published on 2026-09-28 · **Page:** LHCb Extrapolator, `39f5d544-b9d9-8093-8d27-e70185e12909`, <https://app.notion.com/p/39f5d544b9d980938d27e70185e12909>
 
 This is the content for the project page itself. It is not a write-up. It is the guide that is always open: how we work, what every component is, and which experiments exist.
 
-**How it is placed on the page.** The sections below go at the top, in this order. Everything already on the page stays, unchanged, underneath: the simulation guide, meetings, to-dos, literature and write-ups. Each entry of the master index becomes a toggle, closed by default, so the page reads as an index and opens into theory.
+**How it was published.** The sections below were inserted at the top of the existing page in one call (`update-page`, `insert_content`, position start), after a rehearsal on a scratch page showed that tables, toggles and equations arrive as real blocks. The page was fetched back and checked: no backslash-escaped table, image or equation, and the earlier content unchanged underneath. No child pages were needed.
+
+**How it is placed on the page.** The sections below are at the top, in this order, under the heading "Master index and workflow guide". Everything that was already on the page stays, unchanged, underneath, under the heading "Earlier content of this page (unchanged)": the earlier status, the simulation guide, meetings, to-dos, literature and write-ups. Each entry of the master index is a toggle, closed by default, so the page reads as an index and opens into theory. The three targets of section 3.5 are three toggles on the page, one per row of the table here.
 
 **What it covers.** Work from 28 September 2026 onward. Earlier write-ups are left as they are and are reached through the write-ups database.
 
@@ -15,8 +17,9 @@ This is the content for the project page itself. It is not a write-up. It is the
 *Kept by the agent, dated, rewritten at the end of each session.*
 
 - **Goal.** Train networks that carry a track across the LHCb magnet by applying one learned Runge–Kutta step to its own output, and score them in one standard way.
-- **Where we are.** The package `rkpinn` is planned and its directories are laid out. No package code is written.
-- **Waiting on George.** Listed here, each as a to-do with Status = Blocked.
+- **Where we are.** Phase 1 of the package `rkpinn` is built and gated: the equation of motion, the field map, the Gauss–Legendre tableau, the exact collocation scheme, the sixth-order reference and the registry. Each is identical, to the last bit, to the frozen code it was ported from. No network and no loss is built.
+- **Waiting on George.** The three assumptions of `PACKAGE_PLAN.md` section 11, and the precision risk of emitting stages directly at short steps. Both are held in the to-do "Rule on the three assumptions and the precision risk before the networks and losses are built", Status = Blocked, <https://app.notion.com/p/3e95d544b9d98176a53cd9f467ada79b>.
+- **The build.** Its to-do is "Build the package that trains and scores the self-chained networks", <https://app.notion.com/p/3e95d544b9d98134a723ce392d68f374>.
 
 ---
 
@@ -257,3 +260,5 @@ This is the working form of the robustness question and will be revisited.
 ## 4. Experiments
 
 The table is defined in `experiments_table.md`. Each row points to the write-up of record.
+
+On the page it is the inline database "Experiments", data source `bb30377e-dd8d-4460-9c7d-7546cc5f857c`, <https://app.notion.com/p/1db7011d78f04d4fb3179320d56365e4>. It has no rows yet.
