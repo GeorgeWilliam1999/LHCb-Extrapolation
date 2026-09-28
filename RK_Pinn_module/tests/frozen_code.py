@@ -81,3 +81,35 @@ def identical(a, b) -> bool:
     """True when two arrays have the same shape and the same bits."""
     a, b = np.asarray(a), np.asarray(b)
     return a.shape == b.shape and a.dtype == b.dtype and a.tobytes() == b.tobytes()
+
+
+SAMPLE_FILE = os.path.join(
+    PROJECT_ROOT, "Data_generation_exploration", "Official_xdigi", "training_v2",
+    "train_official_v2.npz")
+ROUND_TRAINER_FOLDER = os.path.join(
+    SINGLE_NETWORK_FOLDER, "Block_E_single_network_chain", "E1_Network_grid")
+
+# The names of the frozen tracks file, and the names the package gives them.
+FROZEN_NAME_OF_SPLIT = {"training": "train", "validation": "val", "test": "test"}
+FROZEN_NAME_OF_ARRAY = {
+    "start_state": "S0",
+    "reference_states_on_planes": "truth",
+    "reference_state_on_own_fibre_plane": "truth_zpost",
+    "true_state_on_own_upstream_plane": "S_pre",
+    "true_state_on_own_fibre_plane": "S_post",
+    "own_upstream_plane_mm": "z_pre",
+    "own_fibre_plane_mm": "z_post",
+    "momentum_gev": "P",
+    "pseudorapidity": "ETA",
+    "particle_type": "PID",
+    "event": "EVT",
+    "particle_in_event": "MCKEY",
+}
+
+
+def frozen_round_trainer():
+    """The frozen `train_network.py` of the self-chained networks."""
+    frozen_module("reference")
+    if ROUND_TRAINER_FOLDER not in sys.path:
+        sys.path.insert(0, ROUND_TRAINER_FOLDER)
+    return importlib.import_module("train_network")
