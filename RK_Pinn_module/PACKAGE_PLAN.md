@@ -1,6 +1,6 @@
 # Plan for the package: training self-chained Runge–Kutta networks for full tracks
 
-**Date:** 2026-09-28 · **Version:** 2, after George's rulings of 2026-09-28 · **Status:** plan, no package code written yet
+**Date:** 2026-09-28 · **Version:** 3, after George's rulings of 2026-09-28 · **Status:** plan; the directory skeleton, its description files and the workflow document exist, no package code yet
 
 The library of what already exists is in [INDEX.md](INDEX.md). This file is the plan for what is built next.
 
@@ -17,6 +17,9 @@ The library of what already exists is in [INDEX.md](INDEX.md). This file is the 
 - [9. Build order](#9-build-order)
 - [10. Plain English names](#10-plain-english-names)
 - [11. One risk, and three assumptions](#11-one-risk-and-three-assumptions)
+- [12. Built to be extended](#12-built-to-be-extended)
+- [13. Description files and the workflow document](#13-description-files-and-the-workflow-document)
+- [14. The Notion project page](#14-the-notion-project-page)
 
 ---
 
@@ -33,13 +36,17 @@ The library of what already exists is in [INDEX.md](INDEX.md). This file is the 
 | Specific experiments stay outside the package | the package holds no study, no grid and no farm job list |
 | The evaluations are a standard | the package holds one scorer and one set of conventions |
 | Plain English conventions for everything | section 10 |
+| Experiment details will change: a network that learns the whole chain in one output, new targets, new losses, even one network per step or the straight-line correction again | the package is built around contracts and registries, with the ruled choices as the defaults. Section 12 |
+| Every directory has a file explaining everything in it, kept up to date | section 13, enforced by a test |
+| A workflow document states how the package behaves | [WORKFLOW.md](WORKFLOW.md) |
+| The Notion project page is a master index and workflow guide, with a table of experiments pointing to write-ups | section 14 |
 | The ten decisions of version 1 are agreed | name `rkpinn`, store at `/data/bfys/gscriven/rkpinn_store`, the paper's units and bands, van der Pol as the second system, YAML configurations |
 
-What this removes from version 1 of the plan:
+What is not built now:
 
-- The split of a network into interchangeable output forms and scales. There is one output form.
+- Nothing is ported for the one-network-per-step studies or for the straight-line correction. The package leaves a place for each, so either can be added later without touching the losses, the trainer or the evaluation.
 - The import of old trained runs into the manifest. Every existing run learned a correction to the straight line, so none is a run of this package. They stay frozen and serve as the comparison the new networks are read against.
-- The ported farm harness and the experiment registry.
+- The farm harness and the list of experiments. Both stay outside the package.
 
 ```mermaid
 flowchart LR
@@ -192,13 +199,18 @@ flowchart TD
 
 ## 4. Package layout
 
+Every directory holds a `README.md` that describes each file in it. Section 13 gives the rule.
+
 ```
 RK_Pinn_module/
-├── pyproject.toml
-├── README.md
+├── README.md                         what is in this directory
+├── WORKFLOW.md                       how the package behaves, and how work on it proceeds
 ├── INDEX.md                          what exists in the project
 ├── PACKAGE_PLAN.md                   this file
+├── pyproject.toml
 ├── src/rkpinn/
+│   ├── README.md
+│   ├── registry.py                   name in a configuration file to component
 │   ├── equation_of_motion/
 │   │   ├── lhcb.py                   the rates, numpy and torch
 │   │   ├── field_map.py              the v8r1 map and its differentiable twin
@@ -207,23 +219,34 @@ RK_Pinn_module/
 │   │   ├── gauss_legendre_tableau.py nodes, stage matrix, weights, and their checks
 │   │   ├── exact_collocation.py      the stage equations solved with a root finder
 │   │   └── runge_kutta_sixth_order.py the reference integrator
-│   ├── network/
+│   ├── predicted_track/
+│   │   ├── track_layout.py           the planes of a track: steps, stages, nodes
+│   │   └── predicted_track.py        the one structure every network fills
+│   ├── networks/
 │   │   ├── stage_network.py          state and start plane in, q stage states out
-│   │   ├── collect_and_sum.py        the end state from the stages
-│   │   ├── self_chain.py             the network applied N times
-│   │   └── whole_crossing_network.py the supervised twin
+│   │   ├── whole_crossing_network.py the supervised twin
+│   │   ├── output_forms.py           how raw outputs become states; one form now
+│   │   ├── collect_and_sum.py        the end state of a step from its stages
+│   │   └── self_chain.py             the network applied N times
+│   ├── targets/
+│   │   ├── no_target.py              label-free training
+│   │   ├── reference_end_state.py    RK6 at the first SciFi plane
+│   │   ├── reference_states_on_planes.py RK6 on every plane, for evaluation
+│   │   ├── exact_stage_states.py     the exact scheme's stages, for evaluation
+│   │   └── true_state.py             the Geant4-true state
 │   ├── losses/
 │   │   ├── stage_residual.py
 │   │   ├── unweighted.py
 │   │   ├── pooled.py
 │   │   ├── cost_weighted.py
 │   │   └── supervised_endpoint.py
-│   ├── tracks/
+│   ├── track_data/
 │   │   ├── build_tracks.py           RK6 states on the planes, from the official sample
 │   │   ├── load_tracks.py
 │   │   └── draw_training_states.py   the per-round draw
 │   ├── training/
 │   │   ├── round_trainer.py
+│   │   ├── training_protocols.py     what is drawn each round, by kind of network
 │   │   ├── optimiser.py              L-BFGS restarts and loss rescaling
 │   │   ├── stopping_rule.py          the validation plateau
 │   │   └── checkpoints.py            snapshots, resume, one writer at a time
@@ -238,36 +261,43 @@ RK_Pinn_module/
 │       ├── configuration.py          the schema and the run key
 │       └── manifest.py               the list of runs and recomputed metrics
 ├── tests/                            the gates, as pytest
-└── docs/cards/                       one page per component
+└── docs/
+    ├── cards/                        one page per component
+    └── notion/                       the draft of the Notion project page
 ```
 
 ```mermaid
 flowchart TB
     EOM["equation_of_motion"]
     INT["integrators"]
-    NET["network"]
+    PT["predicted_track"]
+    NET["networks"]
+    TGT["targets"]
     LOS["losses"]
-    TRK["tracks"]
+    TRK["track_data"]
     TRN["training"]
     EVA["evaluation"]
     REC["run_record"]
+    REG["registry"]
 
     EOM --> INT
+    INT --> PT
     EOM --> NET
-    INT --> NET
-    INT --> TRK
-    EOM --> TRK
-    NET --> LOS
-    INT --> LOS
+    PT --> NET
+    PT --> LOS
+    PT --> EVA
     EOM --> LOS
+    INT --> TRK
+    TRK --> TGT
+    INT --> TGT
+    TGT --> LOS
+    TGT --> EVA
+    REG --> NET & LOS & TGT & EOM & INT & TRN
+    REC --> REG
     NET --> TRN
     LOS --> TRN
     TRK --> TRN
-    REC --> TRN
     TRN --> REC
-    NET --> EVA
-    INT --> EVA
-    TRK --> EVA
     REC --> EVA
 ```
 
@@ -276,7 +306,6 @@ classDiagram
     class EquationOfMotion {
         +number_of_components
         +rates(state, z)
-        +rates_with_gradient(state, z)
     }
     class GaussLegendreTableau {
         +number_of_stages
@@ -285,63 +314,72 @@ classDiagram
         +weights
         +check()
     }
-    class StageNetwork {
-        +number_of_stages
-        +step_length
-        +stages(state, start_plane)
-    }
-    class SelfChain {
+    class TrackLayout {
+        +first_plane
+        +last_plane
         +number_of_steps
-        +one_step(state, start_plane)
-        +whole_track(state, first_plane)
+        +number_of_stages
+        +stage_planes(step)
     }
-    class WholeCrossingNetwork {
-        +end_state(state)
+    class PredictedTrack {
+        +layout
+        +input_state(step)
+        +stage_states(step)
+        +end_state(step)
+        +final_state()
+    }
+    class Network {
+        +kind
+        +predict(states, start_planes) PredictedTrack
+        +whole_track(states) PredictedTrack
+    }
+    class OutputForm {
+        +states_from_raw(raw, input_state, planes)
+        +answer_with_zeroed_network(input_state, planes)
+    }
+    class Target {
+        +needs_labels
+        +for_states(track_data, split)
     }
     class Loss {
-        +needs_labels
         +constants(first_round_states)
-        +value(network, states)
+        +value(predicted_track, target)
     }
-    class TrackData {
-        +key
-        +planes
-        +states(split)
-        +reference_states(split)
-        +true_states(split)
+    class TrainingProtocol {
+        +draw(track_data, round, network)
     }
     class RoundTrainer {
-        +fit(network, loss, tracks, configuration)
-    }
-    class Run {
-        +key
-        +configuration
-        +commit
-        +snapshots
+        +fit(network, loss, target, protocol, configuration)
     }
     class StandardReport {
-        +tables(run)
-        +figures(run)
+        +tables(predicted_track, targets)
     }
 
-    SelfChain --> StageNetwork
-    SelfChain --> GaussLegendreTableau
-    SelfChain --> EquationOfMotion
+    Network <|-- StageNetwork
+    Network <|-- WholeCrossingNetwork
+    Network <|.. WholeTrackNetwork : later
+    Network <|.. OneNetworkPerStep : later
+    OutputForm <|-- DirectStates
+    OutputForm <|.. StraightLinePlusCorrection : later
+    Network --> OutputForm
+    Network --> PredictedTrack
+    PredictedTrack --> TrackLayout
+    TrackLayout --> GaussLegendreTableau
     Loss <|-- Unweighted
     Loss <|-- Pooled
     Loss <|-- CostWeighted
     Loss <|-- SupervisedEndpoint
-    Unweighted --> GaussLegendreTableau
-    Pooled --> GaussLegendreTableau
-    CostWeighted --> GaussLegendreTableau
-    RoundTrainer --> SelfChain
-    RoundTrainer --> WholeCrossingNetwork
+    Loss --> PredictedTrack
+    Loss --> Target
+    Loss --> EquationOfMotion
+    RoundTrainer --> Network
     RoundTrainer --> Loss
-    RoundTrainer --> TrackData
-    RoundTrainer --> Run
-    StandardReport --> Run
-    StandardReport --> TrackData
+    RoundTrainer --> TrainingProtocol
+    StandardReport --> PredictedTrack
+    StandardReport --> Target
 ```
+
+Solid arrows are built now. Dashed arrows marked *later* are places the design keeps open.
 
 ### What is ported, and from where
 
@@ -354,10 +392,10 @@ classDiagram
 | `integrators/runge_kutta_sixth_order.py` | `_shared/reference.py` | identical end state over 40 mm and 2,589 mm |
 | `losses/stage_residual.py` | `_shared/model.py` | identical residual for the stage rows, given the same stage states |
 | `losses/pooled.py`, `losses/cost_weighted.py` | `_shared/model.py`, `F0_Weighting/weighted_loss.py`, `G0_Weighting/windowed_loss.py` | identical weights, given the same states and constants |
-| `tracks/` | `E0_Track_dataset/build_tracks.py` | the same particles, order and states as the stored file |
+| `track_data/` | `E0_Track_dataset/build_tracks.py` | the same particles, order and states as the stored file |
 | `training/` | `E1_Network_grid/train_network.py` and its two copies | the same draw of training states from the same seed |
 | `evaluation/` | `E1_Network_grid/metrics.py`, `E3_Analysis/`, `F2_Analysis/`, `Self_chained_paper/scripts/common.py` | the paper's numbers reproduced from the old runs' stored states |
-| `network/` | **new** | its own gates, section 3.3 |
+| `predicted_track/`, `networks/`, `targets/` | **new** | their own gates, section 3.3 |
 
 ---
 
@@ -705,3 +743,178 @@ This does not change the ruling. It is handled by measurement before any farm ti
 | 3 | The network's outputs are scaled by fixed constants per component, measured once on the first round's states | some fixed scale is needed for the optimiser. A fixed constant is not a straight-line form |
 
 Say so if any of the three is wrong. Each is one line to change.
+
+---
+
+## 12. Built to be extended
+
+### 12.1 The seam
+
+The experiments will change. The package is therefore built around one structure that every network fills and every loss and evaluation reads: the **predicted track**.
+
+A predicted track holds, for each step it covers, the input state of that step, the stage states on that step's stage planes, and the end state of the step. It says nothing about how those states were produced.
+
+| Kind of network | How it fills the predicted track |
+|---|---|
+| Self-chained stage network, built now | one step per application; applied N times for a whole track |
+| Whole-crossing supervised network, built now | one step with no stages: the input and the end state |
+| A network that learns the whole chain in one output, later | all N steps at once, from one application. Each step's input is the collected sum of the step before |
+| A different network for each step, later | one step per network, in sequence |
+
+Because the loss reads only the predicted track, equations 19 and 20 apply unchanged to every row of that table. The same holds for all ten standard evaluation outputs.
+
+```mermaid
+flowchart LR
+    subgraph PRODUCERS["Anything that produces states"]
+        N1["self-chained<br/>stage network"]
+        N2["whole-crossing<br/>network"]
+        N3["whole chain in<br/>one output, later"]
+        N4["one network<br/>per step, later"]
+        X1["exact scheme"]
+        X2["reference integrator"]
+    end
+    PT["predicted track<br/>input, stages and end state<br/>of every step"]
+    subgraph READERS["Anything that reads states"]
+        L["losses"]
+        E["standard evaluation"]
+        R["run record"]
+    end
+    N1 & N2 & N3 & N4 & X1 & X2 --> PT
+    PT --> L & E & R
+```
+
+The exact scheme and the reference integrator fill the same structure. A comparator is then scored by the same code as a network.
+
+### 12.2 What each future change costs
+
+| Future change | What is added | What is not touched |
+|---|---|---|
+| A network that learns the whole chain in one output | one file in `networks/`, one training protocol that draws start states only | losses, targets, evaluation, run record |
+| A new target | one file in `targets/` | networks, trainer, evaluation conventions |
+| A new loss or a new weight | one file in `losses/` | networks, trainer, evaluation |
+| A different network for each step | one file in `networks/`, one sequential training protocol | losses, evaluation |
+| The straight-line correction again | one output form in `networks/output_forms.py` | losses, evaluation, trainer |
+| A different collocation scheme | one tableau in `integrators/` | losses read the tableau they are given |
+| A different physical system | one file in `equation_of_motion/` | everything else |
+| A different stopping rule or optimiser | one file in `training/` | networks, losses |
+
+### 12.3 The registry
+
+A configuration file names components. The registry turns a name into the component. Adding a component is one file and one line of registration.
+
+```yaml
+network:            {kind: stage_network, output_form: direct_states, width: 128, depth: 2}
+loss:               {name: cost_weighted, momentum_window_gev: [10.0, 50.0]}
+target:             {name: no_target}
+training_protocol:  {name: rounds_on_own_predictions}
+```
+
+### 12.4 Rules that keep it extensible
+
+1. **A loss never imports a network.** It reads the predicted track.
+2. **The evaluation never imports a network.** It reads the predicted track and the targets.
+3. **The trainer never names a loss, a network or a target.** It takes them from the registry.
+4. **No component reads a default it did not receive as an argument.** Every constant a run used is in its configuration.
+5. **A component that is not ruled in is not built.** The design keeps the place open; the file is written when an experiment needs it.
+6. **Every output form declares its answer for a zeroed network**, and a gate checks it.
+
+Rule 5 is what keeps this from becoming heavier than the problem.
+
+---
+
+## 13. Description files and the workflow document
+
+### 13.1 The rule
+
+Every directory holds a `README.md` with the same four parts.
+
+| Part | Content |
+|---|---|
+| What this directory is | two or three sentences |
+| Contents | a table: every file and subdirectory, what it does, and whether it is built or planned |
+| The contract | what a component in this directory must provide |
+| How to add to it | the steps, ending with updating this file |
+
+### 13.2 How it is kept true
+
+A test, `tests/test_every_directory_is_described.py`, fails when:
+
+- a directory has no `README.md`;
+- a file or subdirectory exists that its `README.md` does not name;
+- a file marked *built* does not exist.
+
+The test runs with the gates. A change that adds a file without describing it does not pass.
+
+### 13.3 The workflow document
+
+[WORKFLOW.md](WORKFLOW.md) states how the package behaves and how work on it proceeds: the life of a run, what is refused, how a component is added, how behaviour is changed, and what is recorded where.
+
+```mermaid
+flowchart TD
+    A["a change is wanted"] --> B{"does it change<br/>existing behaviour"}
+    B -- no, it adds --> C["write the component"]
+    B -- yes --> D["parity gate against<br/>the present behaviour"]
+    D --> E["record the change<br/>and raise the version"]
+    E --> C
+    C --> F["register it"]
+    F --> G["write its gates"]
+    G --> H["describe it in the<br/>directory README"]
+    H --> I["write or update its card"]
+    I --> J["add its row to the<br/>Notion master index"]
+    J --> K["run all gates"]
+    K --> L{"pass"}
+    L -- no --> C
+    L -- yes --> M["commit"]
+```
+
+---
+
+## 14. The Notion project page
+
+The project page becomes the place that is always open: a master index and workflow guide, not a write-up. It applies to work from now on. Earlier write-ups are left as they are.
+
+| Section of the page | Content | Kept current by |
+|---|---|---|
+| Status | where the project is, and what is waiting on George | each session's end |
+| How we work | the workflow, condensed from WORKFLOW.md | a change to WORKFLOW.md |
+| Master index | one entry per component, grouped as methods, networks, losses, targets, data, evaluation. Each entry holds its theory, its source file and its gates | adding or changing a component |
+| Experiments | a table, one row per experiment, each pointing to its write-up | starting and finishing an experiment |
+| Existing content | the simulation guide, meetings, to-dos, literature, write-ups | unchanged |
+
+The experiments table:
+
+| Column | Content |
+|---|---|
+| Experiment | its plain English name |
+| Question | one sentence |
+| Status | planned, running, analysed, written up |
+| Network, loss, target | the names from the configuration |
+| Steps and stages | the cells that were run |
+| Run keys | the keys in the store |
+| Folder | the experiment's folder in the repository |
+| Write-up | a relation to the write-up of record |
+| Started, finished | dates |
+
+```mermaid
+flowchart LR
+    subgraph REPO["Repository"]
+        W["WORKFLOW.md"]
+        RD["directory READMEs"]
+        CD["cards"]
+        EX["experiment folders"]
+    end
+    subgraph PAGE["Notion project page"]
+        HW["How we work"]
+        MI["Master index<br/>theory per component"]
+        ET["Experiments table"]
+    end
+    WU["Write-ups database"]
+    W --> HW
+    RD --> MI
+    CD --> MI
+    EX --> ET
+    ET -->|relation| WU
+    MI -. "linked from" .-> WU
+```
+
+The draft of the page is in [docs/notion/](docs/notion/). It has not been published: the Notion connector is not connected in this session.
