@@ -1,6 +1,6 @@
 # Plan for the package: training self-chained Runge–Kutta networks for full tracks
 
-**Date:** 2026-09-28 · **Version:** 3, after George's rulings of 2026-09-28 · **Status:** phase 1 of section 9 is built and gated (2026-09-28): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference and the registry. Phases 2 to 7 are plan
+**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phase 1 of section 9 is built and gated (2026-09-28): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference and the registry. Phases 2 to 7 are plan
 
 The library of what already exists is in [INDEX.md](INDEX.md). This file is the plan for what is built next.
 
@@ -681,7 +681,7 @@ flowchart LR
 |---|---|---|
 | 0 | commit and push the working tree; tag it; INDEX.md in place | the tag is on the remote |
 | 1 | port the equation of motion, field map, tableau, exact scheme, RK6 | every parity gate of section 4 for these modules passes |
-| 2 | track builder and loader; store layout; keys | the tracks rebuilt by the package match the stored file |
+| 2 | track builder and loader; store layout; keys; the exact states written once into the store, on one machine | the tracks rebuilt by the package match the stored file; the exact states in the store are reproduced to the last bit |
 | 3 | the stage network, collect and sum, the self chain, the whole-crossing network, four losses | the five gates of section 3.3 pass for every loss |
 | 4 | one round trainer taking the loss from the configuration; snapshots; locking | a run stops, resumes, and refuses a second writer |
 | 5 | the ten standard outputs | run on an old run's stored states, they reproduce the paper's numbers |
@@ -721,6 +721,20 @@ Mathematical symbols stay in equations. Code and file names use the words.
 ---
 
 ## 11. One risk, and three assumptions
+
+### Rulings of 2026-09-28, after phase 1
+
+George ruled on the risk and the assumptions below. They replace "assumptions I am building on".
+
+| Question | Ruling | Consequence for the package |
+|---|---|---|
+| The three assumptions: which terms the loss sums over, what the unweighted baseline divides by, how the outputs are scaled | it depends on the experiment; keep the flexibility | none of the three is fixed in the code. Each is a setting in the configuration of a run, and the experiment states its value |
+| The precision risk of emitting stages directly | as above; keep the flexibility | the output form is a setting in the configuration. The measurement and the pilot below stay |
+| The root finder of the exact scheme | a study of it will be wanted at a later date | the solver is kept as ported. The study has its own to-do. Nothing is changed before it |
+| The stored exact states that differ in the last digits | put the data in a single master store | the exact states are written once, on one machine, into `/data/bfys/gscriven/rkpinn_store`, in phase 2. The gate then compares with that store to the last bit |
+| Write-ups | none without a discussion with George and a detailed plan | `CLAUDE.md` section 4 is amended |
+
+What this does not change: a component that is not ruled in is not built (section 12.4, rule 5). Flexibility means the setting exists and the place is open. It does not mean every value of the setting is built now.
 
 ### The risk: precision of stages emitted directly
 

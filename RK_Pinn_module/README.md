@@ -12,7 +12,7 @@ The home of the `rkpinn` package, its plan, and the index of what the project ha
 |---|---|---|
 | `README.md` | this file | built |
 | `WORKFLOW.md` | how the package behaves and how work on it proceeds | built |
-| `PACKAGE_PLAN.md` | the plan for the package, version 3 | built |
+| `PACKAGE_PLAN.md` | the plan for the package, version 4 | built |
 | `INDEX.md` | the library of what exists in the whole project, and what slows iteration | built |
 | `pyproject.toml` | makes the package installable, and tells pytest where the package and the gates are | built |
 | `src/` | the package source; it holds one directory, `rkpinn/` | built |
