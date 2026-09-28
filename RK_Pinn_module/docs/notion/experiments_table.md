@@ -1,6 +1,6 @@
 # The experiments table on the Notion project page
 
-**Last updated:** 2026-09-28 · **State:** defined, not created
+**Last updated:** 2026-09-28 · **State:** defined and approved by George, not created
 
 An inline database on the project page. One row per experiment. It answers two questions at a glance: which experiments exist, and where the write-up of each is.
 
@@ -43,4 +43,4 @@ It covers experiments started on or after 28 September 2026. Earlier work is not
 
 ## Creating it
 
-The table is a new database. It needs one `ADD COLUMN … RELATION` to the write-ups data source `3265d544-b9d9-8000-8b4a-000b13a4b7c6` and one to the to-do data source `e535955f-0756-4222-bed8-47f25e2b020f`. The workspace rules name four canonical databases, so this fifth needs a line in `CLAUDE.md` once it exists.
+The table is a new database. It needs one `ADD COLUMN … RELATION` to the write-ups data source `3265d544-b9d9-8000-8b4a-000b13a4b7c6` and one to the to-do data source `e535955f-0756-4222-bed8-47f25e2b020f`. George ruled on 2026-09-28 that it is a new database. The workspace rules name four canonical databases, so its data-source ID is added to the table in section 2 of `CLAUDE.md` as soon as it exists.

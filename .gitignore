@@ -44,3 +44,7 @@ single_network_chain_discrete_approach/**/results/**/*.pt
 single_network_chain_discrete_approach/**/results/**/*.npz
 single_network_chain_discrete_approach/**/condor/logs/
 single_network_chain_discrete_approach/**/results/smoke/
+
+# Private correspondence: never committed to this public repository
+# (George, 2026-09-28).
+single_network_chain_discrete_approach/Block_F_reweighted_loss/F3_Analysis/email/
