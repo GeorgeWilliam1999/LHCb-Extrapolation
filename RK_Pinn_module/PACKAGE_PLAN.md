@@ -480,7 +480,7 @@ An experiment is a set of configuration files. A controlled comparison is two fi
 ```yaml
 # experiments/<name>/configurations/64_steps_2_stages_cost_weighted.yaml
 equation_of_motion: {system: lhcb, field_map: v8r1_up}
-tracks:             {key: 3f9c1a}
+tracks:             {key: 12a8d35c3165}
 steps:              {number_of_steps: 64, number_of_stages: 2}
 network:            {width: 128, depth: 2}
 loss:
@@ -499,6 +499,8 @@ seed: 0
 ```
 /data/bfys/gscriven/rkpinn_store/
 ├── tracks/<key>/              the data and its description
+│   └── exact_scheme/<split>/  the exact scheme's states solved from these tracks,
+│                              one file per number of steps and stages (built, phase 2)
 ├── runs/<key>/
 │   ├── configuration.yaml     as resolved
 │   ├── provenance.json        commit, package version, tracks key, field map hash
@@ -507,9 +509,12 @@ seed: 0
 │   └── LOCK                   one writer at a time
 └── manifest/
     ├── tracks.csv
+    ├── exact_states.csv
     ├── runs.csv
     └── metrics.csv            recomputed from the snapshots
 ```
+
+As built in phase 2: the project's track set has the key `12a8d35c3165`. A key is the first 12 characters of the sha256 hash of the content. The location of the store is an argument or the environment variable `RKPINN_STORE`, never a default in the code.
 
 ```mermaid
 sequenceDiagram
