@@ -73,9 +73,16 @@ def solve_exact_states(tracks: TrackSet, split: str, number_of_steps: int,
 
 def write_exact_states(store: Store, tracks_key: str, split: str, number_of_steps: int,
                        number_of_stages: int, workers: int,
-                       allow_uncommitted_changes: bool = False, report=print) -> str:
-    """Solve and write one file of exact states. Returns the key of its content."""
-    record = provenance(allow_uncommitted_changes)
+                       allow_uncommitted_changes: bool = False, report=print,
+                       record=None) -> str:
+    """Solve and write one file of exact states. Returns the key of its content.
+
+    record  the provenance, when it was taken already at the start of a
+            command that writes several files; None takes it now.
+    """
+    if record is None:
+        record = provenance(allow_uncommitted_changes)
+    record = dict(record, created=time.strftime("%Y-%m-%d %H:%M:%S"))
     file = store.file_of_exact_states(tracks_key, split, number_of_steps, number_of_stages)
     store.refuse_if_present(file)
     tracks = load_tracks(store, tracks_key)
@@ -161,6 +168,7 @@ def main(arguments=None):
     parser.add_argument("--allow-uncommitted-changes", action="store_true")
     a = parser.parse_args(arguments)
     store = Store(a.store)
+    record = provenance(a.allow_uncommitted_changes)     # once, before any work
     for number_of_steps in a.number_of_steps:
         for number_of_stages in a.number_of_stages:
             file = store.file_of_exact_states(
@@ -171,7 +179,8 @@ def main(arguments=None):
                 continue
             write_exact_states(store, a.tracks, a.split, number_of_steps,
                                number_of_stages, a.workers, a.allow_uncommitted_changes,
-                               report=lambda text: print(text, flush=True))
+                               report=lambda text: print(text, flush=True),
+                               record=record)
 
 
 if __name__ == "__main__":

@@ -24,7 +24,7 @@ SETTINGS_OF_THE_TRACKS = dict(
 
 # The key of the project's track set. It is computed from the content, so a
 # rebuild that gives other content gives another key, and the gates fail.
-KEY_OF_THE_TRACKS = "not built yet"
+KEY_OF_THE_TRACKS = "12a8d35c3165"
 
 NUMBERS_OF_STEPS = (2, 64, 128, 256)
 NUMBERS_OF_STAGES = (2, 4, 8, 16)
