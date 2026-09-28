@@ -17,7 +17,7 @@ This is the content for the project page itself. It is not a write-up. It is the
 *Kept by the agent, dated, rewritten at the end of each session.*
 
 - **Goal.** Train networks that carry a track across the LHCb magnet by applying one learned Runge–Kutta step to its own output, and score them in one standard way.
-- **Where we are.** Phase 1 of the package `rkpinn` is built and gated: the equation of motion, the field map, the Gauss–Legendre tableau, the exact collocation scheme, the sixth-order reference and the registry. Each is identical, to the last bit, to the frozen code it was ported from. No network and no loss is built.
+- **Where we are.** The package `rkpinn` is planned and its directories are laid out. Phase 1 of the build is done and gated (local commit 5976bb32, not pushed): the equation of motion, the field map, the Gauss–Legendre tableau, the exact collocation scheme, the sixth-order reference and the registry. Each is identical, to the last bit, to the frozen code it was ported from, run on the same machine; 160 gates pass. No network and no loss is built. The build stops here until George rules on the open questions.
 - **Waiting on George.** The three assumptions of `PACKAGE_PLAN.md` section 11, and the precision risk of emitting stages directly at short steps. Both are held in the to-do "Rule on the three assumptions and the precision risk before the networks and losses are built", Status = Blocked, <https://app.notion.com/p/3e95d544b9d98176a53cd9f467ada79b>.
 - **The build.** Its to-do is "Build the package that trains and scores the self-chained networks", <https://app.notion.com/p/3e95d544b9d98134a723ce392d68f374>.
 
