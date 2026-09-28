@@ -1,6 +1,6 @@
 # Plan for the package: training self-chained Runge–Kutta networks for full tracks
 
-**Date:** 2026-09-28 · **Version:** 3, after George's rulings of 2026-09-28 · **Status:** plan; the directory skeleton, its description files and the workflow document exist, no package code yet
+**Date:** 2026-09-28 · **Version:** 3, after George's rulings of 2026-09-28 · **Status:** phase 1 of section 9 is built and gated (2026-09-28): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference and the registry. Phases 2 to 7 are plan
 
 The library of what already exists is in [INDEX.md](INDEX.md). This file is the plan for what is built next.
 
@@ -388,7 +388,7 @@ Solid arrows are built now. Dashed arrows marked *later* are places the design k
 | `equation_of_motion/lhcb.py` | `_shared/reference.py`, `_shared/model.py` | identical rates on 500 real states; identical gradient |
 | `equation_of_motion/field_map.py` | `_shared/field_v8r1.py`, `_shared/field_torch.py` | hash of the map file; identical field values |
 | `integrators/gauss_legendre_tableau.py` | `_shared/irk.py` | identical tableau to the last bit at 16 stages |
-| `integrators/exact_collocation.py` | `C2_Exact_scheme_table/exact_solver.py`, `E2_Comparators/exact_chain.py` | the stored exact states reproduced |
+| `integrators/exact_collocation.py` | `C2_Exact_scheme_table/exact_solver.py`, `E2_Comparators/exact_chain.py` | identical to the frozen solver run on the same machine; the stored exact states reproduced to 1e-11 mm (they were written on farm nodes and differ in the last digits, measured 2026-09-28) |
 | `integrators/runge_kutta_sixth_order.py` | `_shared/reference.py` | identical end state over 40 mm and 2,589 mm |
 | `losses/stage_residual.py` | `_shared/model.py` | identical residual for the stage rows, given the same stage states |
 | `losses/pooled.py`, `losses/cost_weighted.py` | `_shared/model.py`, `F0_Weighting/weighted_loss.py`, `G0_Weighting/windowed_loss.py` | identical weights, given the same states and constants |
@@ -917,4 +917,4 @@ flowchart LR
     MI -. "linked from" .-> WU
 ```
 
-The draft of the page is in [docs/notion/](docs/notion/). It has not been published: the Notion connector is not connected in this session.
+The copy the page is updated from is in [docs/notion/](docs/notion/). The page and the experiments table were published on 2026-09-28; the links are in [docs/notion/README.md](docs/notion/README.md).

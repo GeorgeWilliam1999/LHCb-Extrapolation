@@ -14,7 +14,7 @@ The home of the `rkpinn` package, its plan, and the index of what the project ha
 | `WORKFLOW.md` | how the package behaves and how work on it proceeds | built |
 | `PACKAGE_PLAN.md` | the plan for the package, version 3 | built |
 | `INDEX.md` | the library of what exists in the whole project, and what slows iteration | built |
-| `pyproject.toml` | makes the package installable | planned |
+| `pyproject.toml` | makes the package installable, and tells pytest where the package and the gates are | built |
 | `src/` | the package source; it holds one directory, `rkpinn/` | built |
 | `tests/` | the gates | built |
 | `docs/` | cards and the draft of the Notion project page | built |

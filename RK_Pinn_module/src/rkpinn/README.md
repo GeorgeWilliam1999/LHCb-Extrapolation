@@ -11,8 +11,8 @@ The package trains Runge–Kutta physics-informed networks that are chained to t
 | Name | What it does | State |
 |---|---|---|
 | `README.md` | this file | built |
-| `__init__.py` | the package version | planned |
-| `registry.py` | turns a name in a configuration file into a component | planned |
+| `__init__.py` | the package version, 0.1.0 | built |
+| `registry.py` | turns a name in a configuration file into a component, and refuses a name it does not know | built |
 | `equation_of_motion/` | the differential equations and the field map | built |
 | `integrators/` | the Gauss–Legendre tableau, the exact scheme, the reference integrator | built |
 | `predicted_track/` | the one structure every network fills and every loss and evaluation reads | built |
