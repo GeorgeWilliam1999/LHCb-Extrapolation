@@ -17,8 +17,8 @@ This is the content for the project page itself. It is not a write-up. It is the
 *Kept by the agent, dated, rewritten at the end of each session.*
 
 - **Goal.** Train networks that carry a track across the LHCb magnet by applying one learned Runge–Kutta step to its own output, and score them in one standard way.
-- **Where we are.** The package `rkpinn` is planned and its directories are laid out. Phase 1 of the build is done and gated (local commit 5976bb32, not pushed): the equation of motion, the field map, the Gauss–Legendre tableau, the exact collocation scheme, the sixth-order reference and the registry. Each is identical, to the last bit, to the frozen code it was ported from, run on the same machine; 160 gates pass. No network and no loss is built. George ruled on the open questions on 2026-09-28: the terms of the loss, the divisor of the unweighted baseline, the scaling of the outputs and the output form are settings of each experiment, not fixed in the package; the exact states go once into the single master store in phase 2; a study of the root finder follows later. Phase 2 has not started.
-- **Waiting on George.** The push of the three local commits and the tag, and the word to start phase 2.
+- **Where we are.** Phases 1 and 2 of the package `rkpinn` are built and gated (local commits, not pushed); 231 gates pass. Phase 1: the equation of motion, the field map, the Gauss–Legendre tableau, the exact collocation scheme, the sixth-order reference and the registry, each identical to the last bit to the frozen code run on the same machine. Phase 2: the store at `/data/bfys/gscriven/rkpinn_store`; the track set `12a8d35c3165` (11,567 training, 1,463 validation and 1,452 test tracks on 257 planes), identical to the last bit to the frozen file; the exact scheme's states of the test split at 2, 64, 128 and 256 steps and 2, 4, 8 and 16 stages, solved once on one machine, no solve unconverged. No network and no loss is built. George ruled on the open questions on 2026-09-28: the terms of the loss, the divisor of the unweighted baseline, the scaling of the outputs and the output form are settings of each experiment, not fixed in the package; a study of the root finder follows later.
+- **Waiting on George.** The push of the local commits and the tag, and the word to start phase 3.
 - **Ruled.** The questions and George's answers are in the to-do "Rule on the three assumptions and the precision risk before the networks and losses are built", Status = Done, <https://app.notion.com/p/3e95d544b9d98176a53cd9f467ada79b>. The study of the root finder is the to-do <https://app.notion.com/p/3e95d544b9d981528d6edcc6961c9b36>.
 - **The build.** Its to-do is "Build the package that trains and scores the self-chained networks", <https://app.notion.com/p/3e95d544b9d98134a723ce392d68f374>.
 
@@ -224,6 +224,7 @@ The mean squared difference between the predicted end state and the reference en
 
 - **Source:** `track_data/build_tracks.py`.
 - **Gate:** the same particles, in the same order, with the same states as the frozen file.
+- **In the store:** the track set with the key `12a8d35c3165`.
 
 ### 3.7 Evaluation
 

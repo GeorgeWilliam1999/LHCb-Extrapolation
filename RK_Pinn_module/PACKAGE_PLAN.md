@@ -1,6 +1,6 @@
 # Plan for the package: training self-chained Runge–Kutta networks for full tracks
 
-**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phase 1 of section 9 is built and gated (2026-09-28): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference and the registry. Phases 2 to 7 are plan
+**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phases 1 and 2 of section 9 are built and gated (2026-09-28): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference, the registry; the store, the track set `12a8d35c3165` and the exact states of its test split. Phases 3 to 7 are plan
 
 The library of what already exists is in [INDEX.md](INDEX.md). This file is the plan for what is built next.
 

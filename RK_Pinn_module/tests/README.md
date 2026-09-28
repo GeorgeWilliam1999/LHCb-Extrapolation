@@ -44,7 +44,7 @@ PYTHONNOUSERSITE=1 /data/bfys/gscriven/conda/envs/TE/bin/python -m pytest tests 
 
 The package does not need to be installed for this: `pyproject.toml` tells pytest to find it in `src/`.
 
-The gates of phase 1 take about seven minutes on the login node, one thread. Most of that is the sixth-order reference at its step of 0.1 mm over 2,589 mm, run once by the package and once by the frozen code.
+All gates take about twelve minutes on the login node, one thread: about seven for phase 1 and five for phase 2. Most of that is the sixth-order reference at its step of 0.1 mm over 2,589 mm, run once by the package and once by the frozen code.
 
 ## How to add to it
 
