@@ -20,6 +20,23 @@ run's stored `p_lo`/`p_hi`; a Block G run on that path would have trained silent
 Block G's `windowed_loss.py` imports Block F's module and re-implements only the three
 functions that need the run's constants. Block E, Block F and `_shared/` are read-only.
 
+## The network: a correction to the straight line
+
+The network (imported unchanged from the earlier studies,
+`../Block_E_single_network_chain/E1_Network_grid/chain_network.py`) emits the q Gauss–Legendre
+stage states and the endpoint state of one step, each written as the straight-line
+extrapolation of the input state plus a network-predicted correction, scaled per track:
+`output_j = straight_j(S) + σ(S) ⊙ NN(S, z_start)_j`. The network therefore learns the
+**correction to the straight line** — the magnet's bending over one step — rather than the
+stage states themselves. This departs from Raissi, Perdikaris and Karniadakis (2019), whose
+network emits the states directly. The windowed loss studied here is unchanged by this: it
+sees only the resulting stage states, through the reconstruction residual r. The form was
+introduced on 5 September 2026 for a network serving many step lengths; it was put to George as
+an explicit choice for the fixed-step study and chosen on 14 September 2026 (question 4 of that
+plan); the single-network chain then inherited it as 'Block D's form' without re-examining it,
+and the theory did not state that the learned quantity is the correction rather than the stage
+states (noted 23 September 2026).
+
 ## Layout
 
 | folder | what it holds | state |

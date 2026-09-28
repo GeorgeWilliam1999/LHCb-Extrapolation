@@ -1,0 +1,11 @@
+step,cut,rows_in,rows_removed,rows_out,particles_out,note
+1,leg-B rows in the training set (both directions),41398,0,41398,21932,load_training(leg='B')
+2,pre-magnet plane is a UT plane,41398,2476,38922,20655,z_pre > 1500 mm; below it the particle had no UT hit and the row starts on a VELO plane
+3,both directions kept for the particle,38922,2388,36534,18267,forward and backward legs are a matched pair
+4,2 < eta < 5,36534,1240,35294,17647,truth pseudorapidity at the particle's origin (ETA column)
+5,1 < p < 200 GeV,35294,0,35294,17647,"already the training set's own domain cut, so it removes little"
+6,non-electron,35294,4780,30514,15257,|PID| != 11
+7,both directions still kept after the cuts,30514,0,30514,15257,
+8,forward rows only,30514,15257,15257,15257,one row per particle
+9,|z_pre - z0| < 60 mm and |z_post - z1| < 60 mm,15257,775,14482,14482,"z0 = 2648.2, z1 = 7826.0 mm"
+10,fiducial: RK6 track stays inside the field map,14482,0,14482,14482,"x, y within the map at all 257 planes, all finite"

@@ -10,7 +10,7 @@ real detector?
 |---|---|---|
 | [exact_chain.py](exact_chain.py) | the q-stage Gauss–Legendre scheme solved exactly (C2's root-finder, no network) on every test particle, leg after leg across the magnet, against the RK6 truth: the ceiling at that (N, q) | `results/exact_N<NNN>_q<qq>.json` |
 | [make_jobs.py](make_jobs.py) | one farm job per (N, q) for the above | `condor/jobs_exact.*` |
-| [train_twin.py](train_twin.py) | the one supervised twin: start state at z0 → end state at z1, no stages (q = 0), the same class and trainer, residual-normalised MSE against the RK6 endpoint | `results/twin/twin.{pt,json,_history.csv}`, `twin_scores.json` |
+| [train_twin.py](train_twin.py) | the one supervised twin: start state at z0 → end state at z1, no stages (q = 0), the same class and trainer, MSE against the RK6 endpoint normalised by the per-track correction scale (the network's output is the straight line plus a per-track-scaled correction) | `results/twin/twin.{pt,json,_history.csv}`, `twin_scores.json` |
 | [compare.py](compare.py) | joins D1's table with the exact scheme and the twin | `results/comparison_table.csv`, `results/comparison_summary.json` |
 
 ```bash

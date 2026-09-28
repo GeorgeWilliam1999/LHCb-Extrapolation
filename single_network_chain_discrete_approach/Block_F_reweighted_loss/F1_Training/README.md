@@ -6,6 +6,20 @@ and nothing else touched. [results/train_weighted.diff](results/train_weighted.d
 diff against it, so the claim is checkable rather than asserted. The network, the metrics
 and the tracks are **imported from Block E**, not copied, so they cannot drift.
 
+**What the network outputs (2026-09-23).** Each of the q Gauss–Legendre stage states and the
+endpoint state of a step is the straight-line extrapolation of the input state plus a
+network-predicted correction, scaled per track:
+`output_j = straight_j(S) + σ(S) ⊙ NN(S, z_start)_j`. The network therefore learns the
+**correction to the straight line** (the magnet's bending over one step), not the stage states
+themselves, a departure from Raissi, Perdikaris and Karniadakis (2019), whose network emits the
+states directly. The loss swap here does not interact with it: both losses see only the resulting
+stage states, through the reconstruction residual. The form was introduced on 5 September 2026
+for a network serving many step lengths; it was put to George as an explicit choice for the
+fixed-step study and chosen on 14 September 2026 (question 4 of that plan); the single-network
+chain then inherited it as 'Block D's form' without re-examining it, and the theory did not
+state that the learned quantity is the correction rather than the stage states (noted 23
+September 2026).
+
 `--weighting` picks the mode: `full` (the default), the ablations `no_lever`, `no_track`,
 `no_window`, or `blockE` for Block E's own weights. Runs land in
 `results/<weighting>/N<NNN>_q<qq>/`, so an ablation can never overwrite the real run.

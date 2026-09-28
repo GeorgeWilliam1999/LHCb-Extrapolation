@@ -1,17 +1,18 @@
 #!/usr/bin/env python
-"""The fixed-step straight-line-residual network of Block D.
+"""The fixed-step straight-line-plus-correction network of Block D.
 
 One network per fixed leg [z0, z0 + dz] of the magnet crossing. It is the
 shared `OneStepNetwork` (`_shared/model.py`) with NO extra inputs - the leg is a
 property of the network, held in two buffers, never an input - and its output
-reinterpreted as the deviation from a straight line:
+reinterpreted as a correction to the straight line (i.e. the network learns
+the correction, not the stage states themselves):
 
     output_j = straight_j  +  scale (x) net_j          j = 1 .. q, endpoint
 
     straight_j = (x + tx*(z_j - z0),  y + ty*(z_j - z0),  tx,  ty)
     z_j        = z0 + c_j*dz  (the q Gauss-Legendre nodes), z_{q+1} = z0 + dz
 
-with the per-sample, label-free scale of the residual redesign (the Block A
+with the per-sample, label-free scale of the straight-line-plus-correction redesign (the Block A
 result that made short legs work, carried into Block C and now here):
 
     scale_slope = kappa * |qop| * I_B                  (dimensionless)
@@ -24,18 +25,37 @@ an input. The floors (1e-9 mm, 1e-12) are the Block C ones and only guard an
 exactly field-free sample. `kappa` is the Allen convention of
 `_shared/reference.py`.
 
+The outputs are the q Gauss-Legendre stage states and the endpoint state of
+one step, each written as the straight-line extrapolation of the input state
+plus a network-predicted correction, scaled per track:
+output_j = straight_j(S) + sigma(S) (x) NN(S)_j. The network therefore learns the
+correction to the straight line - the magnet's bending over one step - rather
+than the stage states themselves. This departs from Raissi, Perdikaris and
+Karniadakis (2019), whose network emits the states directly; the loss is
+unchanged and sees only the resulting stage states. The form was introduced on
+5 September 2026 for a network serving many step lengths; it was put to George
+as an explicit choice for the fixed-step study and chosen on 14 September 2026
+(question 4 of that plan); the single-network chain then inherited it as 'Block
+D's form' without re-examining it, and the theory did not state that the
+learned quantity is the correction rather than the stage states (noted 23
+September 2026).
+The identifiers `FrozenResidualNetwork`, `residual_scale` and
+`residual_data_loss` keep their historical names (other blocks import them);
+"residual" in them means this correction, not the reconstruction residual of
+the paper's loss.
+
 The physics loss is untouched: `_shared.model.physics_loss` only calls
 `model(S)` and reconstructs the input from the absolute stage states this
 forward returns. The supervised twin of Block D (D2) uses the same class with
 q = 0 - one output block, the endpoint - and `residual_data_loss` below, which
-divides the error by the residual scale so that the twin sees the same O(1)
+divides the error by the per-track correction scale so that the twin sees the same O(1)
 target as the physics networks.
 
 The state dict is the base network's, key for key (the buffers c, cout, z0,
 dz, u are constant and rebuilt by the constructor), so the shared trainer's
 checkpoint-every-restart and resume work unchanged.
 
-Provenance: the residual parameterisation is that of the removed
+Provenance: the straight-line-plus-correction parameterisation is that of the removed
 `A3a_General_leg_network/residual_model.py` (in git history at a062bd8),
 with (z0, dz) moved from the inputs into buffers and nothing else changed.
 """
@@ -142,7 +162,7 @@ class FrozenResidualNetwork(OneStepNetwork):
             return B.mean(dim=1) * self.dz.abs()
 
     def residual_scale(self, S):
-        """(N, q+1, 4) the per-sample scale; cached on the identity of S."""
+        """(N, q+1, 4) the per-track scale sigma(S) of the correction; cached on the identity of S."""
         cached = self._cache
         if cached is not None and cached[0] is S:
             return cached[1]
@@ -168,11 +188,13 @@ class FrozenResidualNetwork(OneStepNetwork):
         return self.net(S / self.in_scale).reshape(-1, self.q + 1, 4)
 
     def forward(self, S, extra=None):
+        # output_j = straight_j(S) + sigma(S) * NN(S)_j: the network learns the
+        # correction to the straight line, not the stage states directly
         return self.straight(S) + self.residual_scale(S) * self.raw(S)
 
 
 def residual_data_loss(model, S, ref, extra=None):
-    """The twin's loss: MSE of the deviation in units of the residual scale."""
+    """The twin's loss: MSE of the deviation in units of the per-track correction scale."""
     out = model(S)
     return (((out - ref[:, :, :4]) / model.residual_scale(S)) ** 2).mean()
 

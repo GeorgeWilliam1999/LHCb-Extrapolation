@@ -1,0 +1,39 @@
+panel,series,x,y,x_quantity,y_quantity,note
+a,output 1,2665.296842001484,1.872439710095786,z_mm,x_minus_x_n_mm,the real ordinate; the panel draws it with the deviation from the straight line multiplied by 100
+a,"deviation from the straight line, output 1",2665.296842001484,-0.0017605652487873158,z_mm,x_deviation_mm,"the real, unexaggerated deviation"
+a,"sigma_x, output 1",2665.296842001484,0.043509954962521066,z_mm,sigma_x_mm,the per-track output scale on x
+a,output 2,2712.006282998516,6.988040132186944,z_mm,x_minus_x_n_mm,the real ordinate; the panel draws it with the deviation from the straight line multiplied by 100
+a,"deviation from the straight line, output 2",2712.006282998516,-0.026112934811521882,z_mm,x_deviation_mm,"the real, unexaggerated deviation"
+a,"sigma_x, output 2",2712.006282998516,0.043509954962521066,z_mm,sigma_x_mm,the per-track output scale on x
+a,output end,2729.1031249999996,8.860479842282679,z_mm,x_minus_x_n_mm,the real ordinate; the panel draws it with the deviation from the straight line multiplied by 100
+a,"deviation from the straight line, output end",2729.1031249999996,-0.04218176007503871,z_mm,x_deviation_mm,"the real, unexaggerated deviation"
+a,"sigma_x, output end",2729.1031249999996,0.043509954962521066,z_mm,sigma_x_mm,the per-track output scale on x
+b,residual r_1 in x,2665.296842001484,-6.047341685189167e-06,z_mm,residual_mm,"reconstruction residual of output 1, physical units"
+b,residual r_1 in y,2665.296842001484,-2.781301851939588e-06,z_mm,residual_mm,"reconstruction residual of output 1, physical units"
+b,residual r_1 in tx,2665.296842001484,1.1821174034643e-06,z_mm,residual_dimensionless,"reconstruction residual of output 1, physical units"
+b,residual r_1 in ty,2665.296842001484,1.2061857267847698e-07,z_mm,residual_dimensionless,"reconstruction residual of output 1, physical units"
+b,reconstruction R_1 in x,2648.2,305.11265267425034,z_mm,x_mm,R = S_n + r; the arrow's landing point
+b,residual r_2 in x,2712.006282998516,0.0004866885798833209,z_mm,residual_mm,"reconstruction residual of output 2, physical units"
+b,residual r_2 in y,2712.006282998516,-7.3933607314558e-05,z_mm,residual_mm,"reconstruction residual of output 2, physical units"
+b,residual r_2 in tx,2712.006282998516,3.9362463958719784e-06,z_mm,residual_dimensionless,"reconstruction residual of output 2, physical units"
+b,residual r_2 in ty,2712.006282998516,1.5201201659757746e-07,z_mm,residual_dimensionless,"reconstruction residual of output 2, physical units"
+b,reconstruction R_2 in x,2648.2,305.1131454101719,z_mm,x_mm,R = S_n + r; the arrow's landing point
+b,residual r_end in x,2729.1031249999996,0.0008512249431760209,z_mm,residual_mm,"reconstruction residual of output end, physical units"
+b,residual r_end in y,2729.1031249999996,-0.00011446975151940818,z_mm,residual_mm,"reconstruction residual of output end, physical units"
+b,residual r_end in tx,2729.1031249999996,4.727354148525986e-06,z_mm,residual_dimensionless,"reconstruction residual of output end, physical units"
+b,residual r_end in ty,2729.1031249999996,5.32248349699449e-08,z_mm,residual_dimensionless,"reconstruction residual of output end, physical units"
+b,reconstruction R_end in x,2648.2,305.1135099465352,z_mm,x_mm,R = S_n + r; the arrow's landing point
+b,input S_n in x,2648.2,305.112658721592,z_mm,x_mm,"the known input, test-split track index 275"
+c,"tableau A[1,1]",1.0,0.25,row_j,A_jk,gauss_legendre(2) of _shared/irk.py
+c,"tableau A[1,2]",1.0,-0.038675134594812886,row_j,A_jk,gauss_legendre(2) of _shared/irk.py
+c,"tableau A[2,1]",2.0,0.5386751345948129,row_j,A_jk,gauss_legendre(2) of _shared/irk.py
+c,"tableau A[2,2]",2.0,0.25000000000000006,row_j,A_jk,gauss_legendre(2) of _shared/irk.py
+c,tableau b[1],3.0,0.5,row_j,b_k,"the endpoint row, A_end,k = b_k"
+c,node c[1],1.0,0.21132486540518713,node_index,c_j,
+c,tableau b[2],3.0,0.5,row_j,b_k,"the endpoint row, A_end,k = b_k"
+c,node c[2],2.0,0.7886751345948129,node_index,c_j,
+c,node c_end,3.0,1.0,node_index,c_j,the endpoint node
+c,pooled divisor s_x,0.0,446.2831448720176,component_index,s_d,"the round-1 spread, in_scale of scale.json (mm for x and y)"
+c,pooled divisor s_y,1.0,365.7564894833099,component_index,s_d,"the round-1 spread, in_scale of scale.json (mm for x and y)"
+c,pooled divisor s_tx,2.0,0.16549498523556608,component_index,s_d,"the round-1 spread, in_scale of scale.json (mm for x and y)"
+c,pooled divisor s_ty,3.0,0.06948375421885078,component_index,s_d,"the round-1 spread, in_scale of scale.json (mm for x and y)"

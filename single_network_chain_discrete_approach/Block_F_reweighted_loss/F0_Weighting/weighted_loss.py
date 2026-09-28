@@ -71,6 +71,21 @@ average, so the size of the loss is unchanged and only its distribution moves:
 x and y are weighted equally, in mm, because the endpoint measure is radial.
 Block E's separate y scale stays where it belongs, in the network's output
 parameterisation, and no longer doubles as a loss weight.
+
+That output parameterisation (Block E's `chain_network.py`, imported unchanged)
+writes each of the q stage states and the endpoint state as the straight-line
+extrapolation of the input plus a per-track-scaled network term,
+output_j = straight_j(S) + sigma(S) (x) NN(S, z_start)_j: the network learns the
+correction to the straight line, not the stage states themselves, which departs
+from Raissi, Perdikaris and Karniadakis (2019), whose network emits the states
+directly. This module does not depend on that form: `r` below is the
+reconstruction residual of the resulting stage states, whatever produced them.
+The form was introduced on 5 September 2026 for a network serving many step
+lengths; it was put to George as an explicit choice for the fixed-step study
+and chosen on 14 September 2026 (question 4 of that plan); the single-network
+chain then inherited it as 'Block D's form' without re-examining it, and the
+theory did not state that the learned quantity is the correction rather than
+the stage states (noted 23 September 2026).
 """
 from __future__ import annotations
 

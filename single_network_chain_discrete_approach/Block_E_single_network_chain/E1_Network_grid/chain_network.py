@@ -20,12 +20,30 @@ planes z0 .. z1 - dz. Knowing z_start is what lets one network serve every
 step: the field a step crosses depends on where along the magnet it starts
 (George 2026-09-16, decision 2 (a)).
 
-## Outputs: the deviation from the straight line (Block D's form)
+## Outputs: the deviation from the straight line (Block D's form), i.e. the network learns the correction
 
-    output_j = straight_j + scale (x) raw_j,        j = 1 .. q, end
+The network's outputs are the q Gauss-Legendre stage states and the endpoint
+state of one step, each written as the straight-line extrapolation of the input
+state plus a network-predicted correction, scaled per track:
+
+    output_j = straight_j(S) + scale(S, z_start) (x) raw_j(S, z_start),   j = 1 .. q, end
     straight_j = (x + tx (z_j - z_start), y + ty (z_j - z_start), tx, ty)
 
-with per-track scales computed from the input and the field map alone, along
+(`forward` = `straight` + `residual_scale` * `raw`; the method name
+`residual_scale` is historical and is kept because Blocks F and G import it -
+it is the scale on the correction, not on the reconstruction residual of the
+loss.) The network therefore learns the correction to the straight line - the
+magnet's bending over one step - rather than the stage states themselves. This
+departs from Raissi, Perdikaris and Karniadakis (2019), whose network emits the
+states directly; the loss is unchanged and sees only the resulting stage
+states. The form was introduced on 5 September 2026 for a network serving many
+step lengths; it was put to George as an explicit choice for the fixed-step
+study and chosen on 14 September 2026 (question 4 of that plan); the
+single-network chain then inherited it as 'Block D's form' without re-examining
+it, and the theory did not state that the learned quantity is the correction
+rather than the stage states (noted 23 September 2026).
+
+The scales are per track, computed from the input and the field map alone, along
 the straight line through the input (16-point midpoint rule):
 
     x, tx  (Block D, unchanged)
@@ -163,7 +181,8 @@ class ChainNetwork(torch.nn.Module):
         return I_B, I_y
 
     def residual_scale(self, S, z_start):
-        """(n, q+1, 4) the per-track scale; cached on the identity of (S, z_start)."""
+        """(n, q+1, 4) the per-track scale on the network's correction to the
+        straight line (name kept for Blocks F/G); cached on the identity of (S, z_start)."""
         cached = self._cache
         if cached is not None and cached[0] is S and cached[1] is z_start:
             return cached[2]
@@ -197,6 +216,7 @@ class ChainNetwork(torch.nn.Module):
         # keep the caller's tensor object when it is already flat: the scale
         # cache is keyed on identity, and the loss calls this ~250 times a restart
         z_start = extra if extra.dim() == 1 else extra.reshape(-1)
+        # straight-line extrapolation + per-track scale x the network's correction
         return self.straight(S) + self.residual_scale(S, z_start) * self.raw(S, z_start)
 
 

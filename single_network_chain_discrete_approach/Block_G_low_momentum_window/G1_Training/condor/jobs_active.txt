@@ -1,0 +1,1 @@
+--N 256 --q 16 --weighting full --p-lo 3 --p-hi 8 --out results/p03-08 --round-restarts 25 --round-cap 40 --outer-cap 1000

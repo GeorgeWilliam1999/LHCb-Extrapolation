@@ -14,7 +14,10 @@ order:
           initial data for the next step and proceed to train again".
 
 Every leg is a `chain_model.FrozenResidualNetwork` (two hidden layers of 128,
-q Gauss-Legendre stages, straight-line-residual output) trained with the
+q Gauss-Legendre stages, straight-line-plus-correction output: every output is
+the straight line from the input plus a per-track-scaled network correction, so
+the network learns the correction to the straight line, a departure from Raissi
+et al., whose network emits the states directly) trained with the
 shared trainer's verified protocol - fp64 full-batch L-BFGS restarted to a
 stall and confirmed with a fresh optimiser - on the label-free physics loss
 alone. Nothing is retrained: `_shared/train.py` is called through its `main`

@@ -15,7 +15,7 @@ error message. This page is the contract.
 | precision | fp64 throughout (the networks were trained in fp64; do not cast to fp32) |
 | field | the v8r1 **MagUp** map, the polarity of the sample the networks were trained on; a MagDown state is a different problem |
 | population | forward tracks of the official simulated sample with 2 < η < 5, 1 < p < 200 GeV, non-electrons, whose field-only path stays inside the map. Outside that, the output is an extrapolation of the network, not of the physics |
-| architecture | two hidden layers of 128 (tanh), `4(q+1)` outputs; the output is `straight line + scale × raw`, where the scale is computed from the input alone (`chain_model.py`) |
+| architecture | two hidden layers of 128 (tanh), `4(q+1)` outputs; each output is `straight line + scale × raw`: the straight-line extrapolation of the input state plus a network-predicted correction scaled per track, the scale computed from the input alone (`chain_model.py`). The network learns the correction to the straight line, not the stage states directly, a departure from Raissi, Perdikaris and Karniadakis (2019), whose network emits the states directly (George, 2026-09-23) |
 
 ## What a chain is
 
@@ -91,6 +91,6 @@ protocol held; a chain with any `converged = false` leg is still a valid chain
 - Applying the N = 1 network twice to "go further". It goes from z0 to z1 and
   nowhere else.
 - Using q/p in GeV⁻¹ rather than Allen units (a factor 0.2998).
-- Casting to fp32: the residual scale on the 40 mm legs is ~1e-2 mm, and fp32
+- Casting to fp32: the per-track correction scale on the 40 mm legs is ~1e-2 mm, and fp32
   loses it against x ~ 1e3 mm.
 - Running on a MagDown state or with a MagDown field expectation.

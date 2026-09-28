@@ -1,0 +1,53 @@
+# figure 15, fig_tail.png: the tail of the endpoint error.  Positions in
+# micrometres; the starting |x| of panel (c) is a detector coordinate in mm.
+# p95_radial_um and frac_beyond_1mm_pct are asserted equal to
+# results/paper_numbers.json group `headline`; the two median starting |x|
+# values of panel (c) to group `near_5gev`.  worst5pct_share_of_total is
+# computed in this script (it is not in paper_numbers.json): the summed
+# radial endpoint error of the 73 worst of the 1,452 test tracks divided by
+# the sum over all of them.
+# colour convention: pooled loss = grey, hollow markers, dashed; cost-weighted loss = blue #2a78d6, filled markers, solid; within a loss the shade darkens with N.
+panel,band_GeV,n,loss,network,N,q,p95_radial_um,frac_beyond_1mm_pct,start_abs_x_med_mm,worst5pct_share_of_total
+"a,b: per band",<3,164,pooled,"N = 64, q = 2, Δz = 80.9 mm",64,2,1389.925198127007,11.585365853658537,,
+"a,b: per band",<3,164,pooled,"N = 128, q = 8, Δz = 40.5 mm",128,8,1537.007206664905,10.975609756097562,,
+"a,b: per band",<3,164,pooled,"N = 256, q = 16, Δz = 20.2 mm",256,16,1857.482411401314,12.804878048780488,,
+"a,b: per band",<3,164,cost-weighted,"N = 64, q = 2, Δz = 80.9 mm",64,2,2768.429218325192,27.439024390243905,,
+"a,b: per band",<3,164,cost-weighted,"N = 128, q = 8, Δz = 40.5 mm",128,8,3668.2015334993603,45.1219512195122,,
+"a,b: per band",<3,164,cost-weighted,"N = 256, q = 16, Δz = 20.2 mm",256,16,2865.924742018797,28.65853658536585,,
+"a,b: per band",3-8,655,pooled,"N = 64, q = 2, Δz = 80.9 mm",64,2,1034.956976640414,5.4961832061068705,,
+"a,b: per band",3-8,655,pooled,"N = 128, q = 8, Δz = 40.5 mm",128,8,1106.0928587881122,6.106870229007633,,
+"a,b: per band",3-8,655,pooled,"N = 256, q = 16, Δz = 20.2 mm",256,16,1247.006490416475,6.7175572519083975,,
+"a,b: per band",3-8,655,cost-weighted,"N = 64, q = 2, Δz = 80.9 mm",64,2,1512.9683153516053,8.396946564885496,,
+"a,b: per band",3-8,655,cost-weighted,"N = 128, q = 8, Δz = 40.5 mm",128,8,1625.747957515482,9.618320610687023,,
+"a,b: per band",3-8,655,cost-weighted,"N = 256, q = 16, Δz = 20.2 mm",256,16,1212.9221293993357,7.175572519083969,,
+"a,b: per band",8-20,433,pooled,"N = 64, q = 2, Δz = 80.9 mm",64,2,368.26295652727873,1.1547344110854503,,
+"a,b: per band",8-20,433,pooled,"N = 128, q = 8, Δz = 40.5 mm",128,8,361.57113268725755,1.3856812933025404,,
+"a,b: per band",8-20,433,pooled,"N = 256, q = 16, Δz = 20.2 mm",256,16,455.0466665610004,2.3094688221709005,,
+"a,b: per band",8-20,433,cost-weighted,"N = 64, q = 2, Δz = 80.9 mm",64,2,210.02603286198132,0.9237875288683602,,
+"a,b: per band",8-20,433,cost-weighted,"N = 128, q = 8, Δz = 40.5 mm",128,8,273.18620192640225,0.4618937644341801,,
+"a,b: per band",8-20,433,cost-weighted,"N = 256, q = 16, Δz = 20.2 mm",256,16,245.60591313073738,0.23094688221709006,,
+"a,b: per band",20-50,170,pooled,"N = 64, q = 2, Δz = 80.9 mm",64,2,372.6151050913033,1.1764705882352942,,
+"a,b: per band",20-50,170,pooled,"N = 128, q = 8, Δz = 40.5 mm",128,8,308.32640673998236,0.0,,
+"a,b: per band",20-50,170,pooled,"N = 256, q = 16, Δz = 20.2 mm",256,16,300.7536833407258,0.0,,
+"a,b: per band",20-50,170,cost-weighted,"N = 64, q = 2, Δz = 80.9 mm",64,2,63.67427510431963,0.0,,
+"a,b: per band",20-50,170,cost-weighted,"N = 128, q = 8, Δz = 40.5 mm",128,8,66.52925699782624,0.0,,
+"a,b: per band",20-50,170,cost-weighted,"N = 256, q = 16, Δz = 20.2 mm",256,16,75.73073391586477,0.0,,
+"a,b: per band",>50,30,pooled,"N = 64, q = 2, Δz = 80.9 mm",64,2,1111.3973174330963,6.666666666666667,,
+"a,b: per band",>50,30,pooled,"N = 128, q = 8, Δz = 40.5 mm",128,8,520.8813536822696,0.0,,
+"a,b: per band",>50,30,pooled,"N = 256, q = 16, Δz = 20.2 mm",256,16,742.2266350668459,3.3333333333333335,,
+"a,b: per band",>50,30,cost-weighted,"N = 64, q = 2, Δz = 80.9 mm",64,2,123.93988220690085,0.0,,
+"a,b: per band",>50,30,cost-weighted,"N = 128, q = 8, Δz = 40.5 mm",128,8,76.5745712595607,0.0,,
+"a,b: per band",>50,30,cost-weighted,"N = 256, q = 16, Δz = 20.2 mm",256,16,110.50677264089948,0.0,,
+"a,b: per band",10-50 (loss window),487,pooled,"N = 64, q = 2, Δz = 80.9 mm",64,2,353.43612620646076,1.2320328542094456,,
+"a,b: per band",10-50 (loss window),487,pooled,"N = 128, q = 8, Δz = 40.5 mm",128,8,305.69089143336697,0.41067761806981523,,
+"a,b: per band",10-50 (loss window),487,pooled,"N = 256, q = 16, Δz = 20.2 mm",256,16,389.35212374771663,1.4373716632443532,,
+"a,b: per band",10-50 (loss window),487,cost-weighted,"N = 64, q = 2, Δz = 80.9 mm",64,2,129.94165711071895,0.41067761806981523,,
+"a,b: per band",10-50 (loss window),487,cost-weighted,"N = 128, q = 8, Δz = 40.5 mm",128,8,158.385941880152,0.20533880903490762,,
+"a,b: per band",10-50 (loss window),487,cost-weighted,"N = 256, q = 16, Δz = 20.2 mm",256,16,142.310908491246,0.20533880903490762,,
+"c: starting |x|, N = 64, q = 2, cost-weighted, 3-8 GeV",3-8,655,cost-weighted,"N = 64, q = 2, Δz = 80.9 mm",64,2,,8.396946564885496,beyond 1 mm 217.0734 ; rest 107.7613,
+d: worst 73 tracks of 1452,all,1452,pooled,"N = 64, q = 2, Δz = 80.9 mm",64,2,,,,0.39868113810813494
+d: worst 73 tracks of 1452,all,1452,cost-weighted,"N = 64, q = 2, Δz = 80.9 mm",64,2,,,,0.459213137134129
+d: worst 73 tracks of 1452,all,1452,pooled,"N = 128, q = 8, Δz = 40.5 mm",128,8,,,,0.4455950312932705
+d: worst 73 tracks of 1452,all,1452,cost-weighted,"N = 128, q = 8, Δz = 40.5 mm",128,8,,,,0.4304668923349879
+d: worst 73 tracks of 1452,all,1452,pooled,"N = 256, q = 16, Δz = 20.2 mm",256,16,,,,0.38677129506841096
+d: worst 73 tracks of 1452,all,1452,cost-weighted,"N = 256, q = 16, Δz = 20.2 mm",256,16,,,,0.4437208786691654

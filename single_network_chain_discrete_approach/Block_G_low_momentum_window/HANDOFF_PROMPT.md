@@ -14,6 +14,19 @@ write-up; never commit or push; never label outputs with block letters.
   times, trained label-free with the discrete RK-PINN loss. E0 = tracks (`E0_Track_dataset/
   results/tracks.npz`, 11,567 / 1,463 / 1,452 train/val/test, RK6 at 0.1 mm), E1 = network +
   round trainer, E3 = analysis. Sixteen networks, extended to their plateau on 2026-09-19/20.
+  [Added 2026-09-23, George's ruling: the network does not emit the stage states directly.
+  Each of the q Gauss–Legendre stage states and the endpoint state is the straight-line
+  extrapolation of the input plus a network-predicted correction scaled per track,
+  `output_j = straight_j(S) + σ(S) ⊙ NN(S, z_start)_j`, so the network learns the
+  correction to the straight line (the bending over one step). This departs from Raissi,
+  Perdikaris and Karniadakis (2019), whose network emits the states directly. The form was
+  introduced on 5 September 2026 for a network serving many step lengths; it was put to
+  George as an explicit choice for the fixed-step study and chosen on 14 September 2026
+  (question 4 of that plan); the single-network chain then inherited it as 'Block D's form'
+  without re-examining it, and the theory did not state that the learned quantity is the
+  correction rather than the stage states (noted 23 September 2026). The loss sees only the
+  resulting stage states.
+  See `README.md`, "The network: a correction to the straight line".]
 - `Block_F_reweighted_loss/` — the same networks with ONE change: the weights inside the loss
   (`F0_Weighting/weighted_loss.py`). Every residual is measured as the displacement it would
   cause at the SciFi plane, as a fraction of that track's total bend, and a momentum window

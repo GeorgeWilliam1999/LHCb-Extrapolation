@@ -20,6 +20,20 @@ stored chain states to the bit (checked 2026-09-20). Block D, by contrast, train
 **different** network for every step and chained those. It is trained over the whole crossing with the discrete-time Runge–Kutta
 (RK-PINN) construction, and so learns the physics everywhere along the magnet.
 
+**What the network outputs (George's ruling, 2026-09-23; applies to every chained network in
+this tree).** The network's outputs are the q Gauss–Legendre stage states and the endpoint
+state of one step, each written as the straight-line extrapolation of the input state plus a
+network-predicted correction, scaled per track:
+output_j = straight_j(S) + σ(S, z_start) ⊙ NN(S, z_start)_j. The network therefore learns the
+correction to the straight line — the magnet's bending over one step — rather than the stage
+states themselves. This departs from Raissi, Perdikaris and Karniadakis (2019), whose network
+emits the states directly; the loss is unchanged and sees only the resulting stage states. The
+form was introduced on 5 September 2026 for a network serving many step lengths; it was put to
+George as an explicit choice for the fixed-step study and chosen on 14 September 2026 (question
+4 of that plan); the single-network chain then inherited it as 'Block D's form' without
+re-examining it, and the theory did not state that the learned quantity is the correction
+rather than the stage states (noted 23 September 2026).
+
 It follows the fixed-step study in
 `../multi_network_chain_discrete_approach/Block_D_fixed_step_crossing/`, which
 trained a **separate** network for every step of a chain (128 networks for N = 128).

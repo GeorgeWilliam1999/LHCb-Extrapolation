@@ -57,7 +57,8 @@ component and momentum band; single step; growth along z; anatomy; cost).
    residual of those equations without labels (the RK-PINN idea of Raissi 2019 §3.2), the exact
    collocation solution as a guardrail (its loss is machine zero). Worked micro-example with q = 2.
 3. **The network (E1).** Inputs, normalisation by the round-1 spread, the start-plane input mapped to
-   [−1, 1]; outputs as deviation from the straight line times the per-track scale; the x/tx scale
+   [−1, 1]; outputs as deviation from the straight line times the per-track scale (i.e. the network learns
+   the correction to the straight line, a departure from Raissi et al. 2019 — George 2026-09-23); the x/tx scale
    κ|q/p|∫|B|dz along the straight line and the separate y/ty scale
    κ|q/p|∫√(1+tx²+ty²)((1+ty²)|Bx| + |tx·ty·By| + |tx·Bz|)dz floored at 10⁻³ of the x scale
    (why: gate 3 numbers, y_scale_check.png); 2×128 tanh; parameter counts (18,956 at q = 2;

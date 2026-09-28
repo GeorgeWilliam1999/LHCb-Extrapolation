@@ -16,6 +16,8 @@ k−1 predicted at z_k for the same particles. The chain's prediction is what th
 last leg emits. Everything about the optimiser is the shared trainer's
 (fp64 full-batch L-BFGS, stall-and-confirm, `--outer-cap 400`).
 
+**Output form (George, 2026-09-23).** The network's outputs are the q Gauss–Legendre stage states and the endpoint state of one step, each written as the straight-line extrapolation of the input state plus a network-predicted correction, scaled per track: `output_j = straight_j(S) + σ(S) ⊙ NN(S)_j`. The network therefore learns the correction to the straight line — the magnet's bending over one step — rather than the stage states themselves. This departs from Raissi, Perdikaris and Karniadakis (2019), whose network emits the states directly; the loss is unchanged and sees only the resulting stage states. The form was introduced on 5 September 2026 for a network serving many step lengths; it was put to George as an explicit choice for the fixed-step study and chosen on 14 September 2026 (question 4 of that plan); the single-network chain then inherited it as 'Block D's form' without re-examining it, and the theory did not state that the learned quantity is the correction rather than the stage states (noted 23 September 2026).
+
 **Read [APPLYING_THE_NETWORKS.md](APPLYING_THE_NETWORKS.md) before using any
 of these networks.** A leg is valid on its own plane, in its own chain, at its
 own q, and nowhere else.
@@ -24,7 +26,7 @@ own q, and nowhere else.
 
 | script | what it does | output |
 |---|---|---|
-| [chain_model.py](chain_model.py) | the fixed-step straight-line-residual network (no extra inputs; z0 and dz are buffers), the twin's residual data loss | — |
+| [chain_model.py](chain_model.py) | the fixed-step network with straight-line-plus-correction output (each output is the straight line from the input plus a per-track-scaled network correction, so the network learns the correction to the straight line, not the stage states directly; no extra inputs; z0 and dz are buffers), the twin's data loss normalised by that correction scale | — |
 | [test_chain_model.py](test_chain_model.py) | the gate: torch vs numpy straight line and field integral, zeroed last layer = straight line exactly, finite losses and gradients at q = 1, 8, 20 on the 40 mm and the 5178 mm leg, the q = 0 twin | prints `ALL CHAIN MODEL CHECKS PASS` |
 | [train_chain.py](train_chain.py) | one (N, q) chain: builds each leg's dataset from its predecessor's predictions (RK6 reference through the Gauss nodes for scoring), trains it through `_shared/train.py`, applies it, scores the chain at every plane and at z1 against the RK6 truth and, carried to the particle's SciFi plane, against its real state | `results/N<NNN>_q<qq>/leg<kkk>.{pt,json,_history.csv,_scale.json}`, `states.npz`, `chain.json` |
 | [make_jobs.py](make_jobs.py) | the 100-line job list (long chains first) | `condor/jobs_chain.txt`, `condor/jobs_chain.sub` |

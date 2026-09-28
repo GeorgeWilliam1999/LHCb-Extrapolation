@@ -1,0 +1,157 @@
+panel,band,comparison,loss,N,q,n,value,unit
+a,<3,network vs RK6,reweighted,64,2,164,528.3826122173672,um
+a,<3,network vs RK6,pooled,64,2,164,306.83010541486055,um
+a,<3,network vs RK6,reweighted,128,8,164,753.5898560983014,um
+a,<3,network vs RK6,pooled,128,8,164,296.857632361764,um
+a,<3,network vs RK6,reweighted,256,16,164,511.3271655852003,um
+a,<3,network vs RK6,pooled,256,16,164,348.05983637824056,um
+a,<3,network vs Geant4 true,reweighted,64,2,164,9337.806312589919,um
+a,<3,network vs Geant4 true,pooled,64,2,164,9540.99760232191,um
+a,<3,network vs Geant4 true,reweighted,128,8,164,9785.220696095734,um
+a,<3,network vs Geant4 true,pooled,128,8,164,9608.403802782861,um
+a,<3,network vs Geant4 true,reweighted,256,16,164,9365.321961162408,um
+a,<3,network vs Geant4 true,pooled,256,16,164,9481.085537601984,um
+a,<3,RK6 vs Geant4 true,,,,164,9402.52579396258,um
+a,3-8,network vs RK6,reweighted,64,2,655,159.44976285732082,um
+a,3-8,network vs RK6,pooled,64,2,655,147.68345554408313,um
+a,3-8,network vs RK6,reweighted,128,8,655,198.09574109831374,um
+a,3-8,network vs RK6,pooled,128,8,655,135.38638516547508,um
+a,3-8,network vs RK6,reweighted,256,16,655,156.95737246653607,um
+a,3-8,network vs RK6,pooled,256,16,655,177.67318261621767,um
+a,3-8,network vs Geant4 true,reweighted,64,2,655,2700.794836460389,um
+a,3-8,network vs Geant4 true,pooled,64,2,655,2737.063018944127,um
+a,3-8,network vs Geant4 true,reweighted,128,8,655,2729.611409138556,um
+a,3-8,network vs Geant4 true,pooled,128,8,655,2684.6583201706835,um
+a,3-8,network vs Geant4 true,reweighted,256,16,655,2663.002199264156,um
+a,3-8,network vs Geant4 true,pooled,256,16,655,2708.8966776257166,um
+a,3-8,RK6 vs Geant4 true,,,,655,2698.9068778286764,um
+a,8-20,network vs RK6,reweighted,64,2,433,30.914949788737545,um
+a,8-20,network vs RK6,pooled,64,2,433,77.51857833380882,um
+a,8-20,network vs RK6,reweighted,128,8,433,40.39251947727962,um
+a,8-20,network vs RK6,pooled,128,8,433,71.92037693414477,um
+a,8-20,network vs RK6,reweighted,256,16,433,45.106513625341904,um
+a,8-20,network vs RK6,pooled,256,16,433,91.2890564288773,um
+a,8-20,network vs Geant4 true,reweighted,64,2,433,736.396267549253,um
+a,8-20,network vs Geant4 true,pooled,64,2,433,768.7395725238026,um
+a,8-20,network vs Geant4 true,reweighted,128,8,433,758.2345726863764,um
+a,8-20,network vs Geant4 true,pooled,128,8,433,759.2389736009864,um
+a,8-20,network vs Geant4 true,reweighted,256,16,433,745.6707229210906,um
+a,8-20,network vs Geant4 true,pooled,256,16,433,785.6637379874201,um
+a,8-20,RK6 vs Geant4 true,,,,433,734.253896001178,um
+a,20-50,network vs RK6,reweighted,64,2,170,15.678767866361909,um
+a,20-50,network vs RK6,pooled,64,2,170,137.89463641194288,um
+a,20-50,network vs RK6,reweighted,128,8,170,19.838333464662128,um
+a,20-50,network vs RK6,pooled,128,8,170,64.21451796660449,um
+a,20-50,network vs RK6,reweighted,256,16,170,18.19451434888464,um
+a,20-50,network vs RK6,pooled,256,16,170,73.0686372211764,um
+a,20-50,network vs Geant4 true,reweighted,64,2,170,368.75157845430095,um
+a,20-50,network vs Geant4 true,pooled,64,2,170,427.92699605858786,um
+a,20-50,network vs Geant4 true,reweighted,128,8,170,360.14560702665756,um
+a,20-50,network vs Geant4 true,pooled,128,8,170,394.93911869605824,um
+a,20-50,network vs Geant4 true,reweighted,256,16,170,369.4397096075086,um
+a,20-50,network vs Geant4 true,pooled,256,16,170,377.64500696191305,um
+a,20-50,RK6 vs Geant4 true,,,,170,369.2012552967583,um
+a,>50,network vs RK6,reweighted,64,2,30,20.677188654993017,um
+a,>50,network vs RK6,pooled,64,2,30,157.9584766107871,um
+a,>50,network vs RK6,reweighted,128,8,30,29.298705400957914,um
+a,>50,network vs RK6,pooled,128,8,30,167.18677494578316,um
+a,>50,network vs RK6,reweighted,256,16,30,44.35631801455742,um
+a,>50,network vs RK6,pooled,256,16,30,215.58806894300986,um
+a,>50,network vs Geant4 true,reweighted,64,2,30,181.33200047525833,um
+a,>50,network vs Geant4 true,pooled,64,2,30,251.51495097639653,um
+a,>50,network vs Geant4 true,reweighted,128,8,30,185.50262381786808,um
+a,>50,network vs Geant4 true,pooled,128,8,30,286.5695375940618,um
+a,>50,network vs Geant4 true,reweighted,256,16,30,161.79473603519057,um
+a,>50,network vs Geant4 true,pooled,256,16,30,296.6845615856464,um
+a,>50,RK6 vs Geant4 true,,,,30,182.77400235217556,um
+a,10-50 (loss window),network vs RK6,reweighted,64,2,487,21.79954131558759,um
+a,10-50 (loss window),network vs RK6,pooled,64,2,487,97.02396683587722,um
+a,10-50 (loss window),network vs RK6,reweighted,128,8,487,24.652392280131608,um
+a,10-50 (loss window),network vs RK6,pooled,128,8,487,64.4234382461093,um
+a,10-50 (loss window),network vs RK6,reweighted,256,16,487,32.24131507907657,um
+a,10-50 (loss window),network vs RK6,pooled,256,16,487,81.83088230700264,um
+a,10-50 (loss window),network vs Geant4 true,reweighted,64,2,487,555.6674543256577,um
+a,10-50 (loss window),network vs Geant4 true,pooled,64,2,487,581.968040388972,um
+a,10-50 (loss window),network vs Geant4 true,reweighted,128,8,487,554.9832829161687,um
+a,10-50 (loss window),network vs Geant4 true,pooled,128,8,487,556.5412083677757,um
+a,10-50 (loss window),network vs Geant4 true,reweighted,256,16,487,552.716995633034,um
+a,10-50 (loss window),network vs Geant4 true,pooled,256,16,487,564.6836284159775,um
+a,10-50 (loss window),RK6 vs Geant4 true,,,,487,548.8627910760755,um
+b,<3,network vs RK6,reweighted,64,2,164,0.0004731235077224793,dimensionless
+b,<3,network vs RK6,pooled,64,2,164,0.00011842001140421193,dimensionless
+b,<3,network vs RK6,reweighted,128,8,164,0.00042095331884460865,dimensionless
+b,<3,network vs RK6,pooled,128,8,164,0.00010499358649586083,dimensionless
+b,<3,network vs RK6,reweighted,256,16,164,0.0005007361326647974,dimensionless
+b,<3,network vs RK6,pooled,256,16,164,0.00013033503571208138,dimensionless
+b,<3,network vs Geant4 true,reweighted,64,2,164,0.003609265672001205,dimensionless
+b,<3,network vs Geant4 true,pooled,64,2,164,0.003463494991592986,dimensionless
+b,<3,network vs Geant4 true,reweighted,128,8,164,0.00356664446197566,dimensionless
+b,<3,network vs Geant4 true,pooled,128,8,164,0.0034153453545797963,dimensionless
+b,<3,network vs Geant4 true,reweighted,256,16,164,0.003484300397784551,dimensionless
+b,<3,network vs Geant4 true,pooled,256,16,164,0.003547355950552916,dimensionless
+b,<3,RK6 vs Geant4 true,,,,164,0.00347626657413877,dimensionless
+b,3-8,network vs RK6,reweighted,64,2,655,0.00012106156262263815,dimensionless
+b,3-8,network vs RK6,pooled,64,2,655,4.7727867165711646e-05,dimensionless
+b,3-8,network vs RK6,reweighted,128,8,655,0.0001257106271738001,dimensionless
+b,3-8,network vs RK6,pooled,128,8,655,4.5727165597905794e-05,dimensionless
+b,3-8,network vs RK6,reweighted,256,16,655,0.00013537092543906837,dimensionless
+b,3-8,network vs RK6,pooled,256,16,655,6.567231264553719e-05,dimensionless
+b,3-8,network vs Geant4 true,reweighted,64,2,655,0.0008714869197641584,dimensionless
+b,3-8,network vs Geant4 true,pooled,64,2,655,0.0008431241838561393,dimensionless
+b,3-8,network vs Geant4 true,reweighted,128,8,655,0.0008456699490785313,dimensionless
+b,3-8,network vs Geant4 true,pooled,128,8,655,0.0008508211300488899,dimensionless
+b,3-8,network vs Geant4 true,reweighted,256,16,655,0.0009223109954240158,dimensionless
+b,3-8,network vs Geant4 true,pooled,256,16,655,0.0008556871750454165,dimensionless
+b,3-8,RK6 vs Geant4 true,,,,655,0.0008406760493876453,dimensionless
+b,8-20,network vs RK6,reweighted,64,2,433,2.4906011448923293e-05,dimensionless
+b,8-20,network vs RK6,pooled,64,2,433,3.231193085918502e-05,dimensionless
+b,8-20,network vs RK6,reweighted,128,8,433,2.5468548814766914e-05,dimensionless
+b,8-20,network vs RK6,pooled,128,8,433,2.508868312594073e-05,dimensionless
+b,8-20,network vs RK6,reweighted,256,16,433,2.288757583163853e-05,dimensionless
+b,8-20,network vs RK6,pooled,256,16,433,3.1611571134890215e-05,dimensionless
+b,8-20,network vs Geant4 true,reweighted,64,2,433,0.00023297760965401357,dimensionless
+b,8-20,network vs Geant4 true,pooled,64,2,433,0.00022805716417721375,dimensionless
+b,8-20,network vs Geant4 true,reweighted,128,8,433,0.00022230584112074847,dimensionless
+b,8-20,network vs Geant4 true,pooled,128,8,433,0.00022190427972484938,dimensionless
+b,8-20,network vs Geant4 true,reweighted,256,16,433,0.0002192590782067877,dimensionless
+b,8-20,network vs Geant4 true,pooled,256,16,433,0.0002177236943799385,dimensionless
+b,8-20,RK6 vs Geant4 true,,,,433,0.00021778846100151128,dimensionless
+b,20-50,network vs RK6,reweighted,64,2,170,1.2229620694223335e-05,dimensionless
+b,20-50,network vs RK6,pooled,64,2,170,4.097533549342683e-05,dimensionless
+b,20-50,network vs RK6,reweighted,128,8,170,1.1857983678268715e-05,dimensionless
+b,20-50,network vs RK6,pooled,128,8,170,1.9548493097611228e-05,dimensionless
+b,20-50,network vs RK6,reweighted,256,16,170,1.0991649884633213e-05,dimensionless
+b,20-50,network vs RK6,pooled,256,16,170,2.2714280193007752e-05,dimensionless
+b,20-50,network vs Geant4 true,reweighted,64,2,170,0.0001107349323738573,dimensionless
+b,20-50,network vs Geant4 true,pooled,64,2,170,0.0001247560602679063,dimensionless
+b,20-50,network vs Geant4 true,reweighted,128,8,170,0.00010536405113113247,dimensionless
+b,20-50,network vs Geant4 true,pooled,128,8,170,0.00011218791794599843,dimensionless
+b,20-50,network vs Geant4 true,reweighted,256,16,170,0.00010637135246758557,dimensionless
+b,20-50,network vs Geant4 true,pooled,256,16,170,0.00011689217034184865,dimensionless
+b,20-50,RK6 vs Geant4 true,,,,170,0.00010633596989719635,dimensionless
+b,>50,network vs RK6,reweighted,64,2,30,1.175935660124687e-05,dimensionless
+b,>50,network vs RK6,pooled,64,2,30,5.568016158672556e-05,dimensionless
+b,>50,network vs RK6,reweighted,128,8,30,1.167028606595226e-05,dimensionless
+b,>50,network vs RK6,pooled,128,8,30,5.3287764322623374e-05,dimensionless
+b,>50,network vs RK6,reweighted,256,16,30,2.7647846417479076e-05,dimensionless
+b,>50,network vs RK6,pooled,256,16,30,7.384081748670304e-05,dimensionless
+b,>50,network vs Geant4 true,reweighted,64,2,30,4.66877487176956e-05,dimensionless
+b,>50,network vs Geant4 true,pooled,64,2,30,7.41891470556243e-05,dimensionless
+b,>50,network vs Geant4 true,reweighted,128,8,30,5.143369284456691e-05,dimensionless
+b,>50,network vs Geant4 true,pooled,128,8,30,8.873396201046187e-05,dimensionless
+b,>50,network vs Geant4 true,reweighted,256,16,30,3.204370019740249e-05,dimensionless
+b,>50,network vs Geant4 true,pooled,256,16,30,8.473260377116123e-05,dimensionless
+b,>50,RK6 vs Geant4 true,,,,30,4.09971361596418e-05,dimensionless
+b,10-50 (loss window),network vs RK6,reweighted,64,2,487,1.795790455477904e-05,dimensionless
+b,10-50 (loss window),network vs RK6,pooled,64,2,487,3.60268050782625e-05,dimensionless
+b,10-50 (loss window),network vs RK6,reweighted,128,8,487,1.740330360261444e-05,dimensionless
+b,10-50 (loss window),network vs RK6,pooled,128,8,487,2.2645083155496334e-05,dimensionless
+b,10-50 (loss window),network vs RK6,reweighted,256,16,487,1.620827082529641e-05,dimensionless
+b,10-50 (loss window),network vs RK6,pooled,256,16,487,2.8047358645921783e-05,dimensionless
+b,10-50 (loss window),network vs Geant4 true,reweighted,64,2,487,0.00015392492214637982,dimensionless
+b,10-50 (loss window),network vs Geant4 true,pooled,64,2,487,0.0001702412337268068,dimensionless
+b,10-50 (loss window),network vs Geant4 true,reweighted,128,8,487,0.0001517046455439472,dimensionless
+b,10-50 (loss window),network vs Geant4 true,pooled,128,8,487,0.00016631977170639828,dimensionless
+b,10-50 (loss window),network vs Geant4 true,reweighted,256,16,487,0.00015022462724309515,dimensionless
+b,10-50 (loss window),network vs Geant4 true,pooled,256,16,487,0.00015867190000428896,dimensionless
+b,10-50 (loss window),RK6 vs Geant4 true,,,,487,0.00014517292504655568,dimensionless

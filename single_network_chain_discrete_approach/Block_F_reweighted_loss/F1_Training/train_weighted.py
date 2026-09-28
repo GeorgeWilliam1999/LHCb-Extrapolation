@@ -7,6 +7,24 @@ touched. `results/train_weighted.diff` is the diff against it, and
 `--weighting blockE` reproduces Block E's training bit for bit (gate F-1).
 The network itself is imported from Block E, not copied, so it cannot drift.
 
+  network   emits the q Gauss-Legendre stage states and the endpoint state of
+            one step, each written as the straight-line extrapolation of the
+            input state plus a network-predicted correction, scaled per track:
+                output_j = straight_j(S) + sigma(S) (x) NN(S, z_start)_j
+            so the network learns the CORRECTION TO THE STRAIGHT LINE (the
+            magnet's bending over one step), not the stage states themselves.
+            This departs from Raissi, Perdikaris and Karniadakis (2019), whose
+            network emits the states directly. The loss below is unchanged by
+            it: the pooled and the weighted loss both see only the resulting
+            stage states, through the reconstruction residual. The form was
+            introduced on 5 September 2026 for a network serving many step
+            lengths; it was put to George as an explicit choice for the
+            fixed-step study and chosen on 14 September 2026 (question 4 of
+            that plan); the single-network chain then inherited it as 'Block
+            D's form' without re-examining it, and the theory did not state
+            that the learned quantity is the correction rather than the stage
+            states (noted 23 September 2026).
+
   loss      the label-free RK-PINN residual of `_shared.model`, weighted: each
             residual is measured as the displacement it would cause at the
             SciFi plane, as a fraction of that track's total bend, with the

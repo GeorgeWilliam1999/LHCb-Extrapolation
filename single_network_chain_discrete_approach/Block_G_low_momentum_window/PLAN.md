@@ -39,6 +39,22 @@ round and caps (40 rounds / 1,000 restarts), same states per round (32,000), sam
 roll-off (Gaussian in log p, width ln 2) and floor (0.05). Three settings: N = 64 q = 2,
 N = 128 q = 8, N = 256 q = 16.
 
+**What the network emits (added 2026-09-23, George's ruling; reframing only, nothing retrained).**
+The network (imported unchanged from the earlier studies,
+`Block_E_single_network_chain/E1_Network_grid/chain_network.py`) emits the q Gauss–Legendre
+stage states and the endpoint state of one step, each written as the straight-line
+extrapolation of the input state plus a network-predicted correction, scaled per track:
+`output_j = straight_j(S) + σ(S) ⊙ NN(S, z_start)_j`. The network therefore learns the
+**correction to the straight line** — the magnet's bending over one step — rather than the
+stage states themselves. This departs from Raissi, Perdikaris and Karniadakis (2019), whose
+network emits the states directly. The windowed loss studied here is unchanged by this: it
+sees only the resulting stage states, through the reconstruction residual r. The form was
+introduced on 5 September 2026 for a network serving many step lengths; it was put to George as
+an explicit choice for the fixed-step study and chosen on 14 September 2026 (question 4 of that
+plan); the single-network chain then inherited it as 'Block D's form' without re-examining it,
+and the theory did not state that the learned quantity is the correction rather than the stage
+states (noted 23 September 2026).
+
 The one code trap (George): in `F0_Weighting/weighted_loss.py`, `per_track_factor` calls
 `band_window(p)` with the module defaults `P_LO`/`P_HI`, ignoring `const["p_lo"]`/`const["p_hi"]`,
 while the numpy twin in `check_weights.py` reads the constants. Block F's runs were unaffected

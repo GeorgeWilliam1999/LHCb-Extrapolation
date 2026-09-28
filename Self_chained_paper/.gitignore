@@ -1,0 +1,13 @@
+# LaTeX build products (regenerate with `sh build.sh` or `make`)
+main.aux
+main.bbl
+main.blg
+main.out
+main.toc
+main.log
+main.lot
+main.lof
+
+# heavy regenerable arrays and Python bytecode
+results/cache/
+__pycache__/

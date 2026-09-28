@@ -5,9 +5,12 @@ starting state and predicting the final cross-magnet state only; the label is
 the RK6 endpoint, material effects ignored).
 
 The network is the Block D class with q = 0 (`chain_model.FrozenResidualNetwork`:
-two hidden layers of 128, straight-line-residual output, one output block = the
+two hidden layers of 128, straight-line-plus-correction output - the endpoint is
+the straight line from the input plus a per-track-scaled network correction, so
+the network learns the correction to the straight line - one output block = the
 endpoint), trained with the shared trainer's protocol in `data` mode and the
-residual-normalised MSE (`chain_model.residual_data_loss`), so the twin sees
+MSE normalised by the per-track correction scale
+(`chain_model.residual_data_loss`), so the twin sees
 the same O(1) target as the physics networks. Everything about the optimiser is
 the shared trainer's.
 

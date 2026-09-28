@@ -1,0 +1,1804 @@
+# figure 13, fig_along_z.png: the median radial deviation from the RK6
+# reference plane by plane [micrometres], chained (left) and for a single
+# application from the RK6 state on that plane (right).  Every value is
+# taken verbatim from results/paper_numbers.json group `along_z`.
+# colour convention: one colour per network (N = 64 blue, N = 128 green, N = 256 magenta); pooled loss dashed, cost-weighted loss solid.  In figures 10-12, 14 and 15 the loss itself carries the colour: pooled = grey, cost-weighted = blue #2a78d6.
+panel,network,N,q,loss,plane,z_mm,radial_med_um
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,0,2648.2,0.0
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,1,2729.1031249999996,0.33365641423273806
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,2,2810.00625,0.7476889664059659
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,3,2890.9093749999997,1.2541619066536223
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,4,2971.8125,1.8961892117695363
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,5,3052.715625,2.5542881720305863
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,6,3133.6187499999996,3.3888090225249705
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,7,3214.521875,4.266650307455961
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,8,3295.4249999999997,5.340196905175957
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,9,3376.328125,6.336279485614962
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,10,3457.23125,7.4842935615603405
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,11,3538.1343749999996,8.582685544147065
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,12,3619.0375,9.675113805757782
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,13,3699.940625,10.915619634619933
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,14,3780.84375,12.207382159876948
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,15,3861.746875,13.241102319579149
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,16,3942.6499999999996,14.376366041911197
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,17,4023.553125,15.722816946248095
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,18,4104.45625,17.233617887020547
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,19,4185.359375,18.681148363934625
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,20,4266.2625,20.551554921319386
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,21,4347.165625,22.17812095270417
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,22,4428.06875,24.113384160683772
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,23,4508.971875,26.215166757347504
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,24,4589.875,28.398321715715767
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,25,4670.778125,30.634553015654753
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,26,4751.68125,32.78403826115095
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,27,4832.584375,34.79868969653769
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,28,4913.487499999999,37.52382050726892
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,29,4994.390625,40.073824976594345
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,30,5075.29375,42.54550518072531
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,31,5156.196875,45.1254845824386
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,32,5237.1,47.65835733871357
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,33,5318.003124999999,50.890772951993426
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,34,5398.90625,53.453623804801225
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,35,5479.809375,56.383817818743175
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,36,5560.7125,59.377510091986295
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,37,5641.615625,62.24229994838474
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,38,5722.518749999999,65.39739037376395
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,39,5803.421875,68.68357289900831
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,40,5884.325,71.64998509244298
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,41,5965.228125,74.25555440896494
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,42,6046.13125,76.7222723057034
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,43,6127.034374999999,79.28994063215694
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,44,6207.9375,81.33933236121433
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,45,6288.840625,84.17607916809544
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,46,6369.74375,86.79703235529871
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,47,6450.646875,89.46990923440904
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,48,6531.55,92.80895875015227
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,49,6612.453125,96.05440904625794
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,50,6693.35625,99.4927125835255
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,51,6774.259375,102.44170202326663
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,52,6855.1625,105.7170732356694
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,53,6936.065625,109.06884876986308
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,54,7016.96875,112.40398957924765
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,55,7097.871875,115.03895575346502
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,56,7178.775,118.37098468088175
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,57,7259.678125,122.07605642733861
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,58,7340.58125,124.77245272325672
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,59,7421.484375,128.23265261636985
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,60,7502.3875,133.24824887848098
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,61,7583.290625,136.85878555802765
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,62,7664.19375,140.17183147766022
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,63,7745.096875,143.01924649568195
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,64,7826.0,145.74920991109252
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,0,2648.2,0.33365641423273806
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,1,2729.1031249999996,0.3459608826621412
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,2,2810.00625,0.3547563598978791
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,3,2890.9093749999997,0.3677566137257984
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,4,2971.8125,0.38613328558048465
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,5,3052.715625,0.3951658026197711
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,6,3133.6187499999996,0.39807751139864356
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,7,3214.521875,0.38135874275791287
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,8,3295.4249999999997,0.35251799934214967
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,9,3376.328125,0.32969935886923374
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,10,3457.23125,0.313763198957302
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,11,3538.1343749999996,0.287975612433094
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,12,3619.0375,0.28885065993652353
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,13,3699.940625,0.2941787608226476
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,14,3780.84375,0.3105049386846821
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,15,3861.746875,0.32406208817385207
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,16,3942.6499999999996,0.3282193380647225
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,17,4023.553125,0.3425510697548021
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,18,4104.45625,0.34731231254949446
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,19,4185.359375,0.3297604589240201
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,20,4266.2625,0.33756961554524567
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,21,4347.165625,0.3468819306724892
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,22,4428.06875,0.3651567693395643
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,23,4508.971875,0.3581812675701598
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,24,4589.875,0.351201629376411
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,25,4670.778125,0.35254213543850976
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,26,4751.68125,0.35235430995991623
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,27,4832.584375,0.3470366044205057
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,28,4913.487499999999,0.3248471536997338
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,29,4994.390625,0.35962664581832304
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,30,5075.29375,0.3494242675435837
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,31,5156.196875,0.33174147492226713
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,32,5237.1,0.31486965299676317
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,33,5318.003124999999,0.30053243683027125
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,34,5398.90625,0.2863717861626953
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,35,5479.809375,0.26839957316508234
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,36,5560.7125,0.2574387860394378
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,37,5641.615625,0.25418143748688704
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,38,5722.518749999999,0.2537382074718674
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,39,5803.421875,0.24805299166360553
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,40,5884.325,0.24498779745295196
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,41,5965.228125,0.2479731674224524
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,42,6046.13125,0.24956177163214938
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,43,6127.034374999999,0.23668729867279598
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,44,6207.9375,0.24278146742085832
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,45,6288.840625,0.2585153826545915
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,46,6369.74375,0.26689404317106347
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,47,6450.646875,0.27392538135243405
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,48,6531.55,0.2946962567802178
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,49,6612.453125,0.3174564210825517
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,50,6693.35625,0.3363048101237178
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,51,6774.259375,0.3596160659087715
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,52,6855.1625,0.3738130743361965
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,53,6936.065625,0.3999230128828755
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,54,7016.96875,0.42466773302181116
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,55,7097.871875,0.42831372544103796
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,56,7178.775,0.43630390836262845
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,57,7259.678125,0.4343035164935471
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,58,7340.58125,0.4249299377115871
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,59,7421.484375,0.4261244391286324
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,60,7502.3875,0.40994776910448827
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,61,7583.290625,0.3766667913392657
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,62,7664.19375,0.36750040480666574
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,pooled,63,7745.096875,0.3782021140404953
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,0,2648.2,0.0
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,1,2729.1031249999996,0.3175157769007185
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,2,2810.00625,0.6439738178622281
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,3,2890.9093749999997,0.9623339952384968
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,4,2971.8125,1.3955931992883337
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,5,3052.715625,1.7993826287215147
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,6,3133.6187499999996,2.2847328127290103
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,7,3214.521875,2.8314740694021343
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,8,3295.4249999999997,3.3696709476616444
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,9,3376.328125,4.041200980841053
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,10,3457.23125,4.7303126550684205
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,11,3538.1343749999996,5.483371815154067
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,12,3619.0375,6.077411550612895
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,13,3699.940625,6.76652126238233
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,14,3780.84375,7.662761535807503
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,15,3861.746875,8.699525561203085
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,16,3942.6499999999996,9.35217716152043
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,17,4023.553125,10.031029268998068
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,18,4104.45625,10.71710093244085
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,19,4185.359375,11.597552380397925
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,20,4266.2625,12.515460406027412
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,21,4347.165625,13.630875962388398
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,22,4428.06875,14.42651624827634
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,23,4508.971875,15.506108578920278
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,24,4589.875,16.353524933397154
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,25,4670.778125,17.55659065965445
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,26,4751.68125,18.498854746402625
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,27,4832.584375,19.371298722450277
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,28,4913.487499999999,20.708009865967945
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,29,4994.390625,21.908039284934357
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,30,5075.29375,23.24999813946431
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,31,5156.196875,23.986181536374637
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,32,5237.1,25.761342134060115
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,33,5318.003124999999,26.860070932065362
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,34,5398.90625,28.355768028638572
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,35,5479.809375,29.383981882552277
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,36,5560.7125,31.0315439063966
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,37,5641.615625,32.80249641100546
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,38,5722.518749999999,34.865413418444234
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,39,5803.421875,36.341563324145206
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,40,5884.325,37.737042282521685
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,41,5965.228125,38.559372071043796
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,42,6046.13125,40.091142899541644
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,43,6127.034374999999,41.17918795030816
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,44,6207.9375,42.83312837308971
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,45,6288.840625,43.98447590839932
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,46,6369.74375,45.45829891187074
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,47,6450.646875,47.06835291304193
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,48,6531.55,49.14428412724076
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,49,6612.453125,50.55274390397848
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,50,6693.35625,52.75416362428792
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,51,6774.259375,54.86048951516838
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,52,6855.1625,56.94761813168964
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,53,6936.065625,59.04928749544723
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,54,7016.96875,61.07119889475571
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,55,7097.871875,63.42220644793028
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,56,7178.775,65.35220434284324
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,57,7259.678125,67.51706582077423
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,58,7340.58125,68.94514293446153
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,59,7421.484375,71.28144892957503
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,60,7502.3875,73.61671863730515
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,61,7583.290625,76.95446611855701
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,62,7664.19375,80.35676371999816
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,63,7745.096875,84.32510688096471
+left: chain,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,64,7826.0,88.82612667434611
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,0,2648.2,0.3175157769007185
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,1,2729.1031249999996,0.32339437675780314
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,2,2810.00625,0.33492473583948873
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,3,2890.9093749999997,0.3547617498473593
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,4,2971.8125,0.3873220824458189
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,5,3052.715625,0.41694143222450253
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,6,3133.6187499999996,0.43655177397273537
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,7,3214.521875,0.4540343265185517
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,8,3295.4249999999997,0.4652689402089229
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,9,3376.328125,0.46245360320554163
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,10,3457.23125,0.4692323223960242
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,11,3538.1343749999996,0.4760678771586592
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,12,3619.0375,0.4882318699037991
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,13,3699.940625,0.4798659763443437
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,14,3780.84375,0.49820121965200004
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,15,3861.746875,0.49295422944287415
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,16,3942.6499999999996,0.4897319298517588
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,17,4023.553125,0.4801289251937441
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,18,4104.45625,0.46341245941751497
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,19,4185.359375,0.4536237090782877
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,20,4266.2625,0.45089520702740027
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,21,4347.165625,0.4557606319287628
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,22,4428.06875,0.45556523518273684
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,23,4508.971875,0.46551013769335114
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,24,4589.875,0.45852822698532575
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,25,4670.778125,0.45088544235711625
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,26,4751.68125,0.40106582711371264
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,27,4832.584375,0.3402092967352812
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,28,4913.487499999999,0.2981861095789464
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,29,4994.390625,0.2588617840694735
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,30,5075.29375,0.23843874848141236
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,31,5156.196875,0.23694293152333656
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,32,5237.1,0.2424730398455966
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,33,5318.003124999999,0.26526168997490696
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,34,5398.90625,0.3276347518964541
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,35,5479.809375,0.34649272630213757
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,36,5560.7125,0.38286079417289487
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,37,5641.615625,0.4289697741110025
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,38,5722.518749999999,0.46795686047646523
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,39,5803.421875,0.4964561392533303
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,40,5884.325,0.5104170292587462
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,41,5965.228125,0.5165794882574936
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,42,6046.13125,0.5155717179799277
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,43,6127.034374999999,0.49886193955583435
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,44,6207.9375,0.471982550524116
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,45,6288.840625,0.44934420737448266
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,46,6369.74375,0.447970250743549
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,47,6450.646875,0.44575012583400175
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,48,6531.55,0.44803744627488584
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,49,6612.453125,0.45995574915952353
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,50,6693.35625,0.48271099618944485
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,51,6774.259375,0.5087351260588163
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,52,6855.1625,0.5388929501898063
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,53,6936.065625,0.5507349631896798
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,54,7016.96875,0.5484443835288224
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,55,7097.871875,0.5569655910525273
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,56,7178.775,0.5788931369086789
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,57,7259.678125,0.5956077942138326
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,58,7340.58125,0.5963634857013638
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,59,7421.484375,0.6173821213496192
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,60,7502.3875,0.6199455637076622
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,61,7583.290625,0.6257967756564532
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,62,7664.19375,0.6463745848972782
+right: single step from the RK6 state,"N = 64, q = 2, Δz = 80.9 mm",64,2,cost-weighted,63,7745.096875,0.6530752607264886
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,0,2648.2,0.0
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,1,2688.6515624999997,0.14140597501079988
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,2,2729.1031249999996,0.3178526182037107
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,3,2769.5546875,0.53504208663793
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,4,2810.00625,0.7745415992831706
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,5,2850.4578125,1.0345904913643627
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,6,2890.9093749999997,1.3402605815488031
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,7,2931.3609374999996,1.6724727855886588
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,8,2971.8125,2.0311135647010943
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,9,3012.2640625,2.438065225241646
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,10,3052.715625,2.858595077231262
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,11,3093.1671874999997,3.328859111954687
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,12,3133.6187499999996,3.840118988467143
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,13,3174.0703125,4.367652579821238
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,14,3214.521875,4.941090770384253
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,15,3254.9734375,5.4745142070602055
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,16,3295.4249999999997,6.0627043168957195
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,17,3335.8765624999996,6.681315695301064
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,18,3376.328125,7.331591062328212
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,19,3416.7796875,7.940862410975367
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,20,3457.23125,8.647730113452257
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,21,3497.6828124999997,9.277824401880263
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,22,3538.1343749999996,9.942166835518094
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,23,3578.5859375,10.663969311525165
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,24,3619.0375,11.416291895286161
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,25,3659.4890625,12.27774673987506
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,26,3699.940625,12.931683468322031
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,27,3740.3921874999996,13.685246469300749
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,28,3780.84375,14.510402340757683
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,29,3821.2953125,15.317989278668302
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,30,3861.746875,16.096115831536334
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,31,3902.1984375,16.998082595466492
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,32,3942.6499999999996,17.776355776746517
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,33,3983.1015625,18.707491819495402
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,34,4023.553125,19.38116952134117
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,35,4064.0046875,20.285466691382567
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,36,4104.45625,21.084110348903046
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,37,4144.9078125,22.09139130110451
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,38,4185.359375,23.039044031794575
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,39,4225.8109375,23.76985966683486
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,40,4266.2625,24.60245386342185
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,41,4306.7140625,25.200909247721068
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,42,4347.165625,25.97977829265453
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,43,4387.6171875,26.956758684839997
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,44,4428.06875,27.90451035000011
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,45,4468.5203125,28.856906219128327
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,46,4508.971875,29.649261100172314
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,47,4549.4234375,30.634732164556063
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,48,4589.875,31.60715890405031
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,49,4630.3265625,32.75838020885136
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,50,4670.778125,33.60325373457826
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,51,4711.229687499999,34.5818673573377
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,52,4751.68125,35.701184738174675
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,53,4792.1328125,36.71150882729805
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,54,4832.584375,37.728546548194075
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,55,4873.0359375,38.596806624337276
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,56,4913.487499999999,39.13142916574601
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,57,4953.9390625,40.068194839065995
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,58,4994.390625,40.958179762827726
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,59,5034.8421875,41.859563451319005
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,60,5075.29375,42.82521962890709
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,61,5115.745312499999,44.27748290199899
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,62,5156.196875,45.06386336901993
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,63,5196.6484375,46.01315108435583
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,64,5237.1,47.09227475259286
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,65,5277.5515625,48.14185759771574
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,66,5318.003124999999,49.280030143771555
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,67,5358.4546875,50.43655906159695
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,68,5398.90625,51.35964151280207
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,69,5439.3578125,52.27746782638885
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,70,5479.809375,53.221097290205634
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,71,5520.260937499999,53.93896360453641
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,72,5560.7125,55.11117509256903
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,73,5601.1640625,55.93723084897418
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,74,5641.615625,56.69133874961757
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,75,5682.0671875,57.60810992388683
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,76,5722.518749999999,58.7813699731893
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,77,5762.9703125,60.16343523440217
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,78,5803.421875,61.18251296677575
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,79,5843.8734375,62.254629780493474
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,80,5884.325,63.554391474772316
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,81,5924.776562499999,64.50855067284806
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,82,5965.228125,65.26682564891965
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,83,6005.6796875,66.73136174648762
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,84,6046.13125,68.1410355158101
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,85,6086.5828125,69.43783682483911
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,86,6127.034374999999,70.86731756794279
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,87,6167.4859375,72.29571156752411
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,88,6207.9375,73.50982687307479
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,89,6248.3890625,74.9368047997489
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,90,6288.840625,76.1166424248104
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,91,6329.292187499999,77.17330688727134
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,92,6369.74375,78.41154100747906
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,93,6410.1953125,79.68971257171248
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,94,6450.646875,81.15672937770007
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,95,6491.0984375,82.24563980019752
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,96,6531.55,83.08637831894397
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,97,6572.0015625,84.3496886134346
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,98,6612.453125,85.98434471942652
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,99,6652.9046875,87.1955791015838
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,100,6693.35625,88.23784894099774
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,101,6733.8078125,89.82721343672506
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,102,6774.259375,90.73902542974386
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,103,6814.7109375,91.9503917914145
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,104,6855.1625,93.00360562588543
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,105,6895.6140625,94.14757529754021
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,106,6936.065625,95.13084012704535
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,107,6976.5171875,96.06295429610984
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,108,7016.96875,96.8900013031698
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,109,7057.4203125,97.67615560156436
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,110,7097.871875,98.88606483666024
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,111,7138.3234375,100.31293383237374
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,112,7178.775,101.41655073366462
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,113,7219.2265625,102.17520968838932
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,114,7259.678125,103.033286411327
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,115,7300.1296875,104.02237462839639
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,116,7340.58125,105.28074383135399
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,117,7381.0328125,106.3384656085873
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,118,7421.484375,107.61080735961829
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,119,7461.9359375,109.53513346384105
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,120,7502.3875,110.90907514555684
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,121,7542.8390625,112.6237034765353
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,122,7583.290625,114.52136057812115
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,123,7623.7421875,115.78883707909179
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,124,7664.19375,117.38276956048742
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,125,7704.6453125,118.44133438002993
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,126,7745.096875,119.6107428389137
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,127,7785.5484375,120.60042195485613
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,128,7826.0,122.2419291681365
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,0,2648.2,0.14140597501079988
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,1,2688.6515624999997,0.14651090736899214
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,2,2729.1031249999996,0.15515610521348178
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,3,2769.5546875,0.16505574899391862
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,4,2810.00625,0.1692493909873885
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,5,2850.4578125,0.17972955287848869
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,6,2890.9093749999997,0.1857097720579482
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,7,2931.3609374999996,0.1958637121654438
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,8,2971.8125,0.2048503979014035
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,9,3012.2640625,0.21221105405439117
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,10,3052.715625,0.22548746390007163
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,11,3093.1671874999997,0.22857885225125366
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,12,3133.6187499999996,0.24119070878533827
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,13,3174.0703125,0.2498693432465373
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,14,3214.521875,0.2586909480886489
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,15,3254.9734375,0.270774141392915
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,16,3295.4249999999997,0.2796398811642675
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,17,3335.8765624999996,0.2893701103114351
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,18,3376.328125,0.29929524205454194
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,19,3416.7796875,0.31019036063667205
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,20,3457.23125,0.31872969443334687
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,21,3497.6828124999997,0.324042097622562
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,22,3538.1343749999996,0.33489543773958697
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,23,3578.5859375,0.34096921140108816
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,24,3619.0375,0.3456262530714441
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,25,3659.4890625,0.34915255953206503
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,26,3699.940625,0.35366984870758544
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,27,3740.3921874999996,0.3514842522603097
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,28,3780.84375,0.3510922797363666
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,29,3821.2953125,0.35057680604249697
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,30,3861.746875,0.3436963672478305
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,31,3902.1984375,0.35020346281293624
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,32,3942.6499999999996,0.3378151173342777
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,33,3983.1015625,0.33358700775473255
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,34,4023.553125,0.3180167099168011
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,35,4064.0046875,0.3075978892646074
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,36,4104.45625,0.30214646146874197
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,37,4144.9078125,0.28422873810561633
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,38,4185.359375,0.27257572238572003
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,39,4225.8109375,0.2533625299468615
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,40,4266.2625,0.23608600561017368
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,41,4306.7140625,0.22405925769002105
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,42,4347.165625,0.2047357724925331
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,43,4387.6171875,0.1979522160842876
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,44,4428.06875,0.19374150557672026
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,45,4468.5203125,0.18527928134336302
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,46,4508.971875,0.18011463696657715
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,47,4549.4234375,0.17511766238381582
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,48,4589.875,0.1784180837764318
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,49,4630.3265625,0.17830229068241565
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,50,4670.778125,0.17813518042895754
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,51,4711.229687499999,0.17229596630595673
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,52,4751.68125,0.16882469332256805
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,53,4792.1328125,0.16572796253965874
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,54,4832.584375,0.16650768993678655
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,55,4873.0359375,0.16460986533146665
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,56,4913.487499999999,0.1568663516795451
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,57,4953.9390625,0.157621092747684
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,58,4994.390625,0.15565946127238328
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,59,5034.8421875,0.15587940891367014
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,60,5075.29375,0.15075332514806167
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,61,5115.745312499999,0.14881820299317272
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,62,5156.196875,0.14873861598410668
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,63,5196.6484375,0.1454223306709003
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,64,5237.1,0.14528901602513383
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,65,5277.5515625,0.14220612330587867
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,66,5318.003124999999,0.1408777206232678
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,67,5358.4546875,0.13751857474897686
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,68,5398.90625,0.1363860604600919
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,69,5439.3578125,0.1371062929026735
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,70,5479.809375,0.13577824255589474
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,71,5520.260937499999,0.1349414724954991
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,72,5560.7125,0.1371240520353286
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,73,5601.1640625,0.13860782491596868
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,74,5641.615625,0.14138837828068063
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,75,5682.0671875,0.14413238204689993
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,76,5722.518749999999,0.1430034844245402
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,77,5762.9703125,0.14502023812300002
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,78,5803.421875,0.14517478177350218
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,79,5843.8734375,0.14858690823604306
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,80,5884.325,0.14694796432140617
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,81,5924.776562499999,0.14777713510068813
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,82,5965.228125,0.15127846409006945
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,83,6005.6796875,0.1475211966019246
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,84,6046.13125,0.14873692859478785
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,85,6086.5828125,0.1510177226328483
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,86,6127.034374999999,0.15096346805880442
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,87,6167.4859375,0.14966288403432687
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,88,6207.9375,0.1463729437301501
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,89,6248.3890625,0.1437541469590165
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,90,6288.840625,0.14075593611200882
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,91,6329.292187499999,0.1377735203395672
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,92,6369.74375,0.13285531811813295
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,93,6410.1953125,0.12826071483105145
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,94,6450.646875,0.1287024439198272
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,95,6491.0984375,0.127023624676304
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,96,6531.55,0.12456746305373573
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,97,6572.0015625,0.12412304937267546
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,98,6612.453125,0.1219339612709246
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,99,6652.9046875,0.12065364032058579
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,100,6693.35625,0.11881505281809869
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,101,6733.8078125,0.11866462528361502
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,102,6774.259375,0.11752611692891285
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,103,6814.7109375,0.11666615616639206
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,104,6855.1625,0.11778948469258246
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,105,6895.6140625,0.11770933286757161
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,106,6936.065625,0.11629775143139587
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,107,6976.5171875,0.11824143183519453
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,108,7016.96875,0.11966213604945977
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,109,7057.4203125,0.12252762730320704
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,110,7097.871875,0.12242078847449378
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,111,7138.3234375,0.12446137816003572
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,112,7178.775,0.12834599851156386
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,113,7219.2265625,0.13047335626153378
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,114,7259.678125,0.13133003448025404
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,115,7300.1296875,0.13391877247079886
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,116,7340.58125,0.13410460176446304
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,117,7381.0328125,0.13345287531131347
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,118,7421.484375,0.1319560495952694
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,119,7461.9359375,0.13333904810697528
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,120,7502.3875,0.134061395603923
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,121,7542.8390625,0.1342578625074609
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,122,7583.290625,0.13233984333382448
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,123,7623.7421875,0.13090228123543377
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,124,7664.19375,0.13156054318408444
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,125,7704.6453125,0.1292482535677805
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,126,7745.096875,0.12566000498965402
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,pooled,127,7785.5484375,0.13018634230986403
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,0,2648.2,0.0
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,1,2688.6515624999997,0.2689796479147035
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,2,2729.1031249999996,0.5394824355820149
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,3,2769.5546875,0.8152872025477975
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,4,2810.00625,1.1031390947998294
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,5,2850.4578125,1.3896721257743478
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,6,2890.9093749999997,1.7020681291677766
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,7,2931.3609374999996,2.002510855710711
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,8,2971.8125,2.30628531866481
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,9,3012.2640625,2.61814701383237
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,10,3052.715625,2.960165103369884
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,11,3093.1671874999997,3.3434420740874655
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,12,3133.6187499999996,3.7126695020144562
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,13,3174.0703125,4.065685949028424
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,14,3214.521875,4.406570909774548
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,15,3254.9734375,4.725636169580138
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,16,3295.4249999999997,5.048971016210631
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,17,3335.8765624999996,5.471339913225809
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,18,3376.328125,5.94792551251877
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,19,3416.7796875,6.229011564621732
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,20,3457.23125,6.600670288581043
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,21,3497.6828124999997,7.040254552790374
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,22,3538.1343749999996,7.590057917839582
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,23,3578.5859375,8.007563604587727
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,24,3619.0375,8.461366352422424
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,25,3659.4890625,8.807710622261279
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,26,3699.940625,9.208527562334629
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,27,3740.3921874999996,9.705271449436859
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,28,3780.84375,10.198149865350539
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,29,3821.2953125,10.53302958745349
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,30,3861.746875,10.958148932002125
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,31,3902.1984375,11.29443707297159
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,32,3942.6499999999996,11.693224858973387
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,33,3983.1015625,12.105137165192351
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,34,4023.553125,12.575724589490164
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,35,4064.0046875,12.965326085545062
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,36,4104.45625,13.577572295408745
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,37,4144.9078125,14.007333786885681
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,38,4185.359375,14.546973487336903
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,39,4225.8109375,14.805409258994935
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,40,4266.2625,15.322783701360754
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,41,4306.7140625,15.708698613147673
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,42,4347.165625,16.320366772843443
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,43,4387.6171875,16.925963101740315
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,44,4428.06875,17.69551782482261
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,45,4468.5203125,18.34711586280894
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,46,4508.971875,18.912986867800768
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,47,4549.4234375,19.523255130006497
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,48,4589.875,20.097954349358936
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,49,4630.3265625,20.604915579607628
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,50,4670.778125,21.04976780770993
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,51,4711.229687499999,21.82913703763828
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,52,4751.68125,22.37520378749224
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,53,4792.1328125,23.001448171072596
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,54,4832.584375,23.875002720108682
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,55,4873.0359375,24.799000330991475
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,56,4913.487499999999,25.614706828286025
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,57,4953.9390625,26.46534346797199
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,58,4994.390625,27.083095569743186
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,59,5034.8421875,27.375332553380098
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,60,5075.29375,28.3232121019144
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,61,5115.745312499999,28.81206838468557
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,62,5156.196875,29.628274913016966
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,63,5196.6484375,30.180738321919527
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,64,5237.1,30.82054561015952
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,65,5277.5515625,31.522186633030024
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,66,5318.003124999999,32.1492366867584
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,67,5358.4546875,32.990469144662924
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,68,5398.90625,33.65478970975978
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,69,5439.3578125,34.5608766588212
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,70,5479.809375,35.37156309640545
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,71,5520.260937499999,36.05976237843715
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,72,5560.7125,36.76359647116465
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,73,5601.1640625,37.560809686691044
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,74,5641.615625,38.530656488913074
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,75,5682.0671875,39.379890239815765
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,76,5722.518749999999,39.81901005631488
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,77,5762.9703125,40.74343700949183
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,78,5803.421875,41.40333700223703
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,79,5843.8734375,42.503922268830976
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,80,5884.325,43.44316667166311
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,81,5924.776562499999,44.13247764671157
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,82,5965.228125,44.99187656974327
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,83,6005.6796875,45.602082400172236
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,84,6046.13125,46.684640182426094
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,85,6086.5828125,48.02103450982142
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,86,6127.034374999999,49.18088110562353
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,87,6167.4859375,50.729634278081505
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,88,6207.9375,51.6991333754368
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,89,6248.3890625,53.034625686140075
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,90,6288.840625,54.26806009175672
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,91,6329.292187499999,55.334267889322604
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,92,6369.74375,56.364853773074884
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,93,6410.1953125,57.270703381866085
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,94,6450.646875,58.82852255207157
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,95,6491.0984375,60.09021892603312
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,96,6531.55,60.79974656340883
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,97,6572.0015625,61.639427877728735
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,98,6612.453125,62.71706549478753
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,99,6652.9046875,64.14899993420664
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,100,6693.35625,65.43406491081268
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,101,6733.8078125,66.63896867431376
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,102,6774.259375,68.0105397372084
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,103,6814.7109375,69.44155163963842
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,104,6855.1625,70.56613122022627
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,105,6895.6140625,71.67106621601121
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,106,6936.065625,73.57445619110236
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,107,6976.5171875,74.85215472152512
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,108,7016.96875,76.44119918191038
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,109,7057.4203125,77.5011841622377
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,110,7097.871875,78.82405387183118
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,111,7138.3234375,80.14703265837264
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,112,7178.775,81.51903369466012
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,113,7219.2265625,83.05872898199365
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,114,7259.678125,85.30719848801705
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,115,7300.1296875,85.93998899784953
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,116,7340.58125,87.85060687453972
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,117,7381.0328125,88.71370315968908
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,118,7421.484375,91.41946687789073
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,119,7461.9359375,93.59295234072022
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,120,7502.3875,94.63388044948223
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,121,7542.8390625,95.18832809706271
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,122,7583.290625,95.30601203241457
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,123,7623.7421875,95.36767007979009
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,124,7664.19375,96.46887357886948
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,125,7704.6453125,98.3140524296953
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,126,7745.096875,99.56394989106482
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,127,7785.5484375,101.12793623651571
+left: chain,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,128,7826.0,104.6246983049756
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,0,2648.2,0.2689796479147035
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,1,2688.6515624999997,0.2721305091851174
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,2,2729.1031249999996,0.27979640051577204
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,3,2769.5546875,0.2885449009001742
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,4,2810.00625,0.29023178680816375
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,5,2850.4578125,0.2990709659482119
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,6,2890.9093749999997,0.29893891943623857
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,7,2931.3609374999996,0.3041497298735821
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,8,2971.8125,0.3102374840173876
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,9,3012.2640625,0.31330337449844375
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,10,3052.715625,0.31438464391177967
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,11,3093.1671874999997,0.3115989321843845
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,12,3133.6187499999996,0.3054000742971843
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,13,3174.0703125,0.29867755892345305
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,14,3214.521875,0.2943727911128121
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,15,3254.9734375,0.2982800554558851
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,16,3295.4249999999997,0.29368785892999877
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,17,3335.8765624999996,0.29614389428412013
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,18,3376.328125,0.29459256950494184
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,19,3416.7796875,0.29884699335495
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,20,3457.23125,0.30128153131985286
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,21,3497.6828124999997,0.30218355355786347
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,22,3538.1343749999996,0.2957843657412389
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,23,3578.5859375,0.30917506798194444
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,24,3619.0375,0.3017343615389785
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,25,3659.4890625,0.2990094390363235
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,26,3699.940625,0.29602572879134376
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,27,3740.3921874999996,0.28995859554575143
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,28,3780.84375,0.2882993062560564
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,29,3821.2953125,0.2814205788884395
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,30,3861.746875,0.2791502858245035
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,31,3902.1984375,0.27076188245154936
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,32,3942.6499999999996,0.2637407733267739
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,33,3983.1015625,0.2604250034732832
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,34,4023.553125,0.25702183706494997
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,35,4064.0046875,0.24911227820334864
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,36,4104.45625,0.24903860158868124
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,37,4144.9078125,0.24636443711266498
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,38,4185.359375,0.24961450531675178
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,39,4225.8109375,0.2501371575070328
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,40,4266.2625,0.2446645415242731
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,41,4306.7140625,0.23983026099840438
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,42,4347.165625,0.24054350921438977
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,43,4387.6171875,0.24311669497067834
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,44,4428.06875,0.2417459672609269
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,45,4468.5203125,0.2413992753606531
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,46,4508.971875,0.2395443727217363
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,47,4549.4234375,0.23111186637457243
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,48,4589.875,0.21908749183440007
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,49,4630.3265625,0.21276163001586926
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,50,4670.778125,0.20673584997515276
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,51,4711.229687499999,0.19820080691661823
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,52,4751.68125,0.18768784976564498
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,53,4792.1328125,0.1818792528807575
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,54,4832.584375,0.17673681388404608
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,55,4873.0359375,0.1791903981979452
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,56,4913.487499999999,0.17929246373954225
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,57,4953.9390625,0.1789566063321641
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,58,4994.390625,0.17566872104394066
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,59,5034.8421875,0.17710179046024185
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,60,5075.29375,0.17423058084057735
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,61,5115.745312499999,0.17171820786661873
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,62,5156.196875,0.1729570277349856
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,63,5196.6484375,0.17207675946363127
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,64,5237.1,0.17127384594914113
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,65,5277.5515625,0.1673739935365069
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,66,5318.003124999999,0.15892500750125776
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,67,5358.4546875,0.15711481792177304
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,68,5398.90625,0.15253760687150641
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,69,5439.3578125,0.15369528608905922
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,70,5479.809375,0.1573783586489169
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,71,5520.260937499999,0.16121474216258808
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,72,5560.7125,0.16378394646580163
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,73,5601.1640625,0.16552178945245105
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,74,5641.615625,0.1689321672991606
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,75,5682.0671875,0.16805521484014413
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,76,5722.518749999999,0.16830017029998434
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,77,5762.9703125,0.17491084889232716
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,78,5803.421875,0.17772641269600392
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,79,5843.8734375,0.17819130605048633
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,80,5884.325,0.17603181651194985
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,81,5924.776562499999,0.17819122214490035
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,82,5965.228125,0.18460729970822046
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,83,6005.6796875,0.1834635902079332
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,84,6046.13125,0.17569729180945243
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,85,6086.5828125,0.17463125711788913
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,86,6127.034374999999,0.17313618745023135
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,87,6167.4859375,0.17204796478696682
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,88,6207.9375,0.1751530143669993
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,89,6248.3890625,0.17648111520325147
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,90,6288.840625,0.17876404582261562
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,91,6329.292187499999,0.17886782403627682
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,92,6369.74375,0.18187210839797108
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,93,6410.1953125,0.18763040564651817
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,94,6450.646875,0.19575513461460708
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,95,6491.0984375,0.19768514098949436
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,96,6531.55,0.20225436473573521
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,97,6572.0015625,0.2055434546946534
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,98,6612.453125,0.20557459589396332
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,99,6652.9046875,0.21350166411932828
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,100,6693.35625,0.21092625524983025
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,101,6733.8078125,0.21871905844780698
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,102,6774.259375,0.2246677006967332
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,103,6814.7109375,0.22382479722508375
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,104,6855.1625,0.22320607255498434
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,105,6895.6140625,0.2210954242773636
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,106,6936.065625,0.2208709117998749
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,107,6976.5171875,0.22317178056989645
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,108,7016.96875,0.22258593262370718
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,109,7057.4203125,0.22216570481140996
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,110,7097.871875,0.21926284130540286
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,111,7138.3234375,0.22157978210166587
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,112,7178.775,0.2251282029059956
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,113,7219.2265625,0.22663947757257594
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,114,7259.678125,0.22621897914561878
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,115,7300.1296875,0.2258785452450871
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,116,7340.58125,0.22588000948807513
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,117,7381.0328125,0.22673445631279554
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,118,7421.484375,0.22799759062715644
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,119,7461.9359375,0.23154874010014564
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,120,7502.3875,0.23023200679587924
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,121,7542.8390625,0.23004502401981122
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,122,7583.290625,0.22756563731832438
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,123,7623.7421875,0.2270624279248065
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,124,7664.19375,0.2216483825153682
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,125,7704.6453125,0.21597765128088603
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,126,7745.096875,0.21533797166184077
+right: single step from the RK6 state,"N = 128, q = 8, Δz = 40.5 mm",128,8,cost-weighted,127,7785.5484375,0.21665110132658566
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,0,2648.2,0.0
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,1,2668.42578125,0.07322485012484561
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,2,2688.6515624999997,0.15735619078520247
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,3,2708.87734375,0.2516995358023577
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,4,2729.1031249999996,0.352173502139977
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,5,2749.32890625,0.459480697115882
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,6,2769.5546875,0.5792149027493667
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,7,2789.7804687499997,0.715500329154654
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,8,2810.00625,0.8451136437318452
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,9,2830.2320312499996,0.9915875316288203
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,10,2850.4578125,1.1405073764764047
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,11,2870.68359375,1.2919357296639604
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,12,2890.9093749999997,1.4462590461037648
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,13,2911.13515625,1.624603373506431
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,14,2931.3609374999996,1.8101867429825929
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,15,2951.58671875,1.9942381763955468
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,16,2971.8125,2.183187357820985
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,17,2992.0382812499997,2.3770027608492015
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,18,3012.2640625,2.568136945988611
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,19,3032.4898437499996,2.7751347311288432
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,20,3052.715625,2.966244200043712
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,21,3072.94140625,3.1536529884800384
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,22,3093.1671874999997,3.3627790174038563
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,23,3113.39296875,3.5834424716546778
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,24,3133.6187499999996,3.7785230803223784
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,25,3153.84453125,3.979150479150068
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,26,3174.0703125,4.229310573799122
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,27,3194.2960937499997,4.435820268456292
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,28,3214.521875,4.659373577866013
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,29,3234.7476562499996,4.932108673371228
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,30,3254.9734375,5.134064522352034
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,31,3275.19921875,5.360621646906136
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,32,3295.4249999999997,5.604125855614977
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,33,3315.65078125,5.8552311146836695
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,34,3335.8765624999996,6.134993873461607
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,35,3356.10234375,6.415205441184478
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,36,3376.328125,6.7181587364744235
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,37,3396.5539062499997,7.006198200874375
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,38,3416.7796875,7.338673776409147
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,39,3437.0054687499996,7.655053526848168
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,40,3457.23125,8.007980547718107
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,41,3477.45703125,8.392054401656164
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,42,3497.6828124999997,8.731119281126684
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,43,3517.90859375,9.049048532879798
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,44,3538.1343749999996,9.31609252246124
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,45,3558.36015625,9.660627107397985
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,46,3578.5859375,10.056330830565834
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,47,3598.8117187499997,10.383567922592212
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,48,3619.0375,10.77376463151348
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,49,3639.2632812499996,11.128538285977864
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,50,3659.4890625,11.4906671286823
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,51,3679.71484375,11.888307015612547
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,52,3699.940625,12.29096523876153
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,53,3720.16640625,12.651609638359346
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,54,3740.3921874999996,13.15822534545743
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,55,3760.61796875,13.48815885168865
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,56,3780.84375,13.983360429141253
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,57,3801.06953125,14.463424423054938
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,58,3821.2953125,14.893077561599974
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,59,3841.5210937499996,15.326738235771135
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,60,3861.746875,15.706205879611785
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,61,3881.97265625,16.20831460094989
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,62,3902.1984375,16.673183316129123
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,63,3922.42421875,17.099475036353027
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,64,3942.6499999999996,17.496811174863296
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,65,3962.87578125,17.924329028609552
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,66,3983.1015625,18.314404227966406
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,67,4003.32734375,18.605894147352092
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,68,4023.553125,18.99412750398799
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,69,4043.7789062499996,19.47341011265499
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,70,4064.0046875,19.92095633493603
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,71,4084.23046875,20.436413082013043
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,72,4104.45625,20.790011007761834
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,73,4124.68203125,21.19716819672005
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,74,4144.9078125,21.56158350215198
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,75,4165.13359375,21.981894769927457
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,76,4185.359375,22.48409343129341
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,77,4205.58515625,22.955508570192727
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,78,4225.8109375,23.510349034748977
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,79,4246.03671875,23.988519165336527
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,80,4266.2625,24.28741780373258
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,81,4286.48828125,24.73301496661356
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,82,4306.7140625,25.249694319638866
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,83,4326.93984375,25.73499489722373
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,84,4347.165625,26.18620585991178
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,85,4367.39140625,26.613601917364367
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,86,4387.6171875,27.014811057409695
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,87,4407.84296875,27.395920990178062
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,88,4428.06875,27.802703345315138
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,89,4448.29453125,28.3074192180043
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,90,4468.5203125,28.81402285046846
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,91,4488.74609375,29.32397824222042
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,92,4508.971875,29.844144405439348
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,93,4529.19765625,30.321748261233182
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,94,4549.4234375,30.908788589124427
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,95,4569.64921875,31.352788801226687
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,96,4589.875,31.827904675747668
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,97,4610.10078125,32.4083088909673
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,98,4630.3265625,32.970252813378835
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,99,4650.55234375,33.35539865508324
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,100,4670.778125,33.64328886753245
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,101,4691.00390625,34.00821929845661
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,102,4711.229687499999,34.553711481679315
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,103,4731.45546875,35.123392256843076
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,104,4751.68125,35.71223357155945
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,105,4771.90703125,36.35145507499327
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,106,4792.1328125,37.11294195237201
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,107,4812.358593749999,37.65975707967458
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,108,4832.584375,38.28306623028344
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,109,4852.81015625,38.730465309759964
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,110,4873.0359375,39.35111140627088
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,111,4893.26171875,39.8484649537601
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,112,4913.487499999999,40.35383379700576
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,113,4933.71328125,40.922116036560865
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,114,4953.9390625,41.49752096382268
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,115,4974.16484375,42.09454415578118
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,116,4994.390625,42.67893179467083
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,117,5014.616406249999,43.14266928318188
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,118,5034.8421875,43.689078352751224
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,119,5055.06796875,44.371786112301734
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,120,5075.29375,44.90987488464252
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,121,5095.51953125,45.52866134858998
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,122,5115.745312499999,46.15287738097285
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,123,5135.97109375,46.703509522801596
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,124,5156.196875,47.30055162149968
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,125,5176.42265625,47.98647330235289
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,126,5196.6484375,48.756550835202745
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,127,5216.874218749999,49.33981472842625
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,128,5237.1,50.009860765873974
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,129,5257.32578125,50.64969030015439
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,130,5277.5515625,51.21535767060218
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,131,5297.77734375,51.74699396914617
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,132,5318.003124999999,52.430757721941205
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,133,5338.22890625,53.10141272937227
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,134,5358.4546875,53.83457508047424
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,135,5378.68046875,54.331139487182156
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,136,5398.90625,54.917074933996815
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,137,5419.132031249999,55.39963211967676
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,138,5439.3578125,56.05081320196701
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,139,5459.58359375,56.67371971356559
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,140,5479.809375,57.23259186060099
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,141,5500.03515625,57.89353013055137
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,142,5520.260937499999,58.5434910857063
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,143,5540.48671875,59.002062437231864
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,144,5560.7125,59.570879793905114
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,145,5580.93828125,60.01835926043702
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,146,5601.1640625,60.6446912682011
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,147,5621.389843749999,61.14878526386074
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,148,5641.615625,61.7013345994353
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,149,5661.84140625,62.18519692133418
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,150,5682.0671875,62.499657686278134
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,151,5702.29296875,63.354069069802605
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,152,5722.518749999999,64.04195304270084
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,153,5742.74453125,64.74916197625095
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,154,5762.9703125,65.55813759993524
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,155,5783.19609375,66.09644039061135
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,156,5803.421875,66.70248155006865
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,157,5823.647656249999,67.3774829166523
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,158,5843.8734375,67.869510209173
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,159,5864.09921875,68.64459880341393
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,160,5884.325,69.28320518836485
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,161,5904.55078125,69.8242135364571
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,162,5924.776562499999,70.6981045492791
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,163,5945.00234375,71.69920123603154
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,164,5965.228125,72.37540864743997
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,165,5985.45390625,73.03849151402306
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,166,6005.6796875,73.58324585515545
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,167,6025.905468749999,74.19450251793677
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,168,6046.13125,74.55479650269419
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,169,6066.35703125,75.33563320633948
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,170,6086.5828125,75.72083544403208
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,171,6106.80859375,76.12654077691667
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,172,6127.034374999999,76.93275692641538
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,173,6147.26015625,77.55842260454382
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,174,6167.4859375,78.19925461014472
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,175,6187.71171875,78.93706151103666
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,176,6207.9375,79.78049764321432
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,177,6228.163281249999,80.33134351434103
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,178,6248.3890625,81.0502448252038
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,179,6268.61484375,81.85523624645424
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,180,6288.840625,82.57541307124342
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,181,6309.06640625,83.3627498033581
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,182,6329.292187499999,84.21296592585676
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,183,6349.51796875,85.0723781939285
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,184,6369.74375,85.71483197121213
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,185,6389.96953125,86.47749334230174
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,186,6410.1953125,87.00533058194574
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,187,6430.421093749999,87.71962745896289
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,188,6450.646875,88.54946774859025
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,189,6470.87265625,89.21825426052227
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,190,6491.0984375,90.05584122596336
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,191,6511.32421875,90.75139420320956
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,192,6531.55,91.56601724941271
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,193,6551.77578125,92.5984941028025
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,194,6572.0015625,93.69210012974592
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,195,6592.22734375,94.0047101635692
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,196,6612.453125,95.01714199808269
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,197,6632.67890625,95.78253618516518
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,198,6652.9046875,97.08329279253351
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,199,6673.13046875,97.70917160036339
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,200,6693.35625,98.30359624732012
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,201,6713.58203125,98.98279727211218
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,202,6733.8078125,99.72827487110004
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,203,6754.03359375,100.32263595576848
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,204,6774.259375,100.84580296595675
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,205,6794.48515625,102.37429390110483
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,206,6814.7109375,103.26778192626608
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,207,6834.93671875,104.00925662849829
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,208,6855.1625,105.02605437181612
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,209,6875.38828125,105.8851281269173
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,210,6895.6140625,106.72679673519556
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,211,6915.83984375,107.57283959510524
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,212,6936.065625,108.20010972149305
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,213,6956.29140625,108.87572286273507
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,214,6976.5171875,109.618050766179
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,215,6996.74296875,110.4292618909687
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,216,7016.96875,111.44041495106165
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,217,7037.19453125,112.22745548070512
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,218,7057.4203125,112.84615969916977
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,219,7077.64609375,113.85510609070472
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,220,7097.871875,115.43468540541426
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,221,7118.09765625,116.3065546921081
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,222,7138.3234375,116.96878927783118
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,223,7158.54921875,117.7597273899359
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,224,7178.775,118.88939747304953
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,225,7199.00078125,119.69757055922176
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,226,7219.2265625,120.22564576183743
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,227,7239.45234375,121.13335662749388
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,228,7259.678125,121.69345077103883
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,229,7279.90390625,122.94084670506328
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,230,7300.1296875,124.03953191019039
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,231,7320.35546875,124.76252610047331
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,232,7340.58125,125.44617250012529
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,233,7360.80703125,126.27804397227366
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,234,7381.0328125,127.23664981150822
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,235,7401.25859375,128.15610951386492
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,236,7421.484375,129.12022010863376
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,237,7441.71015625,130.10419842980787
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,238,7461.9359375,130.9752970398886
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,239,7482.16171875,131.8551381013496
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,240,7502.3875,132.67475774569016
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,241,7522.61328125,133.4023387840188
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,242,7542.8390625,134.0040943262553
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,243,7563.06484375,134.80637179002406
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,244,7583.290625,135.77916416760183
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,245,7603.51640625,136.60752527556872
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,246,7623.7421875,137.67314493210716
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,247,7643.96796875,138.66954336906517
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,248,7664.19375,139.8894389409918
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,249,7684.41953125,140.64735693079268
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,250,7704.6453125,141.46992313673746
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,251,7724.87109375,142.66976780048037
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,252,7745.096875,143.528805830995
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,253,7765.32265625,144.37049193310673
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,254,7785.5484375,145.28527482912466
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,255,7805.77421875,146.28243155124005
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,256,7826.0,147.6798548605811
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,0,2648.2,0.07322485012484561
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,1,2668.42578125,0.07533001534371087
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,2,2688.6515624999997,0.07708557975120114
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,3,2708.87734375,0.07846656162326954
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,4,2729.1031249999996,0.08077503225547503
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,5,2749.32890625,0.082349076050731
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,6,2769.5546875,0.08406956336899171
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,7,2789.7804687499997,0.08564205479927942
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,8,2810.00625,0.08737181313354692
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,9,2830.2320312499996,0.08947024356065054
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,10,2850.4578125,0.09133612959544732
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,11,2870.68359375,0.09347509167405854
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,12,2890.9093749999997,0.09526853408746155
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,13,2911.13515625,0.09668473755820922
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,14,2931.3609374999996,0.09850779970474094
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,15,2951.58671875,0.09970762522956328
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,16,2971.8125,0.10182348033098346
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,17,2992.0382812499997,0.10315150877658083
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,18,3012.2640625,0.10465598314092978
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,19,3032.4898437499996,0.10655431283445915
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,20,3052.715625,0.10833968129513655
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,21,3072.94140625,0.10969021094286968
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,22,3093.1671874999997,0.11028980170949365
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,23,3113.39296875,0.1114728278372471
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,24,3133.6187499999996,0.11267915714921514
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,25,3153.84453125,0.11307668610857405
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,26,3174.0703125,0.11451644144790568
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,27,3194.2960937499997,0.11491209524139209
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,28,3214.521875,0.11516144844325607
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,29,3234.7476562499996,0.11540236683530679
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,30,3254.9734375,0.11553513092933385
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,31,3275.19921875,0.11560741488998555
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,32,3295.4249999999997,0.11547737832601591
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,33,3315.65078125,0.11760556855946808
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,34,3335.8765624999996,0.11858726029016414
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,35,3356.10234375,0.11943253903448131
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,36,3376.328125,0.11966370517372929
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,37,3396.5539062499997,0.11971893668686735
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,38,3416.7796875,0.11965948550748938
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,39,3437.0054687499996,0.1200487490987884
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,40,3457.23125,0.12021620853993244
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,41,3477.45703125,0.120246195032326
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,42,3497.6828124999997,0.11999254861261281
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,43,3517.90859375,0.11992799370219656
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,44,3538.1343749999996,0.1199129790705839
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,45,3558.36015625,0.11951671043514747
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,46,3578.5859375,0.1177818972841484
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,47,3598.8117187499997,0.11807268058412071
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,48,3619.0375,0.11640871362463148
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,49,3639.2632812499996,0.11555005958314973
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,50,3659.4890625,0.11447210370454741
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,51,3679.71484375,0.11514821892169005
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,52,3699.940625,0.11516660686775643
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,53,3720.16640625,0.1134564897110508
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,54,3740.3921874999996,0.11270260058200754
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,55,3760.61796875,0.10979755957825285
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,56,3780.84375,0.10838688763963944
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,57,3801.06953125,0.10813585660680525
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,58,3821.2953125,0.10781345771058624
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,59,3841.5210937499996,0.10690482064673887
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,60,3861.746875,0.10721528636560637
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,61,3881.97265625,0.10612698908075752
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,62,3902.1984375,0.10680025659947917
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,63,3922.42421875,0.10582802894357739
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,64,3942.6499999999996,0.10605247655841032
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,65,3962.87578125,0.105191791614621
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,66,3983.1015625,0.10508110350113334
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,67,4003.32734375,0.10533063166455692
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,68,4023.553125,0.10528213145965173
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,69,4043.7789062499996,0.10349604091264071
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,70,4064.0046875,0.10276282461672681
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,71,4084.23046875,0.10255429377299774
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,72,4104.45625,0.10171425733328945
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,73,4124.68203125,0.1006794442040117
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,74,4144.9078125,0.10039866047805385
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,75,4165.13359375,0.0999397150515331
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,76,4185.359375,0.09842152873939285
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,77,4205.58515625,0.09901332030909783
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,78,4225.8109375,0.09831753573838883
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,79,4246.03671875,0.09797374571192755
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,80,4266.2625,0.09706051385169319
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,81,4286.48828125,0.09810239657270464
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,82,4306.7140625,0.09747306755291579
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,83,4326.93984375,0.09487425701991922
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,84,4347.165625,0.0936516358939504
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,85,4367.39140625,0.0929791907014296
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,86,4387.6171875,0.09424317976362509
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,87,4407.84296875,0.09422141437671734
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,88,4428.06875,0.0932542924798915
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,89,4448.29453125,0.09190659476450544
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,90,4468.5203125,0.08964800384259614
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,91,4488.74609375,0.08745389549042935
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,92,4508.971875,0.08614616230853372
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,93,4529.19765625,0.08324983747691805
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,94,4549.4234375,0.08071334089329782
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,95,4569.64921875,0.07862101490568392
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,96,4589.875,0.07594704243176342
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,97,4610.10078125,0.0752621540038628
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,98,4630.3265625,0.0738229963902122
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,99,4650.55234375,0.07337806536519251
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,100,4670.778125,0.07126171594040298
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,101,4691.00390625,0.06915508207594262
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,102,4711.229687499999,0.06883799740881331
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,103,4731.45546875,0.06803773980203745
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,104,4751.68125,0.06803075005650841
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,105,4771.90703125,0.06836267889279123
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,106,4792.1328125,0.06967584310594124
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,107,4812.358593749999,0.0704878738991504
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,108,4832.584375,0.07090131926308632
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,109,4852.81015625,0.07227398769999677
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,110,4873.0359375,0.0713093849864458
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,111,4893.26171875,0.07322048385565738
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,112,4913.487499999999,0.074020680713248
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,113,4933.71328125,0.07508639128107816
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,114,4953.9390625,0.07595268048757264
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,115,4974.16484375,0.07710692843650828
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,116,4994.390625,0.07751636735619641
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,117,5014.616406249999,0.07761103394993989
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,118,5034.8421875,0.07929427461194513
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,119,5055.06796875,0.08041212738488104
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,120,5075.29375,0.08199960033562367
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,121,5095.51953125,0.08309323128111598
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,122,5115.745312499999,0.0844851366910205
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,123,5135.97109375,0.08482779978684798
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,124,5156.196875,0.08486466274790318
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,125,5176.42265625,0.08476281108413868
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,126,5196.6484375,0.08541829244780204
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,127,5216.874218749999,0.08501324263830276
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,128,5237.1,0.08646704688383358
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,129,5257.32578125,0.08821490818220848
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,130,5277.5515625,0.08964781717185172
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,131,5297.77734375,0.08918743449584886
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,132,5318.003124999999,0.08812805842560813
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,133,5338.22890625,0.08864718647425734
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,134,5358.4546875,0.0883154406345589
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,135,5378.68046875,0.08837900193610235
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,136,5398.90625,0.08916086717520869
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,137,5419.132031249999,0.08910698968368877
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,138,5439.3578125,0.09007308218131488
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,139,5459.58359375,0.0907962240762912
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,140,5479.809375,0.09078268285776045
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,141,5500.03515625,0.09079223954259695
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,142,5520.260937499999,0.09017617288530731
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,143,5540.48671875,0.09118406319999031
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,144,5560.7125,0.0912702321135842
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,145,5580.93828125,0.0918989752748091
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,146,5601.1640625,0.09279097810110999
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,147,5621.389843749999,0.0929096538890077
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,148,5641.615625,0.09303553005407045
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,149,5661.84140625,0.0924259238825308
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,150,5682.0671875,0.09259541485998439
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,151,5702.29296875,0.09318532223001563
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,152,5722.518749999999,0.09363222931575294
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,153,5742.74453125,0.0941396800914832
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,154,5762.9703125,0.09492792554620604
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,155,5783.19609375,0.09568392014819717
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,156,5803.421875,0.09524546370871745
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,157,5823.647656249999,0.09507392318174956
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,158,5843.8734375,0.09522539605643862
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,159,5864.09921875,0.0946714390095198
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,160,5884.325,0.09420615301863666
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,161,5904.55078125,0.09491952510783622
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,162,5924.776562499999,0.0945448014893079
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,163,5945.00234375,0.09370903906784037
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,164,5965.228125,0.09422238720910447
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,165,5985.45390625,0.09438923812312262
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,166,6005.6796875,0.09545757166019793
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,167,6025.905468749999,0.09532224023063716
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,168,6046.13125,0.09539904069787201
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,169,6066.35703125,0.0959851274198945
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,170,6086.5828125,0.09464067319677091
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,171,6106.80859375,0.0941647884054238
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,172,6127.034374999999,0.09361529373415384
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,173,6147.26015625,0.09365122965898924
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,174,6167.4859375,0.09355659572529446
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,175,6187.71171875,0.09338267761357652
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,176,6207.9375,0.09365479372361848
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,177,6228.163281249999,0.09248520416602035
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,178,6248.3890625,0.09261528989990189
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,179,6268.61484375,0.09264443736752546
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,180,6288.840625,0.09287180461910921
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,181,6309.06640625,0.09349883959056463
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,182,6329.292187499999,0.09401279552008514
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,183,6349.51796875,0.09312389788455613
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,184,6369.74375,0.09275911551342866
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,185,6389.96953125,0.09272047699607966
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,186,6410.1953125,0.09224689605330783
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,187,6430.421093749999,0.09215802844287313
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,188,6450.646875,0.09253014795392915
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,189,6470.87265625,0.09188543411740796
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,190,6491.0984375,0.0913528245746306
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,191,6511.32421875,0.09131645432158532
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,192,6531.55,0.09127671380376942
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,193,6551.77578125,0.09067572896199531
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,194,6572.0015625,0.09057589246098158
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,195,6592.22734375,0.08982408931564165
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,196,6612.453125,0.08941374386539055
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,197,6632.67890625,0.08905585225475715
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,198,6652.9046875,0.08945223000462138
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,199,6673.13046875,0.08908672558058678
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,200,6693.35625,0.08933395409089212
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,201,6713.58203125,0.08909517662314172
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,202,6733.8078125,0.0889771838836832
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,203,6754.03359375,0.08831699552273606
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,204,6774.259375,0.0878232417207655
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,205,6794.48515625,0.0866147522823196
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,206,6814.7109375,0.0853901580032203
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,207,6834.93671875,0.08494222099794148
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,208,6855.1625,0.08382851854642823
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,209,6875.38828125,0.08367394869493731
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,210,6895.6140625,0.08316005059403854
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,211,6915.83984375,0.08273659953118861
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,212,6936.065625,0.0821399195202871
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,213,6956.29140625,0.08163198572752448
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,214,6976.5171875,0.08173082933965792
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,215,6996.74296875,0.0807834909677703
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,216,7016.96875,0.08039879087392553
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,217,7037.19453125,0.08038742022202897
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,218,7057.4203125,0.07953171234892521
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,219,7077.64609375,0.07879971572344036
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,220,7097.871875,0.07795405483766377
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,221,7118.09765625,0.07687654440811748
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,222,7138.3234375,0.0762476236347148
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,223,7158.54921875,0.07556162644093908
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,224,7178.775,0.0753142793359454
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,225,7199.00078125,0.07438530510537061
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,226,7219.2265625,0.07327554254097042
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,227,7239.45234375,0.07244349833096078
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,228,7259.678125,0.07158016676005698
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,229,7279.90390625,0.07145828757482124
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,230,7300.1296875,0.07124030095108608
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,231,7320.35546875,0.07037034979612297
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,232,7340.58125,0.06939246659343773
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,233,7360.80703125,0.06846148899537266
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,234,7381.0328125,0.06776605802648555
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,235,7401.25859375,0.06734931949300378
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,236,7421.484375,0.06633630394377033
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,237,7441.71015625,0.065853703858009
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,238,7461.9359375,0.06511109245603053
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,239,7482.16171875,0.0641313810903644
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,240,7502.3875,0.06347477529933618
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,241,7522.61328125,0.06313735310316282
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,242,7542.8390625,0.06266981296959093
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,243,7563.06484375,0.06187211682830122
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,244,7583.290625,0.061739828554224
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,245,7603.51640625,0.061827206487786945
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,246,7623.7421875,0.061108950248211044
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,247,7643.96796875,0.06108391970440932
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,248,7664.19375,0.06039045256610849
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,249,7684.41953125,0.059933022157120736
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,250,7704.6453125,0.059274970612083144
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,251,7724.87109375,0.05807692845403334
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,252,7745.096875,0.057038623177148653
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,253,7765.32265625,0.055904863001872376
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,254,7785.5484375,0.05492426841518788
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,pooled,255,7805.77421875,0.05421074313697129
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,0,2648.2,0.0
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,1,2668.42578125,0.03611887855423607
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,2,2688.6515624999997,0.07532024041419955
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,3,2708.87734375,0.11470467529774345
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,4,2729.1031249999996,0.16154507550317768
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,5,2749.32890625,0.20868164020886215
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,6,2769.5546875,0.2603787170862356
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,7,2789.7804687499997,0.32070918787255615
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,8,2810.00625,0.37847151894023867
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,9,2830.2320312499996,0.44065207564349307
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,10,2850.4578125,0.5099916940102124
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,11,2870.68359375,0.5930633885657652
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,12,2890.9093749999997,0.6702377660458745
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,13,2911.13515625,0.7471100137409301
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,14,2931.3609374999996,0.8275817331666585
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,15,2951.58671875,0.9118775422837188
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,16,2971.8125,0.9991683821252841
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,17,2992.0382812499997,1.0917769608803858
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,18,3012.2640625,1.186459987631983
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,19,3032.4898437499996,1.2930599993472176
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,20,3052.715625,1.3973023249353247
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,21,3072.94140625,1.520445684464859
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,22,3093.1671874999997,1.635415509761307
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,23,3113.39296875,1.7531947886661068
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,24,3133.6187499999996,1.8798118714280017
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,25,3153.84453125,2.0084206373014255
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,26,3174.0703125,2.1215487057283533
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,27,3194.2960937499997,2.244917259404504
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,28,3214.521875,2.3752149885350553
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,29,3234.7476562499996,2.515800966313009
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,30,3254.9734375,2.648191073071123
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,31,3275.19921875,2.783494929030289
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,32,3295.4249999999997,2.9227368036572337
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,33,3315.65078125,3.0842888873574394
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,34,3335.8765624999996,3.240317805650354
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,35,3356.10234375,3.4109434268174104
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,36,3376.328125,3.6207274883208016
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,37,3396.5539062499997,3.8047055393897855
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,38,3416.7796875,3.9758526948362887
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,39,3437.0054687499996,4.129786438809598
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,40,3457.23125,4.2962051054414605
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,41,3477.45703125,4.470061488086062
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,42,3497.6828124999997,4.678388990431348
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,43,3517.90859375,4.889814144304897
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,44,3538.1343749999996,5.10342979865867
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,45,3558.36015625,5.295870261042106
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,46,3578.5859375,5.530171995267696
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,47,3598.8117187499997,5.73580586920723
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,48,3619.0375,5.9622901881451345
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,49,3639.2632812499996,6.205832894838398
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,50,3659.4890625,6.472570629807649
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,51,3679.71484375,6.718902377017429
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,52,3699.940625,6.98568062506161
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,53,3720.16640625,7.240492316781655
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,54,3740.3921874999996,7.439503695161941
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,55,3760.61796875,7.6774110146481185
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,56,3780.84375,7.89555045581041
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,57,3801.06953125,8.141756405503246
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,58,3821.2953125,8.389228681281274
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,59,3841.5210937499996,8.613560273780674
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,60,3861.746875,8.967939158475764
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,61,3881.97265625,9.245856666816533
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,62,3902.1984375,9.483278723552463
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,63,3922.42421875,9.818995840076465
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,64,3942.6499999999996,10.154988121673433
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,65,3962.87578125,10.495965325935405
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,66,3983.1015625,10.769328666996747
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,67,4003.32734375,11.07585689269167
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,68,4023.553125,11.354894334093412
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,69,4043.7789062499996,11.765152035158941
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,70,4064.0046875,12.043605240774212
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,71,4084.23046875,12.358715586907401
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,72,4104.45625,12.715257663248268
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,73,4124.68203125,12.947322091643919
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,74,4144.9078125,13.286700324137158
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,75,4165.13359375,13.504697544469035
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,76,4185.359375,13.833821418251851
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,77,4205.58515625,13.997795980457397
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,78,4225.8109375,14.31536061791598
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,79,4246.03671875,14.514329765388396
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,80,4266.2625,14.705574752098645
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,81,4286.48828125,14.939901634332795
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,82,4306.7140625,15.226226890886359
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,83,4326.93984375,15.671289890255334
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,84,4347.165625,16.046361031809887
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,85,4367.39140625,16.408520423387035
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,86,4387.6171875,16.84714892706248
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,87,4407.84296875,17.301730291608035
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,88,4428.06875,17.701933603118547
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,89,4448.29453125,18.097587613521114
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,90,4468.5203125,18.40527877283736
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,91,4488.74609375,18.75488882230424
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,92,4508.971875,19.044295878237854
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,93,4529.19765625,19.48308358031009
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,94,4549.4234375,19.805739225154568
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,95,4569.64921875,20.188968511743063
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,96,4589.875,20.670349833969514
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,97,4610.10078125,21.247138768520955
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,98,4630.3265625,21.574702653066947
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,99,4650.55234375,21.849378984129743
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,100,4670.778125,22.169789249954235
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,101,4691.00390625,22.567668144117633
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,102,4711.229687499999,22.956704102798888
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,103,4731.45546875,23.50673749563994
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,104,4751.68125,23.783215247855807
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,105,4771.90703125,24.155333720454173
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,106,4792.1328125,24.56317790306613
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,107,4812.358593749999,25.080529663374747
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,108,4832.584375,25.515152842746875
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,109,4852.81015625,25.886482122308475
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,110,4873.0359375,26.244525124133773
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,111,4893.26171875,26.691372344738053
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,112,4913.487499999999,26.998371334885892
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,113,4933.71328125,27.37400070621071
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,114,4953.9390625,27.689866699005897
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,115,4974.16484375,27.811951107417297
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,116,4994.390625,28.314903061786577
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,117,5014.616406249999,28.62682741755016
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,118,5034.8421875,28.909537264633848
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,119,5055.06796875,29.197985761193564
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,120,5075.29375,29.453525698027633
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,121,5095.51953125,29.82872686530035
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,122,5115.745312499999,30.290296805338137
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,123,5135.97109375,30.56240798343483
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,124,5156.196875,30.785333051773485
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,125,5176.42265625,31.007077228167958
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,126,5196.6484375,31.465900836321335
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,127,5216.874218749999,32.022902545862834
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,128,5237.1,32.344653840210725
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,129,5257.32578125,32.85179506779086
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,130,5277.5515625,33.10971721455279
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,131,5297.77734375,33.45661781624035
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,132,5318.003124999999,33.8482624955694
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,133,5338.22890625,34.09627585571312
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,134,5358.4546875,34.58119417012023
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,135,5378.68046875,34.85650018144533
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,136,5398.90625,35.22299230682417
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,137,5419.132031249999,35.42896233192266
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,138,5439.3578125,35.66590758739022
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,139,5459.58359375,35.893584310067176
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,140,5479.809375,36.26878419397387
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,141,5500.03515625,36.62631708584673
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,142,5520.260937499999,37.023312583779685
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,143,5540.48671875,37.5617047165953
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,144,5560.7125,37.87792015478465
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,145,5580.93828125,38.267573430128536
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,146,5601.1640625,38.693700907545164
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,147,5621.389843749999,39.062854437613964
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,148,5641.615625,39.40639282659281
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,149,5661.84140625,39.87235194670443
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,150,5682.0671875,39.969527904176076
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,151,5702.29296875,40.434199924009604
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,152,5722.518749999999,40.75392847394063
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,153,5742.74453125,41.22380857702761
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,154,5762.9703125,41.61996528853896
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,155,5783.19609375,42.01719301712049
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,156,5803.421875,42.529155090860385
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,157,5823.647656249999,42.74701547549512
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,158,5843.8734375,43.04493504159196
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,159,5864.09921875,43.565457338158126
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,160,5884.325,43.87169808398899
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,161,5904.55078125,44.248646008575456
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,162,5924.776562499999,44.55648218831444
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,163,5945.00234375,45.11609007601544
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,164,5965.228125,45.67812678330425
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,165,5985.45390625,46.37898259069716
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,166,6005.6796875,46.88762279599091
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,167,6025.905468749999,47.01013389321336
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,168,6046.13125,46.96894827901133
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,169,6066.35703125,47.30434605304593
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,170,6086.5828125,47.76703267354246
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,171,6106.80859375,47.97434970566334
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,172,6127.034374999999,48.28093552711837
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,173,6147.26015625,48.50475820852331
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,174,6167.4859375,48.743548976161875
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,175,6187.71171875,49.39706808450771
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,176,6207.9375,50.19276567062802
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,177,6228.163281249999,50.6571108733018
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,178,6248.3890625,50.95449204082853
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,179,6268.61484375,51.4567805215798
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,180,6288.840625,52.05617980821083
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,181,6309.06640625,52.47316973638024
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,182,6329.292187499999,52.583514218459555
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,183,6349.51796875,52.95704765160568
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,184,6369.74375,53.415504370930165
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,185,6389.96953125,54.006387289490206
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,186,6410.1953125,54.11174303734287
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,187,6430.421093749999,54.637377885143245
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,188,6450.646875,55.33681333008529
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,189,6470.87265625,55.49058706769564
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,190,6491.0984375,55.45227182073738
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,191,6511.32421875,55.78202707217237
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,192,6531.55,55.78519402760694
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,193,6551.77578125,55.86167244114621
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,194,6572.0015625,55.795476725983555
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,195,6592.22734375,55.84996239398991
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,196,6612.453125,56.17404950332249
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,197,6632.67890625,56.72296730995724
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,198,6652.9046875,57.14755990446616
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,199,6673.13046875,57.549170241292316
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,200,6693.35625,58.19251914447581
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,201,6713.58203125,58.655286937827626
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,202,6733.8078125,58.8830006137489
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,203,6754.03359375,59.38602135772409
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,204,6774.259375,60.043779303885195
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,205,6794.48515625,60.60007861359428
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,206,6814.7109375,61.19888430345564
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,207,6834.93671875,61.633440119526625
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,208,6855.1625,61.78903550827851
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,209,6875.38828125,61.83054265936035
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,210,6895.6140625,62.00426116648013
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,211,6915.83984375,62.43887686918266
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,212,6936.065625,62.81297776112498
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,213,6956.29140625,62.884350504570634
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,214,6976.5171875,63.61448116824523
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,215,6996.74296875,64.1038651556287
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,216,7016.96875,65.25323348221272
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,217,7037.19453125,65.76728704947224
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,218,7057.4203125,66.17740660617392
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,219,7077.64609375,67.11172078374355
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,220,7097.871875,67.20262094433946
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,221,7118.09765625,67.5927643872988
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,222,7138.3234375,68.23755733535509
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,223,7158.54921875,68.58039268422624
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,224,7178.775,68.84391927166917
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,225,7199.00078125,69.37299724843992
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,226,7219.2265625,70.29057969054281
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,227,7239.45234375,70.69684464657905
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,228,7259.678125,71.17488855235868
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,229,7279.90390625,71.59307296521786
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,230,7300.1296875,72.4407584504473
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,231,7320.35546875,73.11255841726367
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,232,7340.58125,74.1951696494639
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,233,7360.80703125,75.19612422431257
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,234,7381.0328125,74.89498649753244
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,235,7401.25859375,75.21129505337754
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,236,7421.484375,76.16548923068777
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,237,7441.71015625,77.00611584391865
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,238,7461.9359375,77.32039459197138
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,239,7482.16171875,78.18997686940497
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,240,7502.3875,79.00555303277565
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,241,7522.61328125,79.83985283168165
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,242,7542.8390625,80.5658715498156
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,243,7563.06484375,81.08393154141827
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,244,7583.290625,81.37482925013546
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,245,7603.51640625,82.33567351685886
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,246,7623.7421875,83.0656350061037
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,247,7643.96796875,84.02549174710447
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,248,7664.19375,84.74386127231863
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,249,7684.41953125,85.51086776252244
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,250,7704.6453125,86.35877690837299
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,251,7724.87109375,87.10254859098428
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,252,7745.096875,88.32062624624024
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,253,7765.32265625,89.50531932955661
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,254,7785.5484375,90.6983748733744
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,255,7805.77421875,91.63091426074865
+left: chain,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,256,7826.0,92.15880370314537
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,0,2648.2,0.03611887855423607
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,1,2668.42578125,0.03727931470211268
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,2,2688.6515624999997,0.03856070666698057
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,3,2708.87734375,0.0395839840058456
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,4,2729.1031249999996,0.040936106099062626
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,5,2749.32890625,0.042341445347975876
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,6,2769.5546875,0.04328855655252855
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,7,2789.7804687499997,0.0445396866976902
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,8,2810.00625,0.045792223376390134
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,9,2830.2320312499996,0.04692904016815193
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,10,2850.4578125,0.04799971878235254
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,11,2870.68359375,0.04917293455922381
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,12,2890.9093749999997,0.050403386724724455
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,13,2911.13515625,0.051338934803963
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,14,2931.3609374999996,0.0524667994041571
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,15,2951.58671875,0.053541506003237566
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,16,2971.8125,0.054963629992473784
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,17,2992.0382812499997,0.05578959009211083
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,18,3012.2640625,0.05651892369474434
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,19,3032.4898437499996,0.05747716968273185
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,20,3052.715625,0.058562419355790526
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,21,3072.94140625,0.05959725551498227
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,22,3093.1671874999997,0.06072684816027671
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,23,3113.39296875,0.06229529871722876
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,24,3133.6187499999996,0.06329493274205023
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,25,3153.84453125,0.0647025672767384
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,26,3174.0703125,0.0657497457422308
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,27,3194.2960937499997,0.06610392625599905
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,28,3214.521875,0.06700231843219676
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,29,3234.7476562499996,0.06799788951629376
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,30,3254.9734375,0.06910901258517971
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,31,3275.19921875,0.06993382948490867
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,32,3295.4249999999997,0.0706328552424774
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,33,3315.65078125,0.07206503168874312
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,34,3335.8765624999996,0.07321988942063332
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,35,3356.10234375,0.07347470627093815
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,36,3376.328125,0.07324100523014461
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,37,3396.5539062499997,0.07359370152766119
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,38,3416.7796875,0.07362680866695967
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,39,3437.0054687499996,0.07445697977541443
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,40,3457.23125,0.07549975974986599
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,41,3477.45703125,0.07625552567517715
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,42,3497.6828124999997,0.07770190133633864
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,43,3517.90859375,0.07743714133094612
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,44,3538.1343749999996,0.0784802525968786
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,45,3558.36015625,0.07969506426139528
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,46,3578.5859375,0.07905316072234111
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,47,3598.8117187499997,0.07841854849747053
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,48,3619.0375,0.07898979183205129
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,49,3639.2632812499996,0.07984825739574025
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,50,3659.4890625,0.0792124007889656
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,51,3679.71484375,0.07972373214861078
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,52,3699.940625,0.08094809965981142
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,53,3720.16640625,0.08195293582796698
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,54,3740.3921874999996,0.08246026686699597
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,55,3760.61796875,0.08240907147238649
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,56,3780.84375,0.08158370873391757
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,57,3801.06953125,0.08167812308963382
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,58,3821.2953125,0.08156193198373665
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,59,3841.5210937499996,0.08143714202106958
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,60,3861.746875,0.08145236177966744
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,61,3881.97265625,0.08128263934498273
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,62,3902.1984375,0.08199764791822592
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,63,3922.42421875,0.08227080585750497
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,64,3942.6499999999996,0.08220657885465038
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,65,3962.87578125,0.0818899136009816
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,66,3983.1015625,0.08197671065406938
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,67,4003.32734375,0.08209308169515653
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,68,4023.553125,0.0816423604519998
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,69,4043.7789062499996,0.08163994513025391
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,70,4064.0046875,0.08133672146855095
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,71,4084.23046875,0.08092984606085221
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,72,4104.45625,0.07970185148351157
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,73,4124.68203125,0.07958284394269627
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,74,4144.9078125,0.07862770338546553
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,75,4165.13359375,0.07781775630657842
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,76,4185.359375,0.07795245982671833
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,77,4205.58515625,0.0770658209579678
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,78,4225.8109375,0.07647822732578416
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,79,4246.03671875,0.0760285508267172
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,80,4266.2625,0.07491269945052231
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,81,4286.48828125,0.07365348164735572
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,82,4306.7140625,0.07252652242590611
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,83,4326.93984375,0.07169722434180578
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,84,4347.165625,0.06946330514010154
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,85,4367.39140625,0.0682434637581068
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,86,4387.6171875,0.06633250345862483
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,87,4407.84296875,0.06473384355011214
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,88,4428.06875,0.06122478703459887
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,89,4448.29453125,0.05939133722261295
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,90,4468.5203125,0.057657621492978484
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,91,4488.74609375,0.05534309549463941
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,92,4508.971875,0.05437843033718634
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,93,4529.19765625,0.05428106986489076
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,94,4549.4234375,0.056032782646591506
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,95,4569.64921875,0.05698289951527363
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,96,4589.875,0.05846881238015996
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,97,4610.10078125,0.05918108852152047
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,98,4630.3265625,0.060344212079619125
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,99,4650.55234375,0.0600403679576757
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,100,4670.778125,0.06010394468653922
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,101,4691.00390625,0.06213730397821908
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,102,4711.229687499999,0.06363491620731154
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,103,4731.45546875,0.06464063821870793
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,104,4751.68125,0.06496532088373735
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,105,4771.90703125,0.06441244277315203
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,106,4792.1328125,0.06340782965110217
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,107,4812.358593749999,0.061791520286472015
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,108,4832.584375,0.059418750026434514
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,109,4852.81015625,0.05757557815676648
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,110,4873.0359375,0.056778096971384834
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,111,4893.26171875,0.05464320876143432
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,112,4913.487499999999,0.053944684273827995
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,113,4933.71328125,0.05286319826508225
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,114,4953.9390625,0.05164998749918623
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,115,4974.16484375,0.05060837291399638
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,116,4994.390625,0.049867907483361146
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,117,5014.616406249999,0.05041095547778901
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,118,5034.8421875,0.05064542734232037
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,119,5055.06796875,0.04994855494501005
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,120,5075.29375,0.049782797227760855
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,121,5095.51953125,0.04901559626126971
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,122,5115.745312499999,0.04826446953393472
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,123,5135.97109375,0.04753487152675813
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,124,5156.196875,0.04769582341427133
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,125,5176.42265625,0.047242378573479654
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,126,5196.6484375,0.04773248714882575
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,127,5216.874218749999,0.04826214670968062
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,128,5237.1,0.049045877897266076
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,129,5257.32578125,0.0480627889950017
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,130,5277.5515625,0.04851164147776157
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,131,5297.77734375,0.04759754719743276
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,132,5318.003124999999,0.04752606929700858
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,133,5338.22890625,0.04746129261521312
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,134,5358.4546875,0.04762570303230883
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,135,5378.68046875,0.047757841526718255
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,136,5398.90625,0.04834972235158466
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,137,5419.132031249999,0.048507886635011835
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,138,5439.3578125,0.04918894720910736
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,139,5459.58359375,0.050094738356075204
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,140,5479.809375,0.050256898754589815
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,141,5500.03515625,0.050710496793035645
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,142,5520.260937499999,0.05080787055035598
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,143,5540.48671875,0.05063176599731829
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,144,5560.7125,0.05060707200283509
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,145,5580.93828125,0.051128148611621085
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,146,5601.1640625,0.05159881806680618
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,147,5621.389843749999,0.05223588027446098
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,148,5641.615625,0.05271882853707343
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,149,5661.84140625,0.0530623175844118
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,150,5682.0671875,0.05316512362306547
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,151,5702.29296875,0.053586301558594035
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,152,5722.518749999999,0.054252154106109694
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,153,5742.74453125,0.05474830995592643
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,154,5762.9703125,0.05443793228838098
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,155,5783.19609375,0.05535940228888479
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,156,5803.421875,0.054470292556857425
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,157,5823.647656249999,0.05458037635983872
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,158,5843.8734375,0.05519624841645591
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,159,5864.09921875,0.05504283486198659
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,160,5884.325,0.05499161959782687
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,161,5904.55078125,0.0549536844879497
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,162,5924.776562499999,0.054707215334257944
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,163,5945.00234375,0.05462442896319056
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,164,5965.228125,0.05497495091307816
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,165,5985.45390625,0.05540834628789776
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,166,6005.6796875,0.05507595866097095
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,167,6025.905468749999,0.05465294054235671
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,168,6046.13125,0.05450609256505863
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,169,6066.35703125,0.05436021947620631
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,170,6086.5828125,0.05387589134686574
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,171,6106.80859375,0.053950396676183926
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,172,6127.034374999999,0.05331690095679162
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,173,6147.26015625,0.05269129828906319
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,174,6167.4859375,0.05180199821889186
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,175,6187.71171875,0.051830978887658044
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,176,6207.9375,0.05148947916822884
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,177,6228.163281249999,0.05176814699687372
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,178,6248.3890625,0.05129052945014129
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,179,6268.61484375,0.050834514979217205
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,180,6288.840625,0.050518017019279236
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,181,6309.06640625,0.04954021326093981
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,182,6329.292187499999,0.04956458044789703
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,183,6349.51796875,0.049662882951179724
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,184,6369.74375,0.04953632643743814
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,185,6389.96953125,0.049275844973371716
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,186,6410.1953125,0.04917596720511093
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,187,6430.421093749999,0.04932750495982935
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,188,6450.646875,0.049910875655219636
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,189,6470.87265625,0.05051014168924261
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,190,6491.0984375,0.05067979650792841
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,191,6511.32421875,0.05092047919636732
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,192,6531.55,0.050763376701617444
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,193,6551.77578125,0.05117743769927411
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,194,6572.0015625,0.05145271040876344
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,195,6592.22734375,0.05231546597573768
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,196,6612.453125,0.05224916179612012
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,197,6632.67890625,0.05226789545571707
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,198,6652.9046875,0.05301193103754778
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,199,6673.13046875,0.05315329465281997
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,200,6693.35625,0.05400365580268708
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,201,6713.58203125,0.05428552087485823
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,202,6733.8078125,0.05440362141515723
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,203,6754.03359375,0.05467917142339268
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,204,6774.259375,0.05474211031387463
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,205,6794.48515625,0.054918052831705824
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,206,6814.7109375,0.05503341499464416
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,207,6834.93671875,0.05542716425489019
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,208,6855.1625,0.05537599592092989
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,209,6875.38828125,0.055442430888022566
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,210,6895.6140625,0.05543364009920208
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,211,6915.83984375,0.055455443242164684
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,212,6936.065625,0.05580397146841675
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,213,6956.29140625,0.056279151245962104
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,214,6976.5171875,0.05648365082450217
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,215,6996.74296875,0.05605153575882224
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,216,7016.96875,0.05637952726586336
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,217,7037.19453125,0.05621521679154114
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,218,7057.4203125,0.05633114887917292
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,219,7077.64609375,0.05643030885489738
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,220,7097.871875,0.05626979893706238
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,221,7118.09765625,0.05615586459679561
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,222,7138.3234375,0.05610325385217724
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,223,7158.54921875,0.05602160325983212
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,224,7178.775,0.05634955379223491
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,225,7199.00078125,0.05683670817448423
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,226,7219.2265625,0.05695871342026304
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,227,7239.45234375,0.057332047326155516
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,228,7259.678125,0.05781382458010513
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,229,7279.90390625,0.05773219482949255
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,230,7300.1296875,0.05803909387528521
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,231,7320.35546875,0.05846216391373751
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,232,7340.58125,0.058226152850420744
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,233,7360.80703125,0.0583749450731541
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,234,7381.0328125,0.058584870620119356
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,235,7401.25859375,0.058674002676271465
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,236,7421.484375,0.05877469723706672
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,237,7441.71015625,0.058530898512282256
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,238,7461.9359375,0.0589106774251311
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,239,7482.16171875,0.05906580102354506
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,240,7502.3875,0.05931539460277484
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,241,7522.61328125,0.05895549335567165
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,242,7542.8390625,0.058865905247178774
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,243,7563.06484375,0.058961068147101475
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,244,7583.290625,0.05861557935612531
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,245,7603.51640625,0.058675477885426
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,246,7623.7421875,0.0585056821176206
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,247,7643.96796875,0.05874837704949967
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,248,7664.19375,0.058556230918980184
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,249,7684.41953125,0.058381375626603
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,250,7704.6453125,0.05805525117665866
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,251,7724.87109375,0.05801008373614956
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,252,7745.096875,0.05708969873950115
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,253,7765.32265625,0.05669143088787432
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,254,7785.5484375,0.05604871629464599
+right: single step from the RK6 state,"N = 256, q = 16, Δz = 20.2 mm",256,16,cost-weighted,255,7805.77421875,0.05644232603945698

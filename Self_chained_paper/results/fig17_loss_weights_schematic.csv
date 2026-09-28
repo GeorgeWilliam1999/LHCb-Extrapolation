@@ -1,0 +1,1029 @@
+panel,series,x,y,x_quantity,y_quantity,note
+a,slope error used,,1.3015037216845826e-06,-,dimensionless,"pooled N=64,q=2 per-step median |dtx|"
+a,lever at the first Gauss node,2665.296842001484,5241.606282998516,z_mm,lever_mm,L + dz (1 - c1)
+a,lever at the last endpoint,7826.0,80.903125,z_mm,lever_mm,the additive dz
+a,geometric displacement at z1 from the first Gauss node,2665.296842001484,6.7166743666444475,z_mm,displacement_um,(z1 - z) dtx
+a,geometric displacement at z1 from one step before z1,7745.096875,0.105295718283413,z_mm,displacement_um,dz dtx
+a,ratio of the two lever arms,,64.78867513459481,-,ratio,
+c,"worked example: 20 GeV, first output plane",20.0,17.780344785069545,p_GeV,a_n * lever / D_ref  [per unit slope],"unclamped, from paper_numbers.json worked_example; the drawn map is clamped and uses lever = (z1 - z) + dz"
+d,"worked example: 20 GeV, first output plane",20.0,0.003433957430775531,p_GeV,a_n / D_ref  [per mm],unclamped
+c,"worked example: 3 GeV, first output plane",3.0,0.5963708940419907,p_GeV,a_n * lever / D_ref  [per unit slope],"unclamped, from paper_numbers.json worked_example; the drawn map is clamped and uses lever = (z1 - z) + dz"
+d,"worked example: 3 GeV, first output plane",3.0,0.00011517843370581922,p_GeV,a_n / D_ref  [per mm],unclamped
+c,"worked example: 20 GeV, last output plane",20.0,0.27781788726671164,p_GeV,a_n * lever / D_ref  [per unit slope],"unclamped, from paper_numbers.json worked_example; the drawn map is clamped and uses lever = (z1 - z) + dz"
+d,"worked example: 20 GeV, last output plane",20.0,0.003433957430775531,p_GeV,a_n / D_ref  [per mm],unclamped
+c,"worked example: 3 GeV, last output plane",3.0,0.009318295219406105,p_GeV,a_n * lever / D_ref  [per unit slope],"unclamped, from paper_numbers.json worked_example; the drawn map is clamped and uses lever = (z1 - z) + dz"
+d,"worked example: 3 GeV, last output plane",3.0,0.00011517843370581922,p_GeV,a_n / D_ref  [per mm],unclamped
+b,pooled weight on a slope residual,,6.04247916380425,-,per unit slope,"1 / s_tx, constant over the whole map"
+b,pooled weight on a position residual,,0.0022407299300688894,-,per mm,"1 / s_x, for comparison"
+a,lever arm,2648.2,5258.703125,z_mm,lever_mm,
+a,lever arm,2671.8429223744292,5235.06020262557,z_mm,lever_mm,
+a,lever arm,2695.485844748858,5211.417280251141,z_mm,lever_mm,
+a,lever arm,2719.1287671232876,5187.774357876712,z_mm,lever_mm,
+a,lever arm,2742.7716894977166,5164.131435502283,z_mm,lever_mm,
+a,lever arm,2766.414611872146,5140.488513127854,z_mm,lever_mm,
+a,lever arm,2790.0575342465754,5116.845590753424,z_mm,lever_mm,
+a,lever arm,2813.7004566210044,5093.202668378995,z_mm,lever_mm,
+a,lever arm,2837.343378995434,5069.559746004566,z_mm,lever_mm,
+a,lever arm,2860.9863013698628,5045.916823630137,z_mm,lever_mm,
+a,lever arm,2884.629223744292,5022.273901255708,z_mm,lever_mm,
+a,lever arm,2908.272146118721,4998.630978881279,z_mm,lever_mm,
+a,lever arm,2931.9150684931506,4974.98805650685,z_mm,lever_mm,
+a,lever arm,2955.55799086758,4951.34513413242,z_mm,lever_mm,
+a,lever arm,2979.200913242009,4927.702211757991,z_mm,lever_mm,
+a,lever arm,3002.8438356164384,4904.059289383561,z_mm,lever_mm,
+a,lever arm,3026.4867579908673,4880.416367009132,z_mm,lever_mm,
+a,lever arm,3050.1296803652967,4856.773444634703,z_mm,lever_mm,
+a,lever arm,3073.7726027397257,4833.130522260274,z_mm,lever_mm,
+a,lever arm,3097.415525114155,4809.487599885845,z_mm,lever_mm,
+a,lever arm,3121.0584474885845,4785.844677511415,z_mm,lever_mm,
+a,lever arm,3144.7013698630135,4762.201755136986,z_mm,lever_mm,
+a,lever arm,3168.344292237443,4738.558832762556,z_mm,lever_mm,
+a,lever arm,3191.987214611872,4714.9159103881275,z_mm,lever_mm,
+a,lever arm,3215.6301369863013,4691.2729880136985,z_mm,lever_mm,
+a,lever arm,3239.2730593607303,4667.63006563927,z_mm,lever_mm,
+a,lever arm,3262.9159817351597,4643.987143264841,z_mm,lever_mm,
+a,lever arm,3286.558904109589,4620.344220890411,z_mm,lever_mm,
+a,lever arm,3310.201826484018,4596.701298515982,z_mm,lever_mm,
+a,lever arm,3333.8447488584475,4573.058376141552,z_mm,lever_mm,
+a,lever arm,3357.4876712328764,4549.415453767123,z_mm,lever_mm,
+a,lever arm,3381.130593607306,4525.772531392694,z_mm,lever_mm,
+a,lever arm,3404.773515981735,4502.129609018265,z_mm,lever_mm,
+a,lever arm,3428.4164383561642,4478.486686643836,z_mm,lever_mm,
+a,lever arm,3452.0593607305937,4454.843764269406,z_mm,lever_mm,
+a,lever arm,3475.7022831050226,4431.200841894977,z_mm,lever_mm,
+a,lever arm,3499.345205479452,4407.557919520547,z_mm,lever_mm,
+a,lever arm,3522.9881278538815,4383.914997146118,z_mm,lever_mm,
+a,lever arm,3546.6310502283104,4360.272074771689,z_mm,lever_mm,
+a,lever arm,3570.2739726027394,4336.62915239726,z_mm,lever_mm,
+a,lever arm,3593.916894977169,4312.9862300228315,z_mm,lever_mm,
+a,lever arm,3617.559817351598,4289.343307648402,z_mm,lever_mm,
+a,lever arm,3641.202739726027,4265.700385273973,z_mm,lever_mm,
+a,lever arm,3664.8456621004566,4242.057462899543,z_mm,lever_mm,
+a,lever arm,3688.488584474886,4218.414540525114,z_mm,lever_mm,
+a,lever arm,3712.131506849315,4194.771618150685,z_mm,lever_mm,
+a,lever arm,3735.774429223744,4171.128695776256,z_mm,lever_mm,
+a,lever arm,3759.4173515981734,4147.485773401827,z_mm,lever_mm,
+a,lever arm,3783.0602739726028,4123.842851027397,z_mm,lever_mm,
+a,lever arm,3806.7031963470317,4100.199928652968,z_mm,lever_mm,
+a,lever arm,3830.346118721461,4076.5570062785387,z_mm,lever_mm,
+a,lever arm,3853.9890410958906,4052.9140839041092,z_mm,lever_mm,
+a,lever arm,3877.6319634703195,4029.2711615296803,z_mm,lever_mm,
+a,lever arm,3901.2748858447485,4005.6282391552513,z_mm,lever_mm,
+a,lever arm,3924.917808219178,3981.985316780822,z_mm,lever_mm,
+a,lever arm,3948.5607305936073,3958.3423944063925,z_mm,lever_mm,
+a,lever arm,3972.2036529680363,3934.6994720319635,z_mm,lever_mm,
+a,lever arm,3995.8465753424657,3911.056549657534,z_mm,lever_mm,
+a,lever arm,4019.489497716895,3887.4136272831047,z_mm,lever_mm,
+a,lever arm,4043.132420091324,3863.7707049086757,z_mm,lever_mm,
+a,lever arm,4066.775342465753,3840.1277825342468,z_mm,lever_mm,
+a,lever arm,4090.418264840183,3816.484860159817,z_mm,lever_mm,
+a,lever arm,4114.061187214612,3792.841937785388,z_mm,lever_mm,
+a,lever arm,4137.704109589041,3769.199015410959,z_mm,lever_mm,
+a,lever arm,4161.347031963471,3745.556093036529,z_mm,lever_mm,
+a,lever arm,4184.9899543379,3721.9131706621,z_mm,lever_mm,
+a,lever arm,4208.632876712329,3698.270248287671,z_mm,lever_mm,
+a,lever arm,4232.275799086758,3674.627325913242,z_mm,lever_mm,
+a,lever arm,4255.9187214611875,3650.9844035388123,z_mm,lever_mm,
+a,lever arm,4279.561643835616,3627.3414811643834,z_mm,lever_mm,
+a,lever arm,4303.204566210045,3603.6985587899544,z_mm,lever_mm,
+a,lever arm,4326.847488584475,3580.0556364155245,z_mm,lever_mm,
+a,lever arm,4350.490410958904,3556.4127140410956,z_mm,lever_mm,
+a,lever arm,4374.133333333333,3532.7697916666666,z_mm,lever_mm,
+a,lever arm,4397.776255707762,3509.1268692922376,z_mm,lever_mm,
+a,lever arm,4421.419178082192,3485.4839469178078,z_mm,lever_mm,
+a,lever arm,4445.062100456621,3461.841024543379,z_mm,lever_mm,
+a,lever arm,4468.70502283105,3438.19810216895,z_mm,lever_mm,
+a,lever arm,4492.34794520548,3414.55517979452,z_mm,lever_mm,
+a,lever arm,4515.990867579909,3390.912257420091,z_mm,lever_mm,
+a,lever arm,4539.633789954338,3367.269335045662,z_mm,lever_mm,
+a,lever arm,4563.276712328767,3343.626412671233,z_mm,lever_mm,
+a,lever arm,4586.919634703197,3319.983490296803,z_mm,lever_mm,
+a,lever arm,4610.562557077626,3296.3405679223742,z_mm,lever_mm,
+a,lever arm,4634.2054794520545,3272.6976455479453,z_mm,lever_mm,
+a,lever arm,4657.848401826484,3249.0547231735154,z_mm,lever_mm,
+a,lever arm,4681.491324200913,3225.4118007990864,z_mm,lever_mm,
+a,lever arm,4705.134246575342,3201.7688784246575,z_mm,lever_mm,
+a,lever arm,4728.777168949771,3178.1259560502285,z_mm,lever_mm,
+a,lever arm,4752.4200913242,3154.4830336757996,z_mm,lever_mm,
+a,lever arm,4776.06301369863,3130.8401113013697,z_mm,lever_mm,
+a,lever arm,4799.70593607306,3107.19718892694,z_mm,lever_mm,
+a,lever arm,4823.348858447489,3083.554266552511,z_mm,lever_mm,
+a,lever arm,4846.991780821918,3059.911344178082,z_mm,lever_mm,
+a,lever arm,4870.634703196347,3036.268421803653,z_mm,lever_mm,
+a,lever arm,4894.277625570776,3012.625499429224,z_mm,lever_mm,
+a,lever arm,4917.920547945206,2988.982577054794,z_mm,lever_mm,
+a,lever arm,4941.563470319635,2965.339654680365,z_mm,lever_mm,
+a,lever arm,4965.206392694065,2941.6967323059353,z_mm,lever_mm,
+a,lever arm,4988.8493150684935,2918.0538099315063,z_mm,lever_mm,
+a,lever arm,5012.4922374429225,2894.4108875570773,z_mm,lever_mm,
+a,lever arm,5036.135159817351,2870.7679651826484,z_mm,lever_mm,
+a,lever arm,5059.77808219178,2847.1250428082194,z_mm,lever_mm,
+a,lever arm,5083.42100456621,2823.4821204337895,z_mm,lever_mm,
+a,lever arm,5107.063926940639,2799.8391980593606,z_mm,lever_mm,
+a,lever arm,5130.706849315069,2776.1962756849307,z_mm,lever_mm,
+a,lever arm,5154.349771689498,2752.5533533105017,z_mm,lever_mm,
+a,lever arm,5177.992694063927,2728.9104309360728,z_mm,lever_mm,
+a,lever arm,5201.635616438356,2705.267508561644,z_mm,lever_mm,
+a,lever arm,5225.278538812785,2681.624586187215,z_mm,lever_mm,
+a,lever arm,5248.921461187215,2657.981663812785,z_mm,lever_mm,
+a,lever arm,5272.564383561644,2634.338741438356,z_mm,lever_mm,
+a,lever arm,5296.207305936074,2610.695819063926,z_mm,lever_mm,
+a,lever arm,5319.850228310503,2587.052896689497,z_mm,lever_mm,
+a,lever arm,5343.493150684932,2563.409974315068,z_mm,lever_mm,
+a,lever arm,5367.136073059361,2539.7670519406392,z_mm,lever_mm,
+a,lever arm,5390.7789954337895,2516.1241295662103,z_mm,lever_mm,
+a,lever arm,5414.421917808219,2492.4812071917804,z_mm,lever_mm,
+a,lever arm,5438.064840182648,2468.8382848173515,z_mm,lever_mm,
+a,lever arm,5461.707762557078,2445.1953624429216,z_mm,lever_mm,
+a,lever arm,5485.350684931507,2421.5524400684926,z_mm,lever_mm,
+a,lever arm,5508.993607305936,2397.9095176940637,z_mm,lever_mm,
+a,lever arm,5532.636529680365,2374.2665953196347,z_mm,lever_mm,
+a,lever arm,5556.279452054794,2350.6236729452057,z_mm,lever_mm,
+a,lever arm,5579.922374429224,2326.980750570776,z_mm,lever_mm,
+a,lever arm,5603.565296803653,2303.337828196347,z_mm,lever_mm,
+a,lever arm,5627.208219178083,2279.694905821917,z_mm,lever_mm,
+a,lever arm,5650.851141552512,2256.051983447488,z_mm,lever_mm,
+a,lever arm,5674.494063926941,2232.409061073059,z_mm,lever_mm,
+a,lever arm,5698.13698630137,2208.76613869863,z_mm,lever_mm,
+a,lever arm,5721.779908675799,2185.123216324201,z_mm,lever_mm,
+a,lever arm,5745.4228310502285,2161.4802939497713,z_mm,lever_mm,
+a,lever arm,5769.0657534246575,2137.8373715753423,z_mm,lever_mm,
+a,lever arm,5792.708675799087,2114.1944492009125,z_mm,lever_mm,
+a,lever arm,5816.351598173516,2090.5515268264835,z_mm,lever_mm,
+a,lever arm,5839.994520547945,2066.9086044520545,z_mm,lever_mm,
+a,lever arm,5863.637442922374,2043.2656820776258,z_mm,lever_mm,
+a,lever arm,5887.280365296803,2019.6227597031968,z_mm,lever_mm,
+a,lever arm,5910.923287671233,1995.979837328767,z_mm,lever_mm,
+a,lever arm,5934.566210045662,1972.336914954338,z_mm,lever_mm,
+a,lever arm,5958.209132420092,1948.6939925799081,z_mm,lever_mm,
+a,lever arm,5981.852054794521,1925.0510702054792,z_mm,lever_mm,
+a,lever arm,6005.49497716895,1901.4081478310502,z_mm,lever_mm,
+a,lever arm,6029.137899543379,1877.7652254566212,z_mm,lever_mm,
+a,lever arm,6052.780821917808,1854.1223030821923,z_mm,lever_mm,
+a,lever arm,6076.423744292238,1830.4793807077624,z_mm,lever_mm,
+a,lever arm,6100.066666666667,1806.8364583333334,z_mm,lever_mm,
+a,lever arm,6123.7095890410965,1783.1935359589036,z_mm,lever_mm,
+a,lever arm,6147.352511415525,1759.5506135844746,z_mm,lever_mm,
+a,lever arm,6170.995433789954,1735.9076912100456,z_mm,lever_mm,
+a,lever arm,6194.638356164383,1712.2647688356167,z_mm,lever_mm,
+a,lever arm,6218.281278538812,1688.6218464611877,z_mm,lever_mm,
+a,lever arm,6241.924200913242,1664.9789240867578,z_mm,lever_mm,
+a,lever arm,6265.567123287671,1641.3360017123289,z_mm,lever_mm,
+a,lever arm,6289.210045662101,1617.693079337899,z_mm,lever_mm,
+a,lever arm,6312.85296803653,1594.05015696347,z_mm,lever_mm,
+a,lever arm,6336.495890410959,1570.407234589041,z_mm,lever_mm,
+a,lever arm,6360.138812785388,1546.7643122146121,z_mm,lever_mm,
+a,lever arm,6383.781735159817,1523.1213898401832,z_mm,lever_mm,
+a,lever arm,6407.424657534247,1499.4784674657533,z_mm,lever_mm,
+a,lever arm,6431.067579908676,1475.8355450913243,z_mm,lever_mm,
+a,lever arm,6454.710502283106,1452.1926227168944,z_mm,lever_mm,
+a,lever arm,6478.353424657535,1428.5497003424655,z_mm,lever_mm,
+a,lever arm,6501.9963470319635,1404.9067779680365,z_mm,lever_mm,
+a,lever arm,6525.6392694063925,1381.2638555936076,z_mm,lever_mm,
+a,lever arm,6549.282191780821,1357.6209332191786,z_mm,lever_mm,
+a,lever arm,6572.925114155251,1333.9780108447487,z_mm,lever_mm,
+a,lever arm,6596.568036529681,1310.3350884703189,z_mm,lever_mm,
+a,lever arm,6620.21095890411,1286.69216609589,z_mm,lever_mm,
+a,lever arm,6643.853881278539,1263.049243721461,z_mm,lever_mm,
+a,lever arm,6667.496803652968,1239.406321347032,z_mm,lever_mm,
+a,lever arm,6691.139726027397,1215.763398972603,z_mm,lever_mm,
+a,lever arm,6714.782648401826,1192.120476598174,z_mm,lever_mm,
+a,lever arm,6738.425570776256,1168.4775542237442,z_mm,lever_mm,
+a,lever arm,6762.068493150685,1144.8346318493152,z_mm,lever_mm,
+a,lever arm,6785.711415525115,1121.1917094748853,z_mm,lever_mm,
+a,lever arm,6809.354337899544,1097.5487871004564,z_mm,lever_mm,
+a,lever arm,6832.997260273973,1073.9058647260274,z_mm,lever_mm,
+a,lever arm,6856.640182648402,1050.2629423515984,z_mm,lever_mm,
+a,lever arm,6880.2831050228315,1026.6200199771686,z_mm,lever_mm,
+a,lever arm,6903.92602739726,1002.9770976027396,z_mm,lever_mm,
+a,lever arm,6927.568949771689,979.3341752283106,z_mm,lever_mm,
+a,lever arm,6951.211872146119,955.6912528538808,z_mm,lever_mm,
+a,lever arm,6974.854794520548,932.0483304794518,z_mm,lever_mm,
+a,lever arm,6998.497716894977,908.4054081050228,z_mm,lever_mm,
+a,lever arm,7022.140639269406,884.7624857305939,z_mm,lever_mm,
+a,lever arm,7045.783561643836,861.119563356164,z_mm,lever_mm,
+a,lever arm,7069.426484018265,837.476640981735,z_mm,lever_mm,
+a,lever arm,7093.069406392694,813.8337186073061,z_mm,lever_mm,
+a,lever arm,7116.712328767124,790.1907962328762,z_mm,lever_mm,
+a,lever arm,7140.355251141553,766.5478738584472,z_mm,lever_mm,
+a,lever arm,7163.998173515982,742.9049514840183,z_mm,lever_mm,
+a,lever arm,7187.641095890412,719.2620291095884,z_mm,lever_mm,
+a,lever arm,7211.284018264841,695.6191067351594,z_mm,lever_mm,
+a,lever arm,7234.92694063927,671.9761843607305,z_mm,lever_mm,
+a,lever arm,7258.5698630136985,648.3332619863015,z_mm,lever_mm,
+a,lever arm,7282.212785388128,624.6903396118717,z_mm,lever_mm,
+a,lever arm,7305.855707762557,601.0474172374427,z_mm,lever_mm,
+a,lever arm,7329.498630136986,577.4044948630137,z_mm,lever_mm,
+a,lever arm,7353.141552511416,553.7615724885839,z_mm,lever_mm,
+a,lever arm,7376.784474885845,530.1186501141549,z_mm,lever_mm,
+a,lever arm,7400.427397260274,506.47572773972587,z_mm,lever_mm,
+a,lever arm,7424.070319634703,482.8328053652969,z_mm,lever_mm,
+a,lever arm,7447.713242009133,459.18988299086703,z_mm,lever_mm,
+a,lever arm,7471.356164383562,435.54696061643807,z_mm,lever_mm,
+a,lever arm,7494.999086757991,411.9040382420091,z_mm,lever_mm,
+a,lever arm,7518.642009132421,388.26111586757924,z_mm,lever_mm,
+a,lever arm,7542.28493150685,364.6181934931503,z_mm,lever_mm,
+a,lever arm,7565.927853881279,340.9752711187213,z_mm,lever_mm,
+a,lever arm,7589.570776255708,317.33234874429235,z_mm,lever_mm,
+a,lever arm,7613.2136986301375,293.6894263698625,z_mm,lever_mm,
+a,lever arm,7636.8566210045665,270.0465039954335,z_mm,lever_mm,
+a,lever arm,7660.499543378995,246.40358162100455,z_mm,lever_mm,
+a,lever arm,7684.142465753425,222.76065924657468,z_mm,lever_mm,
+a,lever arm,7707.785388127854,199.1177368721457,z_mm,lever_mm,
+a,lever arm,7731.428310502283,175.47481449771675,z_mm,lever_mm,
+a,lever arm,7755.071232876712,151.8318921232878,z_mm,lever_mm,
+a,lever arm,7778.714155251142,128.18896974885791,z_mm,lever_mm,
+a,lever arm,7802.357077625571,104.54604737442897,z_mm,lever_mm,
+a,lever arm,7826.0,80.903125,z_mm,lever_mm,
+c,a_n unclamped,1.0,0.03307754319004333,p_GeV,a_n,
+c,a_n clamped,1.0,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.0,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.0206674987570175,0.03376117327280874,p_GeV,a_n,
+c,a_n clamped,1.0206674987570175,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.0206674987570175,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.0417621430189061,0.03445893227945997,p_GeV,a_n,
+c,a_n clamped,1.0417621430189061,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.0417621430189061,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.0632927608148572,0.035171112219513856,p_GeV,a_n,
+c,a_n clamped,1.0632927608148572,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.0632927608148572,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.0852683626273438,0.03589801113759357,p_GeV,a_n,
+c,a_n clamped,1.0852683626273438,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.0852683626273438,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.1076981451629748,0.03663993323815919,p_GeV,a_n,
+c,a_n clamped,1.1076981451629748,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.1076981451629748,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.1305914952012812,0.037397189012816044,p_GeV,a_n,
+c,a_n clamped,1.1305914952012812,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.1305914952012812,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.1539579935230482,0.03817009537025437,p_GeV,a_n,
+c,a_n clamped,1.1539579935230482,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.1539579935230482,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.177807418919836,0.03895897576887433,p_GeV,a_n,
+c,a_n clamped,1.177807418919836,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.177807418919836,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.2021497522863678,0.03976416035215222,p_GeV,a_n,
+c,a_n clamped,1.2021497522863678,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.2021497522863678,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.226995180797495,0.040585986086804166,p_GeV,a_n,
+c,a_n clamped,1.226995180797495,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.226995180797495,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.2523541021714937,0.04142479690380552,p_GeV,a_n,
+c,a_n clamped,1.2523541021714937,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.2523541021714937,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.2782371290214687,0.04228094384232462,p_GeV,a_n,
+c,a_n clamped,1.2782371290214687,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.2782371290214687,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.3046550932966934,0.043154785196631386,p_GeV,a_n,
+c,a_n clamped,1.3046550932966934,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.3046550932966934,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.3316190508157393,0.04404668666604212,p_GeV,a_n,
+c,a_n clamped,1.3316190508157393,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.3316190508157393,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.3591402858932942,0.044957021507963275,p_GeV,a_n,
+c,a_n clamped,1.3591402858932942,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.3591402858932942,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.387230316062606,0.04588617069409832,p_GeV,a_n,
+c,a_n clamped,1.387230316062606,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.387230316062606,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.415900896895527,0.04683452306988288,p_GeV,a_n,
+c,a_n clamped,1.415900896895527,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.415900896895527,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.445164026922175,0.04780247551721519,p_GeV,a_n,
+c,a_n clamped,1.445164026922175,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.445164026922175,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.4750319526522755,0.04879043312054959,p_GeV,a_n,
+c,a_n clamped,1.4750319526522755,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.4750319526522755,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.5055171737002773,0.04979880933642288,p_GeV,a_n,
+c,a_n clamped,1.5055171737002773,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.5055171737002773,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.5366324480163962,0.05082802616648436,p_GeV,a_n,
+c,a_n clamped,1.5366324480163962,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.5366324480163962,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.5683907972257678,0.05187851433410183,p_GeV,a_n,
+c,a_n clamped,1.5683907972257678,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.5683907972257678,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.6008055120779487,0.05295071346461778,p_GeV,a_n,
+c,a_n clamped,1.6008055120779487,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.6008055120779487,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.6338901580090466,0.05404507226933097,p_GeV,a_n,
+c,a_n clamped,1.6338901580090466,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.6338901580090466,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.6676585808188016,0.055162048733280275,p_GeV,a_n,
+c,a_n clamped,1.6676585808188016,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.6676585808188016,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.7021249124650035,0.05630211030690989,p_GeV,a_n,
+c,a_n clamped,1.7021249124650035,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.7021249124650035,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.7373035769776624,0.0574657341016954,p_GeV,a_n,
+c,a_n clamped,1.7373035769776624,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.7373035769776624,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.7732092964954103,0.05865340708981329,p_GeV,a_n,
+c,a_n clamped,1.7732092964954103,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.7732092964954103,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.8098570974266608,0.05986562630793683,p_GeV,a_n,
+c,a_n clamped,1.8098570974266608,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.8098570974266608,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.8472623167381055,0.061102899065244194,p_GeV,a_n,
+c,a_n clamped,1.8472623167381055,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.8472623167381055,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.8854406083731752,0.06236574315572529,p_GeV,a_n,
+c,a_n clamped,1.8854406083731752,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.8854406083731752,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.924407949803158,0.0636546870748767,p_GeV,a_n,
+c,a_n clamped,1.924407949803158,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.924407949803158,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,1.9641806487137095,0.06497027024087507,p_GeV,a_n,
+c,a_n clamped,1.9641806487137095,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,1.9641806487137095,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.0047753498295577,0.06631304322032143,p_GeV,a_n,
+c,a_n clamped,2.0047753498295577,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.0047753498295577,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.0462090418802594,0.06768356795865146,p_GeV,a_n,
+c,a_n clamped,2.0462090418802594,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.0462090418802594,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.0884990647099175,0.06908241801530741,p_GeV,a_n,
+c,a_n clamped,2.0884990647099175,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.0884990647099175,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.1316631165338413,0.0705101788037705,p_GeV,a_n,
+c,a_n clamped,2.1316631165338413,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.1316631165338413,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.1757192613451846,0.07196744783655452,p_GeV,a_n,
+c,a_n clamped,2.1757192613451846,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.1757192613451846,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.220685936474655,0.07345483497526223,p_GeV,a_n,
+c,a_n clamped,2.220685936474655,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.220685936474655,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.266581960306471,0.07497296268581037,p_GeV,a_n,
+c,a_n clamped,2.266581960306471,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.266581960306471,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.3134265401537832,0.07652246629892928,p_GeV,a_n,
+c,a_n clamped,2.3134265401537832,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.3134265401537832,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.361239280296863,0.0781039942760463,p_GeV,a_n,
+c,a_n clamped,2.361239280296863,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.361239280296863,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.4100401901874187,0.07971820848066459,p_GeV,a_n,
+c,a_n clamped,2.4100401901874187,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.4100401901874187,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.459849692822479,0.08136578445535038,p_GeV,a_n,
+c,a_n clamped,2.459849692822479,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.459849692822479,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.5106886332913376,0.08304741170444509,p_GeV,a_n,
+c,a_n clamped,2.5106886332913376,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.5106886332913376,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.562578287499144,0.0847637939826202,p_GeV,a_n,
+c,a_n clamped,2.562578287499144,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.562578287499144,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.6155403710707925,0.08651564958939609,p_GeV,a_n,
+c,a_n clamped,2.6155403710707925,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.6155403710707925,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.669597048438827,0.0883037116697475,p_GeV,a_n,
+c,a_n clamped,2.669597048438827,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.669597048438827,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.7247709421191737,0.090128728520922,p_GeV,a_n,
+c,a_n clamped,2.7247709421191737,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.7247709421191737,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.781085142178579,0.09199146390559976,p_GeV,a_n,
+c,a_n clamped,2.781085142178579,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.781085142178579,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.838563215897714,0.09389269737152493,p_GeV,a_n,
+c,a_n clamped,2.838563215897714,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.838563215897714,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.897229217633996,0.09583322457774396,p_GeV,a_n,
+c,a_n clamped,2.897229217633996,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.897229217633996,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,2.957107698888241,0.09781385762758545,p_GeV,a_n,
+c,a_n clamped,2.957107698888241,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,2.957107698888241,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.0182237185793803,0.10028364375098382,p_GeV,a_n,
+c,a_n clamped,3.0182237185793803,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.0182237185793803,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.0806028535315204,0.10766548464657966,p_GeV,a_n,
+c,a_n clamped,3.0806028535315204,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.0806028535315204,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.1442712091777474,0.11549006267956814,p_GeV,a_n,
+c,a_n clamped,3.1442712091777474,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.1442712091777474,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.2092554304851544,0.12377543392815764,p_GeV,a_n,
+c,a_n clamped,3.2092554304851544,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.2092554304851544,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.2755827131056576,0.1325397115703461,p_GeV,a_n,
+c,a_n clamped,3.2755827131056576,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.2755827131056576,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.343280814757276,0.14180100467747997,p_GeV,a_n,
+c,a_n clamped,3.343280814757276,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.343280814757276,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.412378066840633,0.1515773526655034,p_GeV,a_n,
+c,a_n clamped,3.412378066840633,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.412378066840633,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.482903386295535,0.16188665545077616,p_GeV,a_n,
+c,a_n clamped,3.482903386295535,0.1698624955951816,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.482903386295535,0.00019715789325312552,p_GeV,per mm,clamped
+c,a_n unclamped,3.5548862877026095,0.17274659938771605,p_GeV,a_n,
+c,a_n clamped,3.5548862877026095,0.17274659938771605,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.5548862877026095,0.00020050544696512674,p_GeV,per mm,clamped
+c,a_n unclamped,3.628356895635042,0.18417457909743812,p_GeV,a_n,
+c,a_n clamped,3.628356895635042,0.18417457909743812,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.628356895635042,0.0002137698017352222,p_GeV,per mm,clamped
+c,a_n unclamped,3.7033459572655945,0.1961876153299195,p_GeV,a_n,
+c,a_n clamped,3.7033459572655945,0.1961876153299195,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.7033459572655945,0.0002277132264262973,p_GeV,per mm,clamped
+c,a_n unclamped,3.779884855234186,0.20880226903680252,p_GeV,a_n,
+c,a_n clamped,3.779884855234186,0.20880226903680252,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.779884855234186,0.00024235494318815403,p_GeV,per mm,clamped
+c,a_n unclamped,3.8580056207814084,0.22203455186757637,p_GeV,a_n,
+c,a_n clamped,3.8580056207814084,0.22203455186757637,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.8580056207814084,0.0002577135366004534,p_GeV,per mm,clamped
+c,a_n unclamped,3.937740947153474,0.23589983333834014,p_GeV,a_n,
+c,a_n clamped,3.937740947153474,0.23589983333834014,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,3.937740947153474,0.0002738068459243211,p_GeV,per mm,clamped
+c,a_n unclamped,4.019124203284225,0.25041274495939814,p_GeV,a_n,
+c,a_n clamped,4.019124203284225,0.25041274495939814,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.019124203284225,0.0002906518538240977,p_GeV,per mm,clamped
+c,a_n unclamped,4.102189447759901,0.2655870816452998,p_GeV,a_n,
+c,a_n clamped,4.102189447759901,0.2655870816452998,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.102189447759901,0.000308264571934845,p_GeV,per mm,clamped
+c,a_n unclamped,4.186971443072529,0.2814357007683568,p_GeV,a_n,
+c,a_n clamped,4.186971443072529,0.2814357007683568,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.186971443072529,0.00032665992369465834,p_GeV,per mm,clamped
+c,a_n unclamped,4.273505670167897,0.29797041925383283,p_GeV,a_n,
+c,a_n clamped,4.273505670167897,0.29797041925383283,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.273505670167897,0.0003458516249039654,p_GeV,per mm,clamped
+c,a_n unclamped,4.361828343294199,0.3152019091515758,p_GeV,a_n,
+c,a_n clamped,4.361828343294199,0.3152019091515758,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.361828343294199,0.00036585206251644504,p_GeV,per mm,clamped
+c,a_n unclamped,4.4519764251575555,0.333139592154565,p_GeV,a_n,
+c,a_n clamped,4.4519764251575555,0.333139592154565,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.4519764251575555,0.00038667217220763966,p_GeV,per mm,clamped
+c,a_n unclamped,4.5439876423907695,0.35179153356927967,p_GeV,a_n,
+c,a_n clamped,4.5439876423907695,0.35179153356927967,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.5439876423907695,0.0004083213153073021,p_GeV,per mm,clamped
+c,a_n unclamped,4.637900501341784,0.37116433627565426,p_GeV,a_n,
+c,a_n clamped,4.637900501341784,0.37116433627565426,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.637900501341784,0.00043080715571965506,p_GeV,per mm,clamped
+c,a_n unclamped,4.733754304188436,0.39126303524527345,p_GeV,a_n,
+c,a_n clamped,4.733754304188436,0.39126303524527345,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.733754304188436,0.0004541355374915951,p_GeV,per mm,clamped
+c,a_n unclamped,4.8315891653862755,0.41209099321506804,p_GeV,a_n,
+c,a_n clamped,4.8315891653862755,0.41209099321506804,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.8315891653862755,0.000478310363722076,p_GeV,per mm,clamped
+c,a_n unclamped,4.931446028456317,0.43364979813966575,p_GeV,a_n,
+c,a_n clamped,4.931446028456317,0.43364979813966575,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,4.931446028456317,0.0005033334775359612,p_GeV,per mm,clamped
+c,a_n unclamped,5.033366683119735,0.4559391630684565,p_GeV,a_n,
+c,a_n clamped,5.033366683119735,0.4559391630684565,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.033366683119735,0.0005292045458722205,p_GeV,per mm,clamped
+c,a_n unclamped,5.137393782786725,0.47895682911293286,p_GeV,a_n,
+c,a_n clamped,5.137393782786725,0.47895682911293286,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.137393782786725,0.0005559209468589825,p_GeV,per mm,clamped
+c,a_n unclamped,5.24357086240678,0.5026984721856581,p_GeV,a_n,
+c,a_n clamped,5.24357086240678,0.5026984721856581,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.24357086240678,0.0005834776615662809,p_GeV,per mm,clamped
+c,a_n unclamped,5.351942356687904,0.527157614203967,p_GeV,a_n,
+c,a_n clamped,5.351942356687904,0.527157614203967,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.351942356687904,0.0006118671709409776,p_GeV,per mm,clamped
+c,a_n unclamped,5.46255361869238,0.5523255394589293,p_GeV,a_n,
+c,a_n clamped,5.46255361869238,0.5523255394589293,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.46255361869238,0.000641079358736959,p_GeV,per mm,clamped
+c,a_n unclamped,5.5754509388168465,0.5781912168528682,p_GeV,a_n,
+c,a_n clamped,5.5754509388168465,0.5781912168528682,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.5754509388168465,0.0006711014212569133,p_GeV,per mm,clamped
+c,a_n unclamped,5.690681564164655,0.6047412287066586,p_GeV,a_n,
+c,a_n clamped,5.690681564164655,0.6047412287066586,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.690681564164655,0.0007019177847195922,p_GeV,per mm,clamped
+c,a_n unclamped,5.808293718318609,0.6319597068308316,p_GeV,a_n,
+c,a_n clamped,5.808293718318609,0.6319597068308316,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.808293718318609,0.0007335100310581091,p_GeV,per mm,clamped
+c,a_n unclamped,5.9283366215223525,0.6598282765420392,p_GeV,a_n,
+c,a_n clamped,5.9283366215223525,0.6598282765420392,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,5.9283366215223525,0.0007658568329403454,p_GeV,per mm,clamped
+c,a_n unclamped,6.050860511278846,0.6883260092885087,p_GeV,a_n,
+c,a_n clamped,6.050860511278846,0.6883260092885087,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,6.050860511278846,0.0007989338987817347,p_GeV,per mm,clamped
+c,a_n unclamped,6.175916663374586,0.7174293845246792,p_GeV,a_n,
+c,a_n clamped,6.175916663374586,0.7174293845246792,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,6.175916663374586,0.0008327139284934925,p_GeV,per mm,clamped
+c,a_n unclamped,6.303557413338325,0.7471122614461156,p_GeV,a_n,
+c,a_n clamped,6.303557413338325,0.7471122614461156,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,6.303557413338325,0.0008671665806755804,p_GeV,per mm,clamped
+c,a_n unclamped,6.433836178343283,0.7773458611611191,p_GeV,a_n,
+c,a_n clamped,6.433836178343283,0.7773458611611191,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,6.433836178343283,0.0009022584519234526,p_GeV,per mm,clamped
+c,a_n unclamped,6.566807479562046,0.8080987598351553,p_GeV,a_n,
+c,a_n clamped,6.566807479562046,0.8080987598351553,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,6.566807479562046,0.0009379530688708549,p_GeV,per mm,clamped
+c,a_n unclamped,6.702526964983468,0.8393368932984131,p_GeV,a_n,
+c,a_n clamped,6.702526964983468,0.8393368932984131,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,6.702526964983468,0.0009742108935377766,p_GeV,per mm,clamped
+c,a_n unclamped,6.841051432701139,0.8710235735556271,p_GeV,a_n,
+c,a_n clamped,6.841051432701139,0.8710235735556271,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,6.841051432701139,0.001010989342493256,p_GeV,per mm,clamped
+c,a_n unclamped,6.982438854683181,0.9031195175809409,p_GeV,a_n,
+c,a_n clamped,6.982438854683181,0.9031195175809409,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,6.982438854683181,0.001048242820277322,p_GeV,per mm,clamped
+c,a_n unclamped,7.126748401033297,0.9355828887192555,p_GeV,a_n,
+c,a_n clamped,7.126748401033297,0.9355828887192555,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,7.126748401033297,0.0010859227674551732,p_GeV,per mm,clamped
+c,a_n unclamped,7.274040464753229,0.9683693509495611,p_GeV,a_n,
+c,a_n clamped,7.274040464753229,0.9683693509495611,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,7.274040464753229,0.0011239777236001457,p_GeV,per mm,clamped
+c,a_n unclamped,7.42437668701701,1.0014321361954852,p_GeV,a_n,
+c,a_n clamped,7.42437668701701,1.0014321361954852,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,7.42437668701701,0.00116235340542047,p_GeV,per mm,clamped
+c,a_n unclamped,7.577819982967562,1.0347221247941218,p_GeV,a_n,
+c,a_n clamped,7.577819982967562,1.0347221247941218,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,7.577819982967562,0.0012009928001587276,p_GeV,per mm,clamped
+c,a_n unclamped,7.7344345680464475,1.068187939156604,p_GeV,a_n,
+c,a_n clamped,7.7344345680464475,1.068187939156604,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,7.7344345680464475,0.0012398362743028478,p_GeV,per mm,clamped
+c,a_n unclamped,7.894285984867779,1.1017760505732987,p_GeV,a_n,
+c,a_n clamped,7.894285984867779,1.1017760505732987,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,7.894285984867779,0.0012788216975539509,p_GeV,per mm,clamped
+c,a_n unclamped,8.057441130647574,1.1354308990335396,p_GeV,a_n,
+c,a_n clamped,8.057441130647574,1.1354308990335396,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,8.057441130647574,0.0013178845819000495,p_GeV,per mm,clamped
+c,a_n unclamped,8.223968285199975,1.1690950258449724,p_GeV,a_n,
+c,a_n clamped,8.223968285199975,1.1690950258449724,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,8.223968285199975,0.0013569582355461487,p_GeV,per mm,clamped
+c,a_n unclamped,8.393937139512095,1.2027092187515565,p_GeV,a_n,
+c,a_n clamped,8.393937139512095,1.2027092187515565,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,8.393937139512095,0.0013959739313514224,p_GeV,per mm,clamped
+c,a_n unclamped,8.567418824909444,1.2362126691626465,p_GeV,a_n,
+c,a_n clamped,8.567418824909444,1.2362126691626465,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,8.567418824909444,0.0014348610893236172,p_GeV,per mm,clamped
+c,a_n unclamped,8.744485942824108,1.2695431410190459,p_GeV,a_n,
+c,a_n clamped,8.744485942824108,1.2695431410190459,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,8.744485942824108,0.0014735474726203825,p_GeV,per mm,clamped
+c,a_n unclamped,8.92521259517818,1.302637150736195,p_GeV,a_n,
+c,a_n clamped,8.92521259517818,1.302637150736195,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,8.92521259517818,0.0015119593964077348,p_GeV,per mm,clamped
+c,a_n unclamped,9.109674415395142,1.3354301575803906,p_GeV,a_n,
+c,a_n clamped,9.109674415395142,1.3354301575803906,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,9.109674415395142,0.0015500219488280486,p_GeV,per mm,clamped
+c,a_n unclamped,9.297948600052155,1.3678567637518873,p_GeV,a_n,
+c,a_n clamped,9.297948600052155,1.3678567637518873,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,9.297948600052155,0.001587659223234739,p_GeV,per mm,clamped
+c,a_n unclamped,9.490113941186545,1.3998509233695917,p_GeV,a_n,
+c,a_n clamped,9.490113941186545,1.3998509233695917,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,9.490113941186545,0.001624794560758944,p_GeV,per mm,clamped
+c,a_n unclamped,9.686250859269972,1.4313461594765249,p_GeV,a_n,
+c,a_n clamped,9.686250859269972,1.4313461594765249,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,9.686250859269972,0.001661350802185841,p_GeV,per mm,clamped
+c,a_n unclamped,9.886441436864095,1.4622757881140047,p_GeV,a_n,
+c,a_n clamped,9.886441436864095,1.4622757881140047,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,9.886441436864095,0.0016972505480355661,p_GeV,per mm,clamped
+c,a_n unclamped,10.090769452971807,1.4926999794284042,p_GeV,a_n,
+c,a_n clamped,10.090769452971807,1.4926999794284042,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,10.090769452971807,0.001732563637263764,p_GeV,per mm,clamped
+c,a_n unclamped,10.299320418098453,1.5235503543978408,p_GeV,a_n,
+c,a_n clamped,10.299320418098453,1.5235503543978408,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,10.299320418098453,0.0017683713940833668,p_GeV,per mm,clamped
+c,a_n unclamped,10.512181610037624,1.555038329453611,p_GeV,a_n,
+c,a_n clamped,10.512181610037624,1.555038329453611,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,10.512181610037624,0.0018049192076725292,p_GeV,per mm,clamped
+c,a_n unclamped,10.729442110396619,1.587177082194708,p_GeV,a_n,
+c,a_n clamped,10.729442110396619,1.587177082194708,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,10.729442110396619,0.0018422223731536182,p_GeV,per mm,clamped
+c,a_n unclamped,10.951192841876734,1.619980062568134,p_GeV,a_n,
+c,a_n clamped,10.951192841876734,1.619980062568134,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,10.951192841876734,0.0018802965017609206,p_GeV,per mm,clamped
+c,a_n unclamped,11.177526606324076,1.6534609984976536,p_GeV,a_n,
+c,a_n clamped,11.177526606324076,1.6534609984976536,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,11.177526606324076,0.0019191575273738882,p_GeV,per mm,clamped
+c,a_n unclamped,11.40853812356681,1.6876339016288808,p_GeV,a_n,
+c,a_n clamped,11.40853812356681,1.6876339016288808,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,11.40853812356681,0.001958821713185409,p_GeV,per mm,clamped
+c,a_n unclamped,11.644324071055015,1.7225130731930964,p_GeV,a_n,
+c,a_n clamped,11.644324071055015,1.7225130731930964,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,11.644324071055015,0.0019993056585078874,p_GeV,per mm,clamped
+c,a_n unclamped,11.884983124319849,1.758113109992261,p_GeV,a_n,
+c,a_n clamped,11.884983124319849,1.758113109992261,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,11.884983124319849,0.002040626305719997,p_GeV,per mm,clamped
+c,a_n unclamped,12.130615998268905,1.7944489105077222,p_GeV,a_n,
+c,a_n clamped,12.130615998268905,1.7944489105077222,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,12.130615998268905,0.002082800947357002,p_GeV,per mm,clamped
+c,a_n unclamped,12.381325489334984,1.8315356811351715,p_GeV,a_n,
+c,a_n clamped,12.381325489334984,1.8315356811351715,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,12.381325489334984,0.0021258472333476174,p_GeV,per mm,clamped
+c,a_n unclamped,12.63721651849604,1.8693889425484655,p_GeV,a_n,
+c,a_n clamped,12.63721651849604,1.8693889425484655,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,12.63721651849604,0.002169783178400438,p_GeV,per mm,clamped
+c,a_n unclamped,12.898396175184217,1.908024536194968,p_GeV,a_n,
+c,a_n clamped,12.898396175184217,1.908024536194968,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,12.898396175184217,0.002214627169543026,p_GeV,per mm,clamped
+c,a_n unclamped,13.164973762102358,1.947458630925137,p_GeV,a_n,
+c,a_n clamped,13.164973762102358,1.947458630925137,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,13.164973762102358,0.0022603979738168144,p_GeV,per mm,clamped
+c,a_n unclamped,13.43706084096677,1.9877077297591241,p_GeV,a_n,
+c,a_n clamped,13.43706084096677,1.9877077297591241,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,13.43706084096677,0.0023071147461310375,p_GeV,per mm,clamped
+c,a_n unclamped,13.714771279195421,2.0287886767932353,p_GeV,a_n,
+c,a_n clamped,13.714771279195421,2.0287886767932353,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,13.714771279195421,0.0023547970372789977,p_GeV,per mm,clamped
+c,a_n unclamped,13.998221297560974,2.070718664249111,p_GeV,a_n,
+c,a_n clamped,13.998221297560974,2.070718664249111,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,13.998221297560974,0.0024034648021199903,p_GeV,per mm,clamped
+c,a_n unclamped,14.287529518828766,2.1135152396686117,p_GeV,a_n,
+c,a_n clamped,14.287529518828766,2.1135152396686117,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,14.287529518828766,0.0024531384079303394,p_GeV,per mm,clamped
+c,a_n unclamped,14.58281701740001,2.1571963132574,p_GeV,a_n,
+c,a_n clamped,14.58281701740001,2.1571963132574,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,14.58281701740001,0.0025038386429270315,p_GeV,per mm,clamped
+c,a_n unclamped,14.884207369980942,2.2017801653802906,p_GeV,a_n,
+c,a_n clamped,14.884207369980942,2.2017801653802906,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,14.884207369980942,0.002555586724967499,p_GeV,per mm,clamped
+c,a_n unclamped,15.191826707299207,2.2472854542115126,p_GeV,a_n,
+c,a_n clamped,15.191826707299207,2.2472854542115126,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,15.191826707299207,0.002608404310429214,p_GeV,per mm,clamped
+c,a_n unclamped,15.50580376688914,2.2937312235430927,p_GeV,a_n,
+c,a_n clamped,15.50580376688914,2.2937312235430927,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,15.50580376688914,0.002662313503272809,p_GeV,per mm,clamped
+c,a_n unclamped,15.82626994696788,2.341136910754602,p_GeV,a_n,
+c,a_n clamped,15.82626994696788,2.341136910754602,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,15.82626994696788,0.002717336864292491,p_GeV,per mm,clamped
+c,a_n unclamped,16.153359361425057,2.3895223549476294,p_GeV,a_n,
+c,a_n clamped,16.153359361425057,2.3895223549476294,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,16.153359361425057,0.0027734974205576527,p_GeV,per mm,clamped
+c,a_n unclamped,16.487208895948967,2.4389078052483755,p_GeV,a_n,
+c,a_n clamped,16.487208895948967,2.4389078052483755,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,16.487208895948967,0.0028308186750496196,p_GeV,per mm,clamped
+c,a_n unclamped,16.82795826531268,2.4893139292818263,p_GeV,a_n,
+c,a_n clamped,16.82795826531268,2.4893139292818263,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,16.82795826531268,0.002889324616497549,p_GeV,per mm,clamped
+c,a_n unclamped,17.175750071844167,2.5407618218210843,p_GeV,a_n,
+c,a_n clamped,17.175750071844167,2.5407618218210843,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,17.175750071844167,0.002949039729417632,p_GeV,per mm,clamped
+c,a_n unclamped,17.53072986510485,2.5932730136154483,p_GeV,a_n,
+c,a_n clamped,17.53072986510485,2.5932730136154483,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,17.53072986510485,0.003009989004359765,p_GeV,per mm,clamped
+c,a_n unclamped,17.893046202801518,2.6468694804009534,p_GeV,a_n,
+c,a_n clamped,17.893046202801518,2.6468694804009534,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,17.893046202801518,0.0030721979483660077,p_GeV,per mm,clamped
+c,a_n unclamped,18.262850712957167,2.701573652097127,p_GeV,a_n,
+c,a_n clamped,18.262850712957167,2.701573652097127,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,18.262850712957167,0.003135692595645173,p_GeV,per mm,clamped
+c,a_n unclamped,18.640298157366807,2.757408422193836,p_GeV,a_n,
+c,a_n clamped,18.640298157366807,2.757408422193836,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,18.640298157366807,0.0032004995184680596,p_GeV,per mm,clamped
+c,a_n unclamped,19.025546496364623,2.8143971573321167,p_GeV,a_n,
+c,a_n clamped,19.025546496364623,2.8143971573321167,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,19.025546496364623,0.003266645838287833,p_GeV,per mm,clamped
+c,a_n unclamped,19.41875695492981,2.8725637070830308,p_GeV,a_n,
+c,a_n clamped,19.41875695492981,2.8725637070830308,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,19.41875695492981,0.003334159237090262,p_GeV,per mm,clamped
+c,a_n unclamped,19.820094090158648,2.931932413928623,p_GeV,a_n,
+c,a_n clamped,19.820094090158648,2.931932413928623,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,19.820094090158648,0.003403067968978524,p_GeV,per mm,clamped
+c,a_n unclamped,20.229725860130973,2.9925281234491523,p_GeV,a_n,
+c,a_n clamped,20.229725860130973,2.9925281234491523,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,20.229725860130973,0.003473400871997433,p_GeV,per mm,clamped
+c,a_n unclamped,20.647823694200028,3.054376194720877,p_GeV,a_n,
+c,a_n clamped,20.647823694200028,3.054376194720877,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,20.647823694200028,0.0035451873802020634,p_GeV,per mm,clamped
+c,a_n unclamped,21.074562564735025,3.1175025109287353,p_GeV,a_n,
+c,a_n clamped,21.074562564735025,3.1175025109287353,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,21.074562564735025,0.0036184575359757844,p_GeV,per mm,clamped
+c,a_n unclamped,21.510121060346375,3.1819334901983534,p_GeV,a_n,
+c,a_n clamped,21.510121060346375,3.1819334901983534,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,21.510121060346375,0.003693242002602884,p_GeV,per mm,clamped
+c,a_n unclamped,21.95468146062437,3.247696096651939,p_GeV,a_n,
+c,a_n clamped,21.95468146062437,3.247696096651939,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,21.95468146062437,0.0037695720771010422,p_GeV,per mm,clamped
+c,a_n unclamped,22.408429812422543,3.314817851692664,p_GeV,a_n,
+c,a_n clamped,22.408429812422543,3.314817851692664,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,22.408429812422543,0.0038474797033190167,p_GeV,per mm,clamped
+c,a_n unclamped,22.8715560077175,3.3833268455222614,p_GeV,a_n,
+c,a_n clamped,22.8715560077175,3.3833268455222614,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,22.8715560077175,0.003926997485305012,p_GeV,per mm,clamped
+c,a_n unclamped,23.34425386307805,3.453251748896675,p_GeV,a_n,
+c,a_n clamped,23.34425386307805,3.453251748896675,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,23.34425386307805,0.0040081587009513624,p_GeV,per mm,clamped
+c,a_n unclamped,23.826721200776717,3.5246218251246666,p_GeV,a_n,
+c,a_n clamped,23.826721200776717,3.5246218251246666,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,23.826721200776717,0.004090997315921205,p_GeV,per mm,clamped
+c,a_n unclamped,24.319159931577577,3.597466942314388,p_GeV,a_n,
+c,a_n clamped,24.319159931577577,3.597466942314388,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,24.319159931577577,0.004175547997862969,p_GeV,per mm,clamped
+c,a_n unclamped,24.821776139235155,3.6718175858730797,p_GeV,a_n,
+c,a_n clamped,24.821776139235155,3.6718175858730797,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,24.821776139235155,0.004261846130918666,p_GeV,per mm,clamped
+c,a_n unclamped,25.334780166739765,3.747704871265107,p_GeV,a_n,
+c,a_n clamped,25.334780166739765,3.747704871265107,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,25.334780166739765,0.004349927830532028,p_GeV,per mm,clamped
+c,a_n unclamped,25.858386704345175,3.8251605570336475,p_GeV,a_n,
+c,a_n clamped,25.858386704345175,3.8251605570336475,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,25.858386704345175,0.004439829958562665,p_GeV,per mm,clamped
+c,a_n unclamped,26.392814879415695,3.9042170580915316,p_GeV,a_n,
+c,a_n clamped,26.392814879415695,3.9042170580915316,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,26.392814879415695,0.004531590138712627,p_GeV,per mm,clamped
+c,a_n unclamped,26.938288348130214,3.984907459286765,p_GeV,a_n,
+c,a_n clamped,26.938288348130214,3.984907459286765,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,26.938288348130214,0.0046252467722717825,p_GeV,per mm,clamped
+c,a_n unclamped,27.495035389081377,4.067265529248403,p_GeV,a_n,
+c,a_n clamped,27.495035389081377,4.067265529248403,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,27.495035389081377,0.004720839054188608,p_GeV,per mm,clamped
+c,a_n unclamped,28.06328899880936,4.151325734518604,p_GeV,a_n,
+c,a_n clamped,28.06328899880936,4.151325734518604,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,28.06328899880936,0.00481840698947313,p_GeV,per mm,clamped
+c,a_n unclamped,28.643286989310077,4.237123253976743,p_GeV,a_n,
+c,a_n clamped,28.643286989310077,4.237123253976743,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,28.643286989310077,0.004917991409938872,p_GeV,per mm,clamped
+c,a_n unclamped,29.235272087558542,4.324693993561637,p_GeV,a_n,
+c,a_n clamped,29.235272087558542,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,29.235272087558542,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,29.83949203708921,4.4140746012980525,p_GeV,a_n,
+c,a_n clamped,29.83949203708921,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,29.83949203708921,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,30.45619970167579,4.505302482633762,p_GeV,a_n,
+c,a_n clamped,30.45619970167579,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,30.45619970167579,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,31.085653171153655,4.598415816093585,p_GeV,a_n,
+c,a_n clamped,31.085653171153655,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,31.085653171153655,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,31.728115869429537,4.693453569256945,p_GeV,a_n,
+c,a_n clamped,31.728115869429537,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,31.728115869429537,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,32.38385666472348,4.790455515065683,p_GeV,a_n,
+c,a_n clamped,32.38385666472348,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,32.38385666472348,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,33.05314998208909,4.889462248468852,p_GeV,a_n,
+c,a_n clamped,33.05314998208909,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,33.05314998208909,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,33.736275918259416,4.990515203411564,p_GeV,a_n,
+c,a_n clamped,33.736275918259416,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,33.736275918259416,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,34.433520358866446,5.0936566701749495,p_GeV,a_n,
+c,a_n clamped,34.433520358866446,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,34.433520358866446,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,35.14517509808306,5.198929813074465,p_GeV,a_n,
+c,a_n clamped,35.14517509808306,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,35.14517509808306,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,35.87153796073784,5.306378688524,p_GeV,a_n,
+c,a_n clamped,35.87153796073784,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,35.87153796073784,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,36.6129129269537,5.416048263473336,p_GeV,a_n,
+c,a_n clamped,36.6129129269537,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,36.6129129269537,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,37.369610259362304,5.527984434226616,p_GeV,a_n,
+c,a_n clamped,37.369610259362304,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,37.369610259362304,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,38.14194663294789,5.642234045649807,p_GeV,a_n,
+c,a_n clamped,38.14194663294789,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,38.14194663294789,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,38.93024526757457,5.758844910775075,p_GeV,a_n,
+c,a_n clamped,38.93024526757457,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,38.93024526757457,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,39.73483606325256,5.877865830810376,p_GeV,a_n,
+c,a_n clamped,39.73483606325256,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,39.73483606325256,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,40.55605573820011,5.999346615562562,p_GeV,a_n,
+c,a_n clamped,40.55605573820011,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,40.55605573820011,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,41.394247969758894,6.123338104282619,p_GeV,a_n,
+c,a_n clamped,41.394247969758894,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,41.394247969758894,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,42.249763538221565,6.249892186941679,p_GeV,a_n,
+c,a_n clamped,42.249763538221565,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,42.249763538221565,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,43.12296047363203,6.3790618259467875,p_GeV,a_n,
+c,a_n clamped,43.12296047363203,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,43.12296047363203,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,44.014204205619734,6.51090107830548,p_GeV,a_n,
+c,a_n clamped,44.014204205619734,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,44.014204205619734,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,44.9238677163305,6.645465118248423,p_GeV,a_n,
+c,a_n clamped,44.9238677163305,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,44.9238677163305,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,45.85233169651816,6.782810260319624,p_GeV,a_n,
+c,a_n clamped,45.85233169651816,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,45.85233169651816,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,46.79998470486231,6.922993982943866,p_GeV,a_n,
+c,a_n clamped,46.79998470486231,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,46.79998470486231,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,47.767223330578496,7.066074952481199,p_GeV,a_n,
+c,a_n clamped,47.767223330578496,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,47.767223330578496,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,48.75445235938938,7.212113047778593,p_GeV,a_n,
+c,a_n clamped,48.75445235938938,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,48.75445235938938,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,49.76208494292614,7.361169385229029,p_GeV,a_n,
+c,a_n clamped,49.76208494292614,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,49.76208494292614,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,50.79054277163066,7.511382439678649,p_GeV,a_n,
+c,a_n clamped,50.79054277163066,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,50.79054277163066,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,51.840256251231565,7.658168943645003,p_GeV,a_n,
+c,a_n clamped,51.840256251231565,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,51.840256251231565,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,52.91166468286737,7.80102616271229,p_GeV,a_n,
+c,a_n clamped,52.91166468286737,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,52.91166468286737,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,54.00521644693223,7.939629725833278,p_GeV,a_n,
+c,a_n clamped,54.00521644693223,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,54.00521644693223,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,55.12136919072167,8.073660566410839,p_GeV,a_n,
+c,a_n clamped,55.12136919072167,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,55.12136919072167,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,56.26059001995602,8.202806137274518,p_GeV,a_n,
+c,a_n clamped,56.26059001995602,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,56.26059001995602,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,57.423355694262504,8.326761618083058,p_GeV,a_n,
+c,a_n clamped,57.423355694262504,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,57.423355694262504,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,58.61015282669746,8.445231108667953,p_GeV,a_n,
+c,a_n clamped,58.61015282669746,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,58.61015282669746,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,59.82147808739184,8.557928801812924,p_GeV,a_n,
+c,a_n clamped,59.82147808739184,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,59.82147808739184,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,61.05783841140593,8.664580128989291,p_GeV,a_n,
+c,a_n clamped,61.05783841140593,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,61.05783841140593,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,62.31975121087985,8.76492287263822,p_GeV,a_n,
+c,a_n clamped,62.31975121087985,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,62.31975121087985,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,63.607744591568355,8.85870823870741,p_GeV,a_n,
+c,a_n clamped,63.607744591568355,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,63.607744591568355,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,64.92235757385126,8.945701883312614,p_GeV,a_n,
+c,a_n clamped,64.92235757385126,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,64.92235757385126,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,66.26414031831148,9.025684887601473,p_GeV,a_n,
+c,a_n clamped,66.26414031831148,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,66.26414031831148,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,67.63365435597501,9.09845467514866,p_GeV,a_n,
+c,a_n clamped,67.63365435597501,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,67.63365435597501,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,69.03147282330966,9.163825866504874,p_GeV,a_n,
+c,a_n clamped,69.03147282330966,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,69.03147282330966,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,70.4581807020805,9.221631065856341,p_GeV,a_n,
+c,a_n clamped,70.4581807020805,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,70.4581807020805,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,71.91437506416247,9.27172157512398,p_GeV,a_n,
+c,a_n clamped,71.91437506416247,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,71.91437506416247,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,73.4006653214127,9.313968031239234,p_GeV,a_n,
+c,a_n clamped,73.4006653214127,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,73.4006653214127,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,74.91767348070726,9.34826096277447,p_GeV,a_n,
+c,a_n clamped,74.91767348070726,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,74.91767348070726,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,76.46603440424843,9.374511262575846,p_GeV,a_n,
+c,a_n clamped,76.46603440424843,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,76.46603440424843,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,78.04639607525228,9.392650573542868,p_GeV,a_n,
+c,a_n clamped,78.04639607525228,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,78.04639607525228,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,79.65941986912725,9.402631585217017,p_GeV,a_n,
+c,a_n clamped,79.65941986912725,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,79.65941986912725,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,81.30578083025718,9.404428239378404,p_GeV,a_n,
+c,a_n clamped,81.30578083025718,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,81.30578083025718,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,82.98616795450482,9.398035843399972,p_GeV,a_n,
+c,a_n clamped,82.98616795450482,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,82.98616795450482,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,84.70128447755421,9.38347109066912,p_GeV,a_n,
+c,a_n clamped,84.70128447755421,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,84.70128447755421,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,86.45184816921186,9.36077198795237,p_GeV,a_n,
+c,a_n clamped,86.45184816921186,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,86.45184816921186,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,88.23859163379086,9.329997690145383,p_GeV,a_n,
+c,a_n clamped,88.23859163379086,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,88.23859163379086,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,90.06226261670322,9.291228243413968,p_GeV,a_n,
+c,a_n clamped,90.06226261670322,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,90.06226261670322,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,91.92362431738813,9.244564238287033,p_GeV,a_n,
+c,a_n clamped,91.92362431738813,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,91.92362431738813,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,93.82345570870825,9.190126374805672,p_GeV,a_n,
+c,a_n clamped,93.82345570870825,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,93.82345570870825,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,95.76255186294708,9.128054942359428,p_GeV,a_n,
+c,a_n clamped,95.76255186294708,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,95.76255186294708,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,97.74172428454337,9.058509217346991,p_GeV,a_n,
+c,a_n clamped,97.74172428454337,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,97.74172428454337,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,99.76180124970287,8.98166678228066,p_GeV,a_n,
+c,a_n clamped,99.76180124970287,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,99.76180124970287,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,101.82362815302895,8.897722770408073,p_GeV,a_n,
+c,a_n clamped,101.82362815302895,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,101.82362815302895,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,103.92806786131669,8.80688904034721,p_GeV,a_n,
+c,a_n clamped,103.92806786131669,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,103.92806786131669,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,106.0760010746597,8.709393285619297,p_GeV,a_n,
+c,a_n clamped,106.0760010746597,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,106.0760010746597,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,108.26832669501962,8.60547808431518,p_GeV,a_n,
+c,a_n clamped,108.26832669501962,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,108.26832669501962,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,110.5059622024132,8.495399894442745,p_GeV,a_n,
+c,a_n clamped,110.5059622024132,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,110.5059622024132,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,112.78984403887462,8.379428000772576,p_GeV,a_n,
+c,a_n clamped,112.78984403887462,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,112.78984403887462,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,115.12092800035227,8.257843419226402,p_GeV,a_n,
+c,a_n clamped,115.12092800035227,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,115.12092800035227,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,117.50018963670625,8.130937765034677,p_GeV,a_n,
+c,a_n clamped,117.50018963670625,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,117.50018963670625,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,119.92862465997221,7.999012091026938,p_GeV,a_n,
+c,a_n clamped,119.92862465997221,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,119.92862465997221,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,122.40724936106302,7.86237570250943,p_GeV,a_n,
+c,a_n clamped,122.40724936106302,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,122.40724936106302,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,124.9371010350826,7.7213449552297755,p_GeV,a_n,
+c,a_n clamped,124.9371010350826,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,124.9371010350826,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,127.51923841543056,7.576242042927854,p_GeV,a_n,
+c,a_n clamped,127.51923841543056,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,127.51923841543056,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,130.15474211687732,7.427393780927102,p_GeV,a_n,
+c,a_n clamped,130.15474211687732,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,130.15474211687732,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,132.84471508779782,7.275130392130929,p_GeV,a_n,
+c,a_n clamped,132.84471508779782,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,132.84471508779782,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,135.59028307175123,7.119784301658064,p_GeV,a_n,
+c,a_n clamped,135.59028307175123,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,135.59028307175123,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,138.39259507860032,6.961688946178464,p_GeV,a_n,
+c,a_n clamped,138.39259507860032,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,138.39259507860032,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,141.2528238653676,6.801177603801368,p_GeV,a_n,
+c,a_n clamped,141.2528238653676,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,141.2528238653676,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,144.1721664270303,6.638582250120614,p_GeV,a_n,
+c,a_n clamped,144.1721664270303,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,144.1721664270303,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,147.1518444974575,6.474232445743083,p_GeV,a_n,
+c,a_n clamped,147.1518444974575,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,147.1518444974575,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,150.19310506070153,6.308454260315691,p_GeV,a_n,
+c,a_n clamped,150.19310506070153,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,150.19310506070153,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,153.2972208728562,6.141569237729293,p_GeV,a_n,
+c,a_n clamped,153.2972208728562,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,153.2972208728562,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,156.4654909947002,5.973893406816212,p_GeV,a_n,
+c,a_n clamped,156.4654909947002,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,156.4654909947002,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,159.69924133534914,5.805736341475903,p_GeV,a_n,
+c,a_n clamped,159.69924133534914,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,159.69924133534914,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,162.99982520714414,5.637400273763755,p_GeV,a_n,
+c,a_n clamped,162.99982520714414,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,162.99982520714414,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,166.36862389200687,5.5030653422559315,p_GeV,a_n,
+c,a_n clamped,166.36862389200687,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,166.36862389200687,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,169.80704721950164,5.616799938376793,p_GeV,a_n,
+c,a_n clamped,169.80704721950164,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,169.80704721950164,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,173.31653415684352,5.732885144121612,p_GeV,a_n,
+c,a_n clamped,173.31653415684352,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,173.31653415684352,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,176.8985534111007,5.85136954071187,p_GeV,a_n,
+c,a_n clamped,176.8985534111007,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,176.8985534111007,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,180.55460404384263,5.972302713421377,p_GeV,a_n,
+c,a_n clamped,180.55460404384263,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,180.55460404384263,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,184.28621609849256,6.095735272327546,p_GeV,a_n,
+c,a_n clamped,184.28621609849256,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,184.28621609849256,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,188.09495124064364,6.2217188734914854,p_GeV,a_n,
+c,a_n clamped,188.09495124064364,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,188.09495124064364,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,191.98240341161093,6.350306240575883,p_GeV,a_n,
+c,a_n clamped,191.98240341161093,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,191.98240341161093,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,195.95019949548964,6.481551186909666,p_GeV,a_n,
+c,a_n clamped,195.95019949548964,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,195.95019949548964,0.004928947331328138,p_GeV,per mm,clamped
+c,a_n unclamped,200.00000000000003,6.615508638008667,p_GeV,a_n,
+c,a_n clamped,200.00000000000003,4.24656238987954,p_GeV,a_n,"clamped to [1/5, 5] of the median a_n"
+d,position weight a_n / D_ref,200.00000000000003,0.004928947331328138,p_GeV,per mm,clamped
+constants,"median a_n over the 11,567 training tracks",,0.849312477975908,-,value,
+constants,clamp lower limit,,0.1698624955951816,-,value,median / 5
+constants,clamp upper limit,,4.24656238987954,-,value,median x 5
+constants,D_ref,,861.5556435120753,-,value,mm
+constants,dz,,80.903125,-,value,mm
+constants,s_tx,,0.16549498523556608,-,value,the pooled divisor on a slope residual
+constants,colour scale vmin,,0.0001,-,value,
+constants,colour scale vmax,,30.0,-,value,
+constants,drawn slope-weight minimum,,0.01595068968259427,-,value,panel c
+constants,drawn slope-weight maximum,,25.91987073421569,-,value,panel c
+constants,drawn slope-weight ratio,,1625.0,-,value,panel c: 25 (the clamp) x 65 (the lever arm)
+constants,worked-example extreme ratio,,1908.111340799821,-,value,"unclamped, paper_numbers.json"

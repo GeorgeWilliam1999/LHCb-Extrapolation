@@ -1,0 +1,89 @@
+panel,quantity,group,series,n,value,snapshot_18Sept_value,note
+a,share of the loss [%],<3,pooled loss,907,8.828092214296943,,
+a,share of the loss [%],<3,cost-weighted loss,907,4.1561569303906465,,
+a,share of the loss [%],<3,lever arm off,907,2.849599037981379,,"diagnostic only, not trained"
+a,share of the loss [%],<3,track factor off,907,6.023441559592434,,"diagnostic only, not trained"
+a,share of the loss [%],<3,window off,907,6.479321217942076,,"diagnostic only, not trained"
+a,share of the states [%],<3,states,907,11.3375,,what an unweighted share would be if every state counted alike
+a,share of the loss [%],3-8,pooled loss,3665,89.78507192356334,,
+a,share of the loss [%],3-8,cost-weighted loss,3665,38.316673309455076,,
+a,share of the loss [%],3-8,lever arm off,3665,34.71360460043001,,"diagnostic only, not trained"
+a,share of the loss [%],3-8,track factor off,3665,83.1064240163025,,"diagnostic only, not trained"
+a,share of the loss [%],3-8,window off,3665,74.55079911612606,,"diagnostic only, not trained"
+a,share of the states [%],3-8,states,3665,45.8125,,what an unweighted share would be if every state counted alike
+a,share of the loss [%],8-20,pooled loss,2360,1.3463994839962137,,
+a,share of the loss [%],8-20,cost-weighted loss,2360,33.84066164911385,,
+a,share of the loss [%],8-20,lever arm off,2360,38.20959337357356,,"diagnostic only, not trained"
+a,share of the loss [%],8-20,track factor off,2360,9.808298248079945,,"diagnostic only, not trained"
+a,share of the loss [%],8-20,window off,2360,10.221204641330367,,"diagnostic only, not trained"
+a,share of the states [%],8-20,states,2360,29.5,,what an unweighted share would be if every state counted alike
+a,share of the loss [%],20-50,pooled loss,904,0.031067716042299517,,
+a,share of the loss [%],20-50,cost-weighted loss,904,17.0540957425178,,
+a,share of the loss [%],20-50,lever arm off,904,17.06346323444449,,"diagnostic only, not trained"
+a,share of the loss [%],20-50,track factor off,904,0.8709803371413176,,"diagnostic only, not trained"
+a,share of the loss [%],20-50,window off,904,6.007918168727103,,"diagnostic only, not trained"
+a,share of the states [%],20-50,states,904,11.3,,what an unweighted share would be if every state counted alike
+a,share of the loss [%],>50,pooled loss,164,0.009368662101208517,,
+a,share of the loss [%],>50,cost-weighted loss,164,6.632412368522633,,
+a,share of the loss [%],>50,lever arm off,164,7.163739753570544,,"diagnostic only, not trained"
+a,share of the loss [%],>50,track factor off,164,0.19085583888381943,,"diagnostic only, not trained"
+a,share of the loss [%],>50,window off,164,2.7407568558744044,,"diagnostic only, not trained"
+a,share of the states [%],>50,states,164,2.0500000000000003,,what an unweighted share would be if every state counted alike
+a,share of the loss [%],10-50 (loss window),pooled loss,2559,1.2310304855363199,,
+a,share of the loss [%],10-50 (loss window),cost-weighted loss,2559,47.00916062782635,,
+a,share of the loss [%],10-50 (loss window),lever arm off,2559,51.039828391726026,,"diagnostic only, not trained"
+a,share of the loss [%],10-50 (loss window),track factor off,2559,8.947655735178728,,"diagnostic only, not trained"
+a,share of the loss [%],10-50 (loss window),window off,2559,15.038869118114622,,"diagnostic only, not trained"
+a,share of the states [%],10-50 (loss window),states,2559,31.9875,,what an unweighted share would be if every state counted alike
+b,share of the loss [%],quarter 1,pooled loss,2000,0.649922511965352,0.5557339912034762,
+b,share of the loss [%],quarter 1,cost-weighted loss,2000,23.34848490831037,21.236625199335403,
+b,share of the loss [%],quarter 1,lever arm off,2000,9.892209571329133,9.690051878581311,"diagnostic only, not trained"
+b,share of the loss [%],quarter 1,track factor off,2000,7.70155639918137,6.942209899388738,"diagnostic only, not trained"
+b,share of the loss [%],quarter 1,window off,2000,9.586744550117247,9.447250187772552,"diagnostic only, not trained"
+b,share of the loss [%],quarter 2,pooled loss,2000,89.43418095848543,,
+b,share of the loss [%],quarter 2,cost-weighted loss,2000,56.91173723655789,,
+b,share of the loss [%],quarter 2,lever arm off,2000,44.55594564940868,,"diagnostic only, not trained"
+b,share of the loss [%],quarter 2,track factor off,2000,85.1110645182289,,"diagnostic only, not trained"
+b,share of the loss [%],quarter 2,window off,2000,82.50861405253313,,"diagnostic only, not trained"
+b,share of the loss [%],quarter 3,pooled loss,2000,3.69258964426284,,
+b,share of the loss [%],quarter 3,cost-weighted loss,2000,18.357336683256047,,
+b,share of the loss [%],quarter 3,lever arm off,2000,28.011545346851708,,"diagnostic only, not trained"
+b,share of the loss [%],quarter 3,track factor off,2000,6.109794504761913,,"diagnostic only, not trained"
+b,share of the loss [%],quarter 3,window off,2000,6.973296883101185,,"diagnostic only, not trained"
+b,share of the loss [%],quarter 4,pooled loss,2000,6.2233068852863855,6.153983992224087,
+b,share of the loss [%],quarter 4,cost-weighted loss,2000,1.3824411718756924,1.7471796104186907,
+b,share of the loss [%],quarter 4,lever arm off,2000,17.540299432410464,21.21687489862449,"diagnostic only, not trained"
+b,share of the loss [%],quarter 4,track factor off,2000,1.077584577827821,0.9675436505534487,"diagnostic only, not trained"
+b,share of the loss [%],quarter 4,window off,2000,0.9313445142484297,0.8700283125872634,"diagnostic only, not trained"
+c,share of the loss [%],clamp = off,10-50 GeV loss window,,45.92901974559577,,
+c,share of the loss [%],clamp = off,> 50 GeV,,21.671334340908476,,
+c,rank correlation of share with the true endpoint cost,clamp = off,overall,,0.48521668540132007,,
+c,rank correlation of share with the true endpoint cost,clamp = off,in 10-50 GeV,,0.8799430491606628,,
+c,share carried by the worst 1 % of states [%],clamp = off,cost-weighted loss,,76.3855934410369,,
+c,share of the loss [%],clamp = 2,10-50 GeV loss window,,12.819284579175955,,
+c,share of the loss [%],clamp = 2,> 50 GeV,,0.46270996570449296,,
+c,rank correlation of share with the true endpoint cost,clamp = 2,overall,,0.8301715673524646,,
+c,rank correlation of share with the true endpoint cost,clamp = 2,in 10-50 GeV,,0.952663952186552,,
+c,share carried by the worst 1 % of states [%],clamp = 2,cost-weighted loss,,94.26984352995697,,
+c,share of the loss [%],clamp = 3,10-50 GeV loss window,,27.124021234843536,,
+c,share of the loss [%],clamp = 3,> 50 GeV,,1.7802655738072894,,
+c,rank correlation of share with the true endpoint cost,clamp = 3,overall,,0.7041034917492377,,
+c,rank correlation of share with the true endpoint cost,clamp = 3,in 10-50 GeV,,0.9365743269430246,,
+c,share carried by the worst 1 % of states [%],clamp = 3,cost-weighted loss,,89.3259128017079,,
+c,share of the loss [%],clamp = 5,10-50 GeV loss window,,47.00916062782635,,
+c,share of the loss [%],clamp = 5,> 50 GeV,,6.632412368522633,,
+c,rank correlation of share with the true endpoint cost,clamp = 5,overall,,0.5834501432570991,,
+c,rank correlation of share with the true endpoint cost,clamp = 5,in 10-50 GeV,,0.8959037071815686,,
+c,share carried by the worst 1 % of states [%],clamp = 5,cost-weighted loss,,80.84604607873051,,
+c,share of the loss [%],clamp = 10,10-50 GeV loss window,,46.811335473803204,,
+c,share of the loss [%],clamp = 10,> 50 GeV,,20.14816272807148,,
+c,rank correlation of share with the true endpoint cost,clamp = 10,overall,,0.491927600900578,,
+c,rank correlation of share with the true endpoint cost,clamp = 10,in 10-50 GeV,,0.8799430491606628,,
+c,share carried by the worst 1 % of states [%],clamp = 10,cost-weighted loss,,76.32536762073622,,
+d,rank correlation of share with true cost,rank correlation of share with true cost,pooled loss,8000,0.6843261576478421,0.6899634115672201,
+d,"rank correlation of share with true cost, in 10-50 GeV",rank correlation of share with true cost,pooled loss,8000,0.5323356749286178,0.559113602144856,
+d,"top 1 per cent of states, share of the loss [%]",top 1 per cent of states,pooled loss,8000,98.30047387289167,97.89225998830176,
+d,rank correlation of share with true cost,rank correlation of share with true cost,cost-weighted loss,8000,0.5834501432570991,0.5608349109222651,
+d,"rank correlation of share with true cost, in 10-50 GeV",rank correlation of share with true cost,cost-weighted loss,8000,0.8959037071815686,0.8889211021701056,
+d,"top 1 per cent of states, share of the loss [%]",top 1 per cent of states,cost-weighted loss,8000,80.84604607873051,83.79462683271643,
+-,note,18 September snapshot,-,,,,"the snapshot values exist only for the quantities the original gate stored, whose momentum binning was the old 1/2/5/10/25/200 GeV set; per-band shares in the paper's bands are available for the extended network only"

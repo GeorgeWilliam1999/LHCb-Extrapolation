@@ -1,0 +1,4 @@
+N,q,dz_mm,radial_med_um,radial_p95_um,band_radial_med_um,restarts,rounds,rounds_counter_record_json,snapshot_restarts,snapshot_rounds,snapshot_rounds_counter_record_json,abandoned_round_label,extra_restarts,extra_rounds,history_rows,unique_restarts,duplicated_history_rows,rounds_rows,duplicated_round_rows,headline_csv_radial_med_um,reproduces_headline_pct
+64,2,80.903125,145.74920991109252,897.8420593906342,108.14519098643575,1260,50,51,760,30,31,31,500,20,1260,1260,0,50,0,145.74920991109255,-1.9500420926975407e-14
+128,8,40.4515625,122.2419291681365,927.7462268228109,70.50089013741243,1599,63,64,599,23,24,24,1000,40,1599,1599,0,63,0,122.2419291681365,0.0
+256,16,20.22578125,147.6798548605811,1032.1475078452384,89.61609083192846,1050,42,43,550,22,23,23,500,20,1050,1050,0,42,0,147.6798548605811,0.0

@@ -39,7 +39,9 @@ plateau rule.
 
 ### Method (numbered)
 1. **What is kept fixed.** Same tracks and splits (14,482 crossings, 11,567 / 1,463 / 1,452), same
-   network (imported, not copied), same seed, same L-BFGS protocol, same rounds (25 restarts),
+   network (imported, not copied; its outputs are the straight line plus a per-track-scaled
+   network correction, not the stage states directly — see the 2026-09-23 design note in
+   `../README.md`), same seed, same L-BFGS protocol, same rounds (25 restarts),
    same field map. The isolation gate F-1 (bit-identical losses with `--weighting blockE`, the
    command and the result).
 2. **The weight, derived.** Start from the pooled loss; write the new loss exactly as in

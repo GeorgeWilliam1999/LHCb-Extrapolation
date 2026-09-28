@@ -8,6 +8,24 @@ the optimiser, the rounds, the clamp, the lever weighting, the track-bend
 normalisation, the roll-off width and the floor - is imported unchanged from
 `Block_F_reweighted_loss/F0_Weighting/weighted_loss.py`, which is read-only.
 
+What the network emits (George, 2026-09-23). The network, imported unchanged
+from the earlier studies (`Block_E_single_network_chain/E1_Network_grid/
+chain_network.py`), emits the q Gauss-Legendre stage states and the endpoint
+state of one step, each written as the straight-line extrapolation of the input
+state plus a network-predicted correction, scaled per track:
+    output_j = straight_j(S) + sigma(S) (x) NN(S, z_start)_j
+The network therefore learns the correction to the straight line - the
+magnet's bending over one step - rather than the stage states themselves. This
+departs from Raissi, Perdikaris and Karniadakis (2019), whose network emits the
+states directly. The windowed loss in this module is unchanged by this: it sees
+only the resulting stage states, through the reconstruction residual r. The
+form was introduced on 5 September 2026 for a network serving many step
+lengths; it was put to George as an explicit choice for the fixed-step study
+and chosen on 14 September 2026 (question 4 of that plan); the single-network
+chain then inherited it as 'Block D's form' without re-examining it, and the
+theory did not state that the learned quantity is the correction rather than
+the stage states (noted 23 September 2026).
+
 ## The trap this module exists to fix
 
 `weighted_loss.py` carries the window in two places at once:

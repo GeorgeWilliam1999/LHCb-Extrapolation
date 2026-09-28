@@ -10,6 +10,19 @@ clamp, the modes, the loss itself — is imported from that file unchanged and n
 With `p_lo = 10`, `p_hi = 50` every function here returns bit for bit what the imported module
 returns.
 
+The network is not touched either. It emits each of the q Gauss–Legendre stage states and the
+endpoint state as the straight-line extrapolation of the input plus a per-track-scaled
+network correction (`output_j = straight_j(S) + σ(S) ⊙ NN(S, z_start)_j`), so it learns the
+correction to the straight line rather than the states themselves — a departure from Raissi,
+Perdikaris and Karniadakis (2019). The form was introduced on 5 September 2026 for a network
+serving many step lengths; it was put to George as an explicit choice for the fixed-step study
+and chosen on 14 September 2026 (question 4 of that plan); the single-network chain then
+inherited it as 'Block D's form' without re-examining it, and the theory did not state that the
+learned quantity is the correction rather than the stage states (noted 23 September 2026). The loss sees only the resulting stage states, through the
+reconstruction residual r, so nothing in this folder depends on that form; gate W3 bypasses
+it altogether by handing the loss the exact states through a stub network. See
+[../README.md](../README.md).
+
 ## The trap
 
 The window lives in two places at once: the module constants `P_LO = 10.0`, `P_HI = 50.0`,

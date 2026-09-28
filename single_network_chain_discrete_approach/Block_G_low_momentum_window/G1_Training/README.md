@@ -15,6 +15,18 @@ is checkable rather than asserted: four code hunks, the rest of the diff is the 
 
 The network, the metrics, the tracks and every part of the loss except the window are
 **imported**, not copied, so they cannot drift.
+The imported network writes each of its outputs (the q Gauss–Legendre stage states and the
+endpoint state of one step) as the straight-line extrapolation of the input plus a
+per-track-scaled network correction, so it learns the **correction to the straight line**,
+not the states themselves — a departure from Raissi, Perdikaris and Karniadakis (2019). The
+form was introduced on 5 September 2026 for a network serving many step lengths; it was put
+to George as an explicit choice for the fixed-step study and chosen on 14 September 2026
+(question 4 of that plan); the single-network chain then inherited it as 'Block D's form'
+without re-examining it, and the theory did not state that the learned quantity is the
+correction rather than the stage states (noted 23 September 2026; see
+[../README.md](../README.md)). The trainer's own docstring still says only that the network
+is imported: `train_windowed.py` is deliberately not edited while the runs it launches are
+training on the farm (each resubmission re-reads it).
 
 Runs land in `<out>/<weighting>/N<NNN>_q<qq>/`. Put the window in `--out`
 (`--out results/p03-08`, zero-padded on each side) so two windows can never share a run

@@ -3,7 +3,8 @@
 
 Gate 1 - the model (at q = 2 and 16, on the 2,589 mm step of N = 2 and the
 20.2 mm step of N = 256, on 2,000 RK6 track states drawn over the start planes):
-  a. with the last layer zeroed the output is the straight line, exactly;
+  a. with the last layer zeroed the output is the straight line, exactly (the
+     network's correction to the straight line is then zero);
   b. the torch field integrals and all four scales equal their numpy twins
      (relative difference below 1e-12);
   c. one batch mixing every start plane gives the same outputs as each plane's
@@ -14,8 +15,8 @@ Gate 2 - the loss. For 40 track states per case, the q-stage scheme is solved
 exactly without a network (Block C's `exact_solver.solve_state`). Handing
 those stage and end states to the shared physics loss, with the start plane per
 track, must give a loss at machine precision: below 1e-10 times the loss of the
-straight line on the same states. This checks the residual, the per-track stage
-planes and the start-plane input together.
+straight line on the same states. This checks the loss's reconstruction
+residual, the per-track stage planes and the start-plane input together.
 
 Gate 3 - the y scale. On 20,000 (track, plane) pairs per step count, the true
 one-step deviation from the straight line (the RK6 state dz further along minus

@@ -1,0 +1,47 @@
+panel,band,charge,n,quantity,value,unit
+a,<3,q+,880,signed median dx,-8640.739818098553,um
+a,3-8,q+,3442,signed median dx,-2276.9868120739147,um
+a,8-20,q+,2171,signed median dx,-257.03622555627703,um
+a,20-50,q+,801,signed median dx,14.106332659878262,um
+a,>50,q+,145,signed median dx,51.10031312213437,um
+a,10-50 (loss window),q+,2366,signed median dx,-70.90476132148105,um
+a,<3,q-,804,signed median dx,8129.766956018329,um
+a,3-8,q-,3164,signed median dx,2150.5111236170933,um
+a,8-20,q-,2094,signed median dx,244.57880705523394,um
+a,20-50,q-,849,signed median dx,-6.586178238379148,um
+a,>50,q-,132,signed median dx,-58.37481258224475,um
+a,10-50 (loss window),q-,2347,signed median dx,73.92844095548057,um
+b,<3,q+,880,median dx / bend,0.006902772292901175,dimensionless
+b,3-8,q+,3442,median dx / bend,0.0036249939366723464,dimensionless
+b,8-20,q+,2171,median dx / bend,0.0010752455662552186,dimensionless
+b,20-50,q+,801,median dx / bend,-0.00014904192664397017,dimensionless
+b,>50,q+,143,median dx / bend,-0.0012200906142724398,dimensionless
+b,10-50 (loss window),q+,2366,median dx / bend,0.00044272396697452,dimensionless
+b,<3,q-,804,median dx / bend,0.006528174920561273,dimensionless
+b,3-8,q-,3164,median dx / bend,0.003498060716363139,dimensionless
+b,8-20,q-,2094,median dx / bend,0.0009735922157934713,dimensionless
+b,20-50,q-,849,median dx / bend,-7.117943357727242e-05,dimensionless
+b,>50,q-,128,median dx / bend,-0.0014186494909480666,dimensionless
+b,10-50 (loss window),q-,2347,median dx / bend,0.00046981399038061744,dimensionless
+b,<3,both,1684,implied momentum defect,17.61827288947302,MeV
+b,3-8,both,6606,implied momentum defect,17.322340489851868,MeV
+b,8-20,both,4265,implied momentum defect,12.231001819089691,MeV
+b,20-50,both,1650,implied momentum defect,-3.100832604509413,MeV
+b,>50,both,271,implied momentum defect,-86.83859310906969,MeV
+b,10-50 (loss window),both,4713,implied momentum defect,7.4735581639215924,MeV
+c,<3,both (charge corrected),1684,68 % half-width of dx,6119.479238753632,um
+c,<3,,1684,Highland air-only prediction,1706.4226126548936,um
+c,<3,,1684,measured / air,3.5861451866444725,dimensionless
+c,3-8,both (charge corrected),6606,68 % half-width of dx,2675.551492454673,um
+c,3-8,,6606,Highland air-only prediction,926.0546937234785,um
+c,3-8,,6606,measured / air,2.889193813916996,dimensionless
+c,8-20,both (charge corrected),4265,68 % half-width of dx,815.1596204742037,um
+c,8-20,,4265,Highland air-only prediction,375.42051430843844,um
+c,8-20,,4265,measured / air,2.17132412696149,dimensionless
+c,20-50,both (charge corrected),1650,68 % half-width of dx,351.02951291577153,um
+c,20-50,,1650,Highland air-only prediction,164.40530964841733,um
+c,20-50,,1650,measured / air,2.1351470561775177,dimensionless
+c,>50,both (charge corrected),277,68 % half-width of dx,160.26837171434323,um
+c,>50,,277,Highland air-only prediction,68.47701564986647,um
+c,>50,,277,measured / air,2.340469574985862,dimensionless
+c,10-50 (loss window),both (charge corrected),4713,68 % half-width of dx,581.6897004179639,um

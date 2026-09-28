@@ -25,7 +25,11 @@ Gate W2 - the `blockE` path is untouched. With mode `blockE` the weights are
 Gate W3 - the reweighting still does not move the minimum. The q-stage scheme
 is solved exactly without a network on 40 states per case; those stage and end
 states must give machine zero under EVERY mode with the anchor window - below
-1e-10 times the straight line's loss on the same states.
+1e-10 times the straight line's loss on the same states. The stub network
+hands the loss those states directly, so this gate bypasses the real network's
+output form (straight-line extrapolation plus a per-track-scaled correction,
+see `windowed_loss.py`) and tests the loss alone: the loss sees only stage and
+end states, however they were produced.
 
 Gate W4 - the pre-flight, and the only one that can still change the design.
 On the TRAINED N = 64, q = 2 network of Block F (`F1_Training/results/full/

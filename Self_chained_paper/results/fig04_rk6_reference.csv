@@ -1,0 +1,33 @@
+panel,series,x,x_unit,value,unit
+a,"smooth analytic field, max error",640.0,mm,0.01662444134353791,um
+a,"smooth analytic field, max error",320.0,mm,0.00021220193957560696,um
+a,"smooth analytic field, max error",160.0,mm,2.9346551855269354e-06,um
+a,"smooth analytic field, max error",80.0,mm,4.200728653813712e-08,um
+a,fitted order (first 3 points),,,6.233913619788576,dimensionless
+b,v8r1.up |S(h)-S(h/2)| median,0.8,mm,9.423615665582474e-05,um
+b,v8r1.up |S(h)-S(h/2)| p95,0.8,mm,0.0006405146876886643,um
+b,v8r1.up |S(h)-S(h/2)| worst,0.8,mm,0.001128478743339656,um
+b,v8r1.up |S(h)-S(h/2)| median,0.4,mm,1.1750774131513708e-05,um
+b,v8r1.up |S(h)-S(h/2)| p95,0.4,mm,0.00015062324223436002,um
+b,v8r1.up |S(h)-S(h/2)| worst,0.4,mm,0.00022015524336893577,um
+b,v8r1.up |S(h)-S(h/2)| median,0.2,mm,7.810488256154713e-06,um
+b,v8r1.up |S(h)-S(h/2)| p95,0.2,mm,5.015776309846841e-05,um
+b,v8r1.up |S(h)-S(h/2)| worst,0.2,mm,8.169854481820948e-05,um
+b,v8r1.up |S(h)-S(h/2)| median,0.1,mm,2.075968730252953e-06,um
+b,v8r1.up |S(h)-S(h/2)| p95,0.1,mm,1.6384717582695885e-05,um
+b,v8r1.up |S(h)-S(h/2)| worst,0.1,mm,2.4444489099550992e-05,um
+b,successive halving ratio,0.8->0.4,mm,8.019570081182852,dimensionless
+b,successive halving ratio,0.4->0.2,mm,1.5044864989399382,dimensionless
+b,successive halving ratio,0.2->0.1,mm,3.762334250190281,dimensionless
+c,"RK6, 0.1 vs 0.05 mm",median,,2.075968730252953e-06,um
+c,"RK6, 0.1 vs 0.05 mm",p95,,1.6384717582695885e-05,um
+c,"RK6, 0.1 vs 0.05 mm",worst,,2.4444489099550992e-05,um
+c,"RK6 closure, 0.1 mm",median,,3.6571226047499295e-06,um
+c,"RK6 closure, 0.1 mm",p95,,2.882349896538016e-05,um
+c,"RK6 closure, 0.1 mm",worst,,4.35786660091253e-05,um
+c,RK4 at 1 mm vs RK6,median,,0.0008174113403924821,um
+c,RK4 at 1 mm vs RK6,p95,,0.004854125390352237,um
+c,RK4 at 1 mm vs RK6,worst,,0.009746379134867311,um
+c,RK4 at 5 mm vs RK6,median,,0.012694930724421738,um
+c,RK4 at 5 mm vs RK6,p95,,0.07663032067171109,um
+c,RK4 at 5 mm vs RK6,worst,,0.2913077132689068,um
