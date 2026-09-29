@@ -6,7 +6,7 @@ stages and no equation of motion in it; it is trained on the reference end
 state. It is the comparison that shows what labels buy.
 
 Settings, all arguments, none with a default: the two planes, the scale of the
-inputs, the output form, the width and the depth.
+inputs, the output form, the width, the depth and the activation.
 
 The body, its initialisation and its arithmetic are those of the frozen
 `OneStepNetwork` (`_shared/model.py`) with no stages and no extra input, so
@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import torch
 
-from rkpinn.networks.stage_network import body_of_tanh_layers, positive_scale
+from rkpinn.networks.stage_network import body_of_layers, check_activation, positive_scale
 from rkpinn.predicted_track.predicted_track import END_STATE_PREDICTED, PredictedTrack
 from rkpinn.predicted_track.track_layout import TrackLayout
 from rkpinn.registry import register
@@ -26,17 +26,37 @@ from rkpinn.registry import register
 @register("network", "whole_crossing_network")
 class WholeCrossingNetwork(torch.nn.Module):
     kind = "whole_crossing_network"
+    has_stages = False
+    settings_in_a_configuration = (
+        "output_form", "width", "depth", "activation",
+        "scale_of_inputs", "scale_of_outputs")
+
+    @classmethod
+    def from_configuration(cls, settings, context):
+        """The network a configuration names, with its weights drawn from the
+        seed of the run."""
+        from rkpinn.registry import component
+        output_form = component("output_form", settings["output_form"])(
+            context.scale(settings["scale_of_outputs"], 4))
+        torch.manual_seed(int(context.seed))
+        return cls(
+            first_plane_mm=context.layout.first_plane_mm,
+            last_plane_mm=context.layout.last_plane_mm,
+            scale_of_inputs=context.scale(settings["scale_of_inputs"], 5),
+            output_form=output_form, width=settings["width"], depth=settings["depth"],
+            activation=settings["activation"])
 
     def __init__(self, *, first_plane_mm, last_plane_mm, scale_of_inputs, output_form,
-                 width, depth):
+                 width, depth, activation):
         super().__init__()
         self.first_plane_mm = float(first_plane_mm)
         self.last_plane_mm = float(last_plane_mm)
         self.width, self.depth = int(width), int(depth)
+        self.activation = check_activation(activation)
         self.output_form = output_form
         self.register_buffer("scale_of_inputs",
                              positive_scale(scale_of_inputs, 5, "the scale of the inputs"))
-        self.body = body_of_tanh_layers(5, 4, width, depth)
+        self.body = body_of_layers(5, 4, width, depth, activation)
         self.layout = TrackLayout(self.first_plane_mm, self.last_plane_mm, 1, None)
 
     @property
@@ -81,7 +101,7 @@ class WholeCrossingNetwork(torch.nn.Module):
             "scale_of_inputs": self.scale_of_inputs.tolist(),
             "output_form": self.output_form.name,
             "scale_of_outputs": self.output_form.scale_of_outputs.tolist(),
-            "width": self.width, "depth": self.depth,
+            "width": self.width, "depth": self.depth, "activation": self.activation,
         }
 
 

@@ -12,6 +12,7 @@ from rkpinn.registry import register
 class ReferenceStatesOnPlanes:
     name = "reference_states_on_planes"
     needs_labels = True
+    can_be_trained_on = False       # it is for the evaluation
 
     def __init__(self, *, number_of_steps):
         self.number_of_steps = int(number_of_steps)

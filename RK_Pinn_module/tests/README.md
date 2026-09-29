@@ -28,6 +28,9 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_networks.py` | the stage network and the whole-crossing network identical to the frozen one-step network; the summed end state; the self chain identical to the frozen chaining; double precision; snapshots | built |
 | `test_losses.py` | the five gates every loss must pass; the pooled loss identical to the frozen loss, value and gradient; the weights identical to the frozen weights; no loss imports a network | built |
 | `test_targets.py` | every target gives the states it names, one row per track, in the order of the tracks | built |
+| `small_run.py` | not a gate: a small store in a temporary folder and a small configuration, for the gates of the training | built |
+| `test_configuration_and_run_key.py` | a configuration with an unknown setting, a missing setting or an unknown name is refused; the run key changes with every setting and not with the cap on the rounds | built |
+| `test_training.py` | the optimiser identical to the frozen trainer; the stopping rule identical to the frozen rule; a run stopped and resumed identical to one not stopped; a second writer refused; a snapshot never overwritten; a run extended | built |
 | `test_registry_turns_names_into_components.py` | every built component can be named; unknown names and kinds are refused | built |
 
 ## The contract
@@ -38,7 +41,7 @@ A parity gate that cannot find its frozen file fails. It does not skip.
 
 The frozen folders are only read. The field map is read from CVMFS, so the gates need CVMFS mounted.
 
-Five gates read the store of the project, at `/data/bfys/gscriven/rkpinn_store` or where the environment variable `RKPINN_STORE` points. They fail if the store does not hold the project's track set.
+Seven gates read the store of the project, at `/data/bfys/gscriven/rkpinn_store` or where the environment variable `RKPINN_STORE` points. They fail if the store does not hold the project's track set.
 
 ## To run
 
@@ -49,7 +52,7 @@ PYTHONNOUSERSITE=1 /data/bfys/gscriven/conda/envs/TE/bin/python -m pytest tests 
 
 The package does not need to be installed for this: `pyproject.toml` tells pytest to find it in `src/`.
 
-All gates take about thirteen minutes on the login node, one thread: about seven for phase 1, five for phase 2 and one for phase 3. Most of that is the sixth-order reference at its step of 0.1 mm over 2,589 mm, run once by the package and once by the frozen code.
+All gates take about thirteen minutes on the login node, one thread: about seven for phase 1, five for phase 2, one for phase 3 and twenty seconds for phase 4. Most of that is the sixth-order reference at its step of 0.1 mm over 2,589 mm, run once by the package and once by the frozen code.
 
 ## How to add to it
 

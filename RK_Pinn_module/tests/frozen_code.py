@@ -134,3 +134,15 @@ def frozen_windowed_loss():
     if WINDOWED_LOSS_FOLDER not in sys.path:
         sys.path.insert(0, WINDOWED_LOSS_FOLDER)
     return importlib.import_module("windowed_loss")
+
+
+PLATEAU_RULE_FOLDER = os.path.join(
+    SINGLE_NETWORK_FOLDER, "Block_F_reweighted_loss", "F2_Analysis")
+
+
+def frozen_plateau_rule():
+    """The frozen `compare_to_blockE.py`, which holds the plateau rule."""
+    frozen_module("reference")
+    if PLATEAU_RULE_FOLDER not in sys.path:
+        sys.path.insert(0, PLATEAU_RULE_FOLDER)
+    return importlib.import_module("compare_to_blockE")

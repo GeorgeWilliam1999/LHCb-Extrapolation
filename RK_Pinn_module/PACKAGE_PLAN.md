@@ -1,6 +1,6 @@
 # Plan for the package: training self-chained Runge–Kutta networks for full tracks
 
-**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phases 1, 2 and 3 of section 9 are built and gated (2026-09-29): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference, the registry; the store, the track set `12a8d35c3165` and the exact states of its test split; the predicted track, the two networks, the four losses and four targets. Phases 4 to 7 are plan
+**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phases 1 to 4 of section 9 are built and gated (2026-09-29): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference, the registry; the store, the track set `12a8d35c3165` and the exact states of its test split; the predicted track, the two networks, the four losses and four targets. the configuration and run key, the round trainer, the optimiser, the two protocols, the stopping rule, snapshots and the lock. Nothing is trained yet beyond the small runs of the gates. Phases 5 to 7 are plan
 
 The library of what already exists is in [INDEX.md](INDEX.md). This file is the plan for what is built next.
 
@@ -742,6 +742,33 @@ George ruled on the risk and the assumptions below. They replace "assumptions I 
 | Write-ups | none without a discussion with George and a detailed plan | `CLAUDE.md` section 4 is amended |
 
 What this does not change: a component that is not ruled in is not built (section 12.4, rule 5). Flexibility means the setting exists and the place is open. It does not mean every value of the setting is built now.
+
+### Rulings of 2026-09-29, on the choices of phase 3
+
+| Choice | Ruling | Consequence |
+|---|---|---|
+| A switch of the cost-weighted loss that is off makes its factor 1 | agreed; completely new cost functions may come, so the flexibility is wanted | a new loss is one file and one line of registration |
+| The start plane is mapped onto -1 to 1 | agreed | |
+| The body is tanh layers | not fixed: the architecture is free to vary, and whether to use tanh is an open question | `activation` is a setting of both networks, with no default. One is built, `tanh` |
+| The divisor of the supervised endpoint loss | left to each experiment; a measured spread for the start | `divisor` is `spread_of_first_round_states`, `spread_of_target_end_states` or four numbers |
+| The target of the exact stage states is left for phase 5 | agreed | |
+| The predicted track carries the rates at the stages | agreed | |
+| The end state | both possibilities are kept. The frozen networks all predicted the end state and chained on it; summing the stages is new in this package | `end_state` and `terms` stay settings |
+
+A network George floated on 2026-09-29, not built and not yet laid out: it predicts the end state, and the layer before its last, of 2 (q + 1) units as he wrote it, learns the stages, so that what the network learns can be looked at. Its layout is agreed with him before it is built. It would be one new file in `networks/`.
+
+### What was built in phase 4 (2026-09-29)
+
+Choices made while building, each a setting with no default unless said:
+
+| Choice | As built |
+|---|---|
+| How a round ends | after `restarts_per_round` restarts, or earlier when `end_a_round_when_stalled` is set |
+| How a run ends | plateaued, by the stopping rule on a validation error, or at its cap. The frozen rule that ended a run on the loss, and its confirmation pass, are not ported |
+| When a run is written | at the end of every round, never inside one. A job that is interrupted repeats the round it was in |
+| The run key | from the whole configuration, with the cap on the rounds left out |
+| The validation error | three are recorded; the rule names the one it uses |
+| What to do if a run exists | the caller says: refuse, resume or extend. Not a setting of the run, and with no default |
 
 ### What was measured in phase 3 (2026-09-29)
 

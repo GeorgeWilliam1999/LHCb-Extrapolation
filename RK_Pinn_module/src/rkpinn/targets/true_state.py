@@ -15,6 +15,7 @@ from rkpinn.registry import register
 class TrueState:
     name = "true_state"
     needs_labels = True
+    can_be_trained_on = False       # it is for the evaluation
 
     def for_states(self, track_data, split):
         """(states, planes): shapes (n, 5) and (n,), the true state on the

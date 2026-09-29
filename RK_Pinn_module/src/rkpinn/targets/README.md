@@ -20,6 +20,8 @@ What a prediction is trained on or compared with. A target is data; it contains 
 
 ## The contract
 
+A target says whether a run can be trained on it, in `can_be_trained_on`. `no_target` and `reference_end_state` can; the others are for the evaluation.
+
 A target gives `needs_labels` and `for_states(track_data, split)`. It is aligned with the track data by particle, in the same order.
 
 ## How to add to it

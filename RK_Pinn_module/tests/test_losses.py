@@ -392,8 +392,13 @@ def test_supervised_endpoint_loss():
     network = build_whole_crossing_network(
         seed=0, first_plane_mm=float(tracks["z0"]), last_plane_mm=float(tracks["z1"]),
         scale_of_inputs=spread, output_form=DirectStates(end.std(axis=0)[:4]),
-        width=128, depth=2)
-    loss = SupervisedEndpoint()
+        width=128, depth=2, activation="tanh")
+    loss = SupervisedEndpoint(
+        divisor=SupervisedEndpoint.MEASURED_WHEN_CONSTANTS_ARE_TAKEN)
+    given = SupervisedEndpoint(divisor=[1.0, 2.0, 3.0, 4.0])
+    assert given.constants()["divisor_per_component"] == [1.0, 2.0, 3.0, 4.0]
+    with pytest.raises(ValueError):
+        SupervisedEndpoint(divisor=[1.0, 2.0, 0.0, 4.0])
     assert loss.needs_labels is True
     constants = loss.constants(end)
     assert identical(np.array(constants["divisor_per_component"]), end.std(axis=0)[:4])

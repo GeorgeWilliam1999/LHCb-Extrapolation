@@ -20,7 +20,7 @@ from rkpinn.track_data.draw_training_states import (
     draw_training_states, generator_of_a_round)
 
 FIELD_MAP = "v8r1_up"
-WIDTH, DEPTH = 128, 2
+WIDTH, DEPTH, ACTIVATION = 128, 2, "tanh"
 STATES_PER_ROUND = 32000
 
 # (number of steps, number of stages)
@@ -81,7 +81,7 @@ class Crossing:
             first_start_plane_mm=self.start_planes_mm[0],
             last_start_plane_mm=self.start_planes_mm[-1],
             scale_of_inputs=self.spread, output_form=DirectStates(self.spread[:4]),
-            width=width, depth=depth, end_state=end_state)
+            width=width, depth=depth, activation=ACTIVATION, end_state=end_state)
 
 
 _crossings = {}

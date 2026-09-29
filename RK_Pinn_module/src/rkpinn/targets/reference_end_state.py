@@ -11,6 +11,7 @@ from rkpinn.registry import register
 class ReferenceEndState:
     name = "reference_end_state"
     needs_labels = True
+    can_be_trained_on = True
 
     def for_states(self, track_data, split):
         """Shape (n, 5), one row per track of the split, in the order of the tracks."""

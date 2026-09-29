@@ -32,6 +32,7 @@ KINDS = (
     "loss",
     "target",
     "training_protocol",
+    "optimiser",
     "stopping_rule",
 )
 
@@ -55,6 +56,9 @@ COMPONENT_MODULES = (
     "rkpinn.targets.reference_end_state",
     "rkpinn.targets.reference_states_on_planes",
     "rkpinn.targets.true_state",
+    "rkpinn.training.training_protocols",
+    "rkpinn.training.optimiser",
+    "rkpinn.training.stopping_rule",
 )
 
 _components: dict[str, dict[str, object]] = {kind: {} for kind in KINDS}

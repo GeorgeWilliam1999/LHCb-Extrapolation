@@ -52,6 +52,8 @@ Not ported: the ablations of the frozen study, which replaced a factor by its av
 
 ## The contract
 
+A loss states its settings in `settings_in_a_configuration` and is built from a configuration by `from_configuration`. The divisor of the supervised endpoint loss is left to each experiment: the spread of the first round's states, the spread of the end states of the target, or four numbers (George, 2026-09-29).
+
 A loss gives `constants(first_round_states)` and `value(predicted_track, target, constants)`. It never imports a network. It takes every constant as an argument, and the run records the constants it used.
 
 `value` reads every constant from the `constants` it is given, and from nowhere else.

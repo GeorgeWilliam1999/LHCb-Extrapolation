@@ -25,7 +25,7 @@ import numpy as np
 import pytest
 import torch
 
-from building_blocks import CELLS, DEPTH, WIDTH, crossing, equations
+from building_blocks import ACTIVATION, CELLS, DEPTH, WIDTH, crossing, equations
 from frozen_code import frozen_module, frozen_tracks, identical
 from rkpinn.networks.collect_and_sum import collect_and_sum, rates_at_the_stages
 from rkpinn.networks.output_forms import DirectStates
@@ -88,7 +88,7 @@ def test_whole_crossing_network_is_identical_to_the_frozen_network():
     ours = build_whole_crossing_network(
         seed=5, first_plane_mm=cell.first_plane_mm, last_plane_mm=cell.last_plane_mm,
         scale_of_inputs=spread, output_form=DirectStates(spread[:4]),
-        width=WIDTH, depth=DEPTH)
+        width=WIDTH, depth=DEPTH, activation=ACTIVATION)
     frozen = frozen_module("model")
     torch.manual_seed(5)
     theirs = frozen.OneStepNetwork(0, spread, spread, width=WIDTH, depth=DEPTH, n_extra=0)
@@ -267,12 +267,26 @@ def test_a_network_is_built_again_from_its_settings_and_weights(end_state):
         last_start_plane_mm=settings["last_start_plane_mm"],
         scale_of_inputs=settings["scale_of_inputs"],
         output_form=DirectStates(settings["scale_of_outputs"]),
-        width=settings["width"], depth=settings["depth"], end_state=settings["end_state"])
+        width=settings["width"], depth=settings["depth"],
+        activation=settings["activation"], end_state=settings["end_state"])
     again.load_state_dict(snapshot)
     states, planes = cell.states(100)
     with torch.no_grad():
         assert identical(again(states, planes).numpy(), network(states, planes).numpy())
     assert isinstance(again, StageNetwork) and again.settings() == settings
+
+
+def test_an_activation_that_is_not_built_is_refused():
+    cell = crossing(2, 2)
+    with pytest.raises(ValueError):
+        build_stage_network(
+            seed=0, equation_of_motion=equations()[1], tableau=cell.tableau,
+            step_length_mm=cell.step_length_mm,
+            first_start_plane_mm=cell.start_planes_mm[0],
+            last_start_plane_mm=cell.start_planes_mm[-1], scale_of_inputs=cell.spread,
+            output_form=DirectStates(cell.spread[:4]), width=8, depth=1,
+            activation="no_such_activation", end_state=END_STATE_SUMMED)
+    assert cell.network(END_STATE_SUMMED).settings()["activation"] == "tanh"
 
 
 def test_a_scale_must_be_positive():

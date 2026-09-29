@@ -151,6 +151,18 @@ def weights(input_states, start_planes_mm, nodes_of_terms, step_length_mm, const
 class CostWeighted:
     name = "cost_weighted"
     needs_labels = False
+    settings_in_a_configuration = (
+        "terms", "momentum_window_gev", "roll_off", "floor", "clamp",
+        "samples_of_the_field_integral", "lever_arm_is_on", "track_bend_is_on",
+        "momentum_window_is_on", "reference_bend_mm")
+
+    @classmethod
+    def from_configuration(cls, settings, context):
+        """The two planes are those of the run; every other constant is in the
+        configuration."""
+        return cls(equation_of_motion=context.equation_of_motion,
+                   first_plane_mm=context.layout.first_plane_mm,
+                   last_plane_mm=context.layout.last_plane_mm, **settings)
 
     def __init__(self, *, equation_of_motion, terms, first_plane_mm, last_plane_mm,
                  momentum_window_gev, roll_off, floor, clamp,

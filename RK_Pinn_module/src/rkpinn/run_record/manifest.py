@@ -1,8 +1,11 @@
 """The manifest: the lists of what the store holds.
 
-Built so far (phase 2): the list of track sets and the list of the exact
-scheme's states. The list of runs and the metrics recomputed from snapshots
-are added with the trainer and the evaluation.
+Built so far: the list of track sets and the list of the exact scheme's
+states (phase 2), and the list of runs (phase 4). The metrics recomputed from
+snapshots are added with the evaluation.
+
+The list of runs says that a run exists and what it is. Where a run is, how
+many rounds it has and how it ended, is in the run's own `state.json`.
 
 A list is a CSV file with a fixed set of columns. A row is added when the
 thing it names is written. The same thing is never listed twice.
@@ -26,6 +29,12 @@ COLUMNS_OF_EXACT_STATES = (
     "tracks_key", "split", "number_of_steps", "number_of_stages", "step_length_mm",
     "number_of_tracks", "solves_not_converged", "key_of_content", "created",
     "package_version", "commit", "traceable_to_the_commit", "machine", "processor",
+)
+
+COLUMNS_OF_RUNS = (
+    "key", "created", "tracks_key", "network", "loss", "target", "number_of_steps",
+    "number_of_stages", "seed", "package_version", "commit",
+    "traceable_to_the_commit", "machine",
 )
 
 
@@ -82,3 +91,15 @@ def list_exact_states(store: Store) -> list[dict]:
 def add_exact_states(store: Store, row: dict) -> None:
     _add(file_of_exact_states(store), COLUMNS_OF_EXACT_STATES, row,
          identity=("tracks_key", "split", "number_of_steps", "number_of_stages"))
+
+
+def file_of_runs(store: Store) -> str:
+    return os.path.join(store.folder_of_the_manifest, "runs.csv")
+
+
+def list_runs(store: Store) -> list[dict]:
+    return _read(file_of_runs(store))
+
+
+def add_run(store: Store, row: dict) -> None:
+    _add(file_of_runs(store), COLUMNS_OF_RUNS, row, identity=("key",))

@@ -33,6 +33,11 @@ def spread_of_components(states) -> np.ndarray:
 class Pooled:
     name = "pooled"
     needs_labels = False
+    settings_in_a_configuration = ("terms",)
+
+    @classmethod
+    def from_configuration(cls, settings, context):
+        return cls(equation_of_motion=context.equation_of_motion, terms=settings["terms"])
 
     def __init__(self, *, equation_of_motion, terms):
         self.equation_of_motion = equation_of_motion

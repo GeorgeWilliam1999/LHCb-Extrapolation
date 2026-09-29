@@ -8,6 +8,7 @@ from rkpinn.registry import register
 class NoTarget:
     name = "no_target"
     needs_labels = False
+    can_be_trained_on = True
 
     def for_states(self, track_data, split):
         """There is nothing to give: None."""

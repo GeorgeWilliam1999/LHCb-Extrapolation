@@ -1,6 +1,6 @@
 # The run record
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-09-29
 
 ## What this directory is
 
@@ -14,8 +14,8 @@ What is recorded: the store and its keys, where a thing came from, the manifest 
 | `__init__.py` | marks the directory as part of the package; it holds no code | built |
 | `store.py` | the folders and files of the store; the key computed from content; refuses to overwrite; the location is an argument or the environment variable `RKPINN_STORE` | built |
 | `provenance.py` | the commit, the package version, the machine and its processor; refuses to write from uncommitted changes unless asked, and then records that the result cannot be traced | built |
-| `manifest.py` | the list of track sets and the list of exact states in the store. The list of runs and the metrics recomputed from snapshots are added with the trainer and the evaluation | built |
-| `configuration.py` | the schema of a configuration file, its validation, and the run key computed from it | planned |
+| `manifest.py` | the lists of track sets, of exact states and of runs in the store. The metrics recomputed from snapshots are added with the evaluation | built |
+| `configuration.py` | the schema of a configuration file, its validation, the run key computed from it, and the difference of two configurations | built |
 
 ## The layout of the store
 
@@ -26,10 +26,15 @@ What is recorded: the store and its keys, where a thing came from, the manifest 
 │   ├── tracks.npz
 │   ├── description.json
 │   └── exact_scheme/<split>/<N>_steps_<q>_stages.npz  and its .json
-├── runs/<key>/                 written by the trainer, phase 4
+├── runs/<key>/                 see ../training/checkpoints.py
+│   ├── configuration.yaml, provenance.json, constants.json, state.json
+│   ├── restarts.csv, rounds.csv
+│   ├── snapshots/round_0001/   network.pt and scores.json
+│   └── LOCK
 └── manifest/
     ├── tracks.csv
-    └── exact_states.csv
+    ├── exact_states.csv
+    └── runs.csv
 ```
 
 The store of the project is `/data/bfys/gscriven/rkpinn_store`. It is outside git.
@@ -38,7 +43,9 @@ The store of the project is `/data/bfys/gscriven/rkpinn_store`. It is outside gi
 
 A run refers to its tracks by key, never by path. It records the commit it was trained at. Metrics are recomputed from snapshots, never read from a run's own scores.
 
-A key is the first 12 characters of the sha256 hash of the content it names. Nothing in the store is overwritten. No absolute path is written into a record.
+A key is the first 12 characters of the sha256 hash of what it names: the arrays of a track set, or the configuration of a run. The cap on the rounds is left out of the key of a run, so that raising it extends the run.
+
+A configuration with a setting that is not recognised, a setting that is missing, or a name the registry does not know, is refused. No setting has a default. Nothing in the store is overwritten. No absolute path is written into a record.
 
 ## How to add to it
 

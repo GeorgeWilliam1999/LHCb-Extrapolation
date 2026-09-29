@@ -28,7 +28,8 @@ Every setting is an argument. None has a default. A configuration must state eac
 | `output_form` | `direct_states` | the network emits the states, not a correction to a straight line (George, 2026-09-28). The form is a setting, so another can be added |
 | `scale_of_inputs` | five constants | how they are measured is a setting of the experiment (George, 2026-09-28) |
 | scale of the outputs, in the output form | four constants | the same |
-| `width`, `depth` | the body: `depth` layers of `width` units with tanh, then a linear layer | |
+| `width`, `depth` | the body: `depth` layers of `width` units, each followed by the activation, then a linear layer | |
+| `activation` | `tanh` | the architecture is free to vary and whether to use tanh is open (George, 2026-09-29). One activation is built; another is added to `ACTIVATIONS` in `stage_network.py` when it is named |
 | `first_start_plane_mm`, `last_start_plane_mm` | the range the start plane is mapped from, onto [-1, 1] | |
 
 ## Where each file was ported from
@@ -44,6 +45,8 @@ Not ported: the straight line and the scale per track of `ChainNetwork`. No netw
 ## The contract
 
 A network gives `predict(states, start_planes)`, which returns a predicted track of separate steps, and `whole_track(states, layout)`, which returns a whole track. An output form declares what it returns when the network's last layer is zero, and a gate checks it.
+
+A network states its settings in `settings_in_a_configuration` and is built from a configuration by `from_configuration`, with its weights drawn from the seed of the run. It says whether it has stages, in `has_stages`.
 
 A network is in double precision whatever the default of torch is. The field map is not written into a snapshot of its weights. `settings()` gives what is needed, with the weights, to build it again.
 

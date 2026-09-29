@@ -17,7 +17,15 @@ Settings, all arguments, none with a default:
         onto [-1, 1] over it.
   scale_of_inputs     five constants; the state is divided by them
   output_form         how raw outputs become states; see output_forms.py
-  width, depth        of the body: `depth` layers of `width` units, tanh
+  width, depth        of the body: `depth` layers of `width` units, each
+                      followed by the activation, then a linear layer
+  activation          the name of the activation; see ACTIVATIONS. The
+                      architecture is free to vary and whether to use tanh is
+                      an open question (George, 2026-09-29), so it is a
+                      setting. One is built: "tanh", that of the frozen network.
+                      The loss never differentiates the network with respect
+                      to its input, so an activation need not be smooth for
+                      the loss to be defined.
   end_state           "summed_from_the_stages": the network has 4q outputs and
                           the end of the step is collected and summed from the
                           stages (ruled by George, 2026-09-28);
@@ -44,12 +52,24 @@ from rkpinn.predicted_track.predicted_track import (
 from rkpinn.registry import register
 
 
-def body_of_tanh_layers(number_of_inputs, number_of_outputs, width, depth):
-    """`depth` hidden layers of `width` units with tanh, then a linear layer.
-    In double precision whatever the default of torch is."""
+# The activations a configuration can name. One is added here when George names it.
+ACTIVATIONS = {"tanh": torch.nn.Tanh}
+
+
+def check_activation(activation: str) -> str:
+    if activation not in ACTIVATIONS:
+        raise ValueError("the activations are %s, not %r"
+                         % (", ".join(sorted(ACTIVATIONS)), activation))
+    return activation
+
+
+def body_of_layers(number_of_inputs, number_of_outputs, width, depth, activation):
+    """`depth` hidden layers of `width` units, each followed by the activation,
+    then a linear layer. In double precision whatever the default of torch is."""
+    make_activation = ACTIVATIONS[check_activation(activation)]
     layers, n_in = [], int(number_of_inputs)
     for _ in range(int(depth)):
-        layers += [torch.nn.Linear(n_in, int(width), dtype=torch.float64), torch.nn.Tanh()]
+        layers += [torch.nn.Linear(n_in, int(width), dtype=torch.float64), make_activation()]
         n_in = int(width)
     layers += [torch.nn.Linear(n_in, int(number_of_outputs), dtype=torch.float64)]
     return torch.nn.Sequential(*layers)
@@ -67,10 +87,32 @@ def positive_scale(values, number, what):
 @register("network", "stage_network")
 class StageNetwork(torch.nn.Module):
     kind = "stage_network"
+    has_stages = True
+    settings_in_a_configuration = (
+        "output_form", "width", "depth", "activation", "end_state",
+        "scale_of_inputs", "scale_of_outputs")
+
+    @classmethod
+    def from_configuration(cls, settings, context):
+        """The network a configuration names, with its weights drawn from the
+        seed of the run. `context` gives what the run has already built."""
+        from rkpinn.registry import component
+        output_form = component("output_form", settings["output_form"])(
+            context.scale(settings["scale_of_outputs"], 4))
+        layout = context.layout
+        torch.manual_seed(int(context.seed))
+        return cls(
+            equation_of_motion=context.equation_of_motion, tableau=layout.tableau,
+            step_length_mm=layout.step_length_mm,
+            first_start_plane_mm=layout.start_planes_mm[0],
+            last_start_plane_mm=layout.start_planes_mm[-1],
+            scale_of_inputs=context.scale(settings["scale_of_inputs"], 5),
+            output_form=output_form, width=settings["width"], depth=settings["depth"],
+            activation=settings["activation"], end_state=settings["end_state"])
 
     def __init__(self, *, equation_of_motion, tableau: GaussLegendreTableau,
                  step_length_mm, first_start_plane_mm, last_start_plane_mm,
-                 scale_of_inputs, output_form, width, depth, end_state):
+                 scale_of_inputs, output_form, width, depth, activation, end_state):
         super().__init__()
         if end_state not in WAYS_TO_FORM_THE_END_STATE:
             raise ValueError("the end state is %s, not %r"
@@ -83,6 +125,7 @@ class StageNetwork(torch.nn.Module):
         self.first_start_plane_mm = float(first_start_plane_mm)
         self.last_start_plane_mm = float(last_start_plane_mm)
         self.width, self.depth = int(width), int(depth)
+        self.activation = check_activation(activation)
         # Held in a tuple on purpose: as a submodule, the grid of the field map
         # would be written into every snapshot of the weights.
         self._equation_holder = (equation_of_motion,)
@@ -100,7 +143,7 @@ class StageNetwork(torch.nn.Module):
         self.register_buffer("half_range_of_start_planes_mm", torch.tensor(
             max(0.5 * (self.last_start_plane_mm - self.first_start_plane_mm), 1.0),
             dtype=torch.float64))
-        self.body = body_of_tanh_layers(6, 4 * self.number_of_outputs, width, depth)
+        self.body = body_of_layers(6, 4 * self.number_of_outputs, width, depth, activation)
 
     @property
     def equation_of_motion(self):
@@ -165,7 +208,8 @@ class StageNetwork(torch.nn.Module):
             "scale_of_inputs": self.scale_of_inputs.tolist(),
             "output_form": self.output_form.name,
             "scale_of_outputs": self.output_form.scale_of_outputs.tolist(),
-            "width": self.width, "depth": self.depth, "end_state": self.end_state,
+            "width": self.width, "depth": self.depth, "activation": self.activation,
+            "end_state": self.end_state,
         }
 
 
