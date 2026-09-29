@@ -1,6 +1,6 @@
 # Does a network whose end state is summed from its stages train?
 
-**Last updated:** 2026-09-30 · **State:** planned · **Agreed with George:** 2026-09-30
+**Last updated:** 2026-09-30 · **State:** running since 2026-09-30 01:31 · **Agreed with George:** 2026-09-30
 
 ## What this directory is
 
@@ -81,6 +81,17 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
     --step-length-of-the-carrying-mm 1.0 --fraction-for-the-derivative 1e-3 \
     --states-for-the-loss-shares 8000 --bins-of-the-histograms 60
 ```
+
+## What was measured when the runs were submitted
+
+| | |
+|---|---|
+| Commit the runs train at | `155a23cc`, from the copy `/data/bfys/gscriven/rkpinn_code/155a23cc` |
+| Smoke job, run A made small, on a scratch store | passed on a worker node in 11 s, 2 rounds |
+| Run A | farm cluster 5897963; loss before training 1.0647; after two restarts 5.02e-06 |
+| Run B | farm cluster 5897964; loss before training 1.0721; after two restarts 6.13e-06 |
+| Time of a restart of 200 iterations on the farm | about 92 s, so about 38 minutes a round and about 38 hours for 60 rounds |
+| Logs of the farm and of the keeper | `/data/bfys/gscriven/rkpinn_farm_logs/does_a_summed_end_state_train` |
 
 ## Findings
 
