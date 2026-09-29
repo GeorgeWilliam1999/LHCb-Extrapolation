@@ -50,8 +50,13 @@ class Pooled:
                 "divisor_per_component":
                     spread_of_components(first_round_states)[:4].tolist()}
 
-    def value(self, predicted_track, target, constants):
+    def squared_terms(self, predicted_track, target, constants):
+        """The squared weighted residual of every state, stage and component,
+        shape (m, J, 4). The loss is its mean."""
         residual = stage_residual(predicted_track, self.equation_of_motion,
                                   constants["terms"])
         divisor = torch.as_tensor(constants["divisor_per_component"], dtype=torch.float64)
-        return ((residual.residual / divisor) ** 2).mean()
+        return (residual.residual / divisor) ** 2
+
+    def value(self, predicted_track, target, constants):
+        return self.squared_terms(predicted_track, target, constants).mean()

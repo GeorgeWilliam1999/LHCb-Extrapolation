@@ -204,9 +204,14 @@ class CostWeighted:
         return dict(settings, name=self.name, length_mm=float(length),
                     field_integral_tesla_mm=integral, reference_bend_mm=reference)
 
-    def value(self, predicted_track, target, constants):
+    def squared_terms(self, predicted_track, target, constants):
+        """The squared weighted residual of every state, stage and component,
+        shape (m, J, 4). The loss is its mean."""
         residual = stage_residual(predicted_track, self.equation_of_motion,
                                   constants["terms"])
         w = weights(residual.input_states, residual.start_planes_mm,
                     residual.nodes_of_terms, residual.step_length_mm, constants)
-        return ((residual.residual * w) ** 2).mean()
+        return (residual.residual * w) ** 2
+
+    def value(self, predicted_track, target, constants):
+        return self.squared_terms(predicted_track, target, constants).mean()

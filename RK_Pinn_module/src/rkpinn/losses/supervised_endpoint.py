@@ -60,10 +60,15 @@ class SupervisedEndpoint:
             divisor = list(self.divisor)
         return {"name": self.name, "divisor_per_component": divisor}
 
-    def value(self, predicted_track, target, constants):
+    def squared_terms(self, predicted_track, target, constants):
+        """The squared error of every state and component over the divisor,
+        shape (m, 4). The loss is its mean."""
         if target is None:
             raise ValueError("the supervised endpoint loss needs the end states of a target")
         predicted = torch.as_tensor(predicted_track.end_states)[:, -1]
         wanted = torch.as_tensor(target, dtype=torch.float64)[:, :4]
         divisor = torch.as_tensor(constants["divisor_per_component"], dtype=torch.float64)
-        return (((predicted - wanted) / divisor) ** 2).mean()
+        return ((predicted - wanted) / divisor) ** 2
+
+    def value(self, predicted_track, target, constants):
+        return self.squared_terms(predicted_track, target, constants).mean()

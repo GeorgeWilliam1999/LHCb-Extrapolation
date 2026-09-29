@@ -1,6 +1,6 @@
 # Tests: the gates
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-09-30
 
 ## What this directory is
 
@@ -31,6 +31,10 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `small_run.py` | not a gate: a small store in a temporary folder and a small configuration, for the gates of the training | built |
 | `test_configuration_and_run_key.py` | a configuration with an unknown setting, a missing setting or an unknown name is refused; the run key changes with every setting and not with the cap on the rounds | built |
 | `test_training.py` | the optimiser identical to the frozen trainer; the stopping rule identical to the frozen rule; a run stopped and resumed identical to one not stopped; a second writer refused; a snapshot never overwritten; a run extended | built |
+| `old_runs.py` | not a gate: where the gates of the evaluation find the six old runs and the tables of the second mini-paper | built |
+| `test_evaluation_reproduces_the_paper.py` | the evaluation, run on the stored states of the old runs, gives the numbers of the paper: outputs 1 to 5, 7, 8 and 9 | built |
+| `test_stage_errors_held_and_carried.py` | output 6: the contributions of all steps sum to the measured endpoint error; for the exact scheme all of it is the scheme; what is beyond first order falls with the square of the error | built |
+| `test_report_of_a_run.py` | the report of a run holds the ten outputs and says what it left out; it is of the weights of the snapshot; it is never written over another | built |
 | `test_registry_turns_names_into_components.py` | every built component can be named; unknown names and kinds are refused | built |
 
 ## The contract
@@ -41,7 +45,7 @@ A parity gate that cannot find its frozen file fails. It does not skip.
 
 The frozen folders are only read. The field map is read from CVMFS, so the gates need CVMFS mounted.
 
-Seven gates read the store of the project, at `/data/bfys/gscriven/rkpinn_store` or where the environment variable `RKPINN_STORE` points. They fail if the store does not hold the project's track set.
+Ten gates read the store of the project, at `/data/bfys/gscriven/rkpinn_store` or where the environment variable `RKPINN_STORE` points. They fail if the store does not hold the project's track set.
 
 ## To run
 
@@ -52,7 +56,7 @@ PYTHONNOUSERSITE=1 /data/bfys/gscriven/conda/envs/TE/bin/python -m pytest tests 
 
 The package does not need to be installed for this: `pyproject.toml` tells pytest to find it in `src/`.
 
-All gates take about thirteen minutes on the login node, one thread: about seven for phase 1, five for phase 2, one for phase 3 and twenty seconds for phase 4. Most of that is the sixth-order reference at its step of 0.1 mm over 2,589 mm, run once by the package and once by the frozen code.
+All gates take about fifteen minutes on the login node, one thread: about seven for phase 1, five for phase 2, one for phase 3, twenty seconds for phase 4 and two minutes for phase 5. Most of that is the sixth-order reference at its step of 0.1 mm over 2,589 mm, run once by the package and once by the frozen code.
 
 ## How to add to it
 

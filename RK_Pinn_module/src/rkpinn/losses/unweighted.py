@@ -30,7 +30,12 @@ class Unweighted:
         """The loss has no constant but its terms."""
         return {"name": self.name, "terms": self.terms}
 
-    def value(self, predicted_track, target, constants):
+    def squared_terms(self, predicted_track, target, constants):
+        """The squared weighted residual of every state, stage and component,
+        shape (m, J, 4). The loss is its mean."""
         residual = stage_residual(predicted_track, self.equation_of_motion,
                                   constants["terms"])
-        return (residual.residual ** 2).mean()
+        return residual.residual ** 2
+
+    def value(self, predicted_track, target, constants):
+        return self.squared_terms(predicted_track, target, constants).mean()

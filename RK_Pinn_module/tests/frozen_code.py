@@ -146,3 +146,15 @@ def frozen_plateau_rule():
     if PLATEAU_RULE_FOLDER not in sys.path:
         sys.path.insert(0, PLATEAU_RULE_FOLDER)
     return importlib.import_module("compare_to_blockE")
+
+
+WEIGHTED_LOSS_FOLDER = os.path.join(
+    SINGLE_NETWORK_FOLDER, "Block_F_reweighted_loss", "F0_Weighting")
+
+
+def frozen_weighted_loss():
+    """The frozen `weighted_loss.py`: the cost-weighted loss and its weights."""
+    frozen_chain_network()
+    if WEIGHTED_LOSS_FOLDER not in sys.path:
+        sys.path.insert(0, WEIGHTED_LOSS_FOLDER)
+    return importlib.import_module("weighted_loss")

@@ -1,8 +1,12 @@
 """The manifest: the lists of what the store holds.
 
-Built so far: the list of track sets and the list of the exact scheme's
-states (phase 2), and the list of runs (phase 4). The metrics recomputed from
-snapshots are added with the evaluation.
+Built: the list of track sets and the list of the exact scheme's states
+(phase 2), the list of runs (phase 4), and the metrics (phase 5).
+
+The metrics are the endpoint errors of a snapshot, computed again from its
+weights by the standard report, never read from a run's own scores. One row
+is one statistic of one component in one momentum band. A snapshot scored at
+a commit is listed once.
 
 The list of runs says that a run exists and what it is. Where a run is, how
 many rounds it has and how it ended, is in the run's own `state.json`.
@@ -35,6 +39,12 @@ COLUMNS_OF_RUNS = (
     "key", "created", "tracks_key", "network", "loss", "target", "number_of_steps",
     "number_of_stages", "seed", "package_version", "commit",
     "traceable_to_the_commit", "machine",
+)
+
+COLUMNS_OF_METRICS = (
+    "run_key", "round", "split", "momentum_band", "component", "unit", "statistic",
+    "value", "number_of_tracks", "kind_of_error", "created", "package_version",
+    "commit", "traceable_to_the_commit",
 )
 
 
@@ -103,3 +113,38 @@ def list_runs(store: Store) -> list[dict]:
 
 def add_run(store: Store, row: dict) -> None:
     _add(file_of_runs(store), COLUMNS_OF_RUNS, row, identity=("key",))
+
+
+def file_of_metrics(store: Store) -> str:
+    return os.path.join(store.folder_of_the_manifest, "metrics.csv")
+
+
+def list_metrics(store: Store) -> list[dict]:
+    return _read(file_of_metrics(store))
+
+
+def add_metrics(store: Store, rows: list) -> None:
+    """Add the metrics of one snapshot, scored at one commit, all at once."""
+    if not rows:
+        return
+    path = file_of_metrics(store)
+    identity = ("run_key", "round", "split", "commit")
+    for row in rows:
+        missing = [c for c in COLUMNS_OF_METRICS if c not in row]
+        unknown = [c for c in row if c not in COLUMNS_OF_METRICS]
+        if missing or unknown:
+            raise ValueError("a row of metrics.csv must have exactly its columns; "
+                             "missing %r, unknown %r" % (missing, unknown))
+        if any(str(row[c]) != str(rows[0][c]) for c in identity):
+            raise ValueError("the rows added together are of one snapshot and one commit")
+    for listed in _read(path):
+        if all(str(listed[c]) == str(rows[0][c]) for c in identity):
+            raise AlreadyListed("metrics.csv already lists %r"
+                                % {c: rows[0][c] for c in identity})
+    is_new = not os.path.exists(path)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "a", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=COLUMNS_OF_METRICS)
+        if is_new:
+            writer.writeheader()
+        writer.writerows(rows)

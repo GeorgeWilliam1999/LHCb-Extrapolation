@@ -1,6 +1,6 @@
 # The run record
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-09-30
 
 ## What this directory is
 
@@ -14,7 +14,8 @@ What is recorded: the store and its keys, where a thing came from, the manifest 
 | `__init__.py` | marks the directory as part of the package; it holds no code | built |
 | `store.py` | the folders and files of the store; the key computed from content; refuses to overwrite; the location is an argument or the environment variable `RKPINN_STORE` | built |
 | `provenance.py` | the commit, the package version, the machine and its processor; refuses to write from uncommitted changes unless asked, and then records that the result cannot be traced | built |
-| `manifest.py` | the lists of track sets, of exact states and of runs in the store. The metrics recomputed from snapshots are added with the evaluation | built |
+| `manifest.py` | the lists of track sets, of exact states and of runs in the store, and the metrics: the endpoint errors of a snapshot, computed again from its weights | built |
+| `report_of_a_run.py` | the standard report of a run, from one command: builds the network of the run, makes the predictions, hands states and targets to the evaluation, writes the tables and figures into the run | built |
 | `configuration.py` | the schema of a configuration file, its validation, the run key computed from it, and the difference of two configurations | built |
 
 ## The layout of the store
@@ -30,11 +31,13 @@ What is recorded: the store and its keys, where a thing came from, the manifest 
 │   ├── configuration.yaml, provenance.json, constants.json, state.json
 │   ├── restarts.csv, rounds.csv
 │   ├── snapshots/round_0001/   network.pt and scores.json
+│   ├── reports/round_0001_at_<commit>/   the tables and figures of the standard report
 │   └── LOCK
 └── manifest/
     ├── tracks.csv
     ├── exact_states.csv
-    └── runs.csv
+    ├── runs.csv
+    └── metrics.csv
 ```
 
 The store of the project is `/data/bfys/gscriven/rkpinn_store`. It is outside git.

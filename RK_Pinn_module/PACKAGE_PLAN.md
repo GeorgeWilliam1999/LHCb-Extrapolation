@@ -1,6 +1,6 @@
 # Plan for the package: training self-chained Runge–Kutta networks for full tracks
 
-**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phases 1 to 4 of section 9 are built and gated (2026-09-29): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference, the registry; the store, the track set `12a8d35c3165` and the exact states of its test split; the predicted track, the two networks, the four losses and four targets. the configuration and run key, the round trainer, the optimiser, the two protocols, the stopping rule, snapshots and the lock. Nothing is trained yet beyond the small runs of the gates. Phases 5 to 7 are plan
+**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phases 1 to 5 of section 9 are built and gated (2026-09-30): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference, the registry; the store, the track set `12a8d35c3165` and the exact states of its test split; the predicted track, the two networks, the four losses and four targets. the configuration and run key, the round trainer, the optimiser, the two protocols, the stopping rule, snapshots and the lock. the standard evaluation, which gives the numbers of the second mini-paper from the stored states of the old runs, and the report of a run. Nothing is trained yet beyond the small runs of the gates. Phases 6 and 7 are plan
 
 The library of what already exists is in [INDEX.md](INDEX.md). This file is the plan for what is built next.
 
@@ -769,6 +769,25 @@ Choices made while building, each a setting with no default unless said:
 | The run key | from the whole configuration, with the cap on the rounds left out |
 | The validation error | three are recorded; the rule names the one it uses |
 | What to do if a run exists | the caller says: refuse, resume or extend. Not a setting of the run, and with no default |
+
+### What was built in phase 5 (2026-09-30)
+
+George agreed the choices of phase 4 on 2026-09-29, and said that the specific choices of validation will be added to when the work is done. The network he floated has a layer of 4 (q + 1) units before its last; it is not built.
+
+The done-condition of phase 5 is met: run on the stored states of the six old runs of the paper, the evaluation gives the paper's numbers, to every digit for outputs 1 to 5, 7 and 8, and to a relative 1e-12 for output 9.
+
+Choices made while building:
+
+| Choice | As built |
+|---|---|
+| Output 6, stage errors held and carried | each step gives two contributions on the last plane: from its stage errors, and from the scheme itself. Their sum over the steps is the measured endpoint error. The plan asked for the first-order form; it is given beside the full one |
+| The step of the integrator that carries states in output 6 | an argument with no default. The paper's anatomy used 1 mm |
+| How many tracks output 6 takes | an argument with no default; all the tracks at 256 steps would take hours |
+| Output 3, signed distributions | quantiles of the signed error from the 1st to the 99th percentile, in a table, and histograms in a figure |
+| Output 9, the states the shares are taken on | the first round's states of the run, which are reference states |
+| Where a report is written | inside the run, in a folder named by the round and by the commit the report was made at. It is never written over another |
+| The names of the bands | "below 3 GeV" to "above 50 GeV"; the paper wrote "<3" to ">50" |
+| An output whose input is absent | left out, and the summary says so |
 
 ### What was measured in phase 3 (2026-09-29)
 
