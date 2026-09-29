@@ -17,8 +17,8 @@ This is the content for the project page itself. It is not a write-up. It is the
 *Kept by the agent, dated, rewritten at the end of each session.*
 
 - **Goal.** Train networks that carry a track across the LHCb magnet by applying one learned Runge–Kutta step to its own output, and score them in one standard way.
-- **Where we are.** Phases 1 and 2 of the package `rkpinn` are built and gated (local commits, not pushed); 231 gates pass. Phase 1: the equation of motion, the field map, the Gauss–Legendre tableau, the exact collocation scheme, the sixth-order reference and the registry, each identical to the last bit to the frozen code run on the same machine. Phase 2: the store at `/data/bfys/gscriven/rkpinn_store`; the track set `12a8d35c3165` (11,567 training, 1,463 validation and 1,452 test tracks on 257 planes), identical to the last bit to the frozen file; the exact scheme's states of the test split at 2, 64, 128 and 256 steps and 2, 4, 8 and 16 stages, solved once on one machine, no solve unconverged. No network and no loss is built. George ruled on the open questions on 2026-09-28: the terms of the loss, the divisor of the unweighted baseline, the scaling of the outputs and the output form are settings of each experiment, not fixed in the package; a study of the root finder follows later.
-- **Waiting on George.** The push of the local commits and the tag, and the word to start phase 3.
+- **Where we are.** Phases 1, 2 and 3 of the package `rkpinn` are built and gated; 325 gates pass. Phase 1: the equation of motion, the field map, the Gauss–Legendre tableau, the exact collocation scheme, the sixth-order reference and the registry. Phase 2: the store at `/data/bfys/gscriven/rkpinn_store`, the track set `12a8d35c3165` and the exact scheme's states of its test split. Phase 3: the predicted track, the stage network, the self chain, the whole-crossing network, the four losses and four targets. With a predicted end state the stage network and the pooled loss are identical to the last bit to the frozen code. Nothing is trained yet: the trainer is phase 4. George ruled on 2026-09-28 that the terms of the loss, the way the end state is formed, the scales and the output form are settings of each experiment; the package holds both possibilities for the end state.
+- **Waiting on George.** The push of the local commits and the tag, and the word to start phase 4.
 - **Ruled.** The questions and George's answers are in the to-do "Rule on the three assumptions and the precision risk before the networks and losses are built", Status = Done, <https://app.notion.com/p/3e95d544b9d98176a53cd9f467ada79b>. The study of the root finder is the to-do <https://app.notion.com/p/3e95d544b9d981528d6edcc6961c9b36>.
 - **The build.** Its to-do is "Build the package that trains and scores the self-chained networks", <https://app.notion.com/p/3e95d544b9d98134a723ce392d68f374>.
 
@@ -141,6 +141,8 @@ $$\mathcal{M}_\theta : \left(S_0,\ z_{\mathrm{start}}\right) \longmapsto \left(\
 
 where $\theta$ are the weights of the network and $\hat S_k$ is its estimate of the state on the plane $z_{\mathrm{start}} + c_k\,\Delta z$. The network emits the states themselves. It has $4q$ outputs.
 
+The end of the step is formed in one of two ways, set by the experiment. It is summed from the stages, and the network has $4q$ outputs. Or it is predicted, and the network has $4(q+1)$ outputs, the last being the end state, as in the paper.
+
 Knowing $z_{\mathrm{start}}$ is what lets one network serve every step, because the field a step crosses depends on where along the magnet it starts.
 
 - **Source:** `networks/stage_network.py`.
@@ -156,6 +158,7 @@ The end state is then consistent with the stages by construction.
 
 - **Source:** `networks/collect_and_sum.py`.
 - **Gate:** with the exact stages as input, the sum equals the exact scheme's end state.
+- **Set by the experiment:** the end state is summed, as here, or predicted by the network.
 
 #### The self chain
 
@@ -179,7 +182,7 @@ $$r_{n,j,d} = \hat S_{n,j,d} - \Delta z \sum_{k=1}^{q} A_{jk}\, f_d\!\left(\hat 
 
 where $n$ labels the training state, $j$ the stage, and $d$ the component, one of $x$, $y$, $t_x$, $t_y$. The residual is zero for every $n$, $j$ and $d$ exactly when the network's stages solve the scheme. No label appears in it.
 
-Because the end state is the sum of the stages, there is no residual for a predicted end state. The sum over $j$ runs over the $q$ stages.
+A predicted end state has a residual of the same form, with the weights $b_k$ in place of the row $A_{jk}$. Which terms a loss sums over is set by the experiment: the $q$ stages, or the $q$ stages and the end state. When the end state is summed from the stages its residual is zero, because it is built by the formula the residual tests.
 
 #### The three label-free losses
 

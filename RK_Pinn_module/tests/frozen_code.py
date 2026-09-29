@@ -113,3 +113,24 @@ def frozen_round_trainer():
     if ROUND_TRAINER_FOLDER not in sys.path:
         sys.path.insert(0, ROUND_TRAINER_FOLDER)
     return importlib.import_module("train_network")
+
+
+WINDOWED_LOSS_FOLDER = os.path.join(
+    SINGLE_NETWORK_FOLDER, "Block_G_low_momentum_window", "G0_Weighting")
+
+
+def frozen_chain_network():
+    """The frozen `chain_network.py` of the self-chained networks."""
+    frozen_module("reference")
+    if ROUND_TRAINER_FOLDER not in sys.path:
+        sys.path.insert(0, ROUND_TRAINER_FOLDER)
+    return importlib.import_module("chain_network")
+
+
+def frozen_windowed_loss():
+    """The frozen `windowed_loss.py`: the cost-weighted loss with the momentum
+    window read from the constants of the run."""
+    frozen_module("reference")
+    if WINDOWED_LOSS_FOLDER not in sys.path:
+        sys.path.insert(0, WINDOWED_LOSS_FOLDER)
+    return importlib.import_module("windowed_loss")

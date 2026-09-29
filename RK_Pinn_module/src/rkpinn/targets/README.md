@@ -1,6 +1,6 @@
 # Targets
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-09-29
 
 ## What this directory is
 
@@ -11,11 +11,12 @@ What a prediction is trained on or compared with. A target is data; it contains 
 | Name | What it does | State |
 |---|---|---|
 | `README.md` | this file | built |
-| `no_target.py` | label-free training: the loss needs only the equation of motion | planned |
-| `reference_end_state.py` | the RK6 state at the first SciFi plane; the label of the supervised twin | planned |
-| `reference_states_on_planes.py` | the RK6 state on every plane of the layout; used by the evaluation | planned |
+| `__init__.py` | marks the directory as part of the package; it holds no code | built |
+| `no_target.py` | label-free training: the loss needs only the equation of motion | built |
+| `reference_end_state.py` | the RK6 state at the first SciFi plane; the label of the supervised twin | built |
+| `reference_states_on_planes.py` | the RK6 state on every plane of the layout; used by the evaluation | built |
 | `exact_stage_states.py` | the exact scheme's stage states, started from the same input; used to hold the stage errors | planned |
-| `true_state.py` | the Geant4-true state at the particle's own first SciFi plane; the floor no field-only method can beat | planned |
+| `true_state.py` | the Geant4-true state at the particle's own first SciFi plane; the floor no field-only method can beat. It comes with the z of that plane | built |
 
 ## The contract
 
@@ -24,7 +25,7 @@ A target gives `needs_labels` and `for_states(track_data, split)`. It is aligned
 ## How to add to it
 
 1. Write the target as one file in this directory, named in plain English.
-2. Register it under its name in `../registry.py`.
+2. Register it under its name with `register` from `../registry.py`, and add the file to `COMPONENT_MODULES` there.
 3. Write its gates in `tests/`.
 4. Add its row to the Contents table above and change the date.
 5. Write or update its card in `docs/cards/`.

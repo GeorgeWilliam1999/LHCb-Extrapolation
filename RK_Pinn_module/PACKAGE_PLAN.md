@@ -1,6 +1,6 @@
 # Plan for the package: training self-chained Runge–Kutta networks for full tracks
 
-**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phases 1 and 2 of section 9 are built and gated (2026-09-28): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference, the registry; the store, the track set `12a8d35c3165` and the exact states of its test split. Phases 3 to 7 are plan
+**Date:** 2026-09-28 · **Version:** 4, after George's rulings of 2026-09-28, including those made after phase 1 (section 11) · **Status:** phases 1, 2 and 3 of section 9 are built and gated (2026-09-29): the equation of motion, the field map, the tableau, the exact scheme, the sixth-order reference, the registry; the store, the track set `12a8d35c3165` and the exact states of its test split; the predicted track, the two networks, the four losses and four targets. Phases 4 to 7 are plan
 
 The library of what already exists is in [INDEX.md](INDEX.md). This file is the plan for what is built next.
 
@@ -145,7 +145,9 @@ $$r_{n,j,d} = \hat S_{n,j,d} - \Delta z \sum_{k=1}^{q} A_{jk}\, f_d\!\left(\hat 
 
 where $n$ is the training state, $j = 1 \dots q$ the stage, $d \in \{x, y, t_x, t_y\}$ the component and $A$ the Gauss–Legendre stage matrix.
 
-**A consequence of summing the stages.** Equations 19 and 20 of the paper sum over $j = 1 \dots q+1$, where the last term is the residual of a predicted endpoint. Here the endpoint is built from the stages by the same formula the residual tests, so that term is zero identically. The package sums over the $q$ stages. This is the only change to the two equations.
+**A consequence of summing the stages.** Equations 19 and 20 of the paper sum over $j = 1 \dots q+1$, where the last term is the residual of a predicted endpoint. Here the endpoint is built from the stages by the same formula the residual tests, so that term is zero identically. When the end state is summed, the package can sum over the $q$ stages alone.
+
+**As ruled on 2026-09-28 and built in phase 3, neither is fixed.** The end state is `summed_from_the_stages` or `predicted`, and the terms of a loss are `stages` or `stages_and_end_state`. Both are settings that a configuration must state. With a predicted end state and both terms, the loss is equation 19 or 20 as written, and the pooled loss is identical to the frozen one to the last bit.
 
 ### 3.2 The three label-free losses and the twin
 
@@ -733,13 +735,32 @@ George ruled on the risk and the assumptions below. They replace "assumptions I 
 
 | Question | Ruling | Consequence for the package |
 |---|---|---|
-| The three assumptions: which terms the loss sums over, what the unweighted baseline divides by, how the outputs are scaled | it depends on the experiment; keep the flexibility | none of the three is fixed in the code. Each is a setting in the configuration of a run, and the experiment states its value |
+| The three assumptions: which terms the loss sums over, what the unweighted baseline divides by, how the outputs are scaled | it depends on the experiment; keep the flexibility. On the terms and the end state, confirmed on 2026-09-29: it should allow for both possibilities | none of the three is fixed in the code. Each is a setting in the configuration of a run, and the experiment states its value. As built in phase 3: `end_state` is `summed_from_the_stages` or `predicted`; `terms` is `stages` or `stages_and_end_state`; the scales of the inputs and outputs are arguments |
 | The precision risk of emitting stages directly | as above; keep the flexibility | the output form is a setting in the configuration. The measurement and the pilot below stay |
 | The root finder of the exact scheme | a study of it will be wanted at a later date | the solver is kept as ported. The study has its own to-do. Nothing is changed before it |
 | The stored exact states that differ in the last digits | put the data in a single master store | the exact states are written once, on one machine, into `/data/bfys/gscriven/rkpinn_store`, in phase 2. The gate then compares with that store to the last bit |
 | Write-ups | none without a discussion with George and a detailed plan | `CLAUDE.md` section 4 is amended |
 
 What this does not change: a component that is not ruled in is not built (section 12.4, rule 5). Flexibility means the setting exists and the place is open. It does not mean every value of the setting is built now.
+
+### What was measured in phase 3 (2026-09-29)
+
+The first check of the table below: the size of stage minus input, next to the size of the state, on the exact scheme's stages. 400 of the first round's states per cell, spread over every start plane. The spread is the standard deviation over the first round's states, which is also the scale of the inputs and outputs in the gates.
+
+| Steps | Stages | Step, mm | Median change in x, mm | Spread of x, mm | Change over spread, x | Median change in slope in x | Spread of slope in x | Change over spread, slope in x |
+|---|---|---|---|---|---|---|---|---|
+| 2 | 2 | 2588.9 | 63.5 | 290 | 0.22 | 0.0303 | 0.113 | 0.27 |
+| 64 | 2 | 80.9 | 2.63 | 446 | 0.0059 | 0.000966 | 0.165 | 0.0058 |
+| 128 | 2 | 40.5 | 1.22 | 452 | 0.0027 | 0.000490 | 0.165 | 0.0030 |
+| 256 | 2 | 20.2 | 0.637 | 452 | 0.0014 | 0.000252 | 0.166 | 0.0015 |
+| 64 | 16 | 80.9 | 2.25 | 446 | 0.0051 | 0.000885 | 0.165 | 0.0054 |
+| 256 | 16 | 20.2 | 0.566 | 452 | 0.0013 | 0.000225 | 0.166 | 0.0014 |
+
+In y the median change is about half that in x, and in the slope in y it is between 8e-7 and 8e-5.
+
+One micrometre is 2.2e-6 of the spread of x and 2.7e-6 of the spread of y. A slope of 1e-6 is 6.0e-6 of the spread of the slope in x and 1.4e-5 of that in y.
+
+So a network that emits the state directly, scaled by the spread, has to be right to about two parts in a million of its output to reach a micrometre, while the change it is there to learn is between a thousandth and a quarter of its output, by step length. This is the measurement. Whether it can be trained is what the pilot of phase 6 measures.
 
 ### The risk: precision of stages emitted directly
 

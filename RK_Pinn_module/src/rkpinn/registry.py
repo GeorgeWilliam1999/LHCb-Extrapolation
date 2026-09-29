@@ -44,6 +44,17 @@ COMPONENT_MODULES = (
     "rkpinn.integrators.gauss_legendre_tableau",
     "rkpinn.integrators.exact_collocation",
     "rkpinn.integrators.runge_kutta_sixth_order",
+    "rkpinn.networks.output_forms",
+    "rkpinn.networks.stage_network",
+    "rkpinn.networks.whole_crossing_network",
+    "rkpinn.losses.unweighted",
+    "rkpinn.losses.pooled",
+    "rkpinn.losses.cost_weighted",
+    "rkpinn.losses.supervised_endpoint",
+    "rkpinn.targets.no_target",
+    "rkpinn.targets.reference_end_state",
+    "rkpinn.targets.reference_states_on_planes",
+    "rkpinn.targets.true_state",
 )
 
 _components: dict[str, dict[str, object]] = {kind: {} for kind in KINDS}

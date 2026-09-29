@@ -1,6 +1,6 @@
 # Tests: the gates
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-09-29
 
 ## What this directory is
 
@@ -23,6 +23,11 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_tracks_match_the_frozen_file.py` | every cut removes what the frozen record says; 200 particles rebuilt now and the whole track set in the store are identical to the frozen file | built |
 | `test_draw_of_training_states_matches_the_frozen_code.py` | the same seed draws the same states as the frozen trainer; the same number on every start plane | built |
 | `test_exact_states_in_the_store.py` | the store holds the exact states of the test split at 2, 64, 128 and 256 steps and 2, 4, 8 and 16 stages; tracks solved again equal the store; the store agrees with the frozen files to 1e-11 mm | built |
+| `building_blocks.py` | not a gate: the first round's states, the networks and the equations of motion the gates of the networks and the losses share | built |
+| `test_predicted_track.py` | a predicted track holds what was put in it and refuses wrong shapes; the exact scheme and the reference integrator fill it, identical to the store | built |
+| `test_networks.py` | the stage network and the whole-crossing network identical to the frozen one-step network; the summed end state; the self chain identical to the frozen chaining; double precision; snapshots | built |
+| `test_losses.py` | the five gates every loss must pass; the pooled loss identical to the frozen loss, value and gradient; the weights identical to the frozen weights; no loss imports a network | built |
+| `test_targets.py` | every target gives the states it names, one row per track, in the order of the tracks | built |
 | `test_registry_turns_names_into_components.py` | every built component can be named; unknown names and kinds are refused | built |
 
 ## The contract
@@ -33,7 +38,7 @@ A parity gate that cannot find its frozen file fails. It does not skip.
 
 The frozen folders are only read. The field map is read from CVMFS, so the gates need CVMFS mounted.
 
-Three gates read the store of the project, at `/data/bfys/gscriven/rkpinn_store` or where the environment variable `RKPINN_STORE` points. They fail if the store does not hold the project's track set.
+Five gates read the store of the project, at `/data/bfys/gscriven/rkpinn_store` or where the environment variable `RKPINN_STORE` points. They fail if the store does not hold the project's track set.
 
 ## To run
 
@@ -44,7 +49,7 @@ PYTHONNOUSERSITE=1 /data/bfys/gscriven/conda/envs/TE/bin/python -m pytest tests 
 
 The package does not need to be installed for this: `pyproject.toml` tells pytest to find it in `src/`.
 
-All gates take about twelve minutes on the login node, one thread: about seven for phase 1 and five for phase 2. Most of that is the sixth-order reference at its step of 0.1 mm over 2,589 mm, run once by the package and once by the frozen code.
+All gates take about thirteen minutes on the login node, one thread: about seven for phase 1, five for phase 2 and one for phase 3. Most of that is the sixth-order reference at its step of 0.1 mm over 2,589 mm, run once by the package and once by the frozen code.
 
 ## How to add to it
 

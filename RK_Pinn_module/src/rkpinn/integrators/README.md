@@ -1,6 +1,6 @@
 # Integrators
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-09-29
 
 ## What this directory is
 
@@ -38,7 +38,7 @@ An integrator takes an equation of motion, a state and two planes, and returns a
 
 As built in phase 1:
 
-- The predicted track is built in phase 3. Until then the integrators return arrays: `integrate_with_sixth_order` returns the end states, `solve_one_step` returns an `ExactStep` and `solve_whole_track` an `ExactTrack`, both holding the input, stage and end states. They are changed to fill the predicted track in the same change that builds it.
+- The integrators return arrays: `integrate_with_sixth_order` returns the end states, `solve_one_step` returns an `ExactStep` and `solve_whole_track` an `ExactTrack`. The predicted track depends on this directory, so the functions that fill it from the integrators are in `../predicted_track/predicted_track.py`: `track_of_the_exact_scheme`, `steps_of_the_exact_scheme` and `track_of_the_reference`.
 - The step length of the sixth-order method is an argument without a default. The reference step, 0.1 mm, is the named value `REFERENCE_STEP_LENGTH_MM`.
 - The first guess of the root finder in `exact_collocation.py` is the input state carried along its own slopes. It is a starting point for the solver only, kept because the stored exact states were solved from it. It is not an output form of any network.
 

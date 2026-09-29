@@ -63,9 +63,22 @@ def test_an_unknown_kind_is_refused():
 
 
 def test_kinds_with_nothing_built_are_empty():
-    for kind in ("network", "output_form", "loss", "target",
-                 "training_protocol", "stopping_rule"):
+    for kind in ("training_protocol", "stopping_rule"):
         assert registry.registered_names(kind) == ()
+
+
+def test_the_networks_losses_and_targets_can_be_named():
+    assert registry.registered_names("network") == (
+        "stage_network", "whole_crossing_network")
+    assert registry.registered_names("output_form") == ("direct_states",)
+    assert registry.registered_names("loss") == (
+        "cost_weighted", "pooled", "supervised_endpoint", "unweighted")
+    assert registry.registered_names("target") == (
+        "no_target", "reference_end_state", "reference_states_on_planes", "true_state")
+    for kind in ("network", "output_form", "loss", "target"):
+        for name in registry.registered_names(kind):
+            assert getattr(registry.component(kind, name), "name",
+                           getattr(registry.component(kind, name), "kind", None)) == name
 
 
 def test_one_name_cannot_be_given_twice():
