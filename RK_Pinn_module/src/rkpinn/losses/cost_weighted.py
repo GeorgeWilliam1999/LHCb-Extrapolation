@@ -18,9 +18,11 @@ momentum weighted up:
         m is the median of the unclamped factor over the batch.
 
     D_n = kappa * |q/p|_n * I * L
-        the total bend of track n over the whole crossing, with I the mean of
-        |B| on the axis over the crossing and L its length. It is a constant
-        of the track, not of the step.
+        the total bend of track n over the whole crossing, in millimetres.
+        I is the integral of |B| along the z axis over the crossing, in tesla
+        millimetres, so kappa * |q/p| * I is the change of slope, and L, the
+        length of the crossing, turns it into a displacement. It is a
+        constant of the track, not of the step.
 
     W(p) = 1 inside the momentum window, a Gaussian in log p outside it with
         the width `roll_off`, and never below `floor`.
