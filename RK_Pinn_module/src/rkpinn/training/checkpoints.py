@@ -19,8 +19,15 @@ draws its states from the seed and the number of the round, so a resumed run
 repeats the interrupted round exactly.
 
 One job writes to a run at a time. The lock is a file made in one step that
-fails if the file is there. A lock left by a job that died is cleared by
-hand, with `clear_lock`, after checking that no job holds it.
+fails if the file is there.
+
+A job that holds the lock touches it after every restart, so the age of the
+lock says whether its job is alive. A job that is stopped by a signal
+releases its lock. A job that is killed outright, or whose machine fails,
+leaves its lock behind; such a lock stops being touched. The caller can say
+after how many minutes without a touch a lock counts as left behind. It is
+then cleared, and the state of the run records that it was. Without that
+setting a lock is never cleared but by hand, with `clear_lock`.
 
 No absolute path is written into a run.
 """
@@ -130,6 +137,24 @@ class RunFolder:
         with os.fdopen(handle, "w") as lock:
             json.dump({"machine": platform.node(), "process": os.getpid(),
                        "taken": time.strftime("%Y-%m-%d %H:%M:%S")}, lock)
+
+    def touch_lock(self) -> None:
+        """Say that the job that holds the lock is alive."""
+        os.utime(self.path("LOCK"), None)
+
+    def minutes_since_the_lock_was_touched(self):
+        """None if there is no lock."""
+        try:
+            return (time.time() - os.path.getmtime(self.path("LOCK"))) / 60.0
+        except FileNotFoundError:
+            return None
+
+    def who_holds_the_lock(self) -> str:
+        try:
+            with open(self.path("LOCK")) as lock:
+                return lock.read().strip()
+        except OSError:
+            return ""
 
     def release_lock(self) -> None:
         try:

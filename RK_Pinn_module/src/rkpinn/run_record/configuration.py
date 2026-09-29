@@ -215,3 +215,17 @@ def difference(first: dict, second: dict, _path="") -> list:
         elif plain(a) != plain(b):
             lines.append("%s: %r -> %r" % (where, a, b))
     return lines
+
+
+def main(arguments=None):
+    """Print the key of the run a configuration file names."""
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Check a configuration file and print the key of its run.")
+    parser.add_argument("configuration")
+    a = parser.parse_args(arguments)
+    print(run_key(read_configuration(a.configuration)))
+
+
+if __name__ == "__main__":
+    main()

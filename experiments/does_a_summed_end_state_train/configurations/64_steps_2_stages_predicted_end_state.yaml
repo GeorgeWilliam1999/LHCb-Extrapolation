@@ -1,0 +1,36 @@
+# Run B of the pilot: the end state is predicted by the network, as in the
+# frozen runs, but with no straight line. Agreed with George on 2026-09-30.
+equation_of_motion: {system: lhcb, field_map: v8r1_up}
+tracks: {key: 12a8d35c3165}
+steps: {number_of_steps: 64, number_of_stages: 2}
+network:
+  kind: stage_network
+  output_form: direct_states
+  width: 128
+  depth: 2
+  activation: tanh
+  end_state: predicted
+  scale_of_inputs: spread_of_first_round_states
+  scale_of_outputs: spread_of_first_round_states
+loss: {name: pooled, terms: stages_and_end_state}
+target: {name: no_target}
+training:
+  protocol: {name: rounds_on_own_predictions, states_per_round: 32000}
+  restarts_per_round: 25
+  end_a_round_when_stalled: null
+  optimiser:
+    name: lbfgs_restarts
+    iterations_per_restart: 200
+    history: 120
+    tolerance_of_the_gradient: 1.0e-13
+    tolerance_of_the_change: 1.0e-16
+    line_search: strong_wolfe
+    renew_scale_when_loss_falls_to: 0.1
+  stopping_rule:
+    name: validation_plateau
+    quantity: validation_endpoint_error_larger_of_x_and_y_median_micrometres
+    window_in_rounds: 10
+    tolerance: 0.05
+    rounds_held: 3
+  rounds_at_most: 60
+seed: 0

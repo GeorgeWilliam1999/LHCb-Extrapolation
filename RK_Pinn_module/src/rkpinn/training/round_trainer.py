@@ -28,6 +28,12 @@ What the caller must say, with no default: what to do if the run exists.
     resume   continue a run that was interrupted
     extend   continue a run that ended, up to the cap the configuration now gives
 
+On the farm a job is stopped at its time limit and started again. The
+command therefore releases the lock when it is stopped by a signal, and the
+run is left interrupted. For a job that was killed outright the caller can
+say after how many minutes without a touch a lock counts as left behind; see
+checkpoints.py.
+
 To train, from `RK_Pinn_module`:
 
     PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \\
@@ -43,6 +49,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import signal
 import time
 from dataclasses import dataclass
 from typing import Optional
@@ -307,11 +314,14 @@ def _open_run(run: Run, folder: RunFolder, store: Store, if_the_run_exists: str,
 
 def train(configuration: dict, store: Store, *, if_the_run_exists: str,
           allow_uncommitted_changes: bool = False, rounds_in_this_call=None,
-          report=print) -> dict:
+          a_lock_is_left_behind_after_minutes=None, report=print) -> dict:
     """Train the run the configuration names. Returns the state of the run.
 
     rounds_in_this_call  stop after this many rounds in this call, leaving the
                          run interrupted; None trains until the run ends
+    a_lock_is_left_behind_after_minutes
+                         a lock that was not touched for this long is cleared
+                         and the clearing recorded; None never clears a lock
     """
     if if_the_run_exists not in IF_THE_RUN_EXISTS:
         raise ValueError("if the run exists: %s, not %r"
@@ -324,9 +334,20 @@ def train(configuration: dict, store: Store, *, if_the_run_exists: str,
     run = build_run(configuration, store, recorded)
     state = _open_run(run, folder, store, if_the_run_exists, record)
 
+    cleared = None
+    age = folder.minutes_since_the_lock_was_touched()
+    if (age is not None and a_lock_is_left_behind_after_minutes is not None
+            and age > a_lock_is_left_behind_after_minutes):
+        cleared = {"lock_of": folder.who_holds_the_lock(),
+                   "minutes_since_it_was_touched": round(age, 1),
+                   "cleared": record["created"]}
+        folder.clear_lock()
+        report("run %s: cleared a lock left behind, %r" % (key, cleared))
     folder.take_lock()
     try:
         state["state"] = checkpoints.TRAINING
+        if cleared is not None:
+            state.setdefault("locks_cleared", []).append(cleared)
         state["invocations"].append({
             "started": record["created"], "commit": record["commit"],
             "package_version": record["package_version"],
@@ -364,6 +385,7 @@ def train(configuration: dict, store: Store, *, if_the_run_exists: str,
                 row.update(restart=state["restarts_done"] + len(rows) + 1, round=number,
                            restart_in_round=in_round)
                 rows.append(row)
+                folder.touch_lock()
                 report("  run %s round %d restart %d: loss %.4e -> %.4e (gain %+.2e), "
                        "%d iterations, %.0f s"
                        % (key, number, in_round, row["loss_before"], row["loss_after"],
@@ -423,11 +445,22 @@ def main(arguments=None):
     parser.add_argument("--allow-uncommitted-changes", action="store_true",
                         help="train although the package has uncommitted changes; the "
                              "run is then recorded as not traceable")
+    parser.add_argument("--a-lock-is-left-behind-after-minutes", type=float, default=None,
+                        help="clear a lock that was not touched for this long; without "
+                             "it a lock is never cleared")
     a = parser.parse_args(arguments)
+
+    def stopped(number, frame):
+        # the farm stops a job with this signal; leave as from any other error,
+        # so that the run is marked interrupted and the lock released
+        raise SystemExit(128 + number)
+
+    signal.signal(signal.SIGTERM, stopped)
     return train(read_configuration(a.configuration), Store(a.store),
                  if_the_run_exists=a.if_the_run_exists,
                  allow_uncommitted_changes=a.allow_uncommitted_changes,
                  rounds_in_this_call=a.rounds_in_this_call,
+                 a_lock_is_left_behind_after_minutes=a.a_lock_is_left_behind_after_minutes,
                  report=lambda text: print(text, flush=True))
 
 

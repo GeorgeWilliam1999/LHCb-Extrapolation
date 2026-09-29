@@ -1,6 +1,6 @@
 # Training
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-09-30
 
 ## What this directory is
 
@@ -60,6 +60,8 @@ Convergence is judged on the validation error, never on the loss. The test split
 A protocol gives `states_of_round(round, seed, tracks, layout, network, target)`. An optimiser gives `start_round(parameters)` and `one_restart(loss_now)`. A stopping rule gives `quantity` and `holds(errors)`. Each states its settings in `settings_in_a_configuration` and is built by `from_configuration`.
 
 A run that was interrupted and resumed is identical, to the last bit, to a run that was not interrupted.
+
+On the farm a job is stopped at its time limit and started again. The command releases the lock when it is stopped by a signal. A job that holds a lock touches it after every restart; the caller can say after how many minutes without a touch a lock counts as left behind by a job that was killed.
 
 ## To train
 

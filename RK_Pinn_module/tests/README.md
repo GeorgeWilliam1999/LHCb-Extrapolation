@@ -35,6 +35,7 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_evaluation_reproduces_the_paper.py` | the evaluation, run on the stored states of the old runs, gives the numbers of the paper: outputs 1 to 5, 7, 8 and 9 | built |
 | `test_stage_errors_held_and_carried.py` | output 6: the contributions of all steps sum to the measured endpoint error; for the exact scheme all of it is the scheme; what is beyond first order falls with the square of the error | built |
 | `test_report_of_a_run.py` | the report of a run holds the ten outputs and says what it left out; it is of the weights of the snapshot; it is never written over another | built |
+| `test_a_run_on_the_farm.py` | a job stopped by the signal of the farm releases its lock and is resumed to the same run, to the last bit; a lock that is touched is never cleared; a lock left behind is cleared when the caller says | built |
 | `test_registry_turns_names_into_components.py` | every built component can be named; unknown names and kinds are refused | built |
 
 ## The contract

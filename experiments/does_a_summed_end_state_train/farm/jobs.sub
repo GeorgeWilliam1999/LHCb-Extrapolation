@@ -1,0 +1,25 @@
+# One job for one run. Submitted by submit.sh and by keeper.sh, which give
+#   code            the folder of the project at one commit
+#   store           the store
+#   configurations  the folder of the configuration files
+#   configuration   the name of a file in that folder
+#   logs            the folder the farm writes its logs to
+#   experiment      the name of the experiment's folder
+# and the queue statement.
+universe                = vanilla
+executable              = $(code)/experiments/$(experiment)/farm/wrapper.sh
+arguments               = $(code) $(store) $(configurations)/$(configuration)
+
+output                  = $(logs)/$(configuration).$(Cluster).out
+error                   = $(logs)/$(configuration).$(Cluster).err
+log                     = $(logs)/$(configuration).$(Cluster).log
+
+request_cpus            = 1
+request_memory          = 8192
+should_transfer_files   = NO
+getenv                  = False
++UseOS                  = "el9"
++JobCategory            = "medium"
++RkpinnExperiment       = "$(experiment)"
++RkpinnConfiguration    = "$(configuration)"
++RkpinnStore            = "$(store)"
