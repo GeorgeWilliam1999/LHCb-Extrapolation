@@ -82,7 +82,15 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
 
 ## What was measured when the runs were submitted
 
-Filled in at submission.
+| | |
+|---|---|
+| Commit the runs train at | `5eb3b068`, from the copy `/data/bfys/gscriven/rkpinn_code/5eb3b068` |
+| Smoke jobs, two configurations made small (width 16, 640 states, 2 restarts of 5 iterations, 2 rounds), on a scratch store | the 64-step cost-weighted 10 to 50 GeV run and the 256-step 16-stage pooled run; both passed on worker nodes, exit 0, clusters 5945464 and 5945465; the same two run on the login node gave the same losses to every printed digit |
+| Field integral of the cost-weighted loss, 1,024 samples | 3752.054296250222 tesla mm, equal to the frozen study's value to the last digit |
+| Reference bend of the cost-weighted smoke run | 891.5 mm on 640 states of seed 1; the frozen study measured 861.6 mm on 32,000 states of seed 0; the real runs measure it on 32,000 states of seed 1 |
+| Submitted | 2026-10-12 20:25, clusters 5945466 to 5945474, by the keeper, in the order of `farm/runs.txt` |
+| Logs of the farm and of the keeper | `/data/bfys/gscriven/rkpinn_farm_logs/redo_the_papers_nine_runs_in_the_summed_form` |
+| The farm at submission | about 3,200 jobs of others idle; the nine jobs started idle |
 
 ## Findings
 
