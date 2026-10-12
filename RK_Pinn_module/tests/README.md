@@ -1,6 +1,6 @@
 # Tests: the gates
 
-**Last updated:** 2026-09-30
+**Last updated:** 2026-10-09
 
 ## What this directory is
 
@@ -30,6 +30,7 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_targets.py` | every target gives the states it names, one row per track, in the order of the tracks | built |
 | `small_run.py` | not a gate: a small store in a temporary folder and a small configuration, for the gates of the training | built |
 | `test_configuration_and_run_key.py` | a configuration with an unknown setting, a missing setting or an unknown name is refused; the run key changes with every setting and not with the cap on the rounds | built |
+| `test_default_configuration.py` | the default configurations are complete, valid and pinned to their run keys; the LHCb default is run A of the pilot | built |
 | `test_training.py` | the optimiser identical to the frozen trainer; the stopping rule identical to the frozen rule; a run stopped and resumed identical to one not stopped; a second writer refused; a snapshot never overwritten; a run extended | built |
 | `old_runs.py` | not a gate: where the gates of the evaluation find the six old runs and the tables of the second mini-paper | built |
 | `test_evaluation_reproduces_the_paper.py` | the evaluation, run on the stored states of the old runs, gives the numbers of the paper: outputs 1 to 5, 7, 8 and 9 | built |

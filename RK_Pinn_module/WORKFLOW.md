@@ -35,6 +35,7 @@ It is built so that the things most likely to change can change alone: the netwo
 |---|---|---|
 | Code that any experiment would use | `RK_Pinn_module/src/rkpinn/` | yes |
 | Gates | `RK_Pinn_module/tests/` | yes |
+| Default configurations, which an experiment copies and never edits | `RK_Pinn_module/src/rkpinn/defaults/` | yes |
 | Cards, one per component | `RK_Pinn_module/docs/cards/` | yes |
 | An experiment: its configurations, farm files, notebook, extra analysis | `LHCb_Extrapolation_Project/experiments/<plain English name>/` | yes |
 | Track sets, run snapshots, the manifest | `/data/bfys/gscriven/rkpinn_store/` | no |

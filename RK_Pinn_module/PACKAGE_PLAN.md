@@ -213,6 +213,7 @@ RK_Pinn_module/
 ├── src/rkpinn/
 │   ├── README.md
 │   ├── registry.py                   name in a configuration file to component
+│   ├── defaults/                     the default configurations, one file each, run keys pinned (added 2026-10-09)
 │   ├── equation_of_motion/
 │   │   ├── lhcb.py                   the rates, numpy and torch
 │   │   ├── field_map.py              the v8r1 map and its differentiable twin

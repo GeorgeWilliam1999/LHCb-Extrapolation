@@ -1,6 +1,6 @@
 # rkpinn: the package
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-10-09
 
 ## What this directory is
 
@@ -23,6 +23,7 @@ The package trains Runge–Kutta physics-informed networks that are chained to t
 | `training/` | the trainer, its protocols, the optimiser and the stopping rule | built |
 | `evaluation/` | the conventions and the standard report | built |
 | `run_record/` | the configuration of a run, its key, and the manifest | built |
+| `defaults/` | the default configurations an experiment copies; a default is a file with a pinned run key, not a value in code | built |
 
 A directory marked built exists and has its own README. Whether the files inside it are built is stated in that README.
 

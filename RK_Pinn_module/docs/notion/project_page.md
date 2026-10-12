@@ -59,6 +59,7 @@ One entry per component. Each holds what it is, its theory, its source and its g
 | Targets | the reference state; the exact stage states; the Geant4-true state |
 | Data | the tracks on 257 planes |
 | Evaluation | the conventions; the ten standard outputs; stage errors held and carried |
+| Defaults | the LHCb default configuration |
 
 ### 3.1 The problem
 
@@ -261,6 +262,16 @@ where $J^{(m)}_k$ is the derivative of $f$ with respect to the state, evaluated 
 This is the working form of the robustness question and will be revisited.
 
 ---
+
+### 3.8 Defaults
+
+<details>
+<summary>**The LHCb default configuration**</summary>
+	One file, `src/rkpinn/defaults/lhcb_64_steps_2_stages.yaml`, that an experiment copies and changes in what it asks about. It is one network of 64 steps of 80.9 mm and 2 Gauss–Legendre stages, emitting the stage states, its end state summed from the stages, trained by the pooled loss over the stages, with the training settings of the pilot: 32,000 states a round, 25 restarts of 200 iterations, rounds on the network's own predictions, the validation plateau rule, a cap of 60 rounds. It is run A of the pilot setting for setting, run key `bddea42ea1ef`, which reached 8.97 micrometres at the endpoint on the test split. What scores it is not a setting: the sixth-order reference at 0.1 mm and the exact collocation scheme of the same cell, both in `integrators/`.
+	- **Agreed:** George, 9 October 2026, five choices: the cell, its form, what scores it, the training settings, where it lives.
+	- **Source:** `defaults/lhcb_64_steps_2_stages.yaml`, `defaults/__init__.py`.
+	- **Gates:** the file is valid; its run key equals the pin; it equals the pilot's run A.
+</details>
 
 ## 4. Experiments
 
