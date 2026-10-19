@@ -24,7 +24,19 @@ export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_TH
 cd "$CODE/RK_Pinn_module"
 
 KEY=$($PYTHON -m rkpinn.run_record.configuration "$CONFIGURATION")
-if [ -f "$STORE/runs/$KEY/state.json" ]; then ASKED=resume; else ASKED=refuse; fi
+# a run that has ended is extended when its configuration now gives a higher cap
+# than the run was made with; any other run in the store is resumed
+if [ -f "$STORE/runs/$KEY/state.json" ]; then
+    ASKED=$($PYTHON - "$STORE/runs/$KEY/state.json" "$CONFIGURATION" <<'EOF'
+import json, sys, yaml
+from rkpinn.training import checkpoints
+state = json.load(open(sys.argv[1]))
+cap = yaml.safe_load(open(sys.argv[2]))["training"]["rounds_at_most"]
+ended = state["state"] in (checkpoints.PLATEAUED, checkpoints.AT_ITS_CAP)
+print("extend" if ended and cap > state["rounds_at_most"] else "resume")
+EOF
+)
+else ASKED=refuse; fi
 
 echo "machine        : $(hostname)"
 echo "processor      : $(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2-)"

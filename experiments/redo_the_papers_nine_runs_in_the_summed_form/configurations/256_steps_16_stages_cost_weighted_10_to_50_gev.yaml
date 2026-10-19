@@ -55,5 +55,5 @@ training:
     window_in_rounds: 10
     tolerance: 0.05
     rounds_held: 3
-  rounds_at_most: 80
+  rounds_at_most: 160
 seed: 1
