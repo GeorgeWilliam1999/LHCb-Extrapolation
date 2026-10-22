@@ -75,7 +75,13 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
 
 ## What was measured when the runs were submitted
 
-Not yet submitted.
+| | |
+|---|---|
+| Commit the runs train at | `bc467594`, from the copy `/data/bfys/gscriven/rkpinn_code/bc467594` |
+| Checks on the login node before submission, on the real configurations and the real store, nothing written | both runs built; loss at the exact stages 5.8e-34; loss before training 4.93e-5 (per-track scale) and 5.36e-5 (global scale), against 0.966 for the direct-states run `49e5e2450eaa`; ten iterations of one restart took 7 s on four threads |
+| Global scale measured on the first round's states, seed 1 | 0.0957 mm in x, 0.000845 mm in y, 2.37e-3 in tx, 2.09e-5 in ty |
+| Submitted | 2026-10-22 11:38, clusters 5985540 (per-track scale, `25dfa17ef168`) and 5985541 (global scale, `9cef9c160b7d`), by the keeper, on George's word in the thread |
+| Logs of the farm and of the keeper | `/data/bfys/gscriven/rkpinn_farm_logs/does_the_straight_line_form_restore_the_old_accuracy` |
 
 ## Findings
 
