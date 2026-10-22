@@ -19,9 +19,19 @@ sys.dont_write_bytecode = True
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
-SINGLE_NETWORK_FOLDER = os.path.join(PROJECT_ROOT, "single_network_chain_discrete_approach")
+
+def frozen_folder(name: str) -> str:
+    """A frozen folder of the project: at the root, where it is committed, or
+    under `Archive/`, where the working tree holds it since October 2026."""
+    at_the_root = os.path.join(PROJECT_ROOT, name)
+    if os.path.isdir(at_the_root):
+        return at_the_root
+    return os.path.join(PROJECT_ROOT, "Archive", name)
+
+
+SINGLE_NETWORK_FOLDER = frozen_folder("single_network_chain_discrete_approach")
 EXACT_SOLVER_FOLDER = os.path.join(
-    PROJECT_ROOT, "multi_network_chain_discrete_approach",
+    frozen_folder("multi_network_chain_discrete_approach"),
     "Block_C_step_size_and_stages", "C2_Exact_scheme_table")
 
 TRACKS_FILE = os.path.join(

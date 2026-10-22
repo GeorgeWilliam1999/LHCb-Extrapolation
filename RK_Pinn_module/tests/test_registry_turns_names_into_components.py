@@ -75,7 +75,8 @@ def test_the_parts_of_the_training_can_be_named():
 def test_the_networks_losses_and_targets_can_be_named():
     assert registry.registered_names("network") == (
         "stage_network", "whole_crossing_network")
-    assert registry.registered_names("output_form") == ("direct_states",)
+    assert registry.registered_names("output_form") == (
+        "direct_states", "straight_line_plus_scaled_correction")
     assert registry.registered_names("loss") == (
         "cost_weighted", "pooled", "supervised_endpoint", "unweighted")
     assert registry.registered_names("target") == (

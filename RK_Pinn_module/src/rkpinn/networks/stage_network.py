@@ -16,7 +16,9 @@ Settings, all arguments, none with a default:
         the range of planes a step can start on. z_start is mapped linearly
         onto [-1, 1] over it.
   scale_of_inputs     five constants; the state is divided by them
-  output_form         how raw outputs become states; see output_forms.py
+  output_form         how raw outputs become states; see output_forms.py.
+                      The network binds the form to its step length, the
+                      planes of its outputs and its field map when it is built
   width, depth        of the body: `depth` layers of `width` units, each
                       followed by the activation, then a linear layer
   activation          the name of the activation; see ACTIVATIONS. The
@@ -37,7 +39,11 @@ Settings, all arguments, none with a default:
 
 The body, its initialisation and the order of its outputs are those of the
 frozen `OneStepNetwork` (`_shared/model.py`), so that with a predicted end
-state, the same seed and the same scales the two give identical numbers.
+state, the same seed and the same scales the two give identical numbers. With
+the output form `straight_line_plus_scaled_correction`, a predicted end state
+and the scale `per_track`, the network is the frozen `ChainNetwork`
+(`E1_Network_grid/chain_network.py`), the network of the second mini-paper,
+to the last bit.
 Gates: tests/test_networks.py.
 """
 from __future__ import annotations
@@ -97,8 +103,8 @@ class StageNetwork(torch.nn.Module):
         """The network a configuration names, with its weights drawn from the
         seed of the run. `context` gives what the run has already built."""
         from rkpinn.registry import component
-        output_form = component("output_form", settings["output_form"])(
-            context.scale(settings["scale_of_outputs"], 4))
+        output_form = component("output_form", settings["output_form"]) \
+            .from_configuration(settings["scale_of_outputs"], context)
         layout = context.layout
         torch.manual_seed(int(context.seed))
         return cls(
@@ -137,6 +143,8 @@ class StageNetwork(torch.nn.Module):
         nodes_of_outputs = (torch.cat([self.nodes, torch.ones(1, dtype=torch.float64)])
                             if end_state == END_STATE_PREDICTED else self.nodes.clone())
         self.register_buffer("nodes_of_outputs", nodes_of_outputs)
+        output_form.bind(step_length_mm=self.step_length_mm, nodes_of_outputs=nodes_of_outputs,
+                         field=equation_of_motion.field)
         self.register_buffer("middle_of_start_planes_mm", torch.tensor(
             0.5 * (self.first_start_plane_mm + self.last_start_plane_mm),
             dtype=torch.float64))
@@ -168,8 +176,7 @@ class StageNetwork(torch.nn.Module):
         """The states the network emits, shape (n, number of outputs, 4): the
         stages, followed by the end state when it is predicted."""
         return self.output_form.states_from_raw(
-            self.raw(states, start_planes_mm), states,
-            self.planes_of_outputs_mm(start_planes_mm))
+            self.raw(states, start_planes_mm), states, start_planes_mm)
 
     def predict(self, states, start_planes_mm) -> PredictedTrack:
         """One step from every state on its own start plane: separate steps."""
@@ -207,7 +214,7 @@ class StageNetwork(torch.nn.Module):
             "last_start_plane_mm": self.last_start_plane_mm,
             "scale_of_inputs": self.scale_of_inputs.tolist(),
             "output_form": self.output_form.name,
-            "scale_of_outputs": self.output_form.scale_of_outputs.tolist(),
+            "scale_of_outputs": self.output_form.scale_setting(),
             "width": self.width, "depth": self.depth, "activation": self.activation,
             "end_state": self.end_state,
         }

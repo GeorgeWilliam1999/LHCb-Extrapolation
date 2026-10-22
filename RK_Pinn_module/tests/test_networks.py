@@ -4,6 +4,13 @@ Proves
   * with a predicted end state, the stage network is identical, to the last
     bit, to the frozen one-step network built from the same seed and scales,
     in its outputs and in the gradient of its outputs;
+  * with the output form `straight_line_plus_scaled_correction`, the scale
+    `per_track` and a predicted end state, the stage network is identical, to
+    the last bit, to the frozen `ChainNetwork` of the second mini-paper built
+    from the same seed and scales: outputs, gradient, the per-track scale, and
+    the chain over the crossing;
+  * the global scale of that form is the median of the per-track scale over
+    the first round's states, and the form refuses what it cannot be built with;
   * the whole-crossing network is identical to the frozen one-step network
     with no stages;
   * with the last layer zero, a network returns what its output form declares;
@@ -26,9 +33,11 @@ import pytest
 import torch
 
 from building_blocks import ACTIVATION, CELLS, DEPTH, WIDTH, crossing, equations
-from frozen_code import frozen_module, frozen_tracks, identical
+from frozen_code import frozen_chain_network, frozen_module, frozen_tracks, identical
 from rkpinn.networks.collect_and_sum import collect_and_sum, rates_at_the_stages
-from rkpinn.networks.output_forms import DirectStates
+from rkpinn.networks.output_forms import (
+    MEDIAN_OF_PER_TRACK_SCALE, PER_TRACK, DirectStates, StraightLinePlusScaledCorrection,
+    per_track_scale)
 from rkpinn.networks.stage_network import StageNetwork, build_stage_network
 from rkpinn.networks.whole_crossing_network import build_whole_crossing_network
 from rkpinn.predicted_track.predicted_track import (
@@ -45,6 +54,31 @@ def frozen_one_step_network(cell, seed, number_of_extra_inputs=1):
                                  width=WIDTH, depth=DEPTH, n_extra=number_of_extra_inputs)
 
 
+def frozen_chain_network_of(cell, seed):
+    """The frozen `ChainNetwork` of the cell, drawn from the seed, on the up
+    polarity, and the frozen module it comes from."""
+    chain = frozen_chain_network()
+    field = frozen_module("reference").make_field("up")
+    return chain, chain.build(cell.number_of_stages, cell.number_of_steps, cell.length_mm,
+                              cell.first_plane_mm, cell.spread, field, seed=seed)
+
+
+def straight_line_form(scale=PER_TRACK):
+    return StraightLinePlusScaledCorrection(scale)
+
+
+def outputs_and_gradient(network, emit):
+    """The outputs `emit()` gives and the gradient of their weighted sum with
+    respect to the parameters of `network`."""
+    for parameter in network.parameters():
+        parameter.grad = None
+    out = emit()
+    weights = torch.linspace(0.5, 1.5, out.numel(), dtype=torch.float64).reshape(out.shape)
+    (out * weights).sum().backward()
+    gradient = torch.cat([p.grad.reshape(-1) for p in network.parameters()])
+    return out.detach().numpy(), gradient.numpy()
+
+
 @pytest.mark.parametrize("number_of_steps, number_of_stages", CELLS)
 @pytest.mark.parametrize("seed", (0, 3))
 def test_stage_network_is_identical_to_the_frozen_network(number_of_steps,
@@ -53,31 +87,117 @@ def test_stage_network_is_identical_to_the_frozen_network(number_of_steps,
     ours = cell.network(END_STATE_PREDICTED, seed=seed)
     theirs = frozen_one_step_network(cell, seed)
     states, planes = cell.states(NUMBER_OF_STATES)
-
-    def outputs_and_gradient(emit):
-        for parameter in emit.__self__.parameters():
-            parameter.grad = None
-        out = emit()
-        weights = torch.linspace(0.5, 1.5, out.numel(), dtype=torch.float64).reshape(out.shape)
-        (out * weights).sum().backward()
-        gradient = torch.cat([p.grad.reshape(-1) for p in emit.__self__.parameters()])
-        return out.detach().numpy(), gradient.numpy()
-
-    class Ours:
-        __self__ = ours
-        def __call__(self):
-            return ours(states, planes)
-
-    class Theirs:
-        __self__ = theirs
-        def __call__(self):
-            return theirs(states, ours.start_plane_as_input(planes)[:, None])
-
-    out_ours, gradient_ours = outputs_and_gradient(Ours())
-    out_theirs, gradient_theirs = outputs_and_gradient(Theirs())
+    out_ours, gradient_ours = outputs_and_gradient(ours, lambda: ours(states, planes))
+    out_theirs, gradient_theirs = outputs_and_gradient(
+        theirs, lambda: theirs(states, ours.start_plane_as_input(planes)[:, None]))
     assert out_ours.shape == (NUMBER_OF_STATES, number_of_stages + 1, 4)
     assert identical(out_ours, out_theirs)
     assert identical(gradient_ours, gradient_theirs)
+
+
+@pytest.mark.parametrize("number_of_steps, number_of_stages", CELLS)
+@pytest.mark.parametrize("seed", (0, 3))
+def test_stage_network_with_the_straight_line_form_is_identical_to_the_frozen_chain_network(
+        number_of_steps, number_of_stages, seed):
+    """The network of the second mini-paper is in the package: with a predicted
+    end state and the per-track scale, outputs and gradient to the last bit."""
+    cell = crossing(number_of_steps, number_of_stages)
+    ours = cell.network(END_STATE_PREDICTED, seed=seed, output_form=straight_line_form())
+    chain, theirs = frozen_chain_network_of(cell, seed)
+    states, planes = cell.states(NUMBER_OF_STATES)
+    out_ours, gradient_ours = outputs_and_gradient(ours, lambda: ours(states, planes))
+    out_theirs, gradient_theirs = outputs_and_gradient(theirs, lambda: theirs(states, planes))
+    assert out_ours.shape == (NUMBER_OF_STATES, number_of_stages + 1, 4)
+    assert identical(out_ours, out_theirs)
+    assert identical(gradient_ours, gradient_theirs)
+    # the per-track scale: identical to the frozen one, and within rounding of
+    # the frozen numpy twin
+    scale = per_track_scale(states, planes, cell.step_length_mm, equations()[1].field)
+    assert identical(scale.numpy(), theirs.residual_scale(states, planes)[:, 0, :].numpy())
+    I_B, I_y = chain.field_integrals_numpy(states.numpy(), planes.numpy(), cell.step_length_mm,
+                                           frozen_module("reference").make_field("up"))
+    twin = np.stack(chain.scales_numpy(states.numpy(), cell.step_length_mm, I_B, I_y), axis=1)
+    assert np.abs(scale.numpy() / twin - 1).max() < 1e-14
+    assert (scale > 0).all()
+
+
+def test_self_chain_with_the_straight_line_form_is_identical_to_the_frozen_carry():
+    """The paper's chaining: the frozen `carry` of the frozen `ChainNetwork`
+    and the package's self chain of the same network give the same states on
+    every plane, to the last bit."""
+    cell = crossing(64, 2)
+    ours = cell.network(END_STATE_PREDICTED, seed=1, output_form=straight_line_form())
+    chain, theirs = frozen_chain_network_of(cell, 1)
+    layout = TrackLayout(cell.first_plane_mm, cell.last_plane_mm, 64, cell.tableau)
+    start = frozen_tracks()["test_S0"][:50]
+    track = ours.whole_track(start, layout)
+    assert identical(track.states_on_planes(), chain.carry(theirs, start, cell.first_plane_mm, 64))
+
+
+@pytest.mark.parametrize("seed", (0, 2))
+def test_the_global_scale_is_the_median_of_the_per_track_scale(seed):
+    """The form built from a configuration: `per_track` stays per track; the
+    median name becomes four numbers, the median over the first round's
+    states; four numbers pass through. With four numbers the states are the
+    straight line plus those numbers times the raw outputs."""
+    cell = crossing(64, 2)
+
+    class Context:
+        """What the run context gives the form."""
+        first_round_states = cell.first_round_states
+        first_round_start_planes_mm = cell.first_round_start_planes_mm
+        equation_of_motion = equations()[1]
+
+        class layout:
+            step_length_mm = cell.step_length_mm
+
+        @staticmethod
+        def scale(value, number):
+            return [float(v) for v in value]
+
+    per_track = StraightLinePlusScaledCorrection.from_configuration(PER_TRACK, Context)
+    assert per_track.scale_setting() == PER_TRACK and per_track.scale_is_per_track
+    median = StraightLinePlusScaledCorrection.from_configuration(
+        MEDIAN_OF_PER_TRACK_SCALE, Context)
+    expected = np.median(per_track_scale(
+        torch.as_tensor(cell.first_round_states),
+        torch.as_tensor(cell.first_round_start_planes_mm), cell.step_length_mm,
+        equations()[1].field).numpy(), axis=0)
+    assert median.scale_setting() == expected.tolist()
+    assert not median.scale_is_per_track and (expected > 0).all()
+    given = StraightLinePlusScaledCorrection.from_configuration([1.0, 2.0, 3.0, 4.0], Context)
+    assert given.scale_setting() == [1.0, 2.0, 3.0, 4.0]
+
+    network = cell.network(END_STATE_SUMMED, seed=seed, output_form=straight_line_form(expected))
+    states, planes = cell.states(300)
+    with torch.no_grad():
+        raw = network.raw(states, planes)
+        emitted = network(states, planes)
+        straight = network.output_form.straight_line(states)
+        assert identical(emitted.numpy(), (straight + torch.as_tensor(expected) * raw).numpy())
+        # the straight line of the form is that of the frozen code, on the end plane
+        assert identical(
+            cell.network(END_STATE_PREDICTED, seed=seed, output_form=straight_line_form(expected))
+            .output_form.straight_line(states)[:, -1].numpy(),
+            frozen_chain_network().straight_numpy(states.numpy(), cell.step_length_mm))
+
+
+def test_the_straight_line_form_refuses_what_it_cannot_be_built_with():
+    with pytest.raises(ValueError):
+        StraightLinePlusScaledCorrection("guessed")
+    with pytest.raises(ValueError):
+        StraightLinePlusScaledCorrection([1.0, 1.0, 0.0, 1.0])
+    with pytest.raises(ValueError):
+        StraightLinePlusScaledCorrection([1.0, 1.0, 1.0])
+    # the whole-crossing network has no equation of motion, so no field map
+    tracks = frozen_tracks()
+    spread = tracks["train_S0"].std(axis=0)
+    cell = crossing(2, 2)
+    with pytest.raises(ValueError, match="field map"):
+        build_whole_crossing_network(
+            seed=5, first_plane_mm=cell.first_plane_mm, last_plane_mm=cell.last_plane_mm,
+            scale_of_inputs=spread, output_form=straight_line_form(),
+            width=WIDTH, depth=DEPTH, activation=ACTIVATION)
 
 
 def test_whole_crossing_network_is_identical_to_the_frozen_network():
@@ -106,18 +226,31 @@ def test_whole_crossing_network_is_identical_to_the_frozen_network():
 
 
 @pytest.mark.parametrize("end_state", (END_STATE_SUMMED, END_STATE_PREDICTED))
-def test_zeroed_last_layer_gives_the_declared_answer(end_state):
+@pytest.mark.parametrize("form", ("direct_states", "straight_line_plus_scaled_correction"))
+def test_zeroed_last_layer_gives_the_declared_answer(end_state, form):
     cell = crossing(64, 2)
-    network = cell.network(end_state)
+    network = cell.network(end_state, output_form=(
+        DirectStates(cell.spread[:4]) if form == "direct_states" else straight_line_form()))
     with torch.no_grad():
         network.body[-1].weight.zero_()
         network.body[-1].bias.zero_()
         states, planes = cell.states(200)
         emitted = network(states, planes)
-        declared = network.output_form.answer_with_zeroed_network(
-            states, network.planes_of_outputs_mm(planes))
+        declared = network.output_form.answer_with_zeroed_network(states, planes)
     assert identical(emitted.numpy(), declared.numpy())
-    assert (emitted == 0).all()
+    if form == "direct_states":
+        assert (emitted == 0).all()
+    else:
+        # the straight line: x + tx (z_j - z_start), y + ty (z_j - z_start), tx, ty
+        offsets = network.nodes_of_outputs[None, :] * cell.step_length_mm
+        assert torch.allclose(emitted[:, :, 0], states[:, 0:1] + states[:, 2:3] * offsets,
+                              rtol=0, atol=1e-12)
+        assert torch.allclose(emitted[:, :, 1], states[:, 1:2] + states[:, 3:4] * offsets,
+                              rtol=0, atol=1e-12)
+        assert identical(emitted[:, :, 2].numpy(),
+                         states[:, 2:3].expand(-1, emitted.shape[1]).numpy())
+        assert identical(emitted[:, :, 3].numpy(),
+                         states[:, 3:4].expand(-1, emitted.shape[1]).numpy())
 
 
 @pytest.mark.parametrize("number_of_steps, number_of_stages", CELLS)
@@ -252,21 +385,34 @@ def test_a_layout_that_is_not_the_network_s_is_refused():
 
 
 @pytest.mark.parametrize("end_state", (END_STATE_SUMMED, END_STATE_PREDICTED))
-def test_a_network_is_built_again_from_its_settings_and_weights(end_state):
+@pytest.mark.parametrize("form", (
+    "direct_states", "straight_line_plus_scaled_correction, per_track",
+    "straight_line_plus_scaled_correction, four numbers"))
+def test_a_network_is_built_again_from_its_settings_and_weights(end_state, form):
+    from rkpinn.registry import component
     cell = crossing(64, 2)
-    network = cell.network(end_state, seed=4)
+    output_form = {
+        "direct_states": lambda: DirectStates(cell.spread[:4]),
+        "straight_line_plus_scaled_correction, per_track": lambda: straight_line_form(),
+        "straight_line_plus_scaled_correction, four numbers":
+            lambda: straight_line_form([0.1, 0.001, 0.002, 0.00002]),
+    }[form]()
+    network = cell.network(end_state, seed=4, output_form=output_form)
     snapshot = network.state_dict()
     assert not [name for name in snapshot if "field" in name], \
         "the field map must not be written into a snapshot"
     assert sum(v.numel() for v in snapshot.values()) < 60_000
     settings = network.settings()
+    assert settings["output_form"] == form.split(",")[0]
+    assert settings["scale_of_outputs"] == (
+        PER_TRACK if "per_track" in form else [float(v) for v in output_form.scale_of_outputs])
     again = build_stage_network(
         seed=99, equation_of_motion=equations()[1], tableau=cell.tableau,
         step_length_mm=settings["step_length_mm"],
         first_start_plane_mm=settings["first_start_plane_mm"],
         last_start_plane_mm=settings["last_start_plane_mm"],
         scale_of_inputs=settings["scale_of_inputs"],
-        output_form=DirectStates(settings["scale_of_outputs"]),
+        output_form=component("output_form", settings["output_form"])(settings["scale_of_outputs"]),
         width=settings["width"], depth=settings["depth"],
         activation=settings["activation"], end_state=settings["end_state"])
     again.load_state_dict(snapshot)

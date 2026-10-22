@@ -74,13 +74,17 @@ class Crossing:
             return torch.as_tensor(states), torch.as_tensor(planes)
         return states, planes
 
-    def network(self, end_state, seed=0, width=WIDTH, depth=DEPTH):
+    def network(self, end_state, seed=0, width=WIDTH, depth=DEPTH, output_form=None):
+        """A stage network of this cell; direct states scaled by the spread
+        unless another output form is given."""
+        if output_form is None:
+            output_form = DirectStates(self.spread[:4])
         return build_stage_network(
             seed=seed, equation_of_motion=equations()[1], tableau=self.tableau,
             step_length_mm=self.step_length_mm,
             first_start_plane_mm=self.start_planes_mm[0],
             last_start_plane_mm=self.start_planes_mm[-1],
-            scale_of_inputs=self.spread, output_form=DirectStates(self.spread[:4]),
+            scale_of_inputs=self.spread, output_form=output_form,
             width=width, depth=depth, activation=ACTIVATION, end_state=end_state)
 
 

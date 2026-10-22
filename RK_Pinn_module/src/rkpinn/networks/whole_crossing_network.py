@@ -36,8 +36,8 @@ class WholeCrossingNetwork(torch.nn.Module):
         """The network a configuration names, with its weights drawn from the
         seed of the run."""
         from rkpinn.registry import component
-        output_form = component("output_form", settings["output_form"])(
-            context.scale(settings["scale_of_outputs"], 4))
+        output_form = component("output_form", settings["output_form"]) \
+            .from_configuration(settings["scale_of_outputs"], context)
         torch.manual_seed(int(context.seed))
         return cls(
             first_plane_mm=context.layout.first_plane_mm,
@@ -54,6 +54,9 @@ class WholeCrossingNetwork(torch.nn.Module):
         self.width, self.depth = int(width), int(depth)
         self.activation = check_activation(activation)
         self.output_form = output_form
+        # no equation of motion here, so no field map: a form that needs one refuses
+        output_form.bind(step_length_mm=self.step_length_mm,
+                         nodes_of_outputs=torch.ones(1, dtype=torch.float64), field=None)
         self.register_buffer("scale_of_inputs",
                              positive_scale(scale_of_inputs, 5, "the scale of the inputs"))
         self.body = body_of_layers(5, 4, width, depth, activation)
@@ -66,8 +69,8 @@ class WholeCrossingNetwork(torch.nn.Module):
     def forward(self, states):
         """The state on the last plane, shape (n, 4)."""
         raw = self.body(states / self.scale_of_inputs).reshape(-1, 1, 4)
-        planes = torch.full((len(states), 1), self.last_plane_mm, dtype=torch.float64)
-        return self.output_form.states_from_raw(raw, states, planes)[:, 0]
+        first = torch.full((len(states),), self.first_plane_mm, dtype=torch.float64)
+        return self.output_form.states_from_raw(raw, states, first)[:, 0]
 
     def predict(self, states, start_planes_mm=None) -> PredictedTrack:
         """The whole crossing as one step with no stages. The start plane is
@@ -100,7 +103,7 @@ class WholeCrossingNetwork(torch.nn.Module):
             "last_plane_mm": self.last_plane_mm,
             "scale_of_inputs": self.scale_of_inputs.tolist(),
             "output_form": self.output_form.name,
-            "scale_of_outputs": self.output_form.scale_of_outputs.tolist(),
+            "scale_of_outputs": self.output_form.scale_setting(),
             "width": self.width, "depth": self.depth, "activation": self.activation,
         }
 

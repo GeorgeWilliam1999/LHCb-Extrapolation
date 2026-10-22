@@ -92,6 +92,7 @@ class RunContext:
     equation_of_motion: object              # the differentiable form
     layout: TrackLayout
     first_round_states: np.ndarray
+    first_round_start_planes_mm: np.ndarray
     first_round_labels: Optional[np.ndarray]
 
     def scale(self, value, number):
@@ -172,13 +173,14 @@ def build_run(configuration: dict, store: Store, recorded_constants=None) -> Run
     first_round = protocol.states_of_round(1, seed, tracks, layout, None, target)
     context = RunContext(seed=seed, equation_of_motion=differentiable, layout=layout,
                          first_round_states=first_round.states,
+                         first_round_start_planes_mm=first_round.start_planes_mm,
                          first_round_labels=first_round.labels)
 
     network_block = _without(configuration["network"], "kind")
+    # the scale of the outputs is resolved by the output form, which may measure
+    # it (output_forms.py); what it resolved to is recorded in the constants
     if recorded_constants is None:
         network_block["scale_of_inputs"] = context.scale(network_block["scale_of_inputs"], 5)
-        network_block["scale_of_outputs"] = context.scale(
-            network_block["scale_of_outputs"], 4)
     else:
         network_block["scale_of_inputs"] = recorded_constants["network"]["scale_of_inputs"]
         network_block["scale_of_outputs"] = recorded_constants["network"]["scale_of_outputs"]

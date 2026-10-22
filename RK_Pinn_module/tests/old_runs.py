@@ -12,9 +12,9 @@ import os
 
 import numpy as np
 
-from frozen_code import PROJECT_ROOT, SINGLE_NETWORK_FOLDER, needed_file
+from frozen_code import SINGLE_NETWORK_FOLDER, frozen_folder, needed_file
 
-TABLES_OF_THE_PAPER = os.path.join(PROJECT_ROOT, "Self_chained_paper", "results")
+TABLES_OF_THE_PAPER = os.path.join(frozen_folder("Self_chained_paper"), "results")
 
 # (number of steps, number of stages)
 CELLS_OF_THE_PAPER = ((64, 2), (128, 8), (256, 16))

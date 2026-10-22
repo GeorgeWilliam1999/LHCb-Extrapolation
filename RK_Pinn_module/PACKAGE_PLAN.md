@@ -744,6 +744,10 @@ George ruled on the risk and the assumptions below. They replace "assumptions I 
 
 What this does not change: a component that is not ruled in is not built (section 12.4, rule 5). Flexibility means the setting exists and the place is open. It does not mean every value of the setting is built now.
 
+### Measured on 2026-10-19 and 2026-10-20: the cost of direct states
+
+The precision risk above was real. With direct states the package's networks are worse than the frozen networks at the stages by a factor 6 to 25 (single-step radial median 0.49 / 0.21 / 0.10 µm against 0.08 / 0.017 / 0.004 at 64/2, 128/8, 256/16), and at the end of the region by a factor 3 to 37 once the frozen networks are read with their stages summed. Isolated on the login node with everything else equal, the straight line lowers the loss 190 to 390 times. The place kept open in `networks/output_forms.py` was filled on 2026-10-22 with `straight_line_plus_scaled_correction`, gated against the frozen `ChainNetwork` to the last bit. The audit and the plan are in the project library (`audit_old_vs_new.md`, `correction_plan_final.md`).
+
 ### Rulings of 2026-09-29, on the choices of phase 3
 
 | Choice | Ruling | Consequence |

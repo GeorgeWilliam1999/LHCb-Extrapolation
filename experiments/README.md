@@ -1,6 +1,6 @@
 # Experiments
 
-**Last updated:** 2026-10-12
+**Last updated:** 2026-10-22
 
 ## What this directory is
 
@@ -13,6 +13,7 @@ The experiments made with the package `rkpinn`, one folder each. An experiment i
 | `README.md` | this file | built |
 | `does_a_summed_end_state_train/` | the pilot: one network of 64 steps and 2 stages, trained with its end state summed from the stages and with its end state predicted | built |
 | `redo_the_papers_nine_runs_in_the_summed_form/` | the paper's three cells under the pooled and the two cost-weighted losses, trained again by the package in the summed form, seed 1 | built |
+| `does_the_straight_line_form_restore_the_old_accuracy/` | the 64-step pooled run again with the output form of the frozen networks, a straight line plus a scaled correction, with the per-track scale and with one global scale | built |
 
 ## The contract
 

@@ -18,6 +18,9 @@ Proves
   * a run ends plateaued when the rule holds, and a round ends early when it
     is set to end when stalled;
   * the constants recorded in the run are the constants the optimiser used;
+  * the straight-line output form trains from a configuration with either
+    scale, records the scale it resolved to, and starts from a loss far below
+    that of direct states on the same states;
   * the whole-crossing network trains on labels;
   * no absolute path is written into a run;
   * training from uncommitted changes is refused.
@@ -438,6 +441,47 @@ def test_every_loss_trains_from_a_configuration(stores, loss):
     if loss["name"] == "cost_weighted":
         assert folder.constants()["loss"]["momentum_window_gev"] == [10.0, 50.0]
         assert folder.constants()["loss"]["reference_bend_mm"] > 0
+
+
+@pytest.mark.parametrize("scale", ("per_track",
+                                   "median_of_per_track_scale_over_first_round_states"))
+def test_the_straight_line_form_trains_from_a_configuration(stores, scale):
+    store, _, tracks_key = stores
+    configuration = small_configuration(tracks_key, seed=23, training_rounds_at_most=2)
+    configuration["network"].update(output_form="straight_line_plus_scaled_correction",
+                                    scale_of_outputs=scale)
+    direct = small_configuration(tracks_key, seed=23, training_rounds_at_most=2)
+    assert run_key(configuration) != run_key(direct)
+    state = train(configuration, store, if_the_run_exists="refuse")
+    folder = RunFolder(store, run_key(configuration))
+    assert state["rounds_done"] == 2
+    recorded = folder.constants()["network"]
+    assert recorded["output_form"] == "straight_line_plus_scaled_correction"
+    if scale == "per_track":
+        assert recorded["scale_of_outputs"] == "per_track"
+    else:
+        assert len(recorded["scale_of_outputs"]) == 4
+        assert all(v > 0 for v in recorded["scale_of_outputs"])
+    rounds = folder.rounds()
+    assert float(rounds[-1]["loss_last"]) < float(rounds[0]["loss_first"])
+    # built again from what the run recorded, the network has the settings
+    # that were used, and the loss at the exact stages is zero to rounding
+    run = round_trainer.build_run(configuration, store, folder.constants())
+    assert run.constants == folder.constants()
+    measured = round_trainer.checks_before_training(run)
+    assert measured["loss_at_the_exact_solution"] < 1e-18
+    # a raw output of zero is the straight line, so the loss before training
+    # is far below that of direct states, where it is the origin of the detector
+    # (a factor 40 on the four long steps of the small store; 20,000 on the
+    # 64 steps of the LHCb default)
+    fresh = round_trainer.build_run(configuration, store)
+    assert fresh.constants == folder.constants()
+    with_direct_states = round_trainer.build_run(direct, store)
+    loss_of_straight_line = round_trainer.checks_before_training(fresh)[
+        "loss_before_training_on_first_round_states"]
+    loss_of_direct_states = round_trainer.checks_before_training(with_direct_states)[
+        "loss_before_training_on_first_round_states"]
+    assert loss_of_straight_line * 10 < loss_of_direct_states
 
 
 def test_the_whole_crossing_network_trains_on_labels(stores):

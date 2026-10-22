@@ -1,6 +1,6 @@
 # Tests: the gates
 
-**Last updated:** 2026-10-09
+**Last updated:** 2026-10-22
 
 ## What this directory is
 
@@ -12,7 +12,7 @@ Every gate of the package, run with pytest. A change is not finished until all o
 |---|---|---|
 | `README.md` | this file | built |
 | `test_every_directory_is_described.py` | fails if a directory has no README, if a README does not name something in its directory, or if something marked built does not exist | built |
-| `frozen_code.py` | not a gate: where the parity gates find the frozen code, the frozen tracks and the stored exact states. The only file that inserts into the import path | built |
+| `frozen_code.py` | not a gate: where the parity gates find the frozen code, the frozen tracks and the stored exact states, at the root of the project or under `Archive/`. The only file that inserts into the import path | built |
 | `test_field_map_matches_the_frozen_code.py` | the hash of the map file; field values identical to the frozen loader on 200,000 points, both polarities; the differentiable field identical to the frozen one | built |
 | `test_equation_of_motion_matches_the_frozen_code.py` | rates identical to the frozen code on 500 real states; torch rates and their gradient identical to the frozen code; torch equals numpy | built |
 | `test_gauss_legendre_tableau_matches_the_frozen_code.py` | the tableau identical to the frozen one to the last bit at 16 stages and eleven other stage counts; the five identities | built |
@@ -25,13 +25,13 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_exact_states_in_the_store.py` | the store holds the exact states of the test split at 2, 64, 128 and 256 steps and 2, 4, 8 and 16 stages; tracks solved again equal the store; the store agrees with the frozen files to 1e-11 mm | built |
 | `building_blocks.py` | not a gate: the first round's states, the networks and the equations of motion the gates of the networks and the losses share | built |
 | `test_predicted_track.py` | a predicted track holds what was put in it and refuses wrong shapes; the exact scheme and the reference integrator fill it, identical to the store | built |
-| `test_networks.py` | the stage network and the whole-crossing network identical to the frozen one-step network; the summed end state; the self chain identical to the frozen chaining; double precision; snapshots | built |
+| `test_networks.py` | the stage network and the whole-crossing network identical to the frozen one-step network; with the straight-line form, the stage network and its chain identical to the frozen `ChainNetwork` of the paper; the global scale is the median of the per-track scale; the summed end state; double precision; snapshots | built |
 | `test_losses.py` | the five gates every loss must pass; the pooled loss identical to the frozen loss, value and gradient; the weights identical to the frozen weights; no loss imports a network | built |
 | `test_targets.py` | every target gives the states it names, one row per track, in the order of the tracks | built |
 | `small_run.py` | not a gate: a small store in a temporary folder and a small configuration, for the gates of the training | built |
 | `test_configuration_and_run_key.py` | a configuration with an unknown setting, a missing setting or an unknown name is refused; the run key changes with every setting and not with the cap on the rounds | built |
 | `test_default_configuration.py` | the default configurations are complete, valid and pinned to their run keys; the LHCb default is run A of the pilot | built |
-| `test_training.py` | the optimiser identical to the frozen trainer; the stopping rule identical to the frozen rule; a run stopped and resumed identical to one not stopped; a second writer refused; a snapshot never overwritten; a run extended | built |
+| `test_training.py` | the optimiser identical to the frozen trainer; the stopping rule identical to the frozen rule; a run stopped and resumed identical to one not stopped; a second writer refused; a snapshot never overwritten; a run extended; the straight-line form trains with either scale and records it | built |
 | `old_runs.py` | not a gate: where the gates of the evaluation find the six old runs and the tables of the second mini-paper | built |
 | `test_evaluation_reproduces_the_paper.py` | the evaluation, run on the stored states of the old runs, gives the numbers of the paper: outputs 1 to 5, 7, 8 and 9 | built |
 | `test_stage_errors_held_and_carried.py` | output 6: the contributions of all steps sum to the measured endpoint error; for the exact scheme all of it is the scheme; what is beyond first order falls with the square of the error | built |

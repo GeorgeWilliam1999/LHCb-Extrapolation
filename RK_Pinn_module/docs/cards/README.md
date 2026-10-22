@@ -1,6 +1,6 @@
 # Cards
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-10-22
 
 ## What this directory is
 
@@ -11,6 +11,7 @@ One page per component. A card is written once and linked from every study that 
 | Name | What it does | State |
 |---|---|---|
 | `README.md` | this file | built |
+| `straight_line_plus_scaled_correction.md` | the output form of the frozen networks: the straight line plus a correction scaled per track or by fixed constants; its derivation, its scale, its gates | built |
 
 ## The contract
 
