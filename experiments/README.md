@@ -1,6 +1,6 @@
 # Experiments
 
-**Last updated:** 2026-10-22
+**Last updated:** 2026-10-23
 
 ## What this directory is
 
@@ -15,6 +15,7 @@ The experiments made with the package `rkpinn`, one folder each. An experiment i
 | `redo_the_papers_nine_runs_in_the_summed_form/` | the paper's three cells under the pooled and the two cost-weighted losses, trained again by the package in the summed form, seed 1 | built |
 | `does_the_straight_line_form_restore_the_old_accuracy/` | the 64-step pooled run again with the output form of the frozen networks, a straight line plus a scaled correction, with the per-track scale and with one global scale | built |
 | `do_the_literature_changes_improve_the_endpoint/` | short local tests of four changes the literature suggests (one fixed draw, the best round by validation, a refit of the last layer, the self-scaled Broyden optimiser), in both output forms | built |
+| `does_the_error_fall_with_the_step_length/` | the per-track straight-line run trained again at 8, 16, 32, 128 and 256 steps of 2 stages, and at 64 steps of 4, 8 and 16 stages, for the figure of the step length against the single-step error and the error at the end of the region | built |
 
 ## The contract
 
