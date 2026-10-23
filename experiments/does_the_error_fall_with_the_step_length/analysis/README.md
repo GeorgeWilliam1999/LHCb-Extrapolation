@@ -12,9 +12,9 @@ The numbers and the figure of the experiment: the step length against the single
 |---|---|---|
 | `README.md` | this file | built |
 | `step_length_errors.py` | the per-track errors of every series and their 16th, 50th and 84th percentiles per momentum band: the trained networks, the frozen networks with their stages summed, the exact scheme and classic fourth-order Runge–Kutta | built |
-| `draw_figure.py` | the figure of two panels from the two tables | planned |
-| `results/` | `networks.csv` and `references.csv`, every plotted number | planned |
-| `figures/` | the figure, for all momenta and for 3 to 8 GeV | planned |
+| `draw_figure.py` | the figure of two panels from the two tables, and the figure of the stages at 64 steps once two or more of those runs have a round | built |
+| `results/` | `networks.csv` and `references.csv`, every plotted number | built |
+| `figures/` | the figure, for all momenta and for 3 to 8 GeV | built |
 
 ## The contract
 
@@ -32,7 +32,10 @@ PY=/data/bfys/gscriven/conda/envs/TE/bin/python
 A=../experiments/does_the_error_fall_with_the_step_length/analysis
 $PY $A/step_length_errors.py references 8    # 8 workers for the exact single steps
 $PY $A/step_length_errors.py networks
+$PY $A/draw_figure.py
 ```
+
+The single-step median of an integrator is low at short steps because most steps cross no face of the field map's grid. The map is linear between grid points, so its derivative jumps at each face, and a step that crosses one carries most of the error (at 128 steps of 2 stages: median 0 on many steps, about 1e-3 micrometres on others). The end-of-region error of the integrators therefore does not fall cleanly with the step length.
 
 The exact scheme must be in the store for every steps and stages of `REFERENCE_STEPS` and `REFERENCE_STAGES`; `rkpinn.track_data.exact_states` writes it.
 

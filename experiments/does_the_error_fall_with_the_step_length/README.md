@@ -67,7 +67,29 @@ See `farm/README.md`. The figure, from this folder: see `analysis/README.md`.
 
 ## What was measured when the runs were submitted
 
-To be filled in when they are submitted.
+| | |
+|---|---|
+| Commit the runs train at | `73f900ac`, from the copy `/data/bfys/gscriven/rkpinn_code/73f900ac` |
+| The configuration of `25dfa17ef168` at that commit | gives the key `25dfa17ef168`, so the schema did not change since `bc467594` |
+| Submitted | 2026-10-23 14:58 to 15:00, by the keeper, on George's word in the thread |
+| Logs of the farm and of the keeper | `/data/bfys/gscriven/rkpinn_farm_logs/does_the_error_fall_with_the_step_length` |
+
+Checks on the login node before submission, on the real configurations and the real store, nothing written. Ten iterations of one restart on one thread of a loaded login node (about 65 processes on 28 cores); a restart has 200.
+
+| Steps / stages | Key | Cluster | Loss at the exact stages | Loss before training | Ten iterations (s) | Validation chain (s) |
+|---|---|---|---|---|---|---|
+| 8 / 2 | `a66c06472d3d` | 5996427 | 9.9e-34 | 3.59e-3 | 21.3 | 0.2 |
+| 16 / 2 | `6c4a3b022a2f` | 5996428 | 5.7e-33 | 8.21e-4 | 22.8 | 2.7 |
+| 32 / 2 | `29cbba959300` | 5996429 | 2.8e-35 | 1.98e-4 | 16.9 | 1.1 |
+| 128 / 2 | `15242aa17c65` | 5996430 | 0 | 1.22e-5 | 15.9 | 3.7 |
+| 256 / 2 | `eeb809e9254d` | 5996431 | 0 | 3.04e-6 | 40.4 | 16.1 |
+| 64 / 4 | `4543836de1ce` | 5996432 | 2.5e-34 | 6.79e-5 | 18.4 | 2.4 |
+| 64 / 8 | `9aed5ce39ff8` | 5996433 | 1.7e-33 | 6.85e-5 | 17.3 | 1.6 |
+| 64 / 16 | `06a45b4dd0d3` | 5996434 | 4.4e-34 | 6.54e-5 | 55.4 | 9.2 |
+
+The 16-stage run is about three times slower a restart than the others; at its cap of 80 rounds it can take several times as long as the 64 / 2 run.
+
+The exact scheme for 4, 8, 16 and 32 steps at 2, 4, 8 and 16 stages was written to the store on 2026-10-23 from the same copy (0 solves not converged).
 
 ## Findings
 
