@@ -36,7 +36,16 @@ Every number that shapes the report is an argument with no default.
         --step-length-of-the-carrying-mm 1.0 --fraction-for-the-derivative 1e-3 \\
         --states-for-the-loss-shares 8000 --bins-of-the-histograms 60
 
-Gates: tests/test_report_of_a_run.py.
+The round may be a number, "last", or "best": the round whose validation
+error, in the quantity of the run's stopping rule, is the lowest. "best" was
+added on 2026-10-23 to test best-by-validation selection, a change the
+literature suggests; "last" is unchanged. The round chosen is in the report.
+
+With `refit`, the report scores the weights of a refit of the last layer of
+that round (training/last_layer_refit.py) in place of the snapshot. Its folder
+is then named round_<round>_refit_<name>_at_<commit>.
+
+Gates: tests/test_report_of_a_run.py, tests/test_literature_changes.py.
 """
 from __future__ import annotations
 
@@ -61,6 +70,7 @@ from rkpinn.run_record.provenance import provenance
 from rkpinn.run_record.store import Store
 from rkpinn.track_data.exact_states import load_exact_states
 from rkpinn.training.checkpoints import RunFolder
+from rkpinn.training.last_layer_refit import weights_of_a_refit
 from rkpinn.training.round_trainer import build_run
 
 ROWS_AT_A_TIME = 8192
@@ -115,30 +125,47 @@ def _loss_shares(run, number_of_states):
                 step_of_the_track=step, number_of_steps=run.layout.number_of_steps)
 
 
+def best_round(folder: RunFolder, quantity: str) -> int:
+    """The round with the lowest validation error in `quantity`; the earliest
+    of equal ones."""
+    rows = folder.rounds()
+    if not rows:
+        raise ValueError("the run %s has no rounds" % folder.key)
+    errors = [float(row[quantity]) for row in rows]
+    return int(rows[int(np.argmin(errors))]["round"])
+
+
 def report_of_a_run(store: Store, key: str, *, round_number, split,
                     tracks_for_the_stage_errors, step_length_of_the_carrying_mm,
                     fraction_for_the_derivative, states_for_the_loss_shares,
                     bins_of_the_histograms, allow_uncommitted_changes=False,
-                    report=print) -> str:
+                    refit=None, report=print) -> str:
     """Make the standard report of one snapshot of a run. Returns its folder.
 
-    round_number  the round of the snapshot, or "last"
+    round_number  the round of the snapshot, "last" or "best"
+    refit         None, or the name of a refit of the last layer of that round
     """
     record = provenance(allow_uncommitted_changes)
     folder = RunFolder(store, key)
     state = folder.state()
+    configuration = read_configuration(folder.path("configuration.yaml"))
+    asked_for = round_number
     if round_number == "last":
         round_number = state["rounds_done"]
+    elif round_number == "best":
+        round_number = best_round(folder, configuration["training"]["stopping_rule"]["quantity"])
     round_number = int(round_number)
     if not 1 <= round_number <= state["rounds_done"]:
         raise ValueError("the run %s has the rounds 1 to %d, not %r"
                          % (key, state["rounds_done"], round_number))
-    where = folder.path("reports", "round_%04d_at_%s" % (round_number, record["commit"][:8]))
+    refit_part = "" if refit is None else "_refit_%s" % refit
+    where = folder.path("reports", "round_%04d%s_at_%s"
+                        % (round_number, refit_part, record["commit"][:8]))
     Store.refuse_if_present(where)
 
-    configuration = read_configuration(folder.path("configuration.yaml"))
     run = build_run(configuration, store, folder.constants())
-    run.network.load_state_dict(folder.weights_of_round(round_number))
+    run.network.load_state_dict(folder.weights_of_round(round_number) if refit is None
+                                else weights_of_a_refit(folder, round_number, refit))
     tracks = run.tracks.split(split)
     layout = run.layout
     steps, stages = layout.number_of_steps, layout.number_of_stages
@@ -203,7 +230,8 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
         planes_mm=layout.planes_mm, single_steps=single_steps, stage_errors=stage_errors,
         references=references, rounds=rounds, loss_shares=loss_shares, cost=cost)
     made["summary"].update(
-        run_key=key, round=round_number, split=split, tracks_key=run.tracks.key,
+        run_key=key, round=round_number, round_asked_for=str(asked_for), refit=refit,
+        split=split, tracks_key=run.tracks.key,
         network=configuration["network"]["kind"], loss=configuration["loss"]["name"],
         exact_states_were_in_the_store=exact_end_states is not None,
         settings_of_the_report=dict(
@@ -228,7 +256,8 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
                 kind_of_error="endpoint", created=record["created"],
                 package_version=record["package_version"], commit=record["commit"],
                 traceable_to_the_commit=record["traceable_to_the_commit"]))
-    manifest.add_metrics(store, rows)
+    if refit is None:
+        manifest.add_metrics(store, rows)          # a refit is not a round of the run
     report("%s: report written to reports/%s" % (key, os.path.basename(where)))
     return where
 
@@ -240,7 +269,7 @@ def main(arguments=None):
     parser = argparse.ArgumentParser(description="Make the standard report of a run.")
     parser.add_argument("--store", required=True)
     parser.add_argument("--run", required=True, help="the key of the run")
-    parser.add_argument("--round", required=True, help="the round of the snapshot, or last")
+    parser.add_argument("--round", required=True, help="the round of the snapshot, last, or best")
     parser.add_argument("--split", required=True)
     parser.add_argument("--tracks-for-the-stage-errors", type=int, required=True)
     parser.add_argument("--step-length-of-the-carrying-mm", type=float, required=True)
@@ -248,6 +277,8 @@ def main(arguments=None):
     parser.add_argument("--states-for-the-loss-shares", type=int, required=True)
     parser.add_argument("--bins-of-the-histograms", type=int, required=True)
     parser.add_argument("--allow-uncommitted-changes", action="store_true")
+    parser.add_argument("--refit", default=None,
+                        help="score the refit of the last layer of that name")
     a = parser.parse_args(arguments)
     return report_of_a_run(
         Store(a.store), a.run, round_number=a.round, split=a.split,
@@ -256,7 +287,7 @@ def main(arguments=None):
         fraction_for_the_derivative=a.fraction_for_the_derivative,
         states_for_the_loss_shares=a.states_for_the_loss_shares,
         bins_of_the_histograms=a.bins_of_the_histograms,
-        allow_uncommitted_changes=a.allow_uncommitted_changes,
+        allow_uncommitted_changes=a.allow_uncommitted_changes, refit=a.refit,
         report=lambda text: print(text, flush=True))
 
 

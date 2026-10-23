@@ -180,7 +180,11 @@ class StageNetwork(torch.nn.Module):
 
     def predict(self, states, start_planes_mm) -> PredictedTrack:
         """One step from every state on its own start plane: separate steps."""
-        emitted = self.forward(states, start_planes_mm)
+        return self.track_from_emitted(states, start_planes_mm,
+                                       self.forward(states, start_planes_mm))
+
+    def track_from_emitted(self, states, start_planes_mm, emitted) -> PredictedTrack:
+        """The track of one step from the states the network emitted."""
         q = self.number_of_stages
         stage_states = emitted[:, :q]
         stage_planes = start_planes_mm[:, None] + self.nodes[None, :] * self.step_length_mm

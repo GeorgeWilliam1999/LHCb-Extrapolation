@@ -1,6 +1,6 @@
 # Training
 
-**Last updated:** 2026-09-30
+**Last updated:** 2026-10-23
 
 ## What this directory is
 
@@ -13,8 +13,9 @@ The trainer and everything it needs. The trainer names no loss, no network, no t
 | `README.md` | this file | built |
 | `__init__.py` | marks the directory as part of the package; it holds no code | built |
 | `round_trainer.py` | trains in rounds; runs the checks before training; writes a round when it ends; resumes and extends a run (`train`, `build_run`, `checks_before_training`) | built |
-| `training_protocols.py` | what is drawn each round. Two: `rounds_on_own_predictions`, the first round on reference states and later rounds on the network's own predictions; `start_states_of_the_tracks`, for the whole-crossing network | built |
-| `optimiser.py` | `lbfgs_restarts`: L-BFGS restarts with the loss rescaled at the start of a round and whenever it has fallen to a set fraction | built |
+| `training_protocols.py` | what is drawn each round. Three: `rounds_on_own_predictions`, the first round on reference states and later rounds on the network's own predictions; `rounds_on_one_fixed_draw` (2026-10-23), the tracks and planes of round 1 kept for every round; `start_states_of_the_tracks`, for the whole-crossing network | built |
+| `optimiser.py` | `lbfgs_restarts`: L-BFGS restarts with the loss rescaled at the start of a round and whenever it has fallen to a set fraction; `self_scaled_broyden_restarts` (2026-10-23): the same restarts, with the dense inverse Hessian updated by the self-scaled Broyden formula of arXiv:2405.04230 | built |
+| `last_layer_refit.py` | after training: Levenberg-Marquardt on the last linear layer of a snapshot, on the stage residual; writes `refits/` beside the snapshots and changes nothing of the run (2026-10-23) | built |
 | `stopping_rule.py` | `validation_plateau`: the median of the last window of rounds no more than the tolerance below the window before, at each of the last rounds held | built |
 | `validation_error.py` | the three validation errors recorded after every round: the median endpoint error in x, in y, and of the larger of the two | built |
 | `checkpoints.py` | the folder of a run: snapshots that are never overwritten, the records, the state, and a lock so that one job writes to a run at a time | built |

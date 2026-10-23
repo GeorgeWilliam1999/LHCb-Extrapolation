@@ -64,8 +64,10 @@ def test_an_unknown_kind_is_refused():
 
 def test_the_parts_of_the_training_can_be_named():
     assert registry.registered_names("training_protocol") == (
-        "rounds_on_own_predictions", "start_states_of_the_tracks")
-    assert registry.registered_names("optimiser") == ("lbfgs_restarts",)
+        "rounds_on_one_fixed_draw", "rounds_on_own_predictions",
+        "start_states_of_the_tracks")
+    assert registry.registered_names("optimiser") == (
+        "lbfgs_restarts", "self_scaled_broyden_restarts")
     assert registry.registered_names("stopping_rule") == ("validation_plateau",)
     for kind in ("training_protocol", "optimiser", "stopping_rule"):
         for name in registry.registered_names(kind):

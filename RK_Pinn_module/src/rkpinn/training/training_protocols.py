@@ -114,3 +114,75 @@ class StartStatesOfTheTracks:
             start_planes_mm=np.full(len(rows), layout.first_plane_mm),
             labels=None if labels is None else labels[rows],
             source=FROM_START_STATES)
+
+
+ONE_FIXED_DRAW_OWN_PREDICTIONS = "own_predictions_on_the_same_tracks_and_planes"
+ONE_FIXED_DRAW_REFERENCE = "the_reference_states_of_round_one"
+LATER_ROUNDS_OF_ONE_FIXED_DRAW = (ONE_FIXED_DRAW_OWN_PREDICTIONS, ONE_FIXED_DRAW_REFERENCE)
+FROM_OWN_PREDICTIONS_FIXED = "own predictions, fixed draw"
+FROM_THE_REFERENCE_FIXED = "reference states, fixed draw"
+
+
+@register("training_protocol", "rounds_on_one_fixed_draw")
+class RoundsOnOneFixedDraw:
+    """One draw of (track, start plane) pairs, made in round 1 and kept.
+
+    Added 2026-10-23 to test a fixed collocation set, a change the literature
+    suggests: every round trains on the same points, so that a round continues
+    the minimisation of the last one instead of starting on new states.
+
+    Round 1 is that of `rounds_on_own_predictions`, to the last bit: the same
+    generator, the same draw, the reference states. The later rounds keep the
+    tracks and planes of that draw, and take, as the setting
+    `states_after_round_one` says, either
+
+      own_predictions_on_the_same_tracks_and_planes
+            the network's own predictions on those tracks and planes, as
+            `rounds_on_own_predictions` does on a fresh draw; or
+      the_reference_states_of_round_one
+            the reference states of round 1 again: one fixed set, as in the
+            literature, with no states from the network's own predictions.
+
+    `rounds_on_own_predictions` is unchanged; this is a separate component, so
+    no run made before it changes its key.
+    """
+
+    name = "rounds_on_one_fixed_draw"
+    for_networks_with_stages = True
+    settings_in_a_configuration = ("states_per_round", "states_after_round_one")
+
+    @classmethod
+    def from_configuration(cls, settings, context):
+        return cls(**settings)
+
+    def __init__(self, *, states_per_round, states_after_round_one):
+        if states_after_round_one not in LATER_ROUNDS_OF_ONE_FIXED_DRAW:
+            raise ValueError("the states after round one are %s, not %r"
+                             % (" or ".join(LATER_ROUNDS_OF_ONE_FIXED_DRAW),
+                                states_after_round_one))
+        self.states_per_round = int(states_per_round)
+        self.states_after_round_one = states_after_round_one
+
+    def _draw_of_round_one(self, seed, tracks, layout):
+        on = tracks.planes_a_step_starts_on(layout.number_of_steps)
+        on_start_planes = tracks.training.reference_states_on_planes[:, on]
+        return draw_training_states(on_start_planes,
+                                    tracks.start_planes_mm(layout.number_of_steps),
+                                    self.states_per_round, generator_of_a_round(seed, 1))
+
+    def states_of_round(self, round_number, seed, tracks, layout, network,
+                        target) -> StatesOfARound:
+        drawn = self._draw_of_round_one(seed, tracks, layout)
+        if round_number == 1:
+            source, states = FROM_THE_REFERENCE, drawn.states
+        elif self.states_after_round_one == ONE_FIXED_DRAW_REFERENCE:
+            source, states = FROM_THE_REFERENCE_FIXED, drawn.states
+        else:
+            used = np.unique(drawn.track)
+            whole = network.whole_track(tracks.training.start_state[used], layout)
+            row = np.searchsorted(used, drawn.track)
+            states = np.asarray(whole.input_states)[row, drawn.step_of_the_track]
+            source = FROM_OWN_PREDICTIONS_FIXED
+        return StatesOfARound(states=np.ascontiguousarray(states),
+                              start_planes_mm=drawn.start_planes_mm, labels=None,
+                              source=source)
