@@ -1,6 +1,6 @@
 # Analysis
 
-**Last updated:** 2026-10-23
+**Last updated:** 2026-10-28
 
 ## What this directory is
 
@@ -12,7 +12,7 @@ The numbers and the figure of the experiment: the step length against the single
 |---|---|---|
 | `README.md` | this file | built |
 | `step_length_errors.py` | the per-track errors of every series and their 16th, 50th and 84th percentiles per momentum band: the trained networks, the frozen networks with their stages summed, the exact scheme and classic fourth-order Runge–Kutta | built |
-| `draw_figure.py` | the figure of two panels from the two tables, and the figure of the stages at 64 steps once two or more of those runs have a round | built |
+| `draw_figure.py` | the figure of four panels from the two tables (the error, and the error divided by the step length, George 2026-10-27), and the figure of the stages at 64 steps once two or more of those runs have a round | built |
 | `results/` | `networks.csv` and `references.csv`, every plotted number | built |
 | `figures/` | the figure, for all momenta and for 3 to 8 GeV | built |
 
