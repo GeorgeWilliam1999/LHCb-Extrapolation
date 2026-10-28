@@ -24,6 +24,11 @@ Two are built.
 The random generator of a round is made from the seed of the run and the
 number of the round, so a round can be drawn again exactly.
 
+Two more are added beside them, each as a separate component so that no run
+made before changes its key: `rounds_on_one_fixed_draw` (2026-10-23) and
+`rounds_on_own_predictions_with_residual_draws` (2026-10-28, item B.3 of the
+per-step bias study). Each is described where it is defined.
+
 `rounds_on_own_predictions` is ported from `E1_Network_grid/train_network.py`
 (`new_round_states`). `start_states_of_the_tracks` is new.
 Gates: tests/test_training.py.
@@ -186,3 +191,118 @@ class RoundsOnOneFixedDraw:
         return StatesOfARound(states=np.ascontiguousarray(states),
                               start_planes_mm=drawn.start_planes_mm, labels=None,
                               source=source)
+
+
+FROM_OWN_PREDICTIONS_BY_RESIDUAL = "own predictions, half drawn by stage residual"
+
+
+def stage_residual_of_states(network, states, start_planes_mm, divisor, rows_at_a_time=65536):
+    """The pooled squared stage residual of each state under the network,
+    shape (m,): the mean over stages and components of (r / divisor)^2."""
+    import torch
+    from rkpinn.losses.stage_residual import TERMS_STAGES, stage_residual
+    out = np.empty(len(states))
+    divisor = torch.as_tensor(np.asarray(divisor, dtype=np.float64))
+    with torch.no_grad():
+        for i in range(0, len(states), rows_at_a_time):
+            track = network.predict(torch.as_tensor(states[i:i + rows_at_a_time]),
+                                    torch.as_tensor(start_planes_mm[i:i + rows_at_a_time]))
+            r = stage_residual(track, network.equation_of_motion, TERMS_STAGES).residual
+            out[i:i + rows_at_a_time] = ((r / divisor) ** 2).mean(dim=(1, 2)).numpy()
+    return out
+
+
+def steps_across_a_z_face(start_planes_mm, step_length_mm, field):
+    """True for a step whose span in z crosses a z face of the field map's grid."""
+    lowest = float(field.lowest_corner[2])
+    inverse = float(field.inverse_cell_size[2])
+    first = np.floor((np.asarray(start_planes_mm) - lowest) * inverse)
+    last = np.floor((np.asarray(start_planes_mm) + step_length_mm - lowest) * inverse)
+    return first != last
+
+
+@register("training_protocol", "rounds_on_own_predictions_with_residual_draws")
+class RoundsOnOwnPredictionsWithResidualDraws:
+    """Residual-based collocation: item B.3 of the per-step bias study.
+
+    Round 1 is that of `rounds_on_own_predictions`, to the last bit. In a later
+    round the training tracks are carried by the network as it is, as in
+    `rounds_on_own_predictions`, and the budget is split:
+
+      uniform share       (1 - share_drawn_by_residual) of the budget, drawn as
+                          `rounds_on_own_predictions` draws, the same number on
+                          every start plane
+      residual share      the rest. A pool of `candidates_per_residual_state`
+                          times as many states is drawn uniformly in the same
+                          way; each candidate gets the weight of its pooled
+                          squared stage residual under the network as it is,
+                          multiplied by `weight_of_a_step_across_a_z_face` when
+                          its step crosses a z face of the field map; the share
+                          is drawn from the pool without replacement with
+                          probability proportional to the weight
+
+    The residual is divided per component by the spread of the states of the
+    round-1 draw, the divisor of the pooled loss. With `share_drawn_by_residual`
+    0 the states are those of `rounds_on_own_predictions` to the last bit.
+
+    Added 2026-10-28 (approved by George the same day). `rounds_on_own_predictions`
+    is unchanged, so no run made before changes its key.
+    Gates: tests/test_bias_study_changes.py.
+    """
+
+    name = "rounds_on_own_predictions_with_residual_draws"
+    for_networks_with_stages = True
+    settings_in_a_configuration = ("states_per_round", "share_drawn_by_residual",
+                                   "candidates_per_residual_state",
+                                   "weight_of_a_step_across_a_z_face")
+
+    @classmethod
+    def from_configuration(cls, settings, context):
+        return cls(**settings)
+
+    def __init__(self, *, states_per_round, share_drawn_by_residual,
+                 candidates_per_residual_state, weight_of_a_step_across_a_z_face):
+        share = float(share_drawn_by_residual)
+        if not 0.0 <= share <= 1.0:
+            raise ValueError("the share drawn by residual is in [0, 1], not %r" % share)
+        if int(candidates_per_residual_state) < 1:
+            raise ValueError("there is at least one candidate per residual state")
+        if not float(weight_of_a_step_across_a_z_face) > 0.0:
+            raise ValueError("the weight of a step across a z face is positive")
+        self.states_per_round = int(states_per_round)
+        self.share_drawn_by_residual = share
+        self.candidates_per_residual_state = int(candidates_per_residual_state)
+        self.weight_of_a_step_across_a_z_face = float(weight_of_a_step_across_a_z_face)
+        self._standard = RoundsOnOwnPredictions(states_per_round=states_per_round)
+
+    def states_of_round(self, round_number, seed, tracks, layout, network,
+                        target) -> StatesOfARound:
+        by_residual = int(round(self.share_drawn_by_residual * self.states_per_round))
+        if round_number == 1 or by_residual == 0:
+            return self._standard.states_of_round(round_number, seed, tracks, layout,
+                                                  network, target)
+        generator = generator_of_a_round(seed, round_number)
+        start_planes = tracks.start_planes_mm(layout.number_of_steps)
+        whole = network.whole_track(tracks.training.start_state, layout)
+        on_start_planes = np.asarray(whole.input_states)
+        uniform = draw_training_states(on_start_planes, start_planes,
+                                       self.states_per_round - by_residual, generator)
+        pool = draw_training_states(on_start_planes, start_planes,
+                                    by_residual * self.candidates_per_residual_state,
+                                    generator)
+        on = tracks.planes_a_step_starts_on(layout.number_of_steps)
+        divisor = draw_training_states(
+            tracks.training.reference_states_on_planes[:, on], start_planes,
+            self.states_per_round, generator_of_a_round(seed, 1)).states.std(axis=0)[:4]
+        weight = stage_residual_of_states(network, pool.states, pool.start_planes_mm, divisor)
+        weight = weight * np.where(
+            steps_across_a_z_face(pool.start_planes_mm, layout.step_length_mm,
+                                  network.equation_of_motion.field),
+            self.weight_of_a_step_across_a_z_face, 1.0)
+        take = min(by_residual, int((weight > 0).sum()))
+        chosen = generator.choice(len(weight), take, replace=False, p=weight / weight.sum())
+        return StatesOfARound(
+            states=np.concatenate([uniform.states, pool.states[chosen]]),
+            start_planes_mm=np.concatenate([uniform.start_planes_mm,
+                                            pool.start_planes_mm[chosen]]),
+            labels=None, source=FROM_OWN_PREDICTIONS_BY_RESIDUAL)

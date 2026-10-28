@@ -4,7 +4,7 @@
 
 ## What this directory is
 
-An analysis of three existing runs. It asks what the error of one network step is made of, whether it matters after a track fit, and whether a cheap correction at inference removes it. It trains no run of the package, submits nothing to the farm and writes nothing to the store. George approved Parts A, B.1 and C of the plan on 2026-10-28 (artifact "per-step bias study plan").
+An analysis of three existing runs. It asks what the error of one network step is made of, whether it matters after a track fit, and whether a cheap correction at inference removes it. Parts A, B.1 and C read existing runs only: they train nothing and write nothing to the store. George approved them on 2026-10-28 (artifact "per-step bias study plan"). Part B (items B.3 and B.4, approved the same day at 15:19 UTC) trains four new runs on the farm; see the section "Part B" below.
 
 ## Contents
 
@@ -12,8 +12,8 @@ An analysis of three existing runs. It asks what the error of one network step i
 |---|---|---|
 | `README.md` | this file: the question, the runs, the items, the criteria | built |
 | `analysis/` | the scripts, the tables (`results/`), the figures (`figures/`) and the results note | built |
-| `configurations/` | the configurations of Part B (B.3 and B.4, both forms) | see its README |
-| `farm/` | what puts the Part B runs on the farm | see its README |
+| `configurations/` | the four configurations of Part B (B.3 and B.4, both forms) | built |
+| `farm/` | what puts the Part B runs on the farm and keeps them going | built |
 
 Everything of this experiment is in this folder. Two things are outside it, by the convention of `does_the_error_fall_with_the_step_length`: the cache of regenerable arrays (`/data/bfys/gscriven/rkpinn_analysis_cache/what_is_the_per_step_bias/`, 184 MB: single-step errors, Jacobians, fitted models) and, for Part B, the runs in the store and the farm logs in `/data/bfys/gscriven/rkpinn_farm_logs/what_is_the_per_step_bias/`. The study reads the store, the field map and the tranche-1 runs; it writes into no other experiment's folder. The tranche-1 analysis (`analysis/tranche1_2026-10-28/` at the project root) belongs to tranche 1 and is not part of this experiment; this study only cites its numbers.
 
@@ -83,6 +83,34 @@ For every variant: the test endpoint radial median, per band; the lag-1 autocorr
 | C.2 and C.3 | ≤ 0.54 um at ≤ 256 field calls |
 
 Comparators: classic fourth-order Runge–Kutta at 64 steps, 1.08 um at 256 field calls; the exact 2-stage Gauss–Legendre scheme at 64 steps, 0.147 um. Each run is one seed, so differences under 2× are not claimed.
+
+## Part B: B.3 and B.4 in both forms
+
+Approved by George on 2026-10-28 (15:19 UTC), after the results of Parts A and C. Four farm runs. Two settings were added to the package as new components, so no earlier run changes its key; their gates are `RK_Pinn_module/tests/test_bias_study_changes.py`.
+
+| Item | Component | What it does |
+|---|---|---|
+| B.3 | training protocol `rounds_on_own_predictions_with_residual_draws` | round 1 as now; each later round draws half of its 32,000 states uniformly, as now, and half from a pool of 4× as many by probability proportional to the pooled squared stage residual of the network as it is, × 2 for a step that crosses a z face of the field map |
+| B.4 | loss `pooled_with_a_bias_term` | pooled loss + λ × mean over bins of the squared mean normalised residual; bins of 8 bands of start planes × 5 momentum bands × charge; λ fixed when the run is made so the term is 10% of the loss of round 1, recorded in the run's constants |
+
+| Run | Form | Item | λ |
+|---|---|---|---|
+| `5cb2aeb6778b` | direct states | B.3 | — |
+| `6aba11cc7475` | direct states | B.4 | 0.432 (P1 0.966, B1 0.248) |
+| `8a0f3b8f422f` | straight line, per-track scale | B.3 | — |
+| `f0f219df805e` | straight line, per-track scale | B.4 | 0.117 (P1 4.93e-5, B1 4.67e-5) |
+
+Everything else is that of `49e5e2450eaa` and `25dfa17ef168`: 64 steps, 2 stages, pooled terms over the stages, summed end state, seed 1, cap 80 rounds, validation plateau rule.
+
+Each run is scored by the standard report of the package (with output 11, `resolution_per_momentum_band`) and by `analysis/part_b_scores.py` (lag-1 autocorrelation of e, mean signed endpoint error ± SE, the bands, the criteria).
+
+| Pass criterion | Value |
+|---|---|
+| direct states | ≤ 2.85 um |
+| straight line | ≤ 0.92 um |
+| no momentum band | more than 2× worse than the baseline run |
+
+Each run is one seed, so a difference under 2× is not claimed.
 
 ## Findings
 

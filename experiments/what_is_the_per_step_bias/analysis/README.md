@@ -28,6 +28,7 @@ The scripts, tables and figures of the per-step bias study. They read the store 
 | `part_bc.py references` | the exact scheme and RK4 at 64 steps | `results/c_comparators.csv` |
 | `part_bc.py variants <key>` | B.1 and C.1 to C.4 for one run | `results/c_variants_<key>.csv` |
 | `control_c2.py` | C.2b control: sweeps and Newton steps from stages without a network | `results/c2_control_*.csv`, `figures/c2_control.png` |
+| `part_b_scores.py [round]` | the Part B runs at their last finished round beside their baselines: endpoint, bands, mean signed error ± SE, lag-1, pass criteria | `results/b_part_b_scores.csv` |
 | `figures.py` | the figures of the note | `figures/*.png` |
 | `logs/` | what each script printed | — |
 | `run_one_step.sh` | runs one step of the list below from this folder and writes its log | `logs/` |

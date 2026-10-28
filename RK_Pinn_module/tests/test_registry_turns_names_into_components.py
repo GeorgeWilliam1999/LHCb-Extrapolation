@@ -65,6 +65,7 @@ def test_an_unknown_kind_is_refused():
 def test_the_parts_of_the_training_can_be_named():
     assert registry.registered_names("training_protocol") == (
         "rounds_on_one_fixed_draw", "rounds_on_own_predictions",
+        "rounds_on_own_predictions_with_residual_draws",
         "start_states_of_the_tracks")
     assert registry.registered_names("optimiser") == (
         "lbfgs_restarts", "self_scaled_broyden_restarts")
@@ -80,7 +81,8 @@ def test_the_networks_losses_and_targets_can_be_named():
     assert registry.registered_names("output_form") == (
         "direct_states", "straight_line_plus_scaled_correction")
     assert registry.registered_names("loss") == (
-        "cost_weighted", "pooled", "supervised_endpoint", "unweighted")
+        "cost_weighted", "pooled", "pooled_with_a_bias_term", "supervised_endpoint",
+        "unweighted")
     assert registry.registered_names("target") == (
         "no_target", "reference_end_state", "reference_states_on_planes", "true_state")
     for kind in ("network", "output_form", "loss", "target"):

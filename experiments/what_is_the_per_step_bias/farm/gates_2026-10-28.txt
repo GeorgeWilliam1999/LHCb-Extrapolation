@@ -1,0 +1,15 @@
+........................................................................ [ 14%]
+........................................................................ [ 28%]
+........................................................................ [ 42%]
+........................................................................ [ 57%]
+........................................................................ [ 71%]
+........................................................................ [ 85%]
+........................................................................ [ 99%]
+.                                                                        [100%]
+=============================== warnings summary ===============================
+tests/test_evaluation_reproduces_the_paper.py::test_single_step_error[pooled]
+  /data/bfys/gscriven/LHCb_Extrapolation_Project/Archive/single_network_chain_discrete_approach/Block_E_single_network_chain/E1_Network_grid/chain_network.py:259: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:206.)
+    zt = torch.as_tensor(np.ascontiguousarray(z_start[i:i + batch]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+505 passed, 1 warning in 604.11s (0:10:04)

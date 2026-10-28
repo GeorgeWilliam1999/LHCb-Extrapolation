@@ -190,8 +190,12 @@ def build_run(configuration: dict, store: Store, recorded_constants=None) -> Run
     loss = registry.component("loss", configuration["loss"]["name"]) \
         .from_configuration(_without(configuration["loss"], "name"), context)
     if recorded_constants is None:
-        constants = {"network": plain(network.settings()),
-                     "loss": plain(loss.constants(first_round.states))}
+        # a loss whose constants depend on the network as drawn from the seed
+        # (pooled_with_a_bias_term) measures them on the first round's states
+        loss_constants = (loss.constants_with_the_network(first_round, network)
+                          if hasattr(loss, "constants_with_the_network")
+                          else loss.constants(first_round.states))
+        constants = {"network": plain(network.settings()), "loss": plain(loss_constants)}
     else:
         constants = recorded_constants
     optimiser = registry.component("optimiser", training["optimiser"]["name"]) \

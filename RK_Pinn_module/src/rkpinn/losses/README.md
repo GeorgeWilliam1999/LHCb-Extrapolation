@@ -1,6 +1,6 @@
 # Loss functions
 
-**Last updated:** 2026-09-30
+**Last updated:** 2026-10-28
 
 ## What this directory is
 
@@ -16,6 +16,7 @@ The stage residual, and the losses built on it. All label-free losses are the me
 | `unweighted.py` | divisor 1: the baseline with no weighting | built |
 | `pooled.py` | divisor per component: the spread of that component over the first round's states. Equation 19 of the second mini-paper | built |
 | `cost_weighted.py` | divisor per track, stage plane and component: lever arm, track bend, momentum window, clamp. Equation 20 | built |
+| `pooled_with_a_bias_term.py` | the pooled loss plus lambda times the mean squared bin-mean of the normalised residual, bins of (band of start planes, momentum band, charge); lambda fixed at round 1 so the term is a set share of the loss (2026-10-28, item B.4 of the per-step bias study) | built |
 | `supervised_endpoint.py` | mean squared difference between a predicted end state and a target end state, over a divisor per component | built |
 
 ## Settings of a loss

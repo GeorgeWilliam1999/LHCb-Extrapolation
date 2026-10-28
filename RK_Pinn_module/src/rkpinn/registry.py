@@ -52,6 +52,7 @@ COMPONENT_MODULES = (
     "rkpinn.losses.pooled",
     "rkpinn.losses.cost_weighted",
     "rkpinn.losses.supervised_endpoint",
+    "rkpinn.losses.pooled_with_a_bias_term",
     "rkpinn.targets.no_target",
     "rkpinn.targets.reference_end_state",
     "rkpinn.targets.reference_states_on_planes",
