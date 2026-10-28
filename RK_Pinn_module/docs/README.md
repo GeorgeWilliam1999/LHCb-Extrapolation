@@ -1,6 +1,6 @@
 # Documents
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-10-28
 
 ## What this directory is
 
@@ -13,6 +13,7 @@ The literature of the package: one card per component, and the draft of the Noti
 | `README.md` | this file | built |
 | `cards/` | one page per component: definition, derivation, gates, source file | built |
 | `notion/` | the draft of the Notion project page and the definition of the experiments table | built |
+| `network_types/` | a short explainer of the network types in use, with a schematic of each | built |
 
 ## The contract
 
