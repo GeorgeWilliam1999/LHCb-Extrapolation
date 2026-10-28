@@ -1,0 +1,10 @@
+direct_states__lbfgs__seed_2.yaml 1 8192
+direct_states__lbfgs__seed_3.yaml 1 8192
+straight_line_per_track_scale__lbfgs__seed_2.yaml 1 8192
+straight_line_per_track_scale__lbfgs__seed_3.yaml 1 8192
+direct_states__self_scaled_broyden__seed_1.yaml 4 16384
+direct_states__self_scaled_broyden__seed_2.yaml 4 16384
+direct_states__self_scaled_broyden__seed_3.yaml 4 16384
+straight_line_per_track_scale__self_scaled_broyden__seed_1.yaml 4 16384
+straight_line_per_track_scale__self_scaled_broyden__seed_2.yaml 4 16384
+straight_line_per_track_scale__self_scaled_broyden__seed_3.yaml 4 16384
