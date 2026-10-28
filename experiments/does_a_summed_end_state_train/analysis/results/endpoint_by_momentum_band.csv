@@ -1,0 +1,13 @@
+label,run_key,round_of_the_report,band,number_of_tracks,radial_median_micrometres,radial_percentile_95_micrometres
+end state summed from the stages (run A),bddea42ea1ef,41,below 3 GeV,164,28.775134912928454,164.1341469694384
+end state summed from the stages (run A),bddea42ea1ef,41,3 to 8 GeV,655,11.50592036996754,94.24771481707498
+end state summed from the stages (run A),bddea42ea1ef,41,8 to 20 GeV,433,7.118414931809219,31.1388582060914
+end state summed from the stages (run A),bddea42ea1ef,41,20 to 50 GeV,170,5.7843231780239925,17.22912930972336
+end state summed from the stages (run A),bddea42ea1ef,41,above 50 GeV,30,4.743062090232767,12.07100042630196
+end state summed from the stages (run A),bddea42ea1ef,41,all momenta,1452,8.969581582731507,82.82782141528402
+end state predicted (run B),4cc888dcc710,45,below 3 GeV,164,1765.959016627909,8780.428604454568
+end state predicted (run B),4cc888dcc710,45,3 to 8 GeV,655,906.261725424859,6344.19604369499
+end state predicted (run B),4cc888dcc710,45,8 to 20 GeV,433,385.1494266718997,2432.7920277917497
+end state predicted (run B),4cc888dcc710,45,20 to 50 GeV,170,235.73215438741454,842.4437959759438
+end state predicted (run B),4cc888dcc710,45,above 50 GeV,30,194.7468637086974,500.1849246409061
+end state predicted (run B),4cc888dcc710,45,all momenta,1452,622.6174114047553,4918.9430256769765

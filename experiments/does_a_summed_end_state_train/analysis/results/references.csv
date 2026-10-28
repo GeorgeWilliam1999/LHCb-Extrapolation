@@ -1,0 +1,3 @@
+label,endpoint_radial_median_micrometres,single_step_radial_median_micrometres,source
+"frozen network, pooled loss, 64 steps 2 stages, end state predicted",145.7,0.333,"../README.md, criteria"
+pass line of criteria 1 and 2: ten times the frozen single step,,3.33,"../README.md, criteria"

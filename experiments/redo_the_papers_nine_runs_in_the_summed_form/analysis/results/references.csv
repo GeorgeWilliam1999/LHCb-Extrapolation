@@ -1,0 +1,8 @@
+label,endpoint_radial_median_micrometres,single_step_radial_median_micrometres,source
+"paper, pooled, 64 steps 2 stages",145.7,,"../README.md, criterion 1"
+"paper, pooled, 128 steps 8 stages",122.2,,"../README.md, criterion 1"
+"paper, pooled, 256 steps 16 stages",147.7,,"../README.md, criterion 1"
+"paper, cost-weighted 10 to 50 GeV, 64 steps 2 stages",88.8,,"../README.md, criterion 2"
+"paper, cost-weighted 10 to 50 GeV, 128 steps 8 stages",104.6,,"../README.md, criterion 2"
+"paper, cost-weighted 10 to 50 GeV, 256 steps 16 stages",92.2,,"../README.md, criterion 2"
+"pilot run A, pooled, 64 steps 2 stages, seed 0",8.97,,../../does_a_summed_end_state_train/analysis/results/runs.csv; criterion 3 passes below 17.94

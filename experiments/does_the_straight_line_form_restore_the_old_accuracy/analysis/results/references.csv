@@ -1,0 +1,2 @@
+label,endpoint_radial_median_micrometres,single_step_radial_median_micrometres,source
+"frozen 64-step pooled network, stages summed",2.18,0.081,"../README.md, criteria 1 and 2"

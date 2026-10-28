@@ -1,6 +1,6 @@
 # Does a network whose end state is summed from its stages train?
 
-**Last updated:** 2026-09-30 · **State:** running since 2026-09-30 01:31 · **Agreed with George:** 2026-09-30
+**Last updated:** 2026-10-28 · **State:** analysed, both runs plateaued (A at round 41, B at round 45) · **Agreed with George:** 2026-09-30
 
 ## What this directory is
 
@@ -13,8 +13,7 @@ The pilot of the package `rkpinn`: the first networks it trains. It is phase 6 o
 | `README.md` | this file: the question, the runs, the criteria, the findings | built |
 | `configurations/` | one configuration file per run | built |
 | `farm/` | what puts the runs on the farm and keeps them going | built |
-| `analysis.ipynb` | loads the standard reports of the runs; computes nothing | planned |
-| `extra_analysis/` | anything beyond the standard report | planned |
+| `analysis/` | the results tables, the figures and `results.md`, the answer to the question; read from the standard reports in the store | built |
 
 ## The question
 
@@ -95,4 +94,4 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
 
 ## Findings
 
-None yet. They are discussed with George before anything is written up.
+The numbers against the criteria are in `analysis/results.md`. They are discussed with George before anything is written up.

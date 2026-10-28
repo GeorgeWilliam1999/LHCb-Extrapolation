@@ -1,6 +1,6 @@
 # Do the literature's changes to the training improve the endpoint
 
-**Last updated:** 2026-10-23
+**Last updated:** 2026-10-28
 
 ## What this directory is
 
@@ -12,6 +12,7 @@ Short local tests of four changes to the training that the literature suggests, 
 |---|---|---|
 | `README.md` | this file: the question, the changes, the tests, the results | built |
 | `configurations/` | one configuration file per run: two forms times three training changes | built |
+| `analysis/` | the results tables, the figures and `results.md`, the answer to the question; read from the store; the arms stopped after 3 to 6 rounds | built |
 
 ## The question
 
@@ -39,4 +40,4 @@ Every arm copies its baseline's configuration and changes one block. Seed 1, as 
 
 ## Results
 
-See the table below; filled in as the tests end.
+The tests stopped after 3 to 6 rounds. What the store shows, each arm against its baseline at the same round, is in `analysis/results.md`. It is discussed with George before anything is written up.

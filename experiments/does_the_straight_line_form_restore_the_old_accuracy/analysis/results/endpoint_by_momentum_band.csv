@@ -1,0 +1,19 @@
+label,run_key,round_of_the_report,band,number_of_tracks,radial_median_micrometres,radial_percentile_95_micrometres
+"straight line, per-track scale",25dfa17ef168,44,below 3 GeV,164,4.936956485016973,30.809744208494802
+"straight line, per-track scale",25dfa17ef168,44,3 to 8 GeV,655,2.09591138964771,17.33477543456411
+"straight line, per-track scale",25dfa17ef168,44,8 to 20 GeV,433,1.435141377194037,6.588779667196891
+"straight line, per-track scale",25dfa17ef168,44,20 to 50 GeV,170,1.2133707738055972,4.2363590889450355
+"straight line, per-track scale",25dfa17ef168,44,above 50 GeV,30,1.8909925906274132,8.966358581809134
+"straight line, per-track scale",25dfa17ef168,44,all momenta,1452,1.8309558272305706,12.746284911809136
+"straight line, one global scale",9cef9c160b7d,22,below 3 GeV,164,7.417271990586933,32.884959833705345
+"straight line, one global scale",9cef9c160b7d,22,3 to 8 GeV,655,3.2059159995703213,27.44213564370985
+"straight line, one global scale",9cef9c160b7d,22,8 to 20 GeV,433,1.3103565624388849,5.546797398972058
+"straight line, one global scale",9cef9c160b7d,22,20 to 50 GeV,170,1.302376262399253,2.218540235627434
+"straight line, one global scale",9cef9c160b7d,22,above 50 GeV,30,0.6544246285647799,1.4561340208834426
+"straight line, one global scale",9cef9c160b7d,22,all momenta,1452,2.0393193333101207,20.465405936116124
+direct states (nine-runs experiment),49e5e2450eaa,59,below 3 GeV,164,21.671375893881603,186.20204231184985
+direct states (nine-runs experiment),49e5e2450eaa,59,3 to 8 GeV,655,8.744515643982918,79.96357800143164
+direct states (nine-runs experiment),49e5e2450eaa,59,8 to 20 GeV,433,3.5432893290918006,22.836419803798364
+direct states (nine-runs experiment),49e5e2450eaa,59,20 to 50 GeV,170,2.9616571632716804,8.249350590874023
+direct states (nine-runs experiment),49e5e2450eaa,59,above 50 GeV,30,3.244402137982938,6.8345159244602565
+direct states (nine-runs experiment),49e5e2450eaa,59,all momenta,1452,5.705208965402906,67.8488828240642

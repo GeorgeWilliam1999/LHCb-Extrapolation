@@ -1,6 +1,6 @@
 # Does the straight-line form restore the old accuracy
 
-**Last updated:** 2026-10-22
+**Last updated:** 2026-10-28
 
 ## What this directory is
 
@@ -13,7 +13,7 @@ The third experiment of the package: the 64-step, 2-stage pooled run of the nine
 | `README.md` | this file: the question, the runs, the criteria, how to run | built |
 | `configurations/` | one configuration file per run, two in all | built |
 | `farm/` | what puts the runs on the farm and keeps them going | built |
-| `analysis.ipynb` | loads the standard reports of the runs; computes nothing | planned |
+| `analysis/` | the results tables, the figures and `results.md`, the answer to the question; read from the standard reports in the store | built |
 
 ## The question
 
@@ -85,4 +85,4 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
 
 ## Findings
 
-None yet. They are discussed with George before anything is written up.
+The numbers against the criteria are in `analysis/results.md`. They are discussed with George before anything is written up.

@@ -1,0 +1,9 @@
+form,run_key,round,round_asked_for,report,endpoint_radial_median_micrometres,single_step_radial_median_micrometres
+direct states,49e5e2450eaa,3,3,runs/49e5e2450eaa/reports/round_0003_at_3ec05291,18.524149461517858,1.627064068779796
+direct states,49e5e2450eaa,5,5,runs/49e5e2450eaa/reports/round_0005_at_3ec05291,15.45684221464172,1.3204372572678866
+direct states,49e5e2450eaa,6,6,runs/49e5e2450eaa/reports/round_0006_at_3ec05291,15.323029965708123,1.2169979176198353
+direct states,49e5e2450eaa,59,last,runs/49e5e2450eaa/reports/round_0059_at_c44a599c,5.705208965402906,0.48574274502115045
+"straight line, one global scale",9cef9c160b7d,3,3,runs/9cef9c160b7d/reports/round_0003_at_3ec05291,2.419044149207884,0.12869863603763798
+"straight line, one global scale",9cef9c160b7d,6,6,runs/9cef9c160b7d/reports/round_0006_at_3ec05291,1.966741594924621,0.12303033794894869
+"straight line, one global scale",9cef9c160b7d,19,best,runs/9cef9c160b7d/reports/round_0019_at_3ec05291,1.9089015918088847,0.10526680680079423
+"straight line, one global scale",9cef9c160b7d,22,last,runs/9cef9c160b7d/reports/round_0022_at_bc467594,2.0393193333101207,0.11665461051141429

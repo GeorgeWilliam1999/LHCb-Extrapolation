@@ -1,0 +1,87 @@
+label,run_key,round,loss_last,validation_endpoint_error_larger_of_x_and_y_median_micrometres
+end state summed from the stages (run A),bddea42ea1ef,1,1.8553452336785412e-07,28.54168071598906
+end state summed from the stages (run A),bddea42ea1ef,2,1.3864460650110274e-07,21.421351228269714
+end state summed from the stages (run A),bddea42ea1ef,3,1.286598748424355e-07,18.936088621728686
+end state summed from the stages (run A),bddea42ea1ef,4,1.2242146878974727e-07,16.891460673605252
+end state summed from the stages (run A),bddea42ea1ef,5,1.0372604371530184e-07,16.599411850393153
+end state summed from the stages (run A),bddea42ea1ef,6,9.590500618620221e-08,13.19934225000452
+end state summed from the stages (run A),bddea42ea1ef,7,8.830250003216347e-08,14.059411844982606
+end state summed from the stages (run A),bddea42ea1ef,8,8.838580528765393e-08,12.271084467784021
+end state summed from the stages (run A),bddea42ea1ef,9,8.86791281257283e-08,18.773890466775356
+end state summed from the stages (run A),bddea42ea1ef,10,7.717262621390695e-08,10.413238062312757
+end state summed from the stages (run A),bddea42ea1ef,11,7.337281589714517e-08,11.622610152699053
+end state summed from the stages (run A),bddea42ea1ef,12,7.244455473981129e-08,12.946204189347554
+end state summed from the stages (run A),bddea42ea1ef,13,6.860075658802768e-08,11.215371710363797
+end state summed from the stages (run A),bddea42ea1ef,14,6.850711286721657e-08,13.049494407539441
+end state summed from the stages (run A),bddea42ea1ef,15,7.395390955947618e-08,10.120613750927987
+end state summed from the stages (run A),bddea42ea1ef,16,6.865544222950661e-08,10.502630045778005
+end state summed from the stages (run A),bddea42ea1ef,17,6.474502933199005e-08,12.153904127764292
+end state summed from the stages (run A),bddea42ea1ef,18,6.419027952940292e-08,12.719829663353721
+end state summed from the stages (run A),bddea42ea1ef,19,6.029407674198999e-08,13.664663983320224
+end state summed from the stages (run A),bddea42ea1ef,20,6.24519535455382e-08,13.371784073456183
+end state summed from the stages (run A),bddea42ea1ef,21,5.83859994700967e-08,12.243909286638655
+end state summed from the stages (run A),bddea42ea1ef,22,5.479508584339725e-08,11.691919595108402
+end state summed from the stages (run A),bddea42ea1ef,23,5.842954308938746e-08,8.499728393076111
+end state summed from the stages (run A),bddea42ea1ef,24,5.353942612414474e-08,10.098532813799466
+end state summed from the stages (run A),bddea42ea1ef,25,5.257992998019038e-08,8.647344034045545
+end state summed from the stages (run A),bddea42ea1ef,26,5.5178914710374425e-08,9.349636363197078
+end state summed from the stages (run A),bddea42ea1ef,27,4.925966418482053e-08,8.759500104360995
+end state summed from the stages (run A),bddea42ea1ef,28,5.321750985121617e-08,10.269243948812345
+end state summed from the stages (run A),bddea42ea1ef,29,4.8411670135095393e-08,8.904160315751142
+end state summed from the stages (run A),bddea42ea1ef,30,4.564668468282901e-08,9.28492441050821
+end state summed from the stages (run A),bddea42ea1ef,31,4.9790371859846094e-08,9.338305735298036
+end state summed from the stages (run A),bddea42ea1ef,32,5.401063285055327e-08,8.897126726083115
+end state summed from the stages (run A),bddea42ea1ef,33,5.1188774903635266e-08,10.689035317000162
+end state summed from the stages (run A),bddea42ea1ef,34,4.880617461777332e-08,11.330458680731681
+end state summed from the stages (run A),bddea42ea1ef,35,4.99510483769988e-08,9.47113857387194
+end state summed from the stages (run A),bddea42ea1ef,36,4.841634430985699e-08,11.011985507423105
+end state summed from the stages (run A),bddea42ea1ef,37,3.953064809467002e-08,9.36794412564268
+end state summed from the stages (run A),bddea42ea1ef,38,4.459656365984188e-08,7.321585940758268
+end state summed from the stages (run A),bddea42ea1ef,39,4.6214463323903074e-08,9.899774690211416
+end state summed from the stages (run A),bddea42ea1ef,40,4.2675383641770715e-08,9.197964432019035
+end state summed from the stages (run A),bddea42ea1ef,41,4.622731721905921e-08,9.49524935788304
+end state predicted (run B),4cc888dcc710,1,2.8341435392134625e-07,2000.8365412991225
+end state predicted (run B),4cc888dcc710,2,2.183073558941737e-07,2081.9158312786785
+end state predicted (run B),4cc888dcc710,3,1.9365402051730993e-07,1873.5409992574112
+end state predicted (run B),4cc888dcc710,4,1.8766611609962077e-07,1197.000763529445
+end state predicted (run B),4cc888dcc710,5,1.556918852093882e-07,1486.3683196890634
+end state predicted (run B),4cc888dcc710,6,1.3307655205416854e-07,1164.5569450417952
+end state predicted (run B),4cc888dcc710,7,1.221681480611922e-07,931.5337722343884
+end state predicted (run B),4cc888dcc710,8,1.1981237033175147e-07,1532.463551093656
+end state predicted (run B),4cc888dcc710,9,1.2576183911844041e-07,1065.3185169863377
+end state predicted (run B),4cc888dcc710,10,1.0478687933207274e-07,1093.6630035430994
+end state predicted (run B),4cc888dcc710,11,9.997091341261306e-08,1077.3340203604675
+end state predicted (run B),4cc888dcc710,12,9.95480893908733e-08,859.0408836307688
+end state predicted (run B),4cc888dcc710,13,9.58324511033259e-08,1103.0299391728136
+end state predicted (run B),4cc888dcc710,14,9.781250684990055e-08,1057.4389604666835
+end state predicted (run B),4cc888dcc710,15,1.0853793922739947e-07,809.912794341642
+end state predicted (run B),4cc888dcc710,16,9.534052259004231e-08,1013.4463696951457
+end state predicted (run B),4cc888dcc710,17,9.387327441329587e-08,702.8435590000299
+end state predicted (run B),4cc888dcc710,18,8.711141887264182e-08,1013.7097363485168
+end state predicted (run B),4cc888dcc710,19,8.378609396485125e-08,717.0464010027899
+end state predicted (run B),4cc888dcc710,20,8.604414605069804e-08,839.7016963415496
+end state predicted (run B),4cc888dcc710,21,7.645193949984238e-08,870.311010827109
+end state predicted (run B),4cc888dcc710,22,7.205138449169796e-08,707.2547246382896
+end state predicted (run B),4cc888dcc710,23,8.216772164869349e-08,730.7923302030304
+end state predicted (run B),4cc888dcc710,24,6.995888482990971e-08,672.5999264160691
+end state predicted (run B),4cc888dcc710,25,7.165172100608345e-08,618.5559048824416
+end state predicted (run B),4cc888dcc710,26,6.906947425966837e-08,674.6030674867711
+end state predicted (run B),4cc888dcc710,27,6.337201377022956e-08,532.8758065865173
+end state predicted (run B),4cc888dcc710,28,6.69709011218977e-08,488.53849420754614
+end state predicted (run B),4cc888dcc710,29,5.8713442976882807e-08,559.6308172587214
+end state predicted (run B),4cc888dcc710,30,5.5740689801412315e-08,543.5068898990494
+end state predicted (run B),4cc888dcc710,31,6.632714811148997e-08,679.2198526252378
+end state predicted (run B),4cc888dcc710,32,6.927742318816988e-08,583.3136576686684
+end state predicted (run B),4cc888dcc710,33,5.962693453752574e-08,554.8610551778097
+end state predicted (run B),4cc888dcc710,34,6.501916909467114e-08,559.0069958831236
+end state predicted (run B),4cc888dcc710,35,6.256906212010612e-08,602.0843607769848
+end state predicted (run B),4cc888dcc710,36,6.083542442089965e-08,598.2145978529445
+end state predicted (run B),4cc888dcc710,37,4.7984205170807473e-08,460.4284040215134
+end state predicted (run B),4cc888dcc710,38,5.2121275032641955e-08,683.7082696400785
+end state predicted (run B),4cc888dcc710,39,5.8353060943791274e-08,665.8732978321495
+end state predicted (run B),4cc888dcc710,40,5.1843593266626e-08,448.07332882243145
+end state predicted (run B),4cc888dcc710,41,5.499045640228851e-08,543.6315251837414
+end state predicted (run B),4cc888dcc710,42,5.5304888268453e-08,576.9430047018602
+end state predicted (run B),4cc888dcc710,43,4.9654004351504046e-08,529.9902731990969
+end state predicted (run B),4cc888dcc710,44,5.3457168863573066e-08,646.0148449357916
+end state predicted (run B),4cc888dcc710,45,5.512746991126417e-08,599.9605096767482
