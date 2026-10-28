@@ -18,6 +18,8 @@ same report scores a network, the exact scheme or the reference integrator.
   10  cost                                         cost.csv
   11  resolution against momentum                  resolution_per_momentum_band.csv
                                                    resolution_against_momentum.png
+                                                   signed_resolution_per_momentum_band.csv
+                                                   signed_resolution_against_momentum.png
 
 An output whose input is not given is left out, and the summary says so. It
 is never filled with a placeholder.
@@ -26,7 +28,9 @@ Output 11, the resolution. |predicted - reference| per component, for the
 endpoint error and, when separate steps are given, for the single-step error,
 against the total momentum p. The table holds the median and the 16th and 84th percentiles per band; the
 figures are two-dimensional histograms with those percentiles drawn over
-them. See `resolution.py`.
+them. The signed resolution, predicted - reference, is given the same way,
+with half the 16th to 84th percentile range beside the percentiles, on a
+symmetric-log axis (George, 2026-10-28). See `resolution.py`.
 
 Output 9, where the loss puts its weight. For every state of a draw the loss
 has a value, the mean of its squared weighted residuals. The share of a state
@@ -179,6 +183,13 @@ def standard_report(*, name, momentum_gev, momentum_window_gev,
             summary["%s_resolution_%s_median" % (row["kind_of_error"].replace(" ", "_"),
                                                  row["component"].replace(" ", "_"))] = \
                 row["resolution_median"]
+    tables["signed_resolution_per_momentum_band"] = signed_resolution_per_momentum_band(
+        end, reference_end, momentum_gev, momentum_window_gev, single_steps)
+    for row in tables["signed_resolution_per_momentum_band"]:
+        if row["band"] == conventions.ALL_MOMENTA:
+            summary["%s_signed_resolution_%s_median" % (row["kind_of_error"].replace(" ", "_"),
+                                                        row["component"].replace(" ", "_"))] = \
+                row["signed_median"]
     if single_steps is None:
         left_out.append("11, the single-step resolution: no separate steps were given; "
                         "the endpoint resolution is in the table")
@@ -208,6 +219,28 @@ def resolution_per_momentum_band(end, reference_end, momentum_gev, momentum_wind
         rows += resolution.resolution_per_momentum_band(
             predicted, reference, p, kind, momentum_window_gev)
     return rows
+
+
+def signed_resolution_per_momentum_band(end, reference_end, momentum_gev,
+                                        momentum_window_gev, single_steps):
+    """The signed table of output 11: one row per kind of error, band and
+    component."""
+    rows = []
+    for kind, predicted, reference, p in _errors_for_the_resolution(
+            end, reference_end, momentum_gev, single_steps):
+        rows += resolution.signed_resolution_per_momentum_band(
+            predicted, reference, p, kind, momentum_window_gev)
+    return rows
+
+
+def histograms_of_signed_resolution(end, reference_end, momentum_gev, single_steps,
+                                    number_of_bins):
+    """The histograms of the signed figure of output 11: {kind of error: what
+    `resolution.histograms_of_signed_resolution` returns}."""
+    return {kind: resolution.histograms_of_signed_resolution(predicted, reference, p,
+                                                             number_of_bins)
+            for kind, predicted, reference, p in _errors_for_the_resolution(
+                end, reference_end, momentum_gev, single_steps)}
 
 
 def histograms_of_resolution(end, reference_end, momentum_gev, single_steps,
@@ -259,13 +292,16 @@ def write_report(report: dict, folder: str) -> list:
 
 
 def write_figures(report: dict, folder: str, histograms=None,
-                  histograms_of_the_resolution=None) -> list:
+                  histograms_of_the_resolution=None,
+                  histograms_of_the_signed_resolution=None) -> list:
     """The figures of the report, as PNG files in a folder that exists.
 
     histograms                     what `endpoint_error.histograms_of_signed_error` returned
     histograms_of_the_resolution   what `histograms_of_resolution` returned: one
                                    row of panels per kind of error and one panel
                                    per component
+    histograms_of_the_signed_resolution   what `histograms_of_signed_resolution`
+                                   returned, laid out the same way
 
     Every figure names the prediction by its steps, stages and step length,
     and says whether the error is an endpoint error or a single-step error.
@@ -352,16 +388,24 @@ def write_figures(report: dict, folder: str, histograms=None,
 
     if histograms_of_the_resolution:
         written += write_figure_of_the_resolution(name, folder, histograms_of_the_resolution)
+    if histograms_of_the_signed_resolution:
+        written += write_figure_of_the_resolution(name, folder,
+                                                  histograms_of_the_signed_resolution, signed=True)
     return written
 
 
-def write_figure_of_the_resolution(name: str, folder: str, histograms_of_the_resolution) -> list:
-    """The figure of output 11, resolution_against_momentum.png: one row of
-    panels per kind of error, one panel per component, the resolution of
-    every track against p as a two-dimensional histogram with the median and
-    the 16th and 84th percentiles per bin of p drawn over it.
+def write_figure_of_the_resolution(name: str, folder: str, histograms_of_the_resolution,
+                                   signed: bool = False) -> list:
+    """A figure of output 11: one row of panels per kind of error, one panel
+    per component, the resolution of every track against p as a
+    two-dimensional histogram with the median and the 16th and 84th
+    percentiles per bin of p drawn over it.
 
-    histograms_of_the_resolution   what `histograms_of_resolution` returned
+    signed False: resolution_against_momentum.png, |predicted - reference| on
+                  a logarithmic axis, from `histograms_of_resolution`
+           True:  signed_resolution_against_momentum.png, predicted -
+                  reference on a symmetric-log axis with zero marked, from
+                  `histograms_of_signed_resolution`
     """
     import matplotlib
     matplotlib.use("Agg")
@@ -376,7 +420,8 @@ def write_figure_of_the_resolution(name: str, folder: str, histograms_of_the_res
         for axis, (component, _, unit) in zip(row, conventions.COMPONENTS):
             h = by_kind[kind][component]
             counts = np.ma.masked_equal(h["counts"].T, 0)
-            axis.pcolormesh(h["momentum_edges_gev"], h["resolution_edges"], counts,
+            axis.pcolormesh(h["momentum_edges_gev"],
+                            h["signed_edges"] if signed else h["resolution_edges"], counts,
                             cmap="Blues", norm=matplotlib.colors.LogNorm(), rasterized=True)
             centres = h["momentum_centres_gev"]
             axis.plot(centres, h["median"], color="k", lw=1.2, label="median")
@@ -384,14 +429,21 @@ def write_figure_of_the_resolution(name: str, folder: str, histograms_of_the_res
                       label="16th and 84th percentiles")
             axis.plot(centres, h["percentile_84"], color="k", lw=0.8, ls="--")
             axis.set_xscale("log")
-            axis.set_yscale("log")
+            if signed:
+                axis.axhline(0.0, color="r", lw=0.6)
+                axis.set_yscale("symlog", linthresh=h["linear_threshold"])
+                axis.set_ylabel("predicted - reference, %s [%s]" % (component, unit))
+            else:
+                axis.set_yscale("log")
+                axis.set_ylabel("resolution in %s [%s]" % (component, unit))
             axis.set_xlabel("p [GeV]")
-            axis.set_ylabel("resolution in %s [%s]" % (component, unit))
             axis.set_title("%s error, %s" % (kind, component))
         row[0].legend(fontsize=7, loc="upper right")
-    figure.suptitle("Resolution |predicted - reference| against p\n%s" % name)
+    figure.suptitle("%s against p\n%s" % (
+        "Signed resolution, predicted - reference," if signed
+        else "Resolution |predicted - reference|", name))
     figure.tight_layout()
-    path = os.path.join(folder, "resolution_against_momentum.png")
+    path = os.path.join(folder, "%sresolution_against_momentum.png" % ("signed_" if signed else ""))
     figure.savefig(path, dpi=130)
     plt.close(figure)
     return [path]

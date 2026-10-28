@@ -1,4 +1,4 @@
-"""Gate: output 11, the resolution against momentum.
+"""Gate: output 11, the resolution and the signed resolution against momentum.
 
 Proves
   * the resolution is |predicted - reference| per component, in micrometres
@@ -9,11 +9,15 @@ Proves
   * the histogram against momentum counts every track with a resolution
     above zero, once, and its percentiles per bin are those of the tracks of
     the bin;
+  * the signed resolution is predicted - reference per component, its table
+    holds the median, the 16th and 84th percentiles and half their range of
+    exactly the tracks of the band, and its histogram counts every track once
+    with the percentiles per bin of the tracks of the bin;
   * the momentum of each single step is that of its track, in the order the
     report lays the steps out;
   * the standard report holds the table for the endpoint error alone, and for
-    the single-step error too when separate steps are given, and the figure
-    against p is written.
+    the single-step error too when separate steps are given, for the absolute
+    and the signed resolution, and both figures against p are written.
 
 The data are made up. The numbers say nothing about any network.
 """
@@ -25,7 +29,8 @@ import numpy as np
 import pytest
 
 from rkpinn.evaluation import conventions, resolution
-from rkpinn.evaluation.standard_report import (histograms_of_resolution, standard_report,
+from rkpinn.evaluation.standard_report import (histograms_of_resolution,
+                                               histograms_of_signed_resolution, standard_report,
                                                write_figures, write_report)
 
 NUMBER_OF_TRACKS = 400
@@ -106,6 +111,52 @@ def test_the_histogram_counts_every_track_once_and_its_percentiles_are_of_the_bi
                 assert np.isnan(mine["median"][k])
 
 
+def test_the_signed_resolution_is_the_difference_and_its_table_is_of_the_band(made_up):
+    predicted, reference, signed, momentum = made_up
+    r = resolution.signed_resolution(predicted, reference)
+    assert r["x"] == pytest.approx(signed[:, 0] * 1e3)
+    assert r["slope in y"] == pytest.approx(signed[:, 3])
+    window = (10.0, 50.0)
+    rows = resolution.signed_resolution_per_momentum_band(
+        predicted, reference, momentum, resolution.SINGLE_STEP, window)
+    assert [r_["band"] for r_ in rows if r_["component"] == "y"] == [
+        conventions.ALL_MOMENTA, *conventions.MOMENTUM_BANDS, conventions.name_of_window(window)]
+    edges = conventions.EDGES_OF_MOMENTUM_BANDS_GEV
+    for low, high, name in zip(edges[:-1], edges[1:], conventions.MOMENTUM_BANDS):
+        row, = [r_ for r_ in rows if r_["band"] == name and r_["component"] == "y"]
+        mine = r["y"][(momentum >= low) & (momentum < high)]
+        assert row["number_of_tracks"] == mine.size
+        if mine.size:
+            q16, q50, q84 = np.quantile(mine, [0.16, 0.5, 0.84])
+            assert row["signed_median"] == pytest.approx(q50)
+            assert row["signed_percentile_16"] == pytest.approx(q16)
+            assert row["signed_percentile_84"] == pytest.approx(q84)
+            assert row["signed_half_width_68"] == pytest.approx((q84 - q16) / 2)
+    # the signed errors have both signs, so the median is not the absolute one
+    row, = [r_ for r_ in rows if r_["band"] == conventions.ALL_MOMENTA and r_["component"] == "x"]
+    assert row["signed_percentile_16"] < 0 < row["signed_percentile_84"]
+
+
+def test_the_signed_histogram_counts_every_track_once(made_up):
+    predicted, reference, _, momentum = made_up
+    h = resolution.histograms_of_signed_resolution(predicted, reference, momentum, 12)
+    r = resolution.signed_resolution(predicted, reference)
+    for name, _, unit in conventions.COMPONENTS:
+        mine = h[name]
+        assert mine["unit"] == unit and mine["linear_threshold"] > 0
+        assert mine["linear_threshold"] == pytest.approx(np.quantile(np.abs(r[name]), 0.05))
+        assert mine["counts"].sum() == NUMBER_OF_TRACKS
+        assert mine["signed_edges"][0] == r[name].min()
+        assert mine["signed_edges"][-1] == r[name].max()
+        assert (np.diff(mine["signed_edges"]) > 0).all()
+        which = np.minimum(np.digitize(momentum, mine["momentum_edges_gev"]) - 1, 11)
+        for k in range(12):
+            here = r[name][which == k]
+            assert mine["number_in_each_bin"][k] == here.size
+            if here.size:
+                assert mine["median"][k] == pytest.approx(np.median(here))
+
+
 def test_the_momentum_of_each_single_step_is_that_of_its_track():
     momentum = np.array([1.0, 2.0, 3.0])
     assert resolution.momentum_of_each_single_step(momentum, 6).tolist() == [
@@ -139,19 +190,29 @@ def test_the_standard_report_holds_the_table_and_writes_the_figures(made_up, tmp
     assert with_steps["summary"]["endpoint_resolution_x_median"] == pytest.approx(np.median(r_x))
     assert with_steps["summary"]["single_step_resolution_x_median"] == pytest.approx(
         np.median(r_x))
+    signed_rows = with_steps["tables"]["signed_resolution_per_momentum_band"]
+    assert len(signed_rows) == 2 * 4 * 7
+    s_x = (predicted[:, 0] - reference[:, 0]) * 1e3
+    assert with_steps["summary"]["endpoint_signed_resolution_x_median"] == pytest.approx(
+        np.median(s_x))
 
     endpoint_only = standard_report(**shared)
     rows = endpoint_only["tables"]["resolution_per_momentum_band"]
     assert {r["kind_of_error"] for r in rows} == {resolution.ENDPOINT}
     assert len(rows) == 4 * 7
+    assert len(endpoint_only["tables"]["signed_resolution_per_momentum_band"]) == 4 * 7
     assert any(text.startswith("11") for text in endpoint_only["summary"]["outputs_left_out"])
 
     folder = str(tmp_path / "report")
     written = write_report(with_steps, folder)
     assert os.path.join(folder, "resolution_per_momentum_band.csv") in written
+    assert os.path.join(folder, "signed_resolution_per_momentum_band.csv") in written
     figures = write_figures(
         with_steps, folder,
         histograms_of_the_resolution=histograms_of_resolution(
+            predicted, reference, momentum, single_steps, 10),
+        histograms_of_the_signed_resolution=histograms_of_signed_resolution(
             predicted, reference, momentum, single_steps, 10))
-    assert os.path.join(folder, "resolution_against_momentum.png") in figures
-    assert os.path.getsize(os.path.join(folder, "resolution_against_momentum.png")) > 5000
+    for name in ("resolution_against_momentum.png", "signed_resolution_against_momentum.png"):
+        assert os.path.join(folder, name) in figures
+        assert os.path.getsize(os.path.join(folder, name)) > 5000

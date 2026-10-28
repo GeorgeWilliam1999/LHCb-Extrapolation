@@ -250,7 +250,7 @@ Positions in micrometres. Slopes as dimensionless numbers. Momentum bands below 
 | 8 | convergence |
 | 9 | where the loss puts its weight |
 | 10 | cost |
-| 11 | resolution \|predicted − reference\| per component against p, endpoint and single step |
+| 11 | resolution \|predicted − reference\| and signed resolution predicted − reference, per component against p, endpoint and single step |
 
 #### Stage errors, held and carried
 

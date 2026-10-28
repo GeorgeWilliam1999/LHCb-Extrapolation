@@ -47,7 +47,7 @@ ALL_TABLES = {
     "single_step_error_per_component", "single_step_error_per_step",
     "error_along_the_track", "stage_errors_held_and_carried", "three_references",
     "convergence", "validation_per_round", "where_the_loss_puts_its_weight", "cost",
-    "resolution_per_momentum_band"}
+    "resolution_per_momentum_band", "signed_resolution_per_momentum_band"}
 
 
 def table(folder, name):
@@ -169,7 +169,8 @@ def test_no_absolute_path_and_the_figures(made):
     figures = {name for name in os.listdir(where) if name.endswith(".png")}
     assert figures == {"error_along_the_track.png", "endpoint_error_by_momentum_band.png",
                        "signed_distributions.png", "convergence.png",
-                       "stage_errors_held_and_carried.png", "resolution_against_momentum.png"}
+                       "stage_errors_held_and_carried.png", "resolution_against_momentum.png",
+                       "signed_resolution_against_momentum.png"}
     for name in figures:
         assert os.path.getsize(os.path.join(where, name)) > 5000
 
@@ -193,6 +194,7 @@ def test_the_report_of_the_whole_crossing_network_says_what_it_left_out(made):
     assert "stage_errors_held_and_carried.csv" not in files
     assert {"three_references.csv", "convergence.csv", "cost.csv",
             "error_along_the_track.csv", "resolution_per_momentum_band.csv",
-            "resolution_against_momentum.png"} <= files
+            "resolution_against_momentum.png", "signed_resolution_per_momentum_band.csv",
+            "signed_resolution_against_momentum.png"} <= files
     assert len(table(where, "error_along_the_track")) == 2
     assert tracks_key is None or True

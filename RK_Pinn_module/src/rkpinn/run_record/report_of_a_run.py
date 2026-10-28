@@ -59,7 +59,8 @@ import torch
 
 from rkpinn.evaluation import conventions, endpoint_error
 from rkpinn.evaluation.error_along_the_track import stage_errors_held_and_carried
-from rkpinn.evaluation.standard_report import (histograms_of_resolution, standard_report,
+from rkpinn.evaluation.standard_report import (histograms_of_resolution,
+                                               histograms_of_signed_resolution, standard_report,
                                                write_figures, write_report)
 from rkpinn.evaluation.three_references import carry_to_own_planes
 from rkpinn.integrators.runge_kutta_sixth_order import REFERENCE_STEP_LENGTH_MM
@@ -248,6 +249,9 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
     write_figures(made, where, histograms=endpoint_error.histograms_of_signed_error(
         states_on_planes[:, -1], reference_on_planes[:, -1], bins_of_the_histograms),
         histograms_of_the_resolution=histograms_of_resolution(
+            states_on_planes[:, -1], reference_on_planes[:, -1], tracks.momentum_gev,
+            single_steps, bins_of_the_histograms),
+        histograms_of_the_signed_resolution=histograms_of_signed_resolution(
             states_on_planes[:, -1], reference_on_planes[:, -1], tracks.momentum_gev,
             single_steps, bins_of_the_histograms))
     rows = []

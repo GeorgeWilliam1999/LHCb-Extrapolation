@@ -1,6 +1,6 @@
 # Evaluation
 
-**Last updated:** 2026-10-27
+**Last updated:** 2026-10-28
 
 ## What this directory is
 
@@ -17,7 +17,7 @@ The standard for results. One set of conventions and one report, the same for ev
 | `error_along_the_track.py` | the error plane by plane (output 5); the error of one application (output 4); stage errors held at every step and carried to the end of the track (output 6) | built |
 | `three_references.py` | the prediction against the reference integrator, against the exact scheme, and against the true state. Output 7 | built |
 | `convergence.py` | the validation error per round, whether the stopping rule holds now, and the first round it held. Output 8 | built |
-| `resolution.py` | the resolution \|predicted - reference\| per component, endpoint and single step, against the total momentum p: a table per momentum band (median, 16th and 84th percentiles) and two-dimensional histograms. Output 11 | built |
+| `resolution.py` | the resolution \|predicted - reference\| and the signed resolution predicted - reference, per component, endpoint and single step, against the total momentum p: a table per momentum band (median, 16th and 84th percentiles; for the signed one also half their range) and two-dimensional histograms (the signed one on a symmetric-log axis). Output 11 | built |
 | `standard_report.py` | the eleven standard outputs of `PACKAGE_PLAN.md`, section 5, as tables and figures; where the loss puts its weight (output 9); writes them | built |
 
 ## Where each file was ported from
@@ -31,7 +31,7 @@ The standard for results. One set of conventions and one report, the same for ev
 | `three_references.py` | `numbers.py` (`sec_against_true`); the comparison with the exact scheme is added | `tests/test_evaluation_reproduces_the_paper.py` |
 | `convergence.py` | `common.py` (`first_plateau_round`, `validation_headline`) | the same |
 | `standard_report.py`, output 9 | `numbers.py` (`sec_preflight`) | the same |
-| `resolution.py`, output 11 | new (George, 2026-10-27) | `tests/test_resolution.py`, `tests/test_report_of_a_run.py` |
+| `resolution.py`, output 11 | new (George, 2026-10-27; signed, 2026-10-28) | `tests/test_resolution.py`, `tests/test_report_of_a_run.py` |
 
 ## What was measured when it was built
 

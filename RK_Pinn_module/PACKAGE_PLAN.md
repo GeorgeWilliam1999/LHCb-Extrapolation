@@ -433,7 +433,7 @@ One command produces the same set of tables and figures for any run. A result th
 | 8 | Convergence | validation error per round, and the round the plateau rule held |
 | 9 | Where the loss puts its weight | share of the loss by momentum band and by quarter of the crossing |
 | 10 | Cost | time per track, and training time |
-| 11 | Resolution against momentum | $\lvert s_\mathrm{predicted} - s_\mathrm{reference}\rvert$ in $x$, $y$, $t_x$, $t_y$, endpoint and single step, as histograms against $p$ and a table per band (median, 16th and 84th percentiles). Added 2026-10-27 at George's request |
+| 11 | Resolution against momentum | $\lvert s_\mathrm{predicted} - s_\mathrm{reference}\rvert$ in $x$, $y$, $t_x$, $t_y$, endpoint and single step, as histograms against $p$ and a table per band (median, 16th and 84th percentiles); and the signed $s_\mathrm{predicted} - s_\mathrm{reference}$ the same way, to tell a bias from a spread. Added 2026-10-27 and 2026-10-28 at George's request |
 
 ### 5.3 Stage errors, held and carried
 

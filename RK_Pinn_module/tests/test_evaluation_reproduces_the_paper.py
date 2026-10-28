@@ -347,7 +347,8 @@ def test_the_report_of_an_old_run_says_what_it_left_out(tracks):
         planes_mm=planes)
     assert set(report["tables"]) == {
         "endpoint_error_per_component", "endpoint_error_magnitudes",
-        "signed_distributions", "error_along_the_track", "resolution_per_momentum_band"}
+        "signed_distributions", "error_along_the_track", "resolution_per_momentum_band",
+        "signed_resolution_per_momentum_band"}
     left_out = report["summary"]["outputs_left_out"]
     assert [text.split(",")[0] for text in left_out] == ["4", "6", "7", "8", "9", "10", "11"]
     headline, = table_of_the_paper("tab_headline_pairs", number_of_steps, 2, "reweighted")

@@ -1,6 +1,6 @@
 # Tests: the gates
 
-**Last updated:** 2026-10-27
+**Last updated:** 2026-10-28
 
 ## What this directory is
 
@@ -36,7 +36,7 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_evaluation_reproduces_the_paper.py` | the evaluation, run on the stored states of the old runs, gives the numbers of the paper: outputs 1 to 5, 7, 8 and 9 | built |
 | `test_stage_errors_held_and_carried.py` | output 6: the contributions of all steps sum to the measured endpoint error; for the exact scheme all of it is the scheme; what is beyond first order falls with the square of the error | built |
 | `test_report_of_a_run.py` | the report of a run holds the eleven outputs and says what it left out; it is of the weights of the snapshot; it is never written over another | built |
-| `test_resolution.py` | output 11: the resolution is \|predicted - reference\| per component; its table per p band holds the median and 16th and 84th percentiles of exactly the tracks of the band; the histogram counts every track once; each single step takes the momentum of its track | built |
+| `test_resolution.py` | output 11: the resolution is \|predicted - reference\| per component and the signed resolution is predicted - reference; its table per p band holds the median and 16th and 84th percentiles of exactly the tracks of the band; the histogram counts every track once; each single step takes the momentum of its track | built |
 | `test_literature_changes.py` | the four changes of 2026-10-23: one fixed draw keeps round 1 identical and later rounds on its tracks and planes; the best round is that of the lowest validation error; the refit of the last layer has the Jacobian of autograd, lowers the loss and touches only the last layer; the self-scaled Broyden update meets the secant equation, is BFGS at tau = phi = 1, and trains a run | built |
 | `test_a_run_on_the_farm.py` | a job stopped by the signal of the farm releases its lock and is resumed to the same run, to the last bit; a lock that is touched is never cleared; a lock left behind is cleared when the caller says | built |
 | `test_registry_turns_names_into_components.py` | every built component can be named; unknown names and kinds are refused | built |
