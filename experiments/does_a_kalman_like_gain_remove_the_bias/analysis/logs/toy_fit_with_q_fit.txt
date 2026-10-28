@@ -1,0 +1,14 @@
+{'model': 'reference (sixth order, 0.1 mm)', 'q': 'no Q', 'bias_over_resolution': 0.0, 'pull_width_x': 0.9984798882479851, 'pull_width_qop': 0.9988150478455485}
+{'model': 'exact 2-stage Gauss-Legendre, 64 steps', 'q': 'no Q', 'bias_over_resolution': -0.0013410017112238865, 'pull_width_x': 0.9984869855490949, 'pull_width_qop': 0.9989630230313129}
+{'model': 'straight line per-track', 'q': 'no Q', 'bias_over_resolution': -0.0007248959160909485, 'pull_width_x': 0.9986495376415887, 'pull_width_qop': 0.9991707306352156}
+{'model': 'straight line per-track', 'q': 'Q per step', 'bias_over_resolution': -0.0007243767734702578, 'pull_width_x': 0.9985243482003008, 'pull_width_qop': 0.9981038717549073}
+{'model': 'straight line per-track', 'q': 'Q measured at the end', 'bias_over_resolution': -0.0007242838619199652, 'pull_width_x': 0.9982741238628193, 'pull_width_qop': 0.9965624240505707}
+{'model': 'straight line global', 'q': 'no Q', 'bias_over_resolution': -0.0003699978869544351, 'pull_width_x': 0.9991709046219177, 'pull_width_qop': 1.000632752692481}
+{'model': 'straight line global', 'q': 'Q per step', 'bias_over_resolution': -0.00036892017749547775, 'pull_width_x': 0.9989179189302159, 'pull_width_qop': 0.9992242323124485}
+{'model': 'straight line global', 'q': 'Q measured at the end', 'bias_over_resolution': -0.0003657870845074513, 'pull_width_x': 0.9978872454977513, 'pull_width_qop': 0.9977064672383423}
+{'model': 'direct states', 'q': 'no Q', 'bias_over_resolution': 0.008365029090858454, 'pull_width_x': 1.0057881670785302, 'pull_width_qop': 1.023044216030171}
+{'model': 'direct states', 'q': 'Q per step', 'bias_over_resolution': 0.008302503343548547, 'pull_width_x': 1.0037111898653361, 'pull_width_qop': 1.015982241547278}
+{'model': 'direct states', 'q': 'Q measured at the end', 'bias_over_resolution': 0.008231864285418583, 'pull_width_x': 0.9990227776883767, 'pull_width_qop': 1.0082624848783903}
+written: results/a_toy_fit_with_q.csv
+written: results/a_q_per_band.csv
+exit 0 : toy_fit_with_q.py fit

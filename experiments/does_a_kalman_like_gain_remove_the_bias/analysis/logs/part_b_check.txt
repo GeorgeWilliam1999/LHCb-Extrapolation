@@ -1,0 +1,4 @@
+25dfa17ef168 max |summed - network end| (mm, slope): [4.54747351e-13 2.27373675e-13 1.11022302e-16 2.77555756e-17] median |K r| x (um): 0.052438681507283036
+9cef9c160b7d max |summed - network end| (mm, slope): [4.54747351e-13 2.27373675e-13 1.11022302e-16 2.77555756e-17] median |K r| x (um): 0.09481783123987952
+49e5e2450eaa max |summed - network end| (mm, slope): [4.54747351e-13 2.27373675e-13 1.11022302e-16 2.77555756e-17] median |K r| x (um): 0.43103748967610045
+exit 0 : part_b.py check
