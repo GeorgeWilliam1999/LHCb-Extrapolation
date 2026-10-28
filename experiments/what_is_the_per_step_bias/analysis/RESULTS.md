@@ -205,7 +205,7 @@ Fit of (x, y, tx, ty, q/p) on 2648.2 mm to 4 UT hits (z 2327.5–2642.5 mm, 50 u
 - A full Gauss–Newton fit with both models evaluated exactly agrees with the linear answer: correlation 0.99993 to 0.99997.
 - With multiple scattering the real resolution is larger (about 0.5% at 10 GeV), so every ratio above is an upper bound.
 
-C.5 is not run, because A.7 says the bias does not matter. Figure: `figures/a7_toy_fit.png`. Tables: `results/a7_*.csv`.
+C.5 (a correction from the measured SciFi residuals) is moved out of this experiment to a separate thread (George, 2026-10-28), with every question about a Kalman-filter fit. Figure: `figures/a7_toy_fit.png`. Tables: `results/a7_*.csv`.
 
 ## A.8 Seeds
 
@@ -366,5 +366,5 @@ By the plan's own rule, A.7 says stop and write up. The open choice is George's:
 ## What is not done
 
 - A.8 has no result: the tranche-1 runs are at round 1. Run `seeds.py last` after about 30 Oct.
-- C.5 is not run: A.7 says the bias does not matter.
+- C.5 and the Kalman-filter question are moved out of this experiment to a separate thread (George, 2026-10-28).
 - The UT and SciFi layout and resolutions in A.7 were not re-checked against the TDR.

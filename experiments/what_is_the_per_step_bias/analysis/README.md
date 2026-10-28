@@ -30,6 +30,8 @@ The scripts, tables and figures of the per-step bias study. They read the store 
 | `control_c2.py` | C.2b control: sweeps and Newton steps from stages without a network | `results/c2_control_*.csv`, `figures/c2_control.png` |
 | `figures.py` | the figures of the note | `figures/*.png` |
 | `logs/` | what each script printed | — |
+| `run_one_step.sh` | runs one step of the list below from this folder and writes its log | `logs/` |
+| `smoke_tests/` | the two quick checks made before the full runs: the known numbers of `25dfa17ef168` and the exact scheme; the sweeps on 200 tracks | — |
 
 The cache is `/data/bfys/gscriven/rkpinn_analysis_cache/what_is_the_per_step_bias/`. A file there is never recomputed; delete it to recompute.
 

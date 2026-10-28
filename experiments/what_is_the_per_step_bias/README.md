@@ -12,6 +12,10 @@ An analysis of three existing runs. It asks what the error of one network step i
 |---|---|---|
 | `README.md` | this file: the question, the runs, the items, the criteria | built |
 | `analysis/` | the scripts, the tables (`results/`), the figures (`figures/`) and the results note | built |
+| `configurations/` | the configurations of Part B (B.3 and B.4, both forms) | see its README |
+| `farm/` | what puts the Part B runs on the farm | see its README |
+
+Everything of this experiment is in this folder. Two things are outside it, by the convention of `does_the_error_fall_with_the_step_length`: the cache of regenerable arrays (`/data/bfys/gscriven/rkpinn_analysis_cache/what_is_the_per_step_bias/`, 184 MB: single-step errors, Jacobians, fitted models) and, for Part B, the runs in the store and the farm logs in `/data/bfys/gscriven/rkpinn_farm_logs/what_is_the_per_step_bias/`. The study reads the store, the field map and the tranche-1 runs; it writes into no other experiment's folder. The tranche-1 analysis (`analysis/tranche1_2026-10-28/` at the project root) belongs to tranche 1 and is not part of this experiment; this study only cites its numbers.
 
 ## The question
 
@@ -66,7 +70,7 @@ New code in `analysis/`, not in the package.
 | C.2 | 1 and 2 fixed-point sweeps of the 2-stage Gauss–Legendre stage equations from the network's stages; end state summed |
 | C.3 | one Newton step of the stage equations, with the gradient of the trilinear map |
 | C.4 | a small network trained without reference labels to predict the C.3 change of the end state from the state; applied as C.1 |
-| C.5 | only if A.7 says the bias matters: a correction table from the mean SciFi residual per (q/p, tx, ty) bin |
+| C.5 | moved out of this experiment (George, 2026-10-28): the correction from measured SciFi residuals, and every question about a Kalman-filter fit, belong to a separate thread |
 
 For every variant: the test endpoint radial median, per band; the lag-1 autocorrelation of the corrected single-step errors; the mean signed endpoint error ± standard error; field calls and network calls per track.
 
