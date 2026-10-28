@@ -16,6 +16,7 @@ The scripts, tables and figures of Parts A and B. They read the store, the field
 | `part_b.py check` | the summed end state of the script against the network's end state | `logs/part_b_check.txt` |
 | `part_b.py run` | Part B: plain, B1, B2 and the two controls; single-step errors; one low-momentum track | `results/b_endpoint.csv`, `results/b_single_step.csv`, `results/b_low_momentum_track.npz` |
 | `toy_fit_with_q.py fit` | Part A: the A.7 toy fit with no Q, Q per step, Q at the end; the exact extrapolator; the reference | `results/a_toy_fit_with_q.csv`, `results/a_q_per_band.csv` |
+| `timing.py run` | the time of each part of a step (CPU, torch); `THREADS` sets the threads | `results/timing_threads_<n>.csv` |
 | `figures.py` | the figures, from the tables | `figures/b_endpoint_by_band.png`, `figures/b_low_momentum_track.png` |
 | `run_one_step.sh` | runs one step from this folder and writes its log | `logs/` |
 
@@ -27,6 +28,7 @@ From this folder, on a login node that is not loaded (2026-10-28: `stbc-i3`). Ab
 bash run_one_step.sh part_b.py check
 bash run_one_step.sh part_b.py run
 bash run_one_step.sh toy_fit_with_q.py fit
+THREADS=1 bash run_one_step.sh timing.py run
 PYTHONPATH=../../../RK_Pinn_module/src /data/bfys/gscriven/conda/envs/TE/bin/python figures.py
 ```
 

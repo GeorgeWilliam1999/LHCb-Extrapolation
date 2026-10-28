@@ -212,6 +212,39 @@ Size of Q (validation, per band), and the per-step Q carried to 7826 mm against 
 
 Tables: `results/a_toy_fit_with_q.csv`, `results/a_q_per_band.csv`.
 
+## Timing (added 2026-10-29)
+
+George asked for the time of each part (2026-10-28: "good to have, not a deciding factor"). `timing.py` times each part on the 92,928 test steps. It runs the parts in turn inside each of 7 repeats and quotes the median. Hardware: the CPU of `stbc-i2`, torch, double precision. The node had a load of about 240, and the run with 4 threads gave the same times as the run with 1 thread. So only the ratios are of use. The code is this package's code, not the target code: the network is not a fused kernel, and the Jacobian comes from autograd, not from a closed-form gradient.
+
+Time of each part, per step and track (1 thread):
+
+| Part | ns | In lookup pairs |
+|---|---|---|
+| 2 field lookups (f at the 2 stages) | 887 | 1.0 |
+| 2 lookups + 2 Jacobians (autograd) | 3,267 | 3.7 |
+| 8 × 8 solve and K r | 1,657 | 1.9 |
+| Euler stages (1 lookup) | 493 | 0.56 |
+| 1 network call | 7,379–7,931 | 8.3–8.9 |
+
+Time of each method per step and track, as a sum of its parts. RK4 was not timed: its row is 2 lookup pairs.
+
+| Method | ns per step | Endpoint (um) |
+|---|---|---|
+| network, plain | 8,270–8,820 | 1.83–5.71 |
+| network + gain (B1) | 12,300–12,860 | 0.147 |
+| network + 1 sweep (bias study C.2) | 9,150–9,710 | 0.145–0.147 |
+| straight line + gain | 4,920 | 2.36 |
+| Euler + gain | 5,420 | 0.146 |
+| Euler + 1 sweep (bias study C.2b) | 2,270 | 0.148 |
+| classic RK4 (estimate) | 1,770 | 1.08 |
+
+- On this code, one network call costs as much as 8 to 9 lookup pairs. So every method with a network is slower than every method without one.
+- The Jacobians (2.7 lookup pairs above the lookups) and the solve (1.9 pairs) cost more than one sweep (1 pair). So the gain is slower than a sweep, although it needs fewer lookups.
+- The fastest method measured that reaches the exact scheme is Euler + 1 sweep: 2,270 ns per step. That is 5× faster than network + gain.
+- These ratios can change in the target code. A closed-form gradient of the trilinear map, a fused network kernel or single precision would each move them.
+
+Table: `results/timing_threads_1.csv`, `results/timing_threads_4.csv`. Script: `timing.py`.
+
 ## Decision point
 
 | Question | Answer | Evidence |
@@ -221,11 +254,11 @@ Tables: `results/a_toy_fit_with_q.csv`, `results/a_q_per_band.csv`.
 | Does the network matter for it? | Yes at 128 lookups: 0.147 um against 2.36 um from the straight line. A network-free Euler start needs 1 more lookup per step (192) for 0.146 um. | Controls |
 | Does a Q in the fit help? | Not for the bias (unchanged, ≤ 1.1% of the resolution). It narrows the wide pulls of direct states below 3 GeV, best with Q measured at the endpoint. | Part A |
 
-Open for George: is a Jacobian evaluation and an 8 × 8 solve per step cheaper than one field lookup in the target code? If yes, the network with the gain beats the Euler start. If no, the Euler start with the gain gives the same accuracy without a network.
+Cost (George, 2026-10-28: not a deciding factor): in lookups, the network with the gain saves 1 lookup per step against the Euler start. In time, on this code, the network call and the Jacobians cost more than that lookup (see Timing).
 
 ## What is not done
 
 - B3: not run. It needs 2 new field lookups per step (see Method).
-- The cost of a Jacobian evaluation and of the 8 × 8 solve is counted, not timed.
+- The timing is on a loaded CPU node in this package's code, not in the target code (see Timing).
 - The hit layout and resolutions of Part A were not re-checked against the TDR (as in A.7).
 - The Part A fit of a corrected network (gain + fit) was not run separately; the exact-extrapolator row stands for it.

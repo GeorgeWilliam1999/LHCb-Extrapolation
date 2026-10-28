@@ -1,0 +1,9 @@
+{'part': 'lookup (2 per step)', 'threads': 4, 'rows': 92928, 'repeats': 7, 'median_s': 0.08244294626638293, 'min_s': 0.08157592406496406, 'max_s': 0.0907762530259788, 'median_ns_per_row': 887.1701345814279, 'ratio_to_two_lookups': 1.0}
+{'part': 'lookup + Jacobian (2 + 2 per step)', 'threads': 4, 'rows': 92928, 'repeats': 7, 'median_s': 0.29950430197641253, 'min_s': 0.28027081675827503, 'max_s': 0.30554089415818453, 'median_ns_per_row': 3222.971569133227, 'ratio_to_two_lookups': 3.632867522816065}
+{'part': '8x8 solve and K r', 'threads': 4, 'rows': 92928, 'repeats': 7, 'median_s': 0.1500432239845395, 'min_s': 0.14493892481550574, 'max_s': 0.1590505689382553, 'median_ns_per_row': 1614.6180266931335, 'ratio_to_two_lookups': 1.8199643605619342}
+{'part': 'euler stages (1 lookup per step)', 'threads': 4, 'rows': 92928, 'repeats': 7, 'median_s': 0.04593671904876828, 'min_s': 0.04480230389162898, 'max_s': 0.04697915120050311, 'median_ns_per_row': 494.3259195158432, 'ratio_to_two_lookups': 0.5571940490862771}
+{'part': 'network call, 25dfa17ef168', 'threads': 4, 'rows': 92928, 'repeats': 7, 'median_s': 0.7391583337448537, 'min_s': 0.6725836070254445, 'max_s': 0.7468190547078848, 'median_ns_per_row': 7954.0970831703435, 'ratio_to_two_lookups': 8.96569527436035}
+{'part': 'network call, 9cef9c160b7d', 'threads': 4, 'rows': 92928, 'repeats': 7, 'median_s': 0.7227506591007113, 'min_s': 0.6503760339692235, 'max_s': 0.7445104788057506, 'median_ns_per_row': 7777.533779923289, 'ratio_to_two_lookups': 8.76667673624155}
+{'part': 'network call, 49e5e2450eaa', 'threads': 4, 'rows': 92928, 'repeats': 7, 'median_s': 0.7191157867200673, 'min_s': 0.643886118195951, 'max_s': 0.7375421724282205, 'median_ns_per_row': 7738.41884814122, 'ratio_to_two_lookups': 8.72258718649524}
+written: results/timing_threads_4.csv
+exit 0 : timing.py run
