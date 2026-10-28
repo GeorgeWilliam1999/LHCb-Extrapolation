@@ -13,6 +13,11 @@ Momentum bands, in GeV
     The window of the loss of a run is reported beside the bands, as an extra
     row. It overlaps them on purpose: it is not part of the partition.
 
+Resolution of a component
+    |predicted - reference|: the absolute error, in the unit of the
+    component, against the total momentum p. Its statistics are the median
+    and the 16th and 84th percentiles. See `resolution.py`.
+
 Statistics of a signed error v
     median_of_absolute          median of |v|
     percentile_95_of_absolute   95th percentile of |v|

@@ -1,6 +1,6 @@
 # Evaluation
 
-**Last updated:** 2026-09-30
+**Last updated:** 2026-10-27
 
 ## What this directory is
 
@@ -17,7 +17,8 @@ The standard for results. One set of conventions and one report, the same for ev
 | `error_along_the_track.py` | the error plane by plane (output 5); the error of one application (output 4); stage errors held at every step and carried to the end of the track (output 6) | built |
 | `three_references.py` | the prediction against the reference integrator, against the exact scheme, and against the true state. Output 7 | built |
 | `convergence.py` | the validation error per round, whether the stopping rule holds now, and the first round it held. Output 8 | built |
-| `standard_report.py` | the ten standard outputs of `PACKAGE_PLAN.md`, section 5, as tables and figures; where the loss puts its weight (output 9); writes them | built |
+| `resolution.py` | the resolution \|predicted - reference\| per component, endpoint and single step, against the total momentum p: a table per momentum band (median, 16th and 84th percentiles) and two-dimensional histograms. Output 11 | built |
+| `standard_report.py` | the eleven standard outputs of `PACKAGE_PLAN.md`, section 5, as tables and figures; where the loss puts its weight (output 9); writes them | built |
 
 ## Where each file was ported from
 
@@ -30,6 +31,7 @@ The standard for results. One set of conventions and one report, the same for ev
 | `three_references.py` | `numbers.py` (`sec_against_true`); the comparison with the exact scheme is added | `tests/test_evaluation_reproduces_the_paper.py` |
 | `convergence.py` | `common.py` (`first_plateau_round`, `validation_headline`) | the same |
 | `standard_report.py`, output 9 | `numbers.py` (`sec_preflight`) | the same |
+| `resolution.py`, output 11 | new (George, 2026-10-27) | `tests/test_resolution.py`, `tests/test_report_of_a_run.py` |
 
 ## What was measured when it was built
 
@@ -43,7 +45,7 @@ Run on the stored states of the six old runs the second mini-paper compares, the
 | 7 | the three references, per band | every digit, all six runs |
 | 8 | the headline of the validation error, the verdict, the first round the rule held | every digit, all six runs |
 | 9 | the shares of the loss, pooled and cost-weighted | to a relative 1e-12 |
-| 6, 10 | no number in the paper | output 6 has its own gate |
+| 6, 10, 11 | no number in the paper | outputs 6 and 11 have their own gates |
 
 Found while building output 6: the error of x and y at the end of a step is first order in the stage errors exactly, because the rates of x and y are the slopes, which are linear in the state. What is beyond first order is in the slopes only, and it falls with the square of the stage error.
 

@@ -1,7 +1,7 @@
 """Gate: the standard report of a run, from one command.
 
 Proves
-  * the report of a run with stages holds all ten outputs but the comparison
+  * the report of a run with stages holds all eleven outputs but the comparison
     with the exact scheme, whose states the small store does not hold, and
     says so;
   * the report of the whole-crossing network leaves out the outputs that need
@@ -14,7 +14,7 @@ Proves
   * a report is never written over another, and a round that does not exist
     is refused;
   * no absolute path is written into a report;
-  * the figures are written.
+  * the figures are written, the resolution against p among them.
 
 The runs are the small runs of the gates of the training. The numbers of
 their reports say nothing about what a network can reach.
@@ -46,7 +46,8 @@ ALL_TABLES = {
     "endpoint_error_per_component", "endpoint_error_magnitudes", "signed_distributions",
     "single_step_error_per_component", "single_step_error_per_step",
     "error_along_the_track", "stage_errors_held_and_carried", "three_references",
-    "convergence", "validation_per_round", "where_the_loss_puts_its_weight", "cost"}
+    "convergence", "validation_per_round", "where_the_loss_puts_its_weight", "cost",
+    "resolution_per_momentum_band"}
 
 
 def table(folder, name):
@@ -93,6 +94,17 @@ def test_the_report_holds_the_ten_outputs(made):
     cost, = table(where, "cost")
     assert int(cost["applications_per_track"]) == 4 and int(cost["restarts"]) == 4
     assert float(cost["microseconds_to_carry_one_track"]) > 0
+    rows = table(where, "resolution_per_momentum_band")
+    assert {r["kind_of_error"] for r in rows} == {"endpoint", "single step"}
+    endpoint_x = [r for r in rows if r["kind_of_error"] == "endpoint"
+                  and r["component"] == "x"]
+    assert [r["band"] for r in endpoint_x][:6] == [conventions.ALL_MOMENTA,
+                                                   *conventions.MOMENTUM_BANDS]
+    assert sum(int(r["number_of_tracks"]) for r in endpoint_x[1:6]) == 50
+    single_x = [r for r in rows if r["kind_of_error"] == "single step"
+                and r["component"] == "x"
+                and r["band"] == conventions.ALL_MOMENTA]
+    assert int(single_x[0]["number_of_tracks"]) == 50 * 4
 
 
 def test_the_report_is_of_the_weights_of_the_snapshot(made):
@@ -111,6 +123,10 @@ def test_the_report_is_of_the_weights_of_the_snapshot(made):
             if r["band"] == conventions.ALL_MOMENTA and r["component"] == "x"]
     assert float(row["median_of_absolute"]) == float(np.median(in_x))
     assert int(row["number_of_tracks"]) == 50
+    row, = [r for r in table(where, "resolution_per_momentum_band")
+            if r["band"] == conventions.ALL_MOMENTA and r["component"] == "x"
+            and r["kind_of_error"] == "endpoint"]
+    assert float(row["resolution_median"]) == float(np.median(in_x))
 
 
 def test_the_stage_errors_of_the_report_pass_their_check(made):
@@ -153,7 +169,7 @@ def test_no_absolute_path_and_the_figures(made):
     figures = {name for name in os.listdir(where) if name.endswith(".png")}
     assert figures == {"error_along_the_track.png", "endpoint_error_by_momentum_band.png",
                        "signed_distributions.png", "convergence.png",
-                       "stage_errors_held_and_carried.png"}
+                       "stage_errors_held_and_carried.png", "resolution_against_momentum.png"}
     for name in figures:
         assert os.path.getsize(os.path.join(where, name)) > 5000
 
@@ -169,12 +185,14 @@ def test_the_report_of_the_whole_crossing_network_says_what_it_left_out(made):
                             **QUIET)
     with open(os.path.join(where, "summary.json")) as handle:
         summary = json.load(handle)
-    assert [text.split(",")[0] for text in summary["outputs_left_out"]] == ["4", "6", "9"]
+    # 11: the endpoint resolution is there, the single-step resolution is not
+    assert [text.split(",")[0] for text in summary["outputs_left_out"]] == ["4", "6", "9", "11"]
     assert summary["name"] == "1 step of 5177.8 mm, no stages"
     files = set(os.listdir(where))
     assert "single_step_error_per_step.csv" not in files
     assert "stage_errors_held_and_carried.csv" not in files
     assert {"three_references.csv", "convergence.csv", "cost.csv",
-            "error_along_the_track.csv"} <= files
+            "error_along_the_track.csv", "resolution_per_momentum_band.csv",
+            "resolution_against_momentum.png"} <= files
     assert len(table(where, "error_along_the_track")) == 2
     assert tracks_key is None or True

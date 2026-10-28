@@ -1,4 +1,4 @@
-"""The standard report: the ten standard outputs of `PACKAGE_PLAN.md`,
+"""The standard report: the eleven standard outputs of `PACKAGE_PLAN.md`,
 section 5, for one prediction.
 
 It reads states and targets. It imports no network and knows of none: the
@@ -16,9 +16,17 @@ same report scores a network, the exact scheme or the reference integrator.
    8  convergence                                  convergence.csv, validation_per_round.csv
    9  where the loss puts its weight               where_the_loss_puts_its_weight.csv
   10  cost                                         cost.csv
+  11  resolution against momentum                  resolution_per_momentum_band.csv
+                                                   resolution_against_momentum.png
 
 An output whose input is not given is left out, and the summary says so. It
 is never filled with a placeholder.
+
+Output 11, the resolution. |predicted - reference| per component, for the
+endpoint error and, when separate steps are given, for the single-step error,
+against the total momentum p. The table holds the median and the 16th and 84th percentiles per band; the
+figures are two-dimensional histograms with those percentiles drawn over
+them. See `resolution.py`.
 
 Output 9, where the loss puts its weight. For every state of a draw the loss
 has a value, the mean of its squared weighted residuals. The share of a state
@@ -35,7 +43,7 @@ import os
 
 import numpy as np
 
-from rkpinn.evaluation import conventions, convergence, endpoint_error
+from rkpinn.evaluation import conventions, convergence, endpoint_error, resolution
 from rkpinn.evaluation.error_along_the_track import error_along_the_track, single_step_error
 from rkpinn.evaluation.three_references import three_references
 
@@ -78,6 +86,7 @@ def standard_report(*, name, momentum_gev, momentum_window_gev,
     """The tables of the standard report.
 
     name                      how the prediction is named: by steps, stages and step length
+    momentum_gev              shape (n,): the total momentum p of each track
     states_on_planes          shape (n, S + 1, 5): the prediction on the first plane
                               and at the end of every step
     reference_states_on_planes  the reference on the same planes
@@ -163,8 +172,51 @@ def standard_report(*, name, momentum_gev, momentum_window_gev,
     else:
         left_out.append("10, cost: not given")
 
+    tables["resolution_per_momentum_band"] = resolution_per_momentum_band(
+        end, reference_end, momentum_gev, momentum_window_gev, single_steps)
+    for row in tables["resolution_per_momentum_band"]:
+        if row["band"] == conventions.ALL_MOMENTA:
+            summary["%s_resolution_%s_median" % (row["kind_of_error"].replace(" ", "_"),
+                                                 row["component"].replace(" ", "_"))] = \
+                row["resolution_median"]
+    if single_steps is None:
+        left_out.append("11, the single-step resolution: no separate steps were given; "
+                        "the endpoint resolution is in the table")
+
     summary["outputs_left_out"] = left_out
     return {"tables": tables, "summary": summary}
+
+
+# ----------------------------------------------------------------- output 11
+def _errors_for_the_resolution(end, reference_end, momentum_gev, single_steps):
+    """[(kind of error, predicted, reference, momentum of each row)]: the
+    endpoint error, then the single-step error when separate steps are given."""
+    out = [(resolution.ENDPOINT, end, reference_end, momentum_gev)]
+    if single_steps is not None:
+        ends = np.asarray(single_steps["end_states"])
+        out.append((resolution.SINGLE_STEP, ends, single_steps["reference_after_the_step"],
+                    resolution.momentum_of_each_single_step(momentum_gev, len(ends))))
+    return out
+
+
+def resolution_per_momentum_band(end, reference_end, momentum_gev, momentum_window_gev,
+                                 single_steps):
+    """The table of output 11: one row per kind of error, band and component."""
+    rows = []
+    for kind, predicted, reference, p in _errors_for_the_resolution(
+            end, reference_end, momentum_gev, single_steps):
+        rows += resolution.resolution_per_momentum_band(
+            predicted, reference, p, kind, momentum_window_gev)
+    return rows
+
+
+def histograms_of_resolution(end, reference_end, momentum_gev, single_steps,
+                             number_of_bins):
+    """The histograms of output 11 for the figure: {kind of error: what
+    `resolution.histograms_of_resolution` returns}."""
+    return {kind: resolution.histograms_of_resolution(predicted, reference, p, number_of_bins)
+            for kind, predicted, reference, p in _errors_for_the_resolution(
+                end, reference_end, momentum_gev, single_steps)}
 
 
 # --------------------------------------------------------------------- writing
@@ -206,8 +258,14 @@ def write_report(report: dict, folder: str) -> list:
     return written
 
 
-def write_figures(report: dict, folder: str, histograms=None) -> list:
+def write_figures(report: dict, folder: str, histograms=None,
+                  histograms_of_the_resolution=None) -> list:
     """The figures of the report, as PNG files in a folder that exists.
+
+    histograms                     what `endpoint_error.histograms_of_signed_error` returned
+    histograms_of_the_resolution   what `histograms_of_resolution` returned: one
+                                   row of panels per kind of error and one panel
+                                   per component
 
     Every figure names the prediction by its steps, stages and step length,
     and says whether the error is an endpoint error or a single-step error.
@@ -291,4 +349,49 @@ def write_figures(report: dict, folder: str, histograms=None) -> list:
         axis.set_title("Stage errors, held and carried to the last plane\n%s" % name)
         axis.legend()
         save(figure, "stage_errors_held_and_carried.png")
+
+    if histograms_of_the_resolution:
+        written += write_figure_of_the_resolution(name, folder, histograms_of_the_resolution)
     return written
+
+
+def write_figure_of_the_resolution(name: str, folder: str, histograms_of_the_resolution) -> list:
+    """The figure of output 11, resolution_against_momentum.png: one row of
+    panels per kind of error, one panel per component, the resolution of
+    every track against p as a two-dimensional histogram with the median and
+    the 16th and 84th percentiles per bin of p drawn over it.
+
+    histograms_of_the_resolution   what `histograms_of_resolution` returned
+    """
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.colors
+    import matplotlib.pyplot as plt
+
+    by_kind = histograms_of_the_resolution
+    kinds = [kind for kind in resolution.KINDS_OF_ERROR if kind in by_kind]
+    figure, axes = plt.subplots(len(kinds), 4, figsize=(15, 3.8 * len(kinds)),
+                                squeeze=False)
+    for row, kind in zip(axes, kinds):
+        for axis, (component, _, unit) in zip(row, conventions.COMPONENTS):
+            h = by_kind[kind][component]
+            counts = np.ma.masked_equal(h["counts"].T, 0)
+            axis.pcolormesh(h["momentum_edges_gev"], h["resolution_edges"], counts,
+                            cmap="Blues", norm=matplotlib.colors.LogNorm(), rasterized=True)
+            centres = h["momentum_centres_gev"]
+            axis.plot(centres, h["median"], color="k", lw=1.2, label="median")
+            axis.plot(centres, h["percentile_16"], color="k", lw=0.8, ls="--",
+                      label="16th and 84th percentiles")
+            axis.plot(centres, h["percentile_84"], color="k", lw=0.8, ls="--")
+            axis.set_xscale("log")
+            axis.set_yscale("log")
+            axis.set_xlabel("p [GeV]")
+            axis.set_ylabel("resolution in %s [%s]" % (component, unit))
+            axis.set_title("%s error, %s" % (kind, component))
+        row[0].legend(fontsize=7, loc="upper right")
+    figure.suptitle("Resolution |predicted - reference| against p\n%s" % name)
+    figure.tight_layout()
+    path = os.path.join(folder, "resolution_against_momentum.png")
+    figure.savefig(path, dpi=130)
+    plt.close(figure)
+    return [path]

@@ -58,7 +58,7 @@ One entry per component. Each holds what it is, its theory, its source and its g
 | Loss functions | the stage residual; unweighted; pooled; cost-weighted; supervised endpoint |
 | Targets | the reference state; the exact stage states; the Geant4-true state |
 | Data | the tracks on 257 planes |
-| Evaluation | the conventions; the ten standard outputs; stage errors held and carried |
+| Evaluation | the conventions; the eleven standard outputs; stage errors held and carried |
 | Defaults | the LHCb default configuration |
 
 ### 3.1 The problem
@@ -236,7 +236,7 @@ The mean squared difference between the predicted end state and the reference en
 
 Positions in micrometres. Slopes as dimensionless numbers. Momentum bands below 3, 3 to 8, 8 to 20, 20 to 50 and above 50 GeV, with the loss's own window as an extra row. An error is named as an **endpoint** error, after the whole chain, or a **single-step** error.
 
-#### The ten standard outputs
+#### The eleven standard outputs
 
 | # | Output |
 |---|---|
@@ -250,6 +250,7 @@ Positions in micrometres. Slopes as dimensionless numbers. Momentum bands below 
 | 8 | convergence |
 | 9 | where the loss puts its weight |
 | 10 | cost |
+| 11 | resolution \|predicted − reference\| per component against p, endpoint and single step |
 
 #### Stage errors, held and carried
 

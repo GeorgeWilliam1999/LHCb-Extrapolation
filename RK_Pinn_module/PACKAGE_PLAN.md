@@ -433,6 +433,7 @@ One command produces the same set of tables and figures for any run. A result th
 | 8 | Convergence | validation error per round, and the round the plateau rule held |
 | 9 | Where the loss puts its weight | share of the loss by momentum band and by quarter of the crossing |
 | 10 | Cost | time per track, and training time |
+| 11 | Resolution against momentum | $\lvert s_\mathrm{predicted} - s_\mathrm{reference}\rvert$ in $x$, $y$, $t_x$, $t_y$, endpoint and single step, as histograms against $p$ and a table per band (median, 16th and 84th percentiles). Added 2026-10-27 at George's request |
 
 ### 5.3 Stage errors, held and carried
 
@@ -542,7 +543,7 @@ sequenceDiagram
     F->>S: mark finished, release the lock
     E->>R: report for this run
     R->>S: read snapshots and tracks
-    R-->>E: the ten standard outputs
+    R-->>E: the eleven standard outputs
 ```
 
 ```mermaid
@@ -692,7 +693,7 @@ flowchart LR
 | 2 | track builder and loader; store layout; keys; the exact states written once into the store, on one machine | the tracks rebuilt by the package match the stored file; the exact states in the store are reproduced to the last bit |
 | 3 | the stage network, collect and sum, the self chain, the whole-crossing network, four losses | the five gates of section 3.3 pass for every loss |
 | 4 | one round trainer taking the loss from the configuration; snapshots; locking | a run stops, resumes, and refuses a second writer |
-| 5 | the ten standard outputs | run on an old run's stored states, they reproduce the paper's numbers |
+| 5 | the ten standard outputs (an eleventh, the resolution, was added on 2026-10-27) | run on an old run's stored states, they reproduce the paper's numbers |
 | 6 | one small network end to end | see section 11 |
 | 7 | the cards | each card builds and its numbers pass the number check |
 
@@ -852,7 +853,7 @@ A predicted track holds, for each step it covers, the input state of that step, 
 | A network that learns the whole chain in one output, later | all N steps at once, from one application. Each step's input is the collected sum of the step before |
 | A different network for each step, later | one step per network, in sequence |
 
-Because the loss reads only the predicted track, equations 19 and 20 apply unchanged to every row of that table. The same holds for all ten standard evaluation outputs.
+Because the loss reads only the predicted track, equations 19 and 20 apply unchanged to every row of that table. The same holds for all eleven standard evaluation outputs.
 
 ```mermaid
 flowchart LR
