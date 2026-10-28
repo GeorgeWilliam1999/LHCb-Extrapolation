@@ -1,0 +1,2 @@
+written: results/a9_bias_map_correlations.csv
+exit 0 : part_a.py a9

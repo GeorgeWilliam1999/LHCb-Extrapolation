@@ -1,0 +1,2 @@
+written: results/a2_binned_mean_of_e.csv
+exit 0 : part_a.py a2

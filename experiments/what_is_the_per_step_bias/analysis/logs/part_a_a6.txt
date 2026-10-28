@@ -1,0 +1,2 @@
+written: results/a6_cell_face_crossings.csv
+exit 0 : part_a.py a6

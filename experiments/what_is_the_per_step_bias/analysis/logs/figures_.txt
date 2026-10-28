@@ -1,0 +1,5 @@
+written: figures/along_the_track.png
+written: figures/a5_share_by_z.png
+written: figures/a7_toy_fit.png
+written: figures/c_variants.png
+exit 0 : figures.py

@@ -1,0 +1,3 @@
+written: results/a4_sign_structure_of_steps.csv
+written: results/a4_endpoint_along_and_across_the_bend.csv
+exit 0 : part_a.py a4

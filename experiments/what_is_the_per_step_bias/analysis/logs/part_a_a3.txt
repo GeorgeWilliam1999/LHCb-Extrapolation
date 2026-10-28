@@ -1,0 +1,3 @@
+written: results/a3_e_by_momentum_band.csv
+written: results/a3_power_of_q_over_p.csv
+exit 0 : part_a.py a3

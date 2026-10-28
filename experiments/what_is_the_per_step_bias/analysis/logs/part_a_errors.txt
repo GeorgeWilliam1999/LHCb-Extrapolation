@@ -1,0 +1,7 @@
+cached: 25dfa17ef168
+cached: 9cef9c160b7d
+cached: 49e5e2450eaa
+exact single steps, test: largest scaled residual 2.26e-13
+exact single steps, validation: largest scaled residual 2.27e-13
+exact single steps, training: largest scaled residual 2.27e-13
+exit 0 : part_a.py errors
