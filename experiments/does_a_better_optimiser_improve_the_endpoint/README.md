@@ -73,7 +73,26 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
 
 ## What was measured when the runs were submitted
 
-Filled in at submission.
+| | |
+|---|---|
+| Commit the runs train at | `53d158fb`, from the copy `/data/bfys/gscriven/rkpinn_code/53d158fb`; the package is unchanged since `3ec05291` |
+| Gates | on 2026-10-28, on `stbc-i1`: 488 passed, 2 failed. Both failures are in what a report of a network without stages, or of an old run, lists as left out: it now also lists output 11, the resolution per momentum band, and the two gates still expect the older list. They touch no component these runs use. The files of those gates and of the report were last changed at `e42b73d2`. On `stbc-i2` the farm-stop gate also failed, because its 300 s wait ran out before round 1 on the slow node; on `stbc-i1` it passed. Logs: `gates_2026-10-28*.log` in the logs folder |
+| Submitted | 2026-10-28 11:57 by the keeper, started on `stbc-i1`; clusters 6015202 to 6015211 in the order of `farm/runs.txt` |
+| First restarts on the farm | L-BFGS 73 to 85 s; the resumed self-scaled Broyden run `f4c86e05eafe` 224 s (round 4, restart 1) |
+| Logs of the farm and of the keeper | `/data/bfys/gscriven/rkpinn_farm_logs/does_a_better_optimiser_improve_the_endpoint` |
+
+| Cluster | Configuration | Run |
+|---|---|---|
+| 6015202 | `direct_states__lbfgs__seed_2.yaml` | `b6bd9570e6f2` |
+| 6015203 | `direct_states__lbfgs__seed_3.yaml` | `5cae49832580` |
+| 6015204 | `straight_line_per_track_scale__lbfgs__seed_2.yaml` | `dedaab236b3d` |
+| 6015205 | `straight_line_per_track_scale__lbfgs__seed_3.yaml` | `b68802fcce0e` |
+| 6015206 | `direct_states__self_scaled_broyden__seed_1.yaml` | `f4c86e05eafe` |
+| 6015207 | `direct_states__self_scaled_broyden__seed_2.yaml` | `c3a1aa54c6fe` |
+| 6015208 | `direct_states__self_scaled_broyden__seed_3.yaml` | `c19552a6831c` |
+| 6015209 | `straight_line_per_track_scale__self_scaled_broyden__seed_1.yaml` | `166cfc8cdfd6` |
+| 6015210 | `straight_line_per_track_scale__self_scaled_broyden__seed_2.yaml` | `3400f9c572ef` |
+| 6015211 | `straight_line_per_track_scale__self_scaled_broyden__seed_3.yaml` | `c8b210923994` |
 
 ## Findings
 
