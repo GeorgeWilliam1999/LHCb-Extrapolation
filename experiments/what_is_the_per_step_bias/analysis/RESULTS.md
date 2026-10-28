@@ -28,6 +28,7 @@
 4. A smooth function of the state does not predict e well. The best validation R² is 0.43. The "removable" criterion (R² ≥ 0.5) fails for every component of every run.
 5. The momentum bias of a toy fit is at most 1.1% of the hits-only momentum resolution. The criterion "bias matters" (≥ 10%) fails in every band. The bias does not matter after a fit.
 6. One fixed-point sweep, or one Newton step, of the stage equations from the network's stages gives the exact scheme: 0.145 to 0.147 um for all three runs, at 256 field calls. This passes the C.2/C.3 criterion. It is 7× better than RK4 at the same number of field calls.
+6b. Control (C.2b): without a network, one Newton step from straight-line stages also gives 0.133 um at 256 field calls. So with a Newton step the network adds nothing at 256 calls. With fixed-point sweeps only, the network saves one sweep: straight-line stages need 2 sweeps (384 calls) for 0.145 um, and give 1.67 um after 1 sweep (256 calls).
 7. At 128 field calls, no correction passes. The speed claim (≤ 1.08 um at 128 field + 64 network calls) is not kept.
 8. Weight averaging fails: 5.3 to 70 um. Output averaging helps by less than 2×.
 
@@ -297,6 +298,58 @@ What the corrections show:
 - **C.4.** The small network cannot learn the Newton change from the state: validation R² of x and y 0.03 to 0.08, of tx and ty -0.25 to 0.08 (A.1 finds the same for e). It makes every run worse.
 - **B.1.** Weight averaging breaks the network: the last 5 snapshots are not in one basin. Output averaging gives 1.1× to 1.5×, under the 2× bar, at 5× the cost.
 
+## C.2b Control: the same sweeps from stages without a network
+
+The same sweeps and Newton steps, from six starts. Field calls per track = 64 × (calls of the start + 2 per sweep or Newton step + 2 for the summed end). Straight line: Y_i = (x + tx c_i h, y + ty c_i h, tx, ty), no field call. Euler: Y_i = S0 + c_i h f(S0), 1 call a step. RK4: classic RK4 from z0 to each stage plane, 8 calls a step. A Newton step uses the field gradient with its 2 calls; a call with the gradient costs more than a call without it.
+
+Test endpoint radial median (um) and per band:
+
+| Start | Method | k | Field calls | Net calls | Endpoint | < 3 | 3–8 | 8–20 | 20–50 | > 50 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| network, straight per-track | sweeps | 0 | 128 | 64 | 1.831 | 4.94 | 2.10 | 1.44 | 1.21 | 1.89 |
+| | sweeps | 1 | 256 | 64 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.011 |
+| | sweeps | 2 | 384 | 64 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
+| | Newton | 1 | 256 | 64 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
+| network, straight global | sweeps | 0 | 128 | 64 | 2.039 | 7.42 | 3.21 | 1.31 | 1.30 | 0.65 |
+| | sweeps | 1 | 256 | 64 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
+| | Newton | 1 | 256 | 64 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
+| network, direct states | sweeps | 0 | 128 | 64 | 5.705 | 21.67 | 8.75 | 3.54 | 2.96 | 3.24 |
+| | sweeps | 1 | 256 | 64 | 0.145 | 0.67 | 0.25 | 0.087 | 0.035 | 0.011 |
+| | Newton | 1 | 256 | 64 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
+| straight line (no field) | sweeps | 0 | 128 | 0 | 7020 | 22369 | 10171 | 3690 | 1702 | 645 |
+| | sweeps | 1 | 256 | 0 | 1.665 | 37.96 | 4.95 | 0.27 | 0.020 | 0.010 |
+| | sweeps | 2 | 384 | 0 | 0.145 | 0.63 | 0.25 | 0.085 | 0.035 | 0.012 |
+| | Newton | 1 | 256 | 0 | 0.133 | 0.57 | 0.23 | 0.085 | 0.035 | 0.012 |
+| | Newton | 2 | 384 | 0 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
+| Euler predictor | sweeps | 0 | 192 | 0 | 5.450 | 22.83 | 8.43 | 2.91 | 1.29 | 0.49 |
+| | sweeps | 1 | 320 | 0 | 0.148 | 0.68 | 0.26 | 0.087 | 0.035 | 0.011 |
+| | Newton | 1 | 320 | 0 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
+| RK4 predictor | sweeps | 0 | 640 | 0 | 0.145 | 0.63 | 0.24 | 0.085 | 0.035 | 0.011 |
+| | sweeps | 1 | 768 | 0 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
+
+Every start reaches 0.147 um with 3 and 5 sweeps and with 2 Newton steps (full rows in `results/c2_control_endpoint.csv`).
+
+Stage error of one step from the reference state, against the exact stages: median over steps of the largest stage error, position (um) / slope (urad).
+
+| Start | k = 0 | 1 sweep | 2 sweeps | 3 sweeps | 1 Newton step |
+|---|---|---|---|---|---|
+| network, straight per-track | 0.221 / 1.34 | 0.0458 / 2.9e-4 | 8.3e-6 / 1.0e-6 | 2.0e-8 / 2.8e-10 | 5.7e-11 / 2.1e-9 |
+| network, straight global | 0.885 / 2.11 | 0.0692 / 4.6e-4 | 1.2e-5 / 1.5e-6 | 2.9e-8 / 3.6e-10 | 1.1e-10 / 5.1e-9 |
+| network, direct states | 10.6 / 9.4 | 0.308 / 2.7e-3 | 7.7e-5 / 6.2e-6 | 1.5e-7 / 2.0e-9 | 2.8e-9 / 1.2e-7 |
+| straight line (no field) | 59.1 / 1850 | 59.1 / 0.476 | 0.0111 / 3.3e-4 | 5.6e-6 / 1.7e-7 | 5.9e-5 / 3.5e-3 |
+| Euler predictor | 59.1 / 22.6 | 0.528 / 4.5e-3 | 7.7e-5 / 2.7e-6 | 2.5e-8 / 6.7e-10 | 6.4e-9 / 4.7e-7 |
+| RK4 predictor | 0.0487 / 0.0357 | 6.9e-4 / 5.3e-6 | 2.1e-7 / 1.1e-8 | 3.7e-10 / 8.7e-12 | 0 / 0 |
+
+The reading:
+
+- A sweep cuts the slope error of the stages by a factor 1e-3 to 1e-4. The position error follows one sweep later, because a sweep builds the stage positions from the old stage slopes. From the straight line the first sweep therefore leaves the position error at 59 um; the second sweep removes it.
+- The endpoint needs the stage slopes right, not the stage positions: 1 sweep from the network, with stage positions still 0.05 to 0.3 um off, already gives 0.147 um.
+- At 256 field calls with sweeps only, the network matters: 0.147 um against 1.67 um from the straight line (11×). A network-free start reaches 0.147 um at 320 calls (Euler + 1 sweep) or 384 calls (straight line + 2 sweeps).
+- At 256 field calls with a Newton step, the network adds nothing: one Newton step from the straight line gives 0.133 um (not converged, so lucky by 10%; under 2×, not a claim). The Newton step needs the gradient of the field.
+- The Euler start with no sweep gives 5.45 um at 192 field calls and no network. That is as good as the direct-states network alone (5.71 um at 128 field calls + 64 network calls).
+
+Figure: `figures/c2_control.png` (left panel: a point at 1e-9 um is an error of zero to rounding). Tables: `results/c2_control_endpoint.csv`, `results/c2_control_stage_error.csv`. Script: `control_c2.py`.
+
 ## Decision point
 
 | Question | Answer | Evidence |
@@ -306,6 +359,7 @@ What the corrections show:
 | Is it removable by a smooth model? | No. Best validation R² 0.43. | A.1, C.4 |
 | Which Part B item does it point to? | The plan maps a private bias to B.1. B.1 weight averaging fails here. Output averaging and a seed ensemble give under 2× at M× the cost. The shared slope part is the scheme's own error, so B.3 and B.5 (aimed at cell faces) cannot improve on the exact scheme. No shared bias elsewhere, so B.4 has no target. | A.6, A.9, B.1 |
 | What removes the error? | One fixed-point sweep of the stage equations at inference (C.2): every run gives the exact scheme, 0.147 um, at 256 field calls. | C.2, C.3 |
+| Does the network matter for that? | With sweeps only, yes: it saves one sweep (0.147 um at 256 calls against 1.67 um from the straight line; a network-free start needs 320–384 calls). With one Newton step, no: the straight line gives 0.133 um at 256 calls. | C.2b |
 
 By the plan's own rule, A.7 says stop and write up. The open choice is George's: accept 256 field calls with one sweep (exact-scheme accuracy for either form), or keep 128 field calls and accept the plain error.
 

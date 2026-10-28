@@ -27,6 +27,7 @@ The scripts, tables and figures of the per-step bias study. They read the store 
 | `seeds.py common` / `seeds.py last` | A.8 bias maps of other seeds | `results/a8_seed_correlations_<mode>.csv` |
 | `part_bc.py references` | the exact scheme and RK4 at 64 steps | `results/c_comparators.csv` |
 | `part_bc.py variants <key>` | B.1 and C.1 to C.4 for one run | `results/c_variants_<key>.csv` |
+| `control_c2.py` | C.2b control: sweeps and Newton steps from stages without a network | `results/c2_control_*.csv`, `figures/c2_control.png` |
 | `figures.py` | the figures of the note | `figures/*.png` |
 | `logs/` | what each script printed | — |
 
@@ -44,6 +45,7 @@ for s in a1 a2 a3 a4 reconcile a5 a6 a9; do $PY part_a.py $s; done
 $PY toy_fit.py fit; $PY seeds.py common
 $PY part_bc.py references
 for k in 25dfa17ef168 9cef9c160b7d 49e5e2450eaa; do $PY part_bc.py variants $k; done
+$PY control_c2.py
 $PY figures.py
 ```
 

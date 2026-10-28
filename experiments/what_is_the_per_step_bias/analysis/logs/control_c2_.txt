@@ -1,0 +1,47 @@
+exact stages, largest residual 2.3e-13
+network, straight line per-track sweeps 0 128 1.8310 stage pos 0.221 um
+network, straight line per-track sweeps 1 256 0.1467 stage pos 0.0458 um
+network, straight line per-track sweeps 2 384 0.1465 stage pos 8.25e-06 um
+network, straight line per-track sweeps 3 512 0.1465 stage pos 2e-08 um
+network, straight line per-track sweeps 5 768 0.1465 stage pos 0 um
+network, straight line per-track Newton steps 1 256 0.1465 stage pos 5.68e-11 um
+network, straight line per-track Newton steps 2 384 0.1465 stage pos 0 um
+network, straight line global sweeps 0 128 2.0393 stage pos 0.885 um
+network, straight line global sweeps 1 256 0.1470 stage pos 0.0692 um
+network, straight line global sweeps 2 384 0.1465 stage pos 1.18e-05 um
+network, straight line global sweeps 3 512 0.1465 stage pos 2.9e-08 um
+network, straight line global sweeps 5 768 0.1465 stage pos 0 um
+network, straight line global Newton steps 1 256 0.1465 stage pos 1.14e-10 um
+network, straight line global Newton steps 2 384 0.1465 stage pos 0 um
+network, direct states sweeps 0 128 5.7052 stage pos 10.6 um
+network, direct states sweeps 1 256 0.1454 stage pos 0.308 um
+network, direct states sweeps 2 384 0.1465 stage pos 7.66e-05 um
+network, direct states sweeps 3 512 0.1465 stage pos 1.48e-07 um
+network, direct states sweeps 5 768 0.1465 stage pos 0 um
+network, direct states Newton steps 1 256 0.1465 stage pos 2.81e-09 um
+network, direct states Newton steps 2 384 0.1465 stage pos 0 um
+straight line (no field) sweeps 0 128 7020.4552 stage pos 59.1 um
+straight line (no field) sweeps 1 256 1.6655 stage pos 59.1 um
+straight line (no field) sweeps 2 384 0.1450 stage pos 0.0111 um
+straight line (no field) sweeps 3 512 0.1465 stage pos 5.59e-06 um
+straight line (no field) sweeps 5 768 0.1465 stage pos 0 um
+straight line (no field) Newton steps 1 256 0.1332 stage pos 5.94e-05 um
+straight line (no field) Newton steps 2 384 0.1465 stage pos 0 um
+Euler predictor sweeps 0 192 5.4496 stage pos 59.1 um
+Euler predictor sweeps 1 320 0.1484 stage pos 0.528 um
+Euler predictor sweeps 2 448 0.1465 stage pos 7.73e-05 um
+Euler predictor sweeps 3 576 0.1465 stage pos 2.46e-08 um
+Euler predictor sweeps 5 832 0.1465 stage pos 0 um
+Euler predictor Newton steps 1 320 0.1465 stage pos 6.41e-09 um
+Euler predictor Newton steps 2 448 0.1465 stage pos 0 um
+RK4 predictor sweeps 0 640 0.1445 stage pos 0.0487 um
+RK4 predictor sweeps 1 768 0.1465 stage pos 0.000687 um
+RK4 predictor sweeps 2 896 0.1465 stage pos 2.09e-07 um
+RK4 predictor sweeps 3 1024 0.1465 stage pos 3.69e-10 um
+RK4 predictor sweeps 5 1280 0.1465 stage pos 0 um
+RK4 predictor Newton steps 1 768 0.1465 stage pos 0 um
+RK4 predictor Newton steps 2 896 0.1465 stage pos 0 um
+written: results/c2_control_endpoint.csv
+written: results/c2_control_stage_error.csv
+written: figures/c2_control.png
+exit 0 : control_c2.py
