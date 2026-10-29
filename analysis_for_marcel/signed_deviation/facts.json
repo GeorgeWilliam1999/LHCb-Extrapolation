@@ -1,0 +1,98 @@
+{
+ "9cef9c160b7d": {
+  "round": 22,
+  "n_tracks": 1452,
+  "n_single_steps": 92928,
+  "planes_mm_first": 2648.2,
+  "planes_mm_last": 7826.0,
+  "number_of_stored_planes": 257,
+  "step_length_mm": 80.903125,
+  "start_planes_first_last": [
+   2648.2,
+   7745.096875
+  ],
+  "reference_plane_indices_first_last": [
+   0,
+   256
+  ],
+  "number_of_steps": 64,
+  "endpoint_median_abs_x_um": 1.3975479158716553,
+  "endpoint_median_abs_y_um": 1.0011263494273948,
+  "stored_median_x_y": [
+   1.4,
+   1.0
+  ],
+  "n_positive": 739,
+  "n_negative": 713,
+  "n_zero": 0,
+  "max_rel_diff_p_vs_qop": 1.0450169352083094e-07,
+  "qop_conserved_on_last_plane": 0.0,
+  "p_min": 1.732627511024475,
+  "p_max": 143.40879821777344,
+  "n_below_2_gev": 5
+ },
+ "25dfa17ef168": {
+  "round": 44,
+  "n_tracks": 1452,
+  "n_single_steps": 92928,
+  "planes_mm_first": 2648.2,
+  "planes_mm_last": 7826.0,
+  "number_of_stored_planes": 257,
+  "step_length_mm": 80.903125,
+  "start_planes_first_last": [
+   2648.2,
+   7745.096875
+  ],
+  "reference_plane_indices_first_last": [
+   0,
+   256
+  ],
+  "number_of_steps": 64,
+  "endpoint_median_abs_x_um": 1.2574798023265998,
+  "endpoint_median_abs_y_um": 0.8610826023129903,
+  "stored_median_x_y": [
+   1.26,
+   0.86
+  ],
+  "n_positive": 739,
+  "n_negative": 713,
+  "n_zero": 0,
+  "max_rel_diff_p_vs_qop": 1.0450169352083094e-07,
+  "qop_conserved_on_last_plane": 0.0,
+  "p_min": 1.732627511024475,
+  "p_max": 143.40879821777344,
+  "n_below_2_gev": 5
+ },
+ "49e5e2450eaa": {
+  "round": 59,
+  "n_tracks": 1452,
+  "n_single_steps": 92928,
+  "planes_mm_first": 2648.2,
+  "planes_mm_last": 7826.0,
+  "number_of_stored_planes": 257,
+  "step_length_mm": 80.903125,
+  "start_planes_first_last": [
+   2648.2,
+   7745.096875
+  ],
+  "reference_plane_indices_first_last": [
+   0,
+   256
+  ],
+  "number_of_steps": 64,
+  "endpoint_median_abs_x_um": 3.7176697700260775,
+  "endpoint_median_abs_y_um": 2.8068192915355894,
+  "stored_median_x_y": [
+   3.72,
+   2.81
+  ],
+  "n_positive": 739,
+  "n_negative": 713,
+  "n_zero": 0,
+  "max_rel_diff_p_vs_qop": 1.0450169352083094e-07,
+  "qop_conserved_on_last_plane": 0.0,
+  "p_min": 1.732627511024475,
+  "p_max": 143.40879821777344,
+  "n_below_2_gev": 5
+ }
+}
