@@ -1,6 +1,6 @@
 # Analysis
 
-**Last updated:** 2026-10-28
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -19,6 +19,9 @@ The scripts, tables and figures of Parts A and B. They read the store, the field
 | `timing.py run` | the time of each part of a step (CPU, torch); `THREADS` sets the threads | `results/timing_threads_<n>.csv` |
 | `figures.py` | the figures, from the tables | `figures/b_endpoint_by_band.png`, `figures/b_low_momentum_track.png` |
 | `run_one_step.sh` | runs one step from this folder and writes its log | `logs/` |
+| `part_c_smoke.sh <store>` | Part C smoke run: C1a and C2 on the frozen per-track straight-line network, a small draw, 3 rounds, and the standard report of each; into a scratch store | the scratch store; `logs/part_c_smoke.txt` |
+| `part_c_smoke_configurations/` | the two configurations of the smoke run (each a package default with 4,000 states, 5 restarts of 100 iterations, 3 rounds) | — |
+| `part_c_smoke.md` | the numbers of the smoke run | — |
 
 ## How to run
 

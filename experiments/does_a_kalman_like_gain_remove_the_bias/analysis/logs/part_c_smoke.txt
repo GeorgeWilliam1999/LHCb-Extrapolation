@@ -1,0 +1,50 @@
+== c1a_learned_gain, run 61aba2432fcc, 2026-11-03 21:36:33
+run 61aba2432fcc: checks before training passed {'loss_at_the_exact_solution': 2.305919258192334e-37, 'loss_before_training_on_first_round_states': 1.2457070828301267e-12}
+  run 61aba2432fcc round 1 restart 1: loss 1.2457e-12 -> 3.0968e-13 (gain +7.51e-01), 100 iterations, 3 s
+  run 61aba2432fcc round 1 restart 2: loss 3.0968e-13 -> 2.4224e-13 (gain +2.18e-01), 100 iterations, 4 s
+  run 61aba2432fcc round 1 restart 3: loss 2.4224e-13 -> 2.0889e-13 (gain +1.38e-01), 100 iterations, 4 s
+  run 61aba2432fcc round 1 restart 4: loss 2.0889e-13 -> 1.8958e-13 (gain +9.24e-02), 100 iterations, 4 s
+  run 61aba2432fcc round 1 restart 5: loss 1.8958e-13 -> 1.6016e-13 (gain +1.55e-01), 100 iterations, 4 s
+run 61aba2432fcc ROUND 1 done (reference states): 5 restarts, loss 1.2457e-12 -> 1.6016e-13, validation 1.4 um
+  run 61aba2432fcc round 2 restart 1: loss 8.1370e-12 -> 4.1350e-13 (gain +9.49e-01), 100 iterations, 3 s
+  run 61aba2432fcc round 2 restart 2: loss 4.1350e-13 -> 3.6420e-13 (gain +1.19e-01), 100 iterations, 3 s
+  run 61aba2432fcc round 2 restart 3: loss 3.6420e-13 -> 3.2590e-13 (gain +1.05e-01), 100 iterations, 4 s
+  run 61aba2432fcc round 2 restart 4: loss 3.2590e-13 -> 3.1297e-13 (gain +3.97e-02), 100 iterations, 4 s
+  run 61aba2432fcc round 2 restart 5: loss 3.1297e-13 -> 2.9204e-13 (gain +6.69e-02), 100 iterations, 4 s
+run 61aba2432fcc ROUND 2 done (own predictions): 5 restarts, loss 8.1370e-12 -> 2.9204e-13, validation 1.4 um
+  run 61aba2432fcc round 3 restart 1: loss 2.8841e-12 -> 4.1315e-13 (gain +8.57e-01), 100 iterations, 3 s
+  run 61aba2432fcc round 3 restart 2: loss 4.1315e-13 -> 3.3197e-13 (gain +1.96e-01), 100 iterations, 4 s
+  run 61aba2432fcc round 3 restart 3: loss 3.3197e-13 -> 3.0195e-13 (gain +9.04e-02), 100 iterations, 5 s
+  run 61aba2432fcc round 3 restart 4: loss 3.0195e-13 -> 2.6282e-13 (gain +1.30e-01), 100 iterations, 4 s
+  run 61aba2432fcc round 3 restart 5: loss 2.6282e-13 -> 2.4805e-13 (gain +5.62e-02), 100 iterations, 3 s
+run 61aba2432fcc ROUND 3 done (own predictions): 5 restarts, loss 2.8841e-12 -> 2.4805e-13, validation 1.4 um
+run 61aba2432fcc: at its cap after 3 rounds
+61aba2432fcc: carried 1452 tracks of the test split
+61aba2432fcc: stage errors of 200 tracks held and carried; check {'sum_against_final_minus_carried_start_largest_micrometres': 0.0, 'sum_against_measured_endpoint_error_largest_micrometres': 0.0011321926649543457, 'sum_against_measured_endpoint_error_largest_slope': 4.057580937910643e-10, 'carried_start_against_stored_reference_largest_micrometres': 0.0011321926649543457, 'measured_endpoint_error_in_x_median_of_absolute_micrometres': 0.893682774709248, 'step_length_of_the_carrying_mm': 1.0, 'number_of_tracks': 200}
+61aba2432fcc: report written to reports/round_0003_at_2ccd1916
+== c2_error_conditioned, run 8a64dfa936fa, 2026-11-03 21:43:35
+run 8a64dfa936fa: checks before training passed {'loss_at_the_exact_solution': 3.564270168995494e-34, 'loss_before_training_on_first_round_states': 4.410236544095691e-09}
+  run 8a64dfa936fa round 1 restart 1: loss 4.4102e-09 -> 2.2875e-09 (gain +4.81e-01), 100 iterations, 6 s
+  run 8a64dfa936fa round 1 restart 2: loss 2.2875e-09 -> 2.2702e-09 (gain +7.54e-03), 100 iterations, 7 s
+  run 8a64dfa936fa round 1 restart 3: loss 2.2702e-09 -> 2.2608e-09 (gain +4.17e-03), 100 iterations, 7 s
+  run 8a64dfa936fa round 1 restart 4: loss 2.2608e-09 -> 2.2553e-09 (gain +2.43e-03), 100 iterations, 7 s
+  run 8a64dfa936fa round 1 restart 5: loss 2.2553e-09 -> 2.2519e-09 (gain +1.51e-03), 100 iterations, 7 s
+run 8a64dfa936fa ROUND 1 done (reference states): 5 restarts, loss 4.4102e-09 -> 2.2519e-09, validation 1.3 um
+  run 8a64dfa936fa round 2 restart 1: loss 1.8386e-07 -> 1.2095e-08 (gain +9.34e-01), 100 iterations, 6 s
+  run 8a64dfa936fa round 2 restart 2: loss 1.2095e-08 -> 1.2020e-08 (gain +6.23e-03), 100 iterations, 6 s
+  run 8a64dfa936fa round 2 restart 3: loss 1.2020e-08 -> 1.2005e-08 (gain +1.24e-03), 100 iterations, 7 s
+  run 8a64dfa936fa round 2 restart 4: loss 1.2005e-08 -> 1.2000e-08 (gain +3.87e-04), 100 iterations, 7 s
+  run 8a64dfa936fa round 2 restart 5: loss 1.2000e-08 -> 1.1998e-08 (gain +2.44e-04), 100 iterations, 7 s
+run 8a64dfa936fa ROUND 2 done (own predictions): 5 restarts, loss 1.8386e-07 -> 1.1998e-08, validation 1.3 um
+  run 8a64dfa936fa round 3 restart 1: loss 2.3895e-08 -> 3.7178e-09 (gain +8.44e-01), 100 iterations, 6 s
+  run 8a64dfa936fa round 3 restart 2: loss 3.7178e-09 -> 3.6931e-09 (gain +6.64e-03), 100 iterations, 7 s
+  run 8a64dfa936fa round 3 restart 3: loss 3.6931e-09 -> 3.6834e-09 (gain +2.63e-03), 100 iterations, 7 s
+  run 8a64dfa936fa round 3 restart 4: loss 3.6834e-09 -> 3.6772e-09 (gain +1.66e-03), 100 iterations, 7 s
+  run 8a64dfa936fa round 3 restart 5: loss 3.6772e-09 -> 3.6730e-09 (gain +1.15e-03), 100 iterations, 7 s
+run 8a64dfa936fa ROUND 3 done (own predictions): 5 restarts, loss 2.3895e-08 -> 3.6730e-09, validation 1.3 um
+run 8a64dfa936fa: at its cap after 3 rounds
+8a64dfa936fa: carried 1452 tracks of the test split
+8a64dfa936fa: stage errors of 200 tracks held and carried; check {'sum_against_final_minus_carried_start_largest_micrometres': 0.0, 'sum_against_measured_endpoint_error_largest_micrometres': 0.0011321926649543457, 'sum_against_measured_endpoint_error_largest_slope': 4.057580937910643e-10, 'carried_start_against_stored_reference_largest_micrometres': 0.0011321926649543457, 'measured_endpoint_error_in_x_median_of_absolute_micrometres': 0.8401150520001011, 'step_length_of_the_carrying_mm': 1.0, 'number_of_tracks': 200}
+8a64dfa936fa: report written to reports/round_0003_at_2ccd1916
+== done 2026-11-03 21:51:22
+EXIT 0
