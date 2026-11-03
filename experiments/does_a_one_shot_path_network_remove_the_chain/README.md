@@ -1,12 +1,12 @@
 # Does a one-shot path network remove the chain?
 
-**Last updated:** 2026-11-03 · **State:** planned, not agreed · **Agreed with George:** not yet
+**Last updated:** 2026-11-03 · **State:** agreed; stage 0 running · **Agreed with George:** 2026-11-03 22:10, as an exploratory study
 
 ## What this directory is
 
 An experiment of the package `rkpinn`. One network call emits the whole crossing of a track at once: every stage state and every plane state of the 64-step layout. One Newton sweep of the stage equations, applied to all stages in parallel, then corrects it. The experiment measures what the one-shot network reaches alone, what the sweep adds, and what either costs per event against the chained network.
 
-The idea and its equations are in the assessment of 3 Nov 2026 (section 7 of "A global phase-space map from UT to SciFi"). Everything here waits for George's agreement.
+The idea and its equations are in the assessment of 3 Nov 2026 (section 7 of "A global phase-space map from UT to SciFi"). George agreed on 2026-11-03: exploratory, not the main point.
 
 ## Contents
 
@@ -105,7 +105,8 @@ All additions follow WORKFLOW.md section 6: a registered component, a README lin
 
 | # | Component | File | What it does | Gates |
 |---|---|---|---|---|
-| 1 | target `reference_path` | `targets/reference_path.py` | labels of shape (n, 64, 3, 4): the exact-scheme stage states and the reference plane states for the layout; `can_be_trained_on = True` | shape; equals the stored exact states; refuses a layout the store lacks |
+| 1 | target `reference_path` | `targets/reference_path.py` | labels of shape (n, 64, 3, 4): the exact-scheme stage states and plane states for the layout; `can_be_trained_on = True`; declares `needs_layout` | shape; equals the stored exact states; refuses a layout the store lacks |
+| 1b | `exact_states --keep-stages` and `read_exact_states_with_stages` | `track_data/exact_states.py` | the exact scheme's stage states kept beside its plane states, for the training and validation splits too (the store holds the test split only) | round trip through the store |
 | 2 | network `path_network` | `networks/path_network.py` | body 5 to 64 x 3 x 4 outputs; output form applied per state; `predict` fills a `PredictedTrack` with `layout` set and `end_state_was = predicted`; `whole_track` is `predict`; `has_stages = True`; a flag `trains_on_start_states = True` so the start-state protocol accepts it | shapes; same seed gives the same weights twice; a straight-line output form at zero weights gives the straight line |
 | 3 | loss `supervised_path` | `losses/supervised_path.py` | mean over states and components of squared error divided by the spread per component; `needs_labels = True`; setting `uncertainty: none` or `diagonal`; with `diagonal` the network has 64 x 4 more outputs and the loss is the Gaussian negative log-likelihood | value on a known pair; the Gaussian loss at the right sigma is lower than at a wrong one |
 | 4 | `training_protocols.start_states_of_the_tracks` | one line | accepts a network with `trains_on_start_states` | existing gate extended |
@@ -113,6 +114,8 @@ All additions follow WORKFLOW.md section 6: a registered component, a README lin
 | 6 | `report_of_a_run --with-one-sweep` | option | the standard report, then the same tables after one sweep, with the counts | report runs on a small path run |
 | 7 | `evaluation/time_per_event.py` | new | times chain, path, path + sweep, Euler + sweep and RK4 on batches of 100 tracks, CPU, with the same code paths the reports use; GPU column only if a GPU node is available | runs; prints a table |
 | 8 | `equation_of_motion/toy_dipole.py` (optional) | new | the toy dipole of the assessment as a registered field, for gates that run without CVMFS | field at known points |
+
+Drafts of items 1, 2, 3 and 5 were written in the cloud on 2026-11-03 off GitHub `184cf50e` (branch `claude/project-thread-0pnl3r`); they are untested until ported onto the stbc checkout and gated there. Lines the trainer needs: a target that declares `needs_layout` is built with the layout; the start-state protocol accepts a network that declares `trains_on_start_states`; `context.scale` learns `spread_of_target_states`; PredictedTrack gets an optional `extra_outputs` attribute for the Gaussian loss.
 
 Expected size: about 600 lines of package code and 300 lines of gates. One day of work on stbc, then the 505 gates plus the new ones must pass before any run.
 
