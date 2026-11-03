@@ -1,6 +1,6 @@
 # Experiments
 
-**Last updated:** 2026-09-30
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -11,6 +11,7 @@ The experiments made with the package `rkpinn`, one folder each. An experiment i
 | Name | What it does | State |
 |---|---|---|
 | `README.md` | this file | built |
+| `does_a_one_shot_path_network_remove_the_chain/` | one supervised network call emits the whole 64-step path of a track; one parallel Newton sweep corrects it; against the chain on accuracy and cost per event | planned, not agreed |
 | `does_a_summed_end_state_train/` | the pilot: one network of 64 steps and 2 stages, trained with its end state summed from the stages and with its end state predicted | built |
 
 ## The contract
