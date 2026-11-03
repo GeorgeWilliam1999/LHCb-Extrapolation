@@ -1,6 +1,6 @@
 # Integrators
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -14,6 +14,7 @@ Numerical methods that need no network: the collocation scheme the networks are 
 | `__init__.py` | marks the directory as part of the package; it holds no code | built |
 | `gauss_legendre_tableau.py` | nodes, stage matrix and weights for any number of stages (`gauss_legendre_tableau`, `GaussLegendreTableau`), with the five identities that check them | built |
 | `exact_collocation.py` | the implicit stage equations solved with a root finder, one step (`solve_one_step`) or chained (`solve_whole_track`); this is the ceiling for a network | built |
+| `linearised_gain.py` | one Newton step of the stage equations mapped to the end of the step: the residual r, the Jacobians J at the stages, the gain K = dz (b^T (x) J)(I - dz A (x) J)^-1 and K r, with the arithmetic of the Part B script of the Kalman-like gain study (2026-11-03) | built |
 | `runge_kutta_sixth_order.py` | Butcher's seven-stage explicit method at a fixed step (`integrate_with_sixth_order`, `integrate_with_sixth_order_over_planes`); at 0.1 mm this is the reference | built |
 
 ## Where each file was ported from

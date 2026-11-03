@@ -1,6 +1,6 @@
 # Tests: the gates
 
-**Last updated:** 2026-10-28
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -39,6 +39,7 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_resolution.py` | output 11: the resolution is \|predicted - reference\| per component and the signed resolution is predicted - reference; its table per p band holds the median and 16th and 84th percentiles of exactly the tracks of the band; the histogram counts every track once; each single step takes the momentum of its track | built |
 | `test_literature_changes.py` | the four changes of 2026-10-23: one fixed draw keeps round 1 identical and later rounds on its tracks and planes; the best round is that of the lowest validation error; the refit of the last layer has the Jacobian of autograd, lowers the loss and touches only the last layer; the self-scaled Broyden update meets the secant equation, is BFGS at tau = phi = 1, and trains a run | built |
 | `test_bias_study_changes.py` | the two changes of 2026-10-28 (per-step bias study, Part B): residual draws keep round 1 and, with share 0, every round of `rounds_on_own_predictions`; they take states of larger residual; the z-face test; the bias term has its shapes, is zero for a residual of zero mean per bin, is the pooled loss to the last bit with share 0, and its lambda makes it the share of round 1 and is recorded; both train a run | built |
+| `test_learned_gain_and_error_conditioned_network.py` | the two networks of 2026-11-03 (Kalman-like gain study, Part C): the analytic gain equals that of the Part B script to the last bit; both networks have their shapes, start as the stage network, and give no correction for a residual of zero; the distilled loss is zero at K r and is its formula; the loss on both calls is the mean of two pooled losses; each configuration is read back to its key, trains, leaves the frozen network unchanged, resumes to the same weights, and reports its counts | built |
 | `test_a_run_on_the_farm.py` | a job stopped by the signal of the farm releases its lock and is resumed to the same run, to the last bit; a lock that is touched is never cleared; a lock left behind is cleared when the caller says | built |
 | `test_registry_turns_names_into_components.py` | every built component can be named; unknown names and kinds are refused | built |
 

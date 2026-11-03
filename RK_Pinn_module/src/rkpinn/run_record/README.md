@@ -1,6 +1,6 @@
 # The run record
 
-**Last updated:** 2026-09-30
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -15,7 +15,7 @@ What is recorded: the store and its keys, where a thing came from, the manifest 
 | `store.py` | the folders and files of the store; the key computed from content; refuses to overwrite; the location is an argument or the environment variable `RKPINN_STORE` | built |
 | `provenance.py` | the commit, the package version, the machine and its processor; refuses to write from uncommitted changes unless asked, and then records that the result cannot be traced | built |
 | `manifest.py` | the lists of track sets, of exact states and of runs in the store, and the metrics: the endpoint errors of a snapshot, computed again from its weights | built |
-| `report_of_a_run.py` | the standard report of a run, from one command: builds the network of the run, makes the predictions, hands states and targets to the evaluation, writes the tables and figures into the run | built |
+| `report_of_a_run.py` | the standard report of a run, from one command: builds the network of the run, makes the predictions, hands states and targets to the evaluation, writes the tables and figures into the run. Since 2026-11-03 the cost table also holds the network's `cost_per_step()`: field lookups, Jacobians, solves and network calls of one step | built |
 | `configuration.py` | the schema of a configuration file, its validation, the run key computed from it, and the difference of two configurations | built |
 
 ## The layout of the store

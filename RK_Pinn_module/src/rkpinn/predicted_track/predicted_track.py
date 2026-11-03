@@ -23,6 +23,10 @@ Shapes, with n rows, S steps per row and q stages:
     end_states        (n, S, 4)
     stage_rates       (n, S, q, 4)  or None: the rates at the stage states, kept
                                     when whoever filled the track had to compute them
+    first_call        a predicted track, or None: the track of the first call
+                                    of a network that is called twice a step
+                                    (networks/error_conditioned_stage_network.py),
+                                    for a loss on both calls. Added 2026-11-03
 
 Charge over momentum is conserved. It is in the input states and is carried
 unchanged, so the stage and end states hold four components.
@@ -56,6 +60,7 @@ class PredictedTrack:
     layout: Optional[TrackLayout] = None
     stage_rates: Any = None
     produced_by: str = ""
+    first_call: Any = None
 
     def __post_init__(self):
         if self.end_state_was not in WAYS_TO_FORM_THE_END_STATE:

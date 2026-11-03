@@ -1,6 +1,6 @@
 # The predicted track
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -13,7 +13,7 @@ The seam of the package. Every network, the exact scheme and the reference integ
 | `README.md` | this file | built |
 | `__init__.py` | marks the directory as part of the package; it holds no code | built |
 | `track_layout.py` | the planes of a track: first and last plane, number of steps, number of stages, and the stage planes of each step (`TrackLayout`) | built |
-| `predicted_track.py` | for each step: its input state, its stage states and its end state; and the final state of the track (`PredictedTrack`). Also the three functions by which the exact scheme and the reference integrator fill it | built |
+| `predicted_track.py` | for each step: its input state, its stage states and its end state; and the final state of the track (`PredictedTrack`). Since 2026-11-03 it may hold `first_call`, the track of the first call of a network called twice a step. Also the three functions by which the exact scheme and the reference integrator fill it | built |
 
 ## What a predicted track holds
 

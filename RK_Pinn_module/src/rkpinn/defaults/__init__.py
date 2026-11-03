@@ -20,6 +20,8 @@ DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 # changes its key, and the gate fails until this line is changed with it.
 THE_DEFAULTS = {
     "lhcb_64_steps_2_stages": "bddea42ea1ef",
+    "lhcb_64_steps_2_stages_learned_gain": "d986d2239b65",
+    "lhcb_64_steps_2_stages_error_conditioned": "b38147788963",
 }
 
 

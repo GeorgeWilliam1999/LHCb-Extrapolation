@@ -126,6 +126,8 @@ Every network is a tanh multilayer perceptron. They differ in three independent 
 
 Application: `carry` in chain_network.py applies one network N times. [apply_chain.py](../multi_network_chain_discrete_approach/Block_D_fixed_step_crossing/D1_Chain_grid/apply_chain.py) applies N different networks in sequence.
 
+Added in the package on 2026-11-03 (not part of the record above): `stage_network_with_a_learned_gain` and `error_conditioned_stage_network`, both built on a trained stage network of the package; their settings are in [src/rkpinn/networks/README.md](src/rkpinn/networks/README.md) and their theory in the cards of [docs/cards/](docs/cards/).
+
 ### A.3 Loss functions
 
 All label-free losses share one core, `reconstruction_residuals` in [model.py](../single_network_chain_discrete_approach/_shared/model.py). Each output must reconstruct the input through the implicit Runge–Kutta equations. The losses differ only in the weight applied to that residual.
@@ -138,6 +140,8 @@ All label-free losses share one core, `reconstruction_residuals` in [model.py](.
 | Cost-weighted, window from the run | the same, with the window read from the run's constants | none | [windowed_loss.py](../single_network_chain_discrete_approach/Block_G_low_momentum_window/G0_Weighting/windowed_loss.py) |
 | Supervised, stages and endpoint | mean squared error against reference stage and endpoint states | RK4 or RK6 | `data_loss` in model.py |
 | Supervised, scaled by the correction | mean squared error divided by the per-track correction scale | RK6 endpoint | `residual_data_loss` in chain_model.py |
+
+Added in the package on 2026-11-03: `distilled_analytic_gain` (the learned gain against the linearised gain K r, from Jacobians at the stages, no reference label) and `pooled_on_both_calls`; see [src/rkpinn/losses/README.md](src/rkpinn/losses/README.md).
 
 Every weighted loss has three standing gates: torch equals an independent numpy implementation, the unweighted mode reproduces the pooled loss to the last bit, and the exact collocation solution gives machine zero under every mode.
 

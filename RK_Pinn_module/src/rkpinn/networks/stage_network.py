@@ -209,6 +209,24 @@ class StageNetwork(torch.nn.Module):
         from rkpinn.networks.self_chain import whole_track
         return whole_track(self, states, layout)
 
+    def cost_per_step(self) -> dict:
+        """What one step costs at inference (added 2026-11-03). A predicted end
+        state needs no rate; the summed one needs f at the q stages. The
+        per-track scale of the straight-line form samples the field 16 times."""
+        from rkpinn.networks.output_forms import StraightLinePlusScaledCorrection
+        form = self.output_form
+        per_track = isinstance(form, StraightLinePlusScaledCorrection) and form.scale_is_per_track
+        return {
+            "field_lookups_per_step": (self.number_of_stages
+                                       if self.end_state == END_STATE_SUMMED else 0),
+            "field_lookups_of_the_output_scales_per_step": 16 if per_track else 0,
+            "jacobian_evaluations_per_step": 0,
+            "linear_solves_per_step": 0,
+            "calls_of_the_stage_network_per_step": 1,
+            "calls_of_the_small_network_per_step": 0,
+            "jacobian_evaluations_per_step_in_training": 0,
+        }
+
     def settings(self) -> dict:
         """What is needed, with the weights, to build this network again."""
         return {

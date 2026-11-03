@@ -1,6 +1,6 @@
 # Cards
 
-**Last updated:** 2026-10-22
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -12,6 +12,8 @@ One page per component. A card is written once and linked from every study that 
 |---|---|---|
 | `README.md` | this file | built |
 | `straight_line_plus_scaled_correction.md` | the output form of the frozen networks: the straight line plus a correction scaled per track or by fixed constants; its derivation, its scale, its gates | built |
+| `stage_network_with_a_learned_gain.md` | C1 of the Kalman-like gain study: the learned gain, the analytic gain it learns, its loss, its cost, the Kalman analogy | built |
+| `error_conditioned_stage_network.md` | C2 of the same study: a second call that reads the residual of the first and corrects the stages; its loss, its cost, how it differs from the paper | built |
 
 ## The contract
 

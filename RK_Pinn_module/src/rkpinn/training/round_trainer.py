@@ -94,6 +94,9 @@ class RunContext:
     first_round_states: np.ndarray
     first_round_start_planes_mm: np.ndarray
     first_round_labels: Optional[np.ndarray]
+    # the store the run reads from; a network built on a trained run reads
+    # that run's snapshot from it (networks/stage_network_of_a_run.py)
+    store: Optional[Store] = None
 
     def scale(self, value, number):
         """`number` constants, from their name or given outright."""
@@ -174,7 +177,7 @@ def build_run(configuration: dict, store: Store, recorded_constants=None) -> Run
     context = RunContext(seed=seed, equation_of_motion=differentiable, layout=layout,
                          first_round_states=first_round.states,
                          first_round_start_planes_mm=first_round.start_planes_mm,
-                         first_round_labels=first_round.labels)
+                         first_round_labels=first_round.labels, store=store)
 
     network_block = _without(configuration["network"], "kind")
     # the scale of the outputs is resolved by the output form, which may measure

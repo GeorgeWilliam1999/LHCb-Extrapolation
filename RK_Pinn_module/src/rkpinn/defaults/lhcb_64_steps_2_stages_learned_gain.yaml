@@ -1,0 +1,55 @@
+# The learned gain (C1a) on the LHCb default cell: a frozen stage network, and
+# a small network G whose 4 x 8 output matrix multiplies the stage residual r
+# to correct the summed end state. G is taught the linearised gain K r by the
+# loss distilled_analytic_gain, which needs Jacobians in training only.
+# Inference: 2 field lookups, 1 stage network call, 1 call of G a step.
+#
+# The stage network is the trained run 25dfa17ef168 at round 44: 64 steps of
+# 80.9 mm, 2 Gauss-Legendre stages, straight line plus a correction scaled per
+# track, end state summed, pooled loss, seed 1. It is frozen. The training
+# block is that of lhcb_64_steps_2_stages.yaml; the seed is 1.
+#
+# Added on 2026-11-03 as the brief of Part C of the experiment "does a
+# Kalman-like gain remove the bias" asks. The structural choices of the
+# network (a matrix applied to the residual, the last layer at zero, width 64)
+# are for George to rule on; see the docstring of the network.
+#
+# An experiment copies this file and changes what it asks about. It does not
+# edit this file. A change here changes the run key, and the gate
+# tests/test_default_configuration.py says so.
+equation_of_motion: {system: lhcb, field_map: v8r1_up}
+tracks: {key: 12a8d35c3165}
+steps: {number_of_steps: 64, number_of_stages: 2}
+network:
+  kind: stage_network_with_a_learned_gain
+  stage_network_of_the_run: {key: 25dfa17ef168, round: 44}
+  train_the_stage_network: false
+  inputs_of_the_gain: state_and_residual
+  width: 64
+  depth: 2
+  activation: tanh
+  scale_of_inputs: spread_of_first_round_states
+  scale_of_outputs: same_as_the_stage_network
+  scale_of_the_residual_and_rates: rms_over_first_round_states
+loss: {name: distilled_analytic_gain, with_the_stage_loss: false}
+target: {name: no_target}
+training:
+  protocol: {name: rounds_on_own_predictions, states_per_round: 32000}
+  restarts_per_round: 25
+  end_a_round_when_stalled: null
+  optimiser:
+    name: lbfgs_restarts
+    iterations_per_restart: 200
+    history: 120
+    tolerance_of_the_gradient: 1.0e-13
+    tolerance_of_the_change: 1.0e-16
+    line_search: strong_wolfe
+    renew_scale_when_loss_falls_to: 0.1
+  stopping_rule:
+    name: validation_plateau
+    quantity: validation_endpoint_error_larger_of_x_and_y_median_micrometres
+    window_in_rounds: 10
+    tolerance: 0.05
+    rounds_held: 3
+  rounds_at_most: 60
+seed: 1

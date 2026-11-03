@@ -225,6 +225,9 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
         "hours_of_training": sum(float(r["seconds"]) for r in restarts) / 3600.0,
         "machine": record["machine"], "threads": int(torch.get_num_threads()),
     }
+    if hasattr(run.network, "cost_per_step"):
+        # field lookups, Jacobians, solves and network calls of one step (2026-11-03)
+        cost.update(run.network.cost_per_step())
 
     made = standard_report(
         name=name, momentum_gev=tracks.momentum_gev, momentum_window_gev=window,

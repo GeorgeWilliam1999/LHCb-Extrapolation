@@ -1,6 +1,6 @@
 # Networks
 
-**Last updated:** 2026-10-22
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -17,6 +17,9 @@ The networks, how their raw outputs become states, how the end of a step is form
 | `output_forms.py` | how raw network outputs become states. Two forms: `direct_states`, the states themselves scaled by fixed constants; `straight_line_plus_scaled_correction`, the straight line from the input plus a correction scaled per track or by fixed constants, the form of the frozen networks | built |
 | `collect_and_sum.py` | the end state of a step as the input plus the step length times the weighted sum of the stage rates | built |
 | `self_chain.py` | applies one stage network N times, each end state being the next input (`whole_track`) | built |
+| `stage_network_of_a_run.py` | reads a trained stage network from a run in the store (settings and the weights of one round); the first call (stages, rates, residual); the root mean square of the residual and the rates over the first round's states; the scale of a correction (2026-11-03) | built |
+| `stage_network_with_a_learned_gain.py` | C1 of the Kalman-like gain study: a frozen (or trained) stage network and a small network G whose 4 x 4q output matrix multiplies the stage residual; the end state is the summed one minus the correction (`StageNetworkWithALearnedGain`, 2026-11-03) | built |
+| `error_conditioned_stage_network.py` | C2 of the same study: the stage network is called once, a corrector reads the residual of that call (6 + 4q inputs) and gives a 4q x 4q matrix that multiplies it to correct the stages; the end state is summed from the corrected stages (`ErrorConditionedStageNetwork`, 2026-11-03) | built |
 
 ## Settings of a network
 
@@ -40,12 +43,27 @@ Every setting is an argument. None has a default. A configuration must state eac
 | `self_chain.py` | `carry` in `E1_Network_grid/chain_network.py` | `tests/test_networks.py` |
 | `output_forms.py`: `straight_line_plus_scaled_correction` | `straight`, `field_integrals` and `residual_scale` of `ChainNetwork` in `E1_Network_grid/chain_network.py`, arithmetic unchanged; a stage network with this form, the scale `per_track` and a predicted end state is that network to the last bit, chain included | `tests/test_networks.py` |
 | `output_forms.py`: `direct_states`, `collect_and_sum.py` | new | `tests/test_networks.py` |
+| `stage_network_of_a_run.py`, `stage_network_with_a_learned_gain.py`, `error_conditioned_stage_network.py` | new; the gain follows the update of KalmanNet (arXiv:2107.10043) and the corrector the error-conditioned neural solvers (arXiv:2606.27354), each with the differences stated in its docstring | `tests/test_learned_gain_and_error_conditioned_network.py` |
+
+## Settings of the two networks built on a stage network (2026-11-03)
+
+| Setting | Values | Ruled |
+|---|---|---|
+| `stage_network_of_the_run` | `{key, round}` of a run of a stage network with a summed end state, the same steps, stages and tracks | the frozen run is the experiment's choice |
+| `train_the_stage_network` | `false`: frozen; `true`: trained with the small network | default false (brief of 2026-11-03) |
+| `inputs_of_the_gain` (gain only) | `state_and_residual`, or `state_residual_and_rates` | open |
+| `width`, `depth`, `activation` | of the small network | the brief: two tanh layers of 32 to 64 |
+| `scale_of_inputs` | five numbers, or `spread_of_first_round_states` | |
+| `scale_of_outputs` | `same_as_the_stage_network`, `per_track`, `spread_of_first_round_states`, or four numbers: the scale of the correction | open |
+| `scale_of_the_residual_and_rates` | `rms_over_first_round_states` (measured on the stage network, six significant digits), or `{residual, rates}` of 4q numbers each | |
+
+Both report `cost_per_step()`: field lookups, field samples of the output scales, Jacobians, solves and network calls of one step. The stage network reports it too.
 
 ## The contract
 
 A network gives `predict(states, start_planes)`, which returns a predicted track of separate steps, and `whole_track(states, layout)`, which returns a whole track. An output form is built from the `scale_of_outputs` setting by its `from_configuration`, is bound once by the network that holds it to the step length, the planes of the outputs and the field map, turns raw outputs into states with `states_from_raw(raw, input_states, start_planes)`, declares what it returns when the network's last layer is zero (a gate checks it), and says in `scale_setting()` what the network records as its scale.
 
-A network states its settings in `settings_in_a_configuration` and is built from a configuration by `from_configuration`, with its weights drawn from the seed of the run. It says whether it has stages, in `has_stages`.
+A network states its settings in `settings_in_a_configuration` and is built from a configuration by `from_configuration`, with its weights drawn from the seed of the run. It says whether it has stages, in `has_stages`. It may give `cost_per_step()`, which the report writes into its cost table.
 
 A network is in double precision whatever the default of torch is. The field map is not written into a snapshot of its weights. `settings()` gives what is needed, with the weights, to build it again.
 

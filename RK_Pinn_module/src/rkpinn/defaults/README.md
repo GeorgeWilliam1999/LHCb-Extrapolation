@@ -1,6 +1,6 @@
 # Defaults
 
-**Last updated:** 2026-10-09
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -13,6 +13,8 @@ The default configurations: complete, valid configuration files that an experime
 | `README.md` | this file | built |
 | `__init__.py` | names the defaults, pins each one's run key, and gives the path of one by name (`path_of_the_default`) | built |
 | `lhcb_64_steps_2_stages.yaml` | the LHCb default: one network of 64 steps of 80.9 mm and 2 stages, end state summed from the stages, pooled loss over the stages, run A of the pilot setting for setting, run key `bddea42ea1ef` | built |
+| `lhcb_64_steps_2_stages_learned_gain.yaml` | the learned gain (C1a) on the LHCb cell: the trained per-track straight-line run `25dfa17ef168` at round 44, frozen, and a gain network of 2 tanh layers of 64 taught the linearised gain by `distilled_analytic_gain`; seed 1; run key `d986d2239b65`. Added 2026-11-03 at the brief's request; its structural choices await George's ruling | built |
+| `lhcb_64_steps_2_stages_error_conditioned.yaml` | the error-conditioned stage network (C2) on the same frozen run: a corrector of 2 tanh layers of 64 reads the residual of the first call; pooled loss on both calls; seed 1; run key `b38147788963`. Added 2026-11-03, as above | built |
 
 ## The contract
 
