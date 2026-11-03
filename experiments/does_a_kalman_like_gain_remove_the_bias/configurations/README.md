@@ -1,6 +1,6 @@
 # Configurations of Part C
 
-**Last updated:** 2026-11-03 · **State:** prepared, not submitted; the run list awaits George's approval
+**Last updated:** 2026-11-03 · **State:** submitted 2026-11-03 23:15 (see ../farm/README.md)
 
 ## What this directory is
 

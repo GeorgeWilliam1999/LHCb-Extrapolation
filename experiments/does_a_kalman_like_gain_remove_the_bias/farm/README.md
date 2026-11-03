@@ -1,6 +1,6 @@
 # Farm
 
-**Last updated:** 2026-11-03 · **State:** prepared, NOT submitted
+**Last updated:** 2026-11-03 · **State:** submitted 2026-11-03 23:15 (approved by George the same evening)
 
 ## What this directory is
 
@@ -32,3 +32,15 @@ LOGS=/data/bfys/gscriven/rkpinn_farm_logs/does_a_kalman_like_gain_remove_the_bia
 setsid nohup $CODE/experiments/does_a_kalman_like_gain_remove_the_bias/farm/keeper.sh \
     $CODE /data/bfys/gscriven/rkpinn_store $LOGS > /dev/null 2>&1 &
 ```
+
+## What was measured when the runs were submitted
+
+| | |
+|---|---|
+| Approved | 2026-11-03, the eight runs of `runs.txt` (the optional seeds 2 and 3 were not submitted) |
+| Code | commit `ae95116d`, from the copy `/data/bfys/gscriven/rkpinn_code/ae95116d` |
+| Gates | 519 passed on `stbc-i2`, 2026-11-03, at `2ccd1916` (the package is unchanged at `ae95116d`); log `../analysis/logs/part_c_gates.txt` |
+| Submitted | 2026-11-03 23:15 by the keeper on `stbc-i2`; clusters 6133390 to 6133395, 6133397, 6133398 in the order of `runs.txt` |
+| Logs | `/data/bfys/gscriven/rkpinn_farm_logs/does_a_kalman_like_gain_remove_the_bias/` |
+| First restart | 39 to 41 s for C1a, 60 to 65 s for C2 (200 iterations, 32,000 states, `wn-lot-056`); every check before training passed |
+| Expected | about 17 min a round for C1a and 27 min for C2; at 22 to 60 rounds, 6 to 17 h (C1a) and 10 to 27 h (C2) |

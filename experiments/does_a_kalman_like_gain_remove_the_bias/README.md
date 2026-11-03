@@ -1,6 +1,6 @@
 # Does a Kalman-like gain remove the bias
 
-**Last updated:** 2026-11-03 · **State:** Parts A and B run; Part C (a learned gain) built, smoke-run, farm runs prepared and not submitted
+**Last updated:** 2026-11-03 · **State:** Parts A and B run; Part C (a learned gain) built, smoke-run, eight farm runs submitted 2026-11-03
 
 ## What this directory is
 
