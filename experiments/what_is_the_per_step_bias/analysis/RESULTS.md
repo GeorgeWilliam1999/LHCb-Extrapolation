@@ -209,14 +209,29 @@ C.5 (a correction from the measured SciFi residuals) is moved out of this experi
 
 ## A.8 Seeds
 
-The tranche-1 runs of `does_a_better_optimiser_improve_the_endpoint` started on 2026-10-28. On that day the L-BFGS seeds 2 and 3 have round 1 only, `f4c86e05eafe` has round 3, and the other Broyden runs have no round. The script `seeds.py` is ready. A smoke test at round 1 (seed 1 at its round 1) ran:
+Added 2026-11-03. The runs are those of `does_a_better_optimiser_improve_the_endpoint` (tranche 1), each at its own last finished round (`seeds.py last c3a1aa54c6fe`), with the seed-1 runs of this note. Per form: L-BFGS seeds 1, 2, 3 and self-scaled Broyden seeds 1, 2, 3. Rounds: straight line per-track 44 / 36 / 35 (L-BFGS) and 22 / 22 / 22 (Broyden); direct states 59 / 42 / 56 (L-BFGS) and 37 / 33 (Broyden seeds 1 and 3). All plateaued.
 
-| Form | Pair at round 1 | Map correlation x / y / tx / ty |
-|---|---|---|
-| straight line per-track | seeds 1–2, 1–3, 2–3 (L-BFGS) | 0.04–0.34 (x, y); 0.92–0.98 (tx); 0.29–0.68 (ty) |
-| direct states | seeds 1–2, 1–3, 2–3 (L-BFGS) | 0.96–0.97 (x); -0.04–0.47 (y); 0.94–0.97 (tx) |
+`c3a1aa54c6fe` (direct states, self-scaled Broyden, seed 2) is left out. On 2026-11-03 it is still training, at round 45 of 80.
 
-Round 1 is not a trained network. These numbers are not a result. Run `seeds.py last` when the runs finish (about 30 Oct). Table: `results/a8_seed_correlations_common.csv`.
+Bias map as in A.9: mean e in 8 × 8 cells of signed q/p × z. "Shared" if the correlation is > 0.7. The table gives the median over the pairs of seeds, with the lowest and highest pair. Straight line: 15 pairs. Direct states: 10 pairs.
+
+| Form | e | x | y | tx | ty |
+|---|---|---|---|---|---|
+| straight line per-track | e | -0.11 (-0.52 to 0.34) | -0.01 (-0.44 to 0.63) | 0.95 (0.89 to 0.99) | 0.59 (0.34 to 0.92) |
+| straight line per-track | e minus the exact scheme's error | -0.10 (-0.52 to 0.34) | -0.01 (-0.44 to 0.63) | 0.02 (-0.43 to 0.65) | 0.09 (-0.37 to 0.68) |
+| direct states | e | 0.24 (-0.01 to 0.70) | 0.25 (0.04 to 0.66) | 0.76 (0.64 to 0.93) | 0.50 (0.03 to 0.70) |
+| direct states | e minus the exact scheme's error | 0.24 (-0.01 to 0.70) | 0.25 (0.03 to 0.66) | 0.17 (-0.24 to 0.61) | 0.27 (-0.56 to 0.62) |
+
+By optimiser, the bias map correlation of e for the straight line in tx is 0.99 between the L-BFGS seeds and 0.89 between the Broyden seeds. Without the exact scheme's error, it is 0.32 and -0.34.
+
+Reading:
+
+- The slope maps that look shared (tx in both forms, ty of the straight line between the L-BFGS seeds) are the exact scheme's own error. A.9 found the same for one seed. With that error removed, no component is shared in either form. Medians are -0.10 to 0.27. None of the 100 rows is above 0.7; the highest is 0.696.
+- The network's own part of e is private to each seed. A correction learned from one network does not carry over to another seed.
+- x and y never carry the exact scheme's error (A.9: share of variance not exact = 1.00), so the two rows agree there.
+- Direct states, x: the highest pair is L-BFGS seeds 1–2 (0.70), and the two Broyden seeds give 0.63. The other pairs are 0.09 to 0.30. Two pairs near 0.7 out of 10 is not a shared map.
+
+Table: `results/a8_seed_correlations_last.csv`. Log: `logs/seeds_last_c3a1aa54c6fe.txt`. Package code at commit `27a054e1`. The round-1 smoke test of 2026-10-28 is in `results/a8_seed_correlations_common.csv`; round 1 is not a trained network and is not a result.
 
 ## A.9 Bias maps: forms and snapshots
 
@@ -365,6 +380,6 @@ By the plan's own rule, A.7 says stop and write up. The open choice is George's:
 
 ## What is not done
 
-- A.8 has no result: the tranche-1 runs are at round 1. Run `seeds.py last` after about 30 Oct.
+- A.8 (2026-11-03): the network's own bias is private to each seed. The slope maps that look shared are the exact scheme's error. `c3a1aa54c6fe` is left out (still training).
 - C.5 and the Kalman-filter question are moved out of this experiment to a separate thread (George, 2026-10-28).
 - The UT and SciFi layout and resolutions in A.7 were not re-checked against the TDR.

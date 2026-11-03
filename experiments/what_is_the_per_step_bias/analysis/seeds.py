@@ -4,12 +4,15 @@ The tranche-1 runs of the experiment does_a_better_optimiser_improve_the_endpoin
 train seeds 2 and 3 of both forms (and the self-scaled Broyden arm). This
 script reads their snapshots, never writes to their folders, and correlates
 the binned bias map of e (as in A.9) between seeds at one round that every run
-of a form has finished.
+of a form has finished. It also correlates the maps of e minus the exact
+scheme's own error (as in A.9), the part of e that is the network's.
 
     seeds.py common      at the latest round that all the runs of a form have
                          finished (on 2026-10-28 that is round 1: the runs were
                          submitted that morning; usable from about 30 Oct)
     seeds.py last        each run at its own latest finished round
+    seeds.py last <key>... as last, without the runs named (a run that is
+                         still training)
 
 A round counts as finished when its snapshot folder holds both network.pt and
 scores.json.
@@ -23,7 +26,7 @@ import numpy as np
 
 from common import (COMPONENTS, STORE, SHORT, setup_threads, single_step_errors, network_of,
                     write_rows)
-from part_a import bias_map
+from part_a import bias_map, exact_errors
 
 FORMS = {
     "straight line, per-track scale": {
@@ -48,9 +51,11 @@ def finished_rounds(key):
                   and os.path.exists(os.path.join(folder, name, "scores.json")))
 
 
-def main(mode):
+def main(mode, left_out=()):
     rows = []
+    exact = exact_errors("test")
     for form, runs in FORMS.items():
+        runs = {label: key for label, key in runs.items() if key not in left_out}
         rounds = {label: finished_rounds(key) for label, key in runs.items()}
         usable = {label: r for label, r in rounds.items() if r}
         if len(usable) < 2:
@@ -61,10 +66,12 @@ def main(mode):
             chosen = {label: common for label, r in usable.items() if common in r}
         else:
             chosen = {label: max(r) for label, r in usable.items()}
-        maps, es = {}, {}
+        maps, es, own_maps, own = {}, {}, {}, {}
         for label, r in chosen.items():
             es[label] = single_step_errors(network_of(runs[label], [r]), "test")
             maps[label] = bias_map(es[label])
+            own[label] = es[label] - exact
+            own_maps[label] = bias_map(own[label])
         labels = list(chosen)
         for a in range(len(labels)):
             for b in range(a + 1, len(labels)):
@@ -78,6 +85,10 @@ def main(mode):
                                                                maps[lb][:, i])[0, 1]),
                         step_by_step_correlation=float(np.corrcoef(
                             es[la][..., i].ravel(), es[lb][..., i].ravel())[0, 1]),
+                        bias_map_correlation_without_exact_scheme_error=float(np.corrcoef(
+                            own_maps[la][:, i], own_maps[lb][:, i])[0, 1]),
+                        step_by_step_correlation_without_exact_scheme_error=float(np.corrcoef(
+                            own[la][..., i].ravel(), own[lb][..., i].ravel())[0, 1]),
                         rms_e_first=float(np.sqrt((es[la][..., i] ** 2).mean())),
                         rms_e_second=float(np.sqrt((es[lb][..., i] ** 2).mean()))))
                     print(rows[-1], flush=True)
@@ -86,4 +97,4 @@ def main(mode):
 
 if __name__ == "__main__":
     setup_threads()
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2:])

@@ -1,6 +1,6 @@
 # Analysis
 
-**Last updated:** 2026-10-28
+**Last updated:** 2026-11-03
 
 ## What this directory is
 
@@ -24,7 +24,7 @@ The scripts, tables and figures of the per-step bias study. They read the store 
 | `part_a.py a6` | A.6 cell-face crossings | `results/a6_cell_face_crossings.csv` |
 | `part_a.py a9` | A.9 bias maps of forms, snapshots and the exact scheme | `results/a9_bias_map_correlations.csv` |
 | `toy_fit.py fit` | A.7 toy UT + SciFi fit | `results/a7_*.csv` |
-| `seeds.py common` / `seeds.py last` | A.8 bias maps of other seeds | `results/a8_seed_correlations_<mode>.csv` |
+| `seeds.py common` / `seeds.py last [key...]` | A.8 bias maps of other seeds, of e and of e minus the exact scheme's error; `last` leaves out the runs named | `results/a8_seed_correlations_<mode>.csv` |
 | `part_bc.py references` | the exact scheme and RK4 at 64 steps | `results/c_comparators.csv` |
 | `part_bc.py variants <key>` | B.1 and C.1 to C.4 for one run | `results/c_variants_<key>.csv` |
 | `control_c2.py` | C.2b control: sweeps and Newton steps from stages without a network | `results/c2_control_*.csv`, `figures/c2_control.png` |
