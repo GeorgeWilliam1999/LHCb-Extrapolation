@@ -34,8 +34,11 @@ rows = list(csv.DictReader(open(os.path.join(run, "rounds.csv")))) if os.path.ex
 q = "validation_endpoint_error_larger_of_x_and_y_median_micrometres"
 vals = [float(r[q]) for r in rows if r.get(q)]
 mins = "-"
-if len(rows) >= 2 and "seconds" in rows[-1]:
-    mins = "%.1f" % (sum(float(r["seconds"]) for r in rows[-5:]) / len(rows[-5:]) / 60)
+if rows and "seconds_of_training" in rows[-1]:
+    # the columns the round trainer writes (round_trainer.py, row_of_round)
+    last = rows[-5:]
+    mins = "%.1f" % (sum(float(r["seconds_of_training"]) + float(r["seconds_of_validation"])
+                         for r in last) / len(last) / 60)
 print(s["state"].replace(" ", "_"), s["rounds_done"], mins,
       "%.3f" % vals[-1] if vals else "-", "%.3f" % min(vals) if vals else "-")
 EOF

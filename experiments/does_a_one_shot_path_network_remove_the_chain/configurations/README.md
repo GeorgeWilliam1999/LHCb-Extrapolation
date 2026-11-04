@@ -16,7 +16,7 @@ Names fixed on 2026-11-04 against the stbc checkout:
 | E1: `steps: {64, 2}` | `steps: {1, 0}`: the check refuses a whole-crossing network on any other layout |
 | E1: straight-line form | `direct_states` scaled by `spread_of_target_end_states`: the whole-crossing network binds its form with no field map, and the straight-line form refuses that. Open for George's ruling |
 
-Run keys: P1 `301c00917ac0`, P2 `5c1f9db32fba`, P3 `053ed209bdb9`, P4 `ddec47242be3`, E1 `8e4d21881292`.
+Round size and cap ruled on 2026-11-04: P1, P2, P4 and E1 have `restarts_per_round` 5 and `rounds_at_most` 40. Run keys: P1 `25934ed22604`, P2 `45093f0c80d6`, P4 `e11f63bdc8be`, E1 `dd9acf59ac88`; P3 `053ed209bdb9`, unchanged. The smoke run is `047de8df7668`. P3 and P4 are not in `../farm/runs.txt`; see `../README.md`, The runs.
 
 ## Contents
 
@@ -25,8 +25,8 @@ Run keys: P1 `301c00917ac0`, P2 `5c1f9db32fba`, P3 `053ed209bdb9`, P4 `ddec47242
 | `README.md` | | this file | planned |
 | `path_256_lbfgs.yaml` | P1 | — | built |
 | `path_512_lbfgs.yaml` | P2 | `network.width` | built |
-| `path_256_gaussian_lbfgs.yaml` | P3 | `loss.uncertainty`, `network.extra_outputs` | built |
-| `path_256_broyden.yaml` | P4 | `training.optimiser` | built |
+| `path_256_gaussian_lbfgs.yaml` | P3 | `loss.uncertainty`, `network.extra_outputs` | built; needs a warm start from P1; not in the first submission |
+| `path_256_broyden.yaml` | P4 | `training.optimiser` | built; not in the first submission: the dense matrix of the optimiser would be 561 GB |
 | `endpoint_256_lbfgs.yaml` | E1 | `network.kind`, `network.output_form`, `steps`, `loss`, `target` (the control) | built |
 | `smoke_path_256_lbfgs.yaml` | smoke run of P1 (stage 2) | `training.restarts_per_round` 2, `training.rounds_at_most` 2; not a run of the experiment | built |
 

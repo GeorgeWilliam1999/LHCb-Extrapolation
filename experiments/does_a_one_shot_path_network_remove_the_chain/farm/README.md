@@ -1,6 +1,6 @@
 # Farm
 
-**Last updated:** 2026-11-03 · **State:** planned
+**Last updated:** 2026-11-04 · **State:** ready; not submitted
 
 ## Contents
 
@@ -10,15 +10,15 @@
 | `jobs.sub` | the HTCondor description of one job | copied from the pilot |
 | `wrapper.sh` | the job of one run: makes or resumes the run | copied from the pilot |
 | `keeper.sh` | submits the runs of `runs.txt` and keeps them going until each has ended | copied from the pilot, experiment name changed |
-| `monitor.sh` | prints the state of every run on one screen; reads and changes nothing | new |
-| `runs.txt` | the configurations the keeper submits | planned |
+| `monitor.sh` | prints the state of every run on one screen; reads and changes nothing. Minutes per round from the columns the trainer writes (fixed 2026-11-04) | built |
+| `runs.txt` | the configurations the keeper submits: P1, P2 and E1 (P3 and P4 are left out; see `../README.md`) | built |
 
 ## To run
 
-From the project folder on stbc, after the package additions are committed and the gates pass:
+From the project folder on stbc, at the head of the branch `one_shot_path`, after George says "submit" in the thread:
 
 ```bash
-CODE=$(experiments/does_a_one_shot_path_network_remove_the_chain/farm/make_code.sh <commit> /data/bfys/gscriven/rkpinn_code)
+CODE=$(experiments/does_a_one_shot_path_network_remove_the_chain/farm/make_code.sh one_shot_path /data/bfys/gscriven/rkpinn_code)
 STORE=/data/bfys/gscriven/rkpinn_store
 LOGS=/data/bfys/gscriven/rkpinn_farm_logs/does_a_one_shot_path_network_remove_the_chain
 setsid nohup $CODE/experiments/does_a_one_shot_path_network_remove_the_chain/farm/keeper.sh $CODE $STORE $LOGS > /dev/null 2>&1 &

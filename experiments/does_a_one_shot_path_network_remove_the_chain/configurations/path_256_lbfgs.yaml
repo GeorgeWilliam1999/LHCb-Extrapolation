@@ -18,7 +18,7 @@ loss: {name: supervised_path, divisor: spread_of_target_states, uncertainty: non
 target: {name: reference_path}
 training:
   protocol: {name: start_states_of_the_tracks, states_per_round: 11567}
-  restarts_per_round: 25
+  restarts_per_round: 5
   end_a_round_when_stalled: null
   optimiser:
     name: lbfgs_restarts
@@ -34,5 +34,5 @@ training:
     window_in_rounds: 10
     tolerance: 0.05
     rounds_held: 3
-  rounds_at_most: 200
+  rounds_at_most: 40
 seed: 1

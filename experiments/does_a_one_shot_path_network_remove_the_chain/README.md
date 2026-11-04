@@ -47,7 +47,7 @@ Definitions used below:
 | Uncertainty | one run adds a diagonal covariance per plane and trains on the Gaussian likelihood | George's "Gaussian peaks": the error is encoded with the path |
 | Protocol | `start_states_of_the_tracks`, all 11,567 training tracks every round | a one-shot network trains on start states; there are no drawn stage states |
 | Optimiser | L-BFGS with restarts, as the chain; one run with self-scaled Broyden | the optimiser that trained every chain; Broyden was 7 to 8 times better on the chain and is checked once here |
-| Stopping | validation plateau, window 10, tolerance 5 %, held 3; cap 200 rounds | the standard rule; the cap is high because a round here has no field lookups and is short |
+| Stopping | validation plateau, window 10, tolerance 5 %, held 3; 5 restarts a round, cap 40 rounds (at most 200 restarts) | the standard rule. Round size and cap ruled in the thread on 2026-11-04, after the smoke run measured 313 s a restart at width 256; the toy converged within 30 restarts of 200 iterations |
 | Control | `whole_crossing_network`, endpoint only, same width, `supervised_endpoint` loss, layout {1 step, 0 stages}, output form `direct_states` scaled by the spread of the target end states | says whether emitting the path helps the endpoint, or only serves the sweep. It differs from P1 in its output form as well: the configuration check accepts a whole-crossing network only on the layout {1, 0}, and the network binds its form with no field map, which the straight-line form refuses. Accepted in the thread on 2026-11-04 |
 
 The loss contains no equation of motion. The runs are supervised. This is said plainly in every report: the chain is label-free, these runs are not.
@@ -63,6 +63,23 @@ The loss contains no equation of motion. The runs are supervised. This is said p
 | E1 | whole crossing, endpoint only | 256 | supervised endpoint | L-BFGS | `endpoint_256_lbfgs.yaml` | `network` (kind and output form), `steps`, `loss`, `target` (the control; by necessity) |
 
 Each run has one seed. Differences under 2x between runs are not claimed.
+
+The first submission (2026-11-04) holds P1, P2 and E1. Two runs are left out, and their configuration files are kept:
+
+| Run | Why it is not in the first submission | What it needs |
+|---|---|---|
+| P3 | the mean and the sigma do not train together: in the smoke tests the Gaussian loss went to NaN in one round, and with the log-sigma bounded it still rose to 1.7e36. Ruled: a two-phase run, from P1's last snapshot with the mean frozen and only the sigma head trained. **Needs a warm start from P1; not in the first submission.** | the package has no warm start or freezing for the path network (only the two Kalman-study networks read a stage network from a run). It would need: a network setting naming a run and round to start from, read as `stage_network_of_a_run.py` does; a setting that freezes the body and the state outputs and trains only the sigma outputs (a separate sigma head, or a mask on the last layer); the trainer's check that the recorded settings match; gates |
+| P4 | the self-scaled Broyden optimiser keeps the dense inverse Hessian. The path network of width 256 has 264,704 parameters: the matrix is 561 GB in double precision (the chain's 18,568 parameters needed 2.8 GB) | a limited-memory form of the self-scaled update, or a much smaller network; not planned |
+
+Expected time per run, from the smoke run's 313 s a restart at width 256 (5 restarts a round, at most 40 rounds; the hours are the cap, a plateau ends a run sooner):
+
+| Run | Run key | Time a restart | Time a round | At the cap of 40 rounds |
+|---|---|---|---|---|
+| P1 | `25934ed22604` | 313 s | 26 min | 17.4 h |
+| P2 | `45093f0c80d6` | 626 s (twice P1, as ruled; one loss and gradient measured at 2.14 times P1's) | 52 min | 34.8 h |
+| E1 | `dd9acf59ac88` | about 82 s (one loss and gradient measured at 0.26 times P1's) | about 7 min | about 4.5 h |
+| P3, not submitted | `053ed209bdb9` (old settings, 25 restarts, cap 200) | | | |
+| P4, not submitted | `e11f63bdc8be` | | | |
 
 Comparators computed on the login node, no training:
 
@@ -129,7 +146,7 @@ Expected size: about 600 lines of package code and 300 lines of gates. One day o
 | 1 | Package additions 1 to 7, gates pass | stbc, a branch from `1a9620a9` | 1 day | a Remote Control session for this thread |
 | 2 | Smoke run: P1 made small (width 32, 2 rounds, 500 tracks) on a scratch store, then its report with the sweep | stbc login node | 15 minutes | nothing |
 | 3 | Forward-Euler path on the real field: comparator for criterion 1 | stbc login node | minutes | nothing |
-| 4 | Farm: five runs, `keeper.sh` | farm, via `make_code.sh` at the commit of stage 1 | 1 to 3 days (a round is pure regression, expected under 10 minutes; 200 rounds cap) | the word "submit" in the thread; George starts the keeper himself |
+| 4 | Farm: P1, P2 and E1, `keeper.sh` | farm, via `make_code.sh` at the head of `one_shot_path` | at most 35 h (P2 at its cap); see the table of expected time under The runs | the word "submit" in the thread; George starts the keeper himself |
 | 5 | Reports with `--with-one-sweep`; timing; `analysis/` with tables, figures and results note | stbc | half a day | nothing |
 | 6 | Findings discussed in the thread; then a Provisional Notion write-up with plots and equations | cloud | half a day | his reading |
 
@@ -159,7 +176,7 @@ None of the runs yet.
 
 **Stage 2, 2026-11-04.** On all 1,452 test tracks the Euler path is 12.1 mm alone, 1.01 µm after one sweep and 0.1465 µm after two, the exact scheme; see the Comparators table.
 
-Smoke run `047de8df7668` (`configurations/smoke_path_256_lbfgs.yaml`: P1 with 2 rounds of 2 restarts; not a run of the experiment). A restart of 200 iterations on the 11,567 training tracks takes 312 to 316 s on the login node, so a round of 25 restarts takes about 2.2 hours, not the 10 minutes planned. Validation error (larger of x and y, median): 2,859 µm after round 1, 1,899 µm after round 2. Test split, report `round_0002_at_f8d8a0f4`, radial error against the reference:
+Smoke run `047de8df7668` (`configurations/smoke_path_256_lbfgs.yaml`: P1 with 2 rounds of 2 restarts; not a run of the experiment). A restart of 200 iterations on the 11,567 training tracks takes 312 to 316 s on the login node, so a round of 25 restarts would take about 2.2 hours, not the 10 minutes planned; the rounds are now 5 restarts and the cap 40. Validation error (larger of x and y, median): 2,859 µm after round 1, 1,899 µm after round 2. Test split, report `round_0002_at_f8d8a0f4`, radial error against the reference:
 
 | Smoke path network | Median | p95 | Against the exact scheme, median | Field lookups per track |
 |---|---|---|---|---|
