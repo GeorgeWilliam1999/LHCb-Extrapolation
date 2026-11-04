@@ -45,7 +45,19 @@ With `refit`, the report scores the weights of a refit of the last layer of
 that round (training/last_layer_refit.py) in place of the snapshot. Its folder
 is then named round_<round>_refit_<name>_at_<commit>.
 
-Gates: tests/test_report_of_a_run.py, tests/test_literature_changes.py.
+With `--with-one-sweep` (2026-11-04, the one-shot path study) the report
+also scores the carried tracks after one and after two Newton sweeps of the
+stage equations (evaluation/newton_sweep.py), against the reference and the
+exact scheme, with the field lookups and Jacobians per track the sweeps cost.
+They are written to `sweeps.json` and `sweeps.md` in the report's folder and
+under `sweeps` in its summary. The standard tables are of the tracks before any
+sweep.
+
+A network that trains on the start states of the tracks (the path network)
+is not applied one step at a time, so its report has no single-step error.
+
+Gates: tests/test_report_of_a_run.py, tests/test_literature_changes.py,
+tests/test_time_and_sweeps.py.
 """
 from __future__ import annotations
 
@@ -59,6 +71,7 @@ import torch
 
 from rkpinn.evaluation import conventions, endpoint_error
 from rkpinn.evaluation.error_along_the_track import stage_errors_held_and_carried
+from rkpinn.evaluation.newton_sweep import scores_of_sweeps
 from rkpinn.evaluation.standard_report import (histograms_of_resolution,
                                                histograms_of_signed_resolution, standard_report,
                                                write_figures, write_report)
@@ -141,11 +154,12 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
                     tracks_for_the_stage_errors, step_length_of_the_carrying_mm,
                     fraction_for_the_derivative, states_for_the_loss_shares,
                     bins_of_the_histograms, allow_uncommitted_changes=False,
-                    refit=None, report=print) -> str:
+                    refit=None, with_one_sweep=False, report=print) -> str:
     """Make the standard report of one snapshot of a run. Returns its folder.
 
     round_number  the round of the snapshot, "last" or "best"
     refit         None, or the name of a refit of the last layer of that round
+    with_one_sweep  also score the tracks after one and after two sweeps
     """
     record = provenance(allow_uncommitted_changes)
     folder = RunFolder(store, key)
@@ -184,8 +198,9 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
     report("%s: carried %d tracks of the %s split" % (key, len(states_on_planes), split))
 
     single_steps = stage_errors = loss_shares = None
-    if stages:
+    if stages and not getattr(run.network, "trains_on_start_states", False):
         single_steps = _separate_steps(run, reference_on_planes)
+    if stages:
         if tracks_for_the_stage_errors:
             stage_errors = stage_errors_held_and_carried(
                 _first_tracks(whole, tracks_for_the_stage_errors), run.equation_of_motion,
@@ -234,7 +249,22 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
         states_on_planes=states_on_planes, reference_states_on_planes=reference_on_planes,
         planes_mm=layout.planes_mm, single_steps=single_steps, stage_errors=stage_errors,
         references=references, rounds=rounds, loss_shares=loss_shares, cost=cost)
+    sweeps = None
+    if with_one_sweep:
+        if not stages:
+            raise ValueError("a sweep needs a whole track with stages; the run %s has none"
+                             % key)
+        sweeps = scores_of_sweeps(whole, run.differentiable_equation,
+                                  tracks.reference_end_state, exact_end_states,
+                                  number_of_sweeps=2)
+        for scored in sweeps:
+            report("%s: after %d sweeps: radial median %.4g um, p95 %.4g um, %d lookups "
+                   "per track" % (key, scored["sweeps"],
+                                  scored["against_the_reference"]["median_micrometres"],
+                                  scored["against_the_reference"]["percentile_95_micrometres"],
+                                  scored["field_lookups_per_track"]))
     made["summary"].update(
+        sweeps=sweeps,
         run_key=key, round=round_number, round_asked_for=str(asked_for), refit=refit,
         split=split, tracks_key=run.tracks.key,
         network=configuration["network"]["kind"], loss=configuration["loss"]["name"],
@@ -249,6 +279,8 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
 
     os.makedirs(folder.path("reports"), exist_ok=True)
     write_report(made, where)
+    if sweeps is not None:
+        _write_sweeps(sweeps, where)
     write_figures(made, where, histograms=endpoint_error.histograms_of_signed_error(
         states_on_planes[:, -1], reference_on_planes[:, -1], bins_of_the_histograms),
         histograms_of_the_resolution=histograms_of_resolution(
@@ -273,6 +305,24 @@ def report_of_a_run(store: Store, key: str, *, round_number, split,
     return where
 
 
+def _write_sweeps(sweeps, where):
+    with open(os.path.join(where, "sweeps.json"), "w") as handle:
+        json.dump(sweeps, handle, indent=1)
+    lines = ["| Sweeps | Radial median, um | Radial p95, um | Against the exact scheme, "
+             "median um | Largest residual | Field lookups per track | Jacobians per track |",
+             "|---|---|---|---|---|---|---|"]
+    for s in sweeps:
+        exact = s.get("against_the_exact_scheme")
+        lines.append("| %d | %.4g | %.4g | %s | %s | %d | %d |" % (
+            s["sweeps"], s["against_the_reference"]["median_micrometres"],
+            s["against_the_reference"]["percentile_95_micrometres"],
+            "%.4g" % exact["median_micrometres"] if exact else "not in the store",
+            "%.3g" % s["largest_residual"] if s["largest_residual"] is not None else "",
+            s["field_lookups_per_track"], s["jacobians_per_track"]))
+    with open(os.path.join(where, "sweeps.md"), "w") as handle:
+        handle.write("\n".join(lines) + "\n")
+
+
 def main(arguments=None):
     for name in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
                  "NUMEXPR_NUM_THREADS"):
@@ -288,6 +338,8 @@ def main(arguments=None):
     parser.add_argument("--states-for-the-loss-shares", type=int, required=True)
     parser.add_argument("--bins-of-the-histograms", type=int, required=True)
     parser.add_argument("--allow-uncommitted-changes", action="store_true")
+    parser.add_argument("--with-one-sweep", action="store_true",
+                        help="also score the tracks after one and after two Newton sweeps")
     parser.add_argument("--refit", default=None,
                         help="score the refit of the last layer of that name")
     a = parser.parse_args(arguments)
@@ -299,7 +351,7 @@ def main(arguments=None):
         states_for_the_loss_shares=a.states_for_the_loss_shares,
         bins_of_the_histograms=a.bins_of_the_histograms,
         allow_uncommitted_changes=a.allow_uncommitted_changes, refit=a.refit,
-        report=lambda text: print(text, flush=True))
+        with_one_sweep=a.with_one_sweep, report=lambda text: print(text, flush=True))
 
 
 if __name__ == "__main__":

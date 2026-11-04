@@ -48,7 +48,7 @@ Definitions used below:
 | Protocol | `start_states_of_the_tracks`, all 11,567 training tracks every round | a one-shot network trains on start states; there are no drawn stage states |
 | Optimiser | L-BFGS with restarts, as the chain; one run with self-scaled Broyden | the optimiser that trained every chain; Broyden was 7 to 8 times better on the chain and is checked once here |
 | Stopping | validation plateau, window 10, tolerance 5 %, held 3; cap 200 rounds | the standard rule; the cap is high because a round here has no field lookups and is short |
-| Control | `whole_crossing_network`, endpoint only, same width, `supervised_endpoint` loss | says whether emitting the path helps the endpoint, or only serves the sweep |
+| Control | `whole_crossing_network`, endpoint only, same width, `supervised_endpoint` loss, layout {1 step, 0 stages}, output form `direct_states` scaled by the spread of the target end states | says whether emitting the path helps the endpoint, or only serves the sweep. It differs from P1 in its output form as well: the configuration check accepts a whole-crossing network only on the layout {1, 0}, and the network binds its form with no field map, which the straight-line form refuses. Accepted in the thread on 2026-11-04 |
 
 The loss contains no equation of motion. The runs are supervised. This is said plainly in every report: the chain is label-free, these runs are not.
 
@@ -60,7 +60,7 @@ The loss contains no equation of motion. The runs are supervised. This is said p
 | P2 | path | 512 | supervised path | L-BFGS | `path_512_lbfgs.yaml` | `network.width` |
 | P3 | path | 256 | Gaussian path | L-BFGS | `path_256_gaussian_lbfgs.yaml` | `loss` |
 | P4 | path | 256 | supervised path | self-scaled Broyden | `path_256_broyden.yaml` | `training.optimiser` |
-| E1 | whole crossing, endpoint only | 256 | supervised endpoint | L-BFGS | `endpoint_256_lbfgs.yaml` | `network`, `loss`, `target` (the control; three blocks, by necessity) |
+| E1 | whole crossing, endpoint only | 256 | supervised endpoint | L-BFGS | `endpoint_256_lbfgs.yaml` | `network` (kind and output form), `steps`, `loss`, `target` (the control; by necessity) |
 
 Each run has one seed. Differences under 2x between runs are not claimed.
 
@@ -71,8 +71,10 @@ Comparators computed on the login node, no training:
 | Chain, straight-line form, L-BFGS, 64/2 | 1.83 µm | `25dfa17ef168` |
 | Chain, straight-line form, self-scaled Broyden | 0.53 to 0.65 µm at plateau | optimiser tranche 1 |
 | Classic RK4, 64 steps | 1.08 µm | step-length study |
-| Forward-Euler path, no sweep | to be measured on the real field (13.7 mm on the toy dipole) | this experiment |
-| Forward-Euler path + one sweep | 0.146 µm | Kalman study |
+| Forward-Euler path, no sweep | 10.8 mm (60 test tracks; 13.7 mm on the toy dipole) | this experiment, stage 1 |
+| Forward-Euler path + one sweep | 0.60 µm (60 test tracks) | this experiment, stage 1 |
+| Forward-Euler path + two sweeps | 0.1489 µm (60 test tracks), the exact scheme | this experiment, stage 1 |
+| Euler stages corrected step by step along the chain (not one sweep of a path) | 0.146 µm | Kalman study |
 | Exact scheme | 0.147 µm | store |
 | LHCb parametrised extrapolator | tens of µm, about 40 operations per track | Billoir et al. 2021 |
 
@@ -85,7 +87,7 @@ All errors are the endpoint radial median on the 1,452 test tracks against the s
 | 1 | The best path run beats the forward-Euler path by 100x or more | Euler endpoint error on the real field, measured first |
 | 2 | The best path run alone is below 100 µm | the parametrised extrapolator; below this a no-lookup method has a use |
 | 3 | The best path run alone is below 2 µm | the chain; at this level the sweep can be skipped at the chain's accuracy |
-| 4 | Path + one sweep reaches 0.15 µm for every run | the exact-scheme floor; the sweep must work from a network start as it does from Euler |
+| 4 | Path + one sweep is at or below Euler + one sweep on the real field (0.60 µm on 60 test tracks) for every run; path + two sweeps reaches the exact-scheme floor (0.15 µm) | the comparator is Euler + one sweep; the floor is reached at two sweeps (reworded 2026-11-04 after the stage 1 measurement; ruled in the thread) |
 | 5 | In P3, 68 ± 3 % of test tracks lie within one predicted sigma in x at the end plane | the covariance is calibrated |
 | 6 | Time per event of 100 tracks, measured at equal accuracy: chain, path alone, path + sweep, Euler + sweep, RK4 | the speed claim is made only at equal accuracy |
 
@@ -162,4 +164,4 @@ None of the runs yet.
 | exact scheme | 0.1489 µm | unchanged (largest change 9e-13 mm) | unchanged |
 | forward-Euler path | 10.8 mm | 0.60 µm | 0.1489 µm |
 
-One global sweep from the Euler path does not reach the exact-scheme floor; two do. The 0.146 µm of the Kalman study (Comparators table, "Forward-Euler path + one sweep") is from a correction made step by step along the chain, each step from Euler stages on the corrected state of the step before. It is not one sweep of a whole Euler path. Criterion 4 is unchanged; it is read with this in mind.
+One global sweep from the Euler path does not reach the exact-scheme floor; two do. The 0.146 µm of the Kalman study (Comparators table, "Forward-Euler path + one sweep") is from a correction made step by step along the chain, each step from Euler stages on the corrected state of the step before. It is not one sweep of a whole Euler path. Criterion 4 was reworded on 2026-11-04 to use this comparator.

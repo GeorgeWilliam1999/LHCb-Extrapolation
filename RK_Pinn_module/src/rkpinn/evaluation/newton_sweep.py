@@ -148,3 +148,42 @@ def forward_euler_path(equation, start_states, layout) -> PredictedTrack:
         input_states=torch.stack(inputs, 1).numpy(), stage_states=torch.stack(stages, 1).numpy(),
         end_states=torch.stack(ends, 1).numpy(), end_state_was=END_STATE_PREDICTED,
         layout=layout, produced_by="forward Euler")
+
+
+def scores_of_sweeps(track: PredictedTrack, equation, reference_end_states,
+                     exact_end_states=None, number_of_sweeps=2) -> list:
+    """The endpoint error of a whole track alone and after each of
+    `number_of_sweeps` sweeps, one row each: the radial error against the
+    reference (and against the exact scheme when its end states are given) as
+    the statistics of a magnitude, in micrometres; the largest residual of the
+    stage equations; the field lookups and Jacobians per track spent by the
+    sweeps so far; and the seconds of the sweeps so far."""
+    from rkpinn.evaluation import conventions
+
+    def row(of, sweeps, residual, seconds):
+        final = np.asarray(of.final_state())
+        scored = {"sweeps": sweeps, "largest_residual": residual,
+                  "field_lookups_per_track": sweeps * layout_lookups,
+                  "jacobians_per_track": sweeps * layout_lookups,
+                  "seconds_of_the_sweeps": seconds,
+                  "against_the_reference": conventions.statistics_of_magnitude(
+                      conventions.errors(final, reference_end_states)["radial"])}
+        if exact_end_states is not None:
+            scored["against_the_exact_scheme"] = conventions.statistics_of_magnitude(
+                conventions.errors(final, exact_end_states)["radial"])
+        return scored
+
+    import time
+    layout_lookups = track.layout.number_of_steps * track.layout.number_of_stages
+    rows, current, seconds, residual = [], track, 0.0, None
+    for sweeps in range(number_of_sweeps + 1):
+        if sweeps:
+            started = time.time()
+            sweep = one_sweep(current, equation)
+            seconds += time.time() - started
+            current = sweep.track
+            residual = sweep.largest_residual_after
+            if sweeps == 1:
+                rows[0]["largest_residual"] = sweep.largest_residual_before
+        rows.append(row(current, sweeps, residual, seconds))
+    return rows

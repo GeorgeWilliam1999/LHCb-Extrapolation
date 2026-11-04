@@ -4,7 +4,8 @@
         loss = mean over n, k, d of  ( (emitted - label)[n, k, d] / s[d] ) ** 2
 
     uncertainty diagonal:
-        sigma[n, k, d] = s[d] * exp(extra[n, k, d])
+        l[n, k, d]     = B tanh(extra[n, k, d] / B),   B = 23
+        sigma[n, k, d] = s[d] * exp(l[n, k, d])
         loss = mean over n, k, d of  ( (emitted - label) / sigma ) ** 2 + 2 log(sigma / s[d])
 
 over every emitted state k (the stages and the end plane of every step) and
@@ -13,6 +14,12 @@ of motion. With `diagonal` the network emits one extra number per state and
 component, and the loss is the Gaussian negative log-likelihood up to a
 constant: the sigma is the error the network claims, and the report checks
 how often the truth lies inside it.
+
+Why the bound B (2026-11-04). With the raw output as the log-sigma the loss
+has no lower bound: the optimiser drives a sigma to zero where an error is
+small, and in the first round of the smoke test L-BFGS took the loss to NaN.
+The bound keeps sigma between 1e-10 and 1e10 times the divisor, and so the
+loss above -2B. It is smooth and is the identity to 0.1 % for |extra| < 1.2.
 
 The divisor s is one constant per component. In a configuration, `divisor`
 is "spread_of_target_states" (the spread of the labels over all states,
@@ -27,6 +34,7 @@ import torch
 from rkpinn.registry import register
 
 UNCERTAINTIES = ("none", "diagonal")
+BOUND_OF_THE_LOG_SIGMA = 23.0
 
 
 @register("loss", "supervised_path")
@@ -75,8 +83,9 @@ class SupervisedPath:
         extra = predicted_track.extra_outputs
         if extra is None or extra.shape[-1] != 4:
             raise ValueError("the diagonal uncertainty needs a network with extra_outputs 4")
-        extra = torch.as_tensor(extra)
-        return (scaled * torch.exp(-extra)) ** 2 + 2 * extra
+        log_sigma = BOUND_OF_THE_LOG_SIGMA * torch.tanh(
+            torch.as_tensor(extra) / BOUND_OF_THE_LOG_SIGMA)
+        return (scaled * torch.exp(-log_sigma)) ** 2 + 2 * log_sigma
 
     def value(self, predicted_track, target, constants):
         return self.squared_terms(predicted_track, target, constants).mean()

@@ -19,7 +19,8 @@ The standard for results. One set of conventions and one report, the same for ev
 | `convergence.py` | the validation error per round, whether the stopping rule holds now, and the first round it held. Output 8 | built |
 | `resolution.py` | the resolution \|predicted - reference\| and the signed resolution predicted - reference, per component, endpoint and single step, against the total momentum p: a table per momentum band (median, 16th and 84th percentiles; for the signed one also half their range) and two-dimensional histograms (the signed one on a symmetric-log axis). Output 11 | built |
 | `standard_report.py` | the eleven standard outputs of `PACKAGE_PLAN.md`, section 5, as tables and figures; where the loss puts its weight (output 9); writes them | built |
-| `newton_sweep.py` | one Newton step on the stage equations of a whole track, all stages at once, from any whole track with a layout; the field lookups and Jacobians it costs; and the forward-Euler path, the network-free start of a sweep (2026-11-04) | built |
+| `newton_sweep.py` | one Newton step on the stage equations of a whole track, all stages at once, from any whole track with a layout; the field lookups and Jacobians it costs; and the forward-Euler path, the network-free start of a sweep ; the scores of a track after each sweep (2026-11-04) | built |
+| `time_per_event.py` | the wall time per event of tracks on one CPU thread for the chain, the path network with and without a sweep, Euler with one and two sweeps, and RK4; with the field lookups per track and the endpoint error of the timed tracks (2026-11-04) | built |
 
 ## Where each file was ported from
 
@@ -34,6 +35,7 @@ The standard for results. One set of conventions and one report, the same for ev
 | `standard_report.py`, output 9 | `numbers.py` (`sec_preflight`) | the same |
 | `resolution.py`, output 11 | new (George, 2026-10-27; signed, 2026-10-28) | `tests/test_resolution.py`, `tests/test_report_of_a_run.py` |
 | `newton_sweep.py` | new (one-shot path experiment, 2026-11-04) | `tests/test_newton_sweep.py` |
+| `time_per_event.py` | new (one-shot path experiment, 2026-11-04); RK4 as in `experiments/does_the_error_fall_with_the_step_length/analysis/step_length_errors.py` | `tests/test_time_and_sweeps.py` |
 
 ## What was measured when it was built
 

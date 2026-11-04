@@ -4,7 +4,8 @@ Proves
   * with no uncertainty, the value on a known pair is the mean over states and
     components of the squared error over the divisor, computed by hand;
   * with the diagonal uncertainty, the loss at the right sigma is lower than at
-    a sigma half or twice as large, and equals the formula by hand;
+    a sigma half or twice as large, and equals the formula by hand; the bounded
+    log-sigma keeps the loss above -2B;
   * `squared_terms` has one term per state and component, and the value is
     their mean;
   * the diagonal uncertainty without extra outputs, a wrong divisor and an
@@ -16,7 +17,7 @@ import numpy as np
 import pytest
 import torch
 
-from rkpinn.losses.supervised_path import SupervisedPath
+from rkpinn.losses.supervised_path import BOUND_OF_THE_LOG_SIGMA, SupervisedPath
 from rkpinn.predicted_track.predicted_track import END_STATE_PREDICTED, PredictedTrack
 
 N, STEPS, STAGES = 5, 3, 2
@@ -68,15 +69,21 @@ def test_the_gaussian_loss_is_lowest_at_the_right_sigma(pair):
     loss = SupervisedPath(divisor=DIVISOR, uncertainty="diagonal")
     constants = loss.constants()
 
+    B = BOUND_OF_THE_LOG_SIGMA
+
     def at(sigma_claimed):
-        extra = torch.as_tensor(np.broadcast_to(np.log(sigma_claimed / np.asarray(DIVISOR)),
-                                                labels.shape).copy())
+        # the raw output whose bounded log-sigma is log(sigma_claimed / divisor)
+        wanted = np.log(sigma_claimed / np.asarray(DIVISOR))
+        extra = torch.as_tensor(np.broadcast_to(B * np.arctanh(wanted / B), labels.shape).copy())
         return float(loss.value(track(emitted, extra), labels, constants))
 
     right = at(sigma)
     assert right < at(sigma / 2) and right < at(sigma * 2)
     by_hand = np.mean(1.0 + 2.0 * np.log(sigma / np.asarray(DIVISOR)))
     assert abs(right - by_hand) < 1e-12
+    # bounded below: a raw output of -1e6 everywhere, with no error, gives -2B
+    floor = torch.full(labels.shape, -1e6, dtype=torch.float64)
+    assert abs(float(loss.value(track(labels, floor), labels, constants)) + 2 * B) < 1e-9
 
 
 def test_what_is_refused(pair):

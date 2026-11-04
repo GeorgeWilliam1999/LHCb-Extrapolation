@@ -44,6 +44,7 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_path_network.py` | the path network (2026-11-04): its shapes and the whole track it fills; the extra outputs; the same seed gives the same weights; with the last layer zero, the straight line or zero; only the first plane | built |
 | `test_supervised_path.py` | the supervised path loss (2026-11-04): its value on a known pair; the Gaussian loss lowest at the right sigma; its terms; what it refuses | built |
 | `test_reference_path.py` | the reference path and `exact_states --keep-stages` (2026-11-04): round trip on a small store; the labels are the stored stages and planes; what it refuses; the project's store holds the training and validation splits at 64 steps and 2 stages with their stages; a path network trains through the trainer | built |
+| `test_time_and_sweeps.py` | the report with `with_one_sweep` (2026-11-04): one row alone and one after each of two sweeps, their counts, the exact scheme after two; no sweeps without it; the time per event: one row per method, the runs given or not, the lookups each costs | built |
 | `test_a_run_on_the_farm.py` | a job stopped by the signal of the farm releases its lock and is resumed to the same run, to the last bit; a lock that is touched is never cleared; a lock left behind is cleared when the caller says | built |
 | `test_registry_turns_names_into_components.py` | every built component can be named; unknown names and kinds are refused | built |
 
