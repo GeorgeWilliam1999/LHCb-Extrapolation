@@ -1,6 +1,6 @@
 # Does a one-shot path network remove the chain?
 
-**Last updated:** 2026-11-03 · **State:** agreed; stage 0 running · **Agreed with George:** 2026-11-03 22:10, as an exploratory study
+**Last updated:** 2026-11-04 · **State:** agreed; stage 1 done on branch `one_shot_path` (items 1 to 5) · **Agreed with George:** 2026-11-03 22:10, as an exploratory study
 
 ## What this directory is
 
@@ -13,7 +13,7 @@ The idea and its equations are in the assessment of 3 Nov 2026 (section 7 of "A 
 | Name | What it does | State |
 |---|---|---|
 | `README.md` | this file: the question, the design, the runs, the criteria, what is added to the package, how the runs are watched | planned |
-| `configurations/` | one configuration file per run | planned, written against component names that do not exist yet |
+| `configurations/` | one configuration file per run | built; names checked against the package on 2026-11-04 |
 | `farm/` | what puts the runs on the farm and keeps them going; `monitor.sh` prints the state of every run on one screen | planned |
 | `analysis/` | tables, figures and the results note, made after the runs end | planned |
 
@@ -115,7 +115,7 @@ All additions follow WORKFLOW.md section 6: a registered component, a README lin
 | 7 | `evaluation/time_per_event.py` | new | times chain, path, path + sweep, Euler + sweep and RK4 on batches of 100 tracks, CPU, with the same code paths the reports use; GPU column only if a GPU node is available | runs; prints a table |
 | 8 | `equation_of_motion/toy_dipole.py` (optional) | new | the toy dipole of the assessment as a registered field, for gates that run without CVMFS | field at known points |
 
-Drafts of items 1, 2, 3 and 5 were written in the cloud on 2026-11-03 off GitHub `184cf50e` (branch `claude/project-thread-0pnl3r`); they are untested until ported onto the stbc checkout and gated there. Lines the trainer needs: a target that declares `needs_layout` is built with the layout; the start-state protocol accepts a network that declares `trains_on_start_states`; `context.scale` learns `spread_of_target_states`; PredictedTrack gets an optional `extra_outputs` attribute for the Gaussian loss.
+Drafts of items 1, 2, 3 and 5 were written in the cloud on 2026-11-03 off GitHub `184cf50e` (branch `claude/project-thread-0pnl3r`). On 2026-11-04 they were ported onto the stbc checkout, branch `one_shot_path`, with items 1b and 4 and the trainer lines, and gated (`test_reference_path.py`, `test_path_network.py`, `test_supervised_path.py`, `test_newton_sweep.py`). Items 6 and 7 are not built. Two differences from the plan: the target is built with the store as well as the layout, because a track set does not know its store; and the output form of the path network is bound with the whole region as one step, so the per-track scale is measured over the whole region. Lines the trainer needs: a target that declares `needs_layout` is built with the layout; the start-state protocol accepts a network that declares `trains_on_start_states`; `context.scale` learns `spread_of_target_states`; PredictedTrack gets an optional `extra_outputs` attribute for the Gaussian loss.
 
 Expected size: about 600 lines of package code and 300 lines of gates. One day of work on stbc, then the 505 gates plus the new ones must pass before any run.
 
@@ -153,4 +153,13 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
 
 ## Findings
 
-None yet.
+None of the runs yet.
+
+**Stage 1, 2026-11-04 (package, not a run).** Measured by the gate `tests/test_newton_sweep.py` and on 60 test tracks, real field, 64 steps and 2 stages, median radial endpoint error against the reference:
+
+| Start | Alone | After one sweep | After two sweeps |
+|---|---|---|---|
+| exact scheme | 0.1489 µm | unchanged (largest change 9e-13 mm) | unchanged |
+| forward-Euler path | 10.8 mm | 0.60 µm | 0.1489 µm |
+
+One global sweep from the Euler path does not reach the exact-scheme floor; two do. The 0.146 µm of the Kalman study (Comparators table, "Forward-Euler path + one sweep") is from a correction made step by step along the chain, each step from Euler stages on the corrected state of the step before. It is not one sweep of a whole Euler path. Criterion 4 is unchanged; it is read with this in mind.

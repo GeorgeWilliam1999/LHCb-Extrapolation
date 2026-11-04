@@ -1,17 +1,19 @@
 # Run P1: the path network, width 256, supervised path loss, L-BFGS.
-# Planned 2026-11-03; not agreed. The components path_network, reference_path
-# and supervised_path do not exist yet (README, "What is added to the package").
+# Written 2026-11-03; names checked against the stbc checkout on 2026-11-04
+# (branch one_shot_path): the straight-line form is
+# straight_line_plus_scaled_correction with scale_of_outputs per_track.
 equation_of_motion: {system: lhcb, field_map: v8r1_up}
 tracks: {key: 12a8d35c3165}
 steps: {number_of_steps: 64, number_of_stages: 2}
 network:
   kind: path_network
-  output_form: straight_line_per_track
+  output_form: straight_line_plus_scaled_correction
   width: 256
   depth: 2
   activation: tanh
+  extra_outputs: 0
   scale_of_inputs: spread_of_first_round_states
-  scale_of_outputs: spread_of_first_round_states
+  scale_of_outputs: per_track
 loss: {name: supervised_path, divisor: spread_of_target_states, uncertainty: none}
 target: {name: reference_path}
 training:

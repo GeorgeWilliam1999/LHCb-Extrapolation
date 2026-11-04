@@ -1,17 +1,23 @@
 # Run E1, the control: the existing whole-crossing network, endpoint only,
 # width 256, supervised endpoint loss. Differs from P1 in network, loss and
-# target, by necessity. Planned 2026-11-03; not agreed.
+# target, by necessity. Written 2026-11-03; checked against the stbc checkout
+# on 2026-11-04. Two changes, both forced and both open for George's ruling:
+# steps are {1, 0}, because the configuration check refuses a whole-crossing
+# network on any other layout; and the output form is direct_states, scaled
+# by the spread of the target end states, because the whole-crossing network
+# binds its form with no field map and the straight-line form refuses that.
+# The control therefore differs from P1 in its output form too.
 equation_of_motion: {system: lhcb, field_map: v8r1_up}
 tracks: {key: 12a8d35c3165}
-steps: {number_of_steps: 64, number_of_stages: 2}
+steps: {number_of_steps: 1, number_of_stages: 0}
 network:
   kind: whole_crossing_network
-  output_form: straight_line_per_track
+  output_form: direct_states
   width: 256
   depth: 2
   activation: tanh
   scale_of_inputs: spread_of_first_round_states
-  scale_of_outputs: spread_of_first_round_states
+  scale_of_outputs: spread_of_target_end_states
 loss: {name: supervised_endpoint, divisor: spread_of_target_end_states}
 target: {name: reference_end_state}
 training:

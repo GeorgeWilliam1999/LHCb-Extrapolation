@@ -1,18 +1,20 @@
 # Run P4: as P1 with the self-scaled Broyden optimiser of tranche 1. Differs from P1 in training.optimiser only.
-# The optimiser block must match the name and settings used in does_a_better_optimiser_improve_the_endpoint.
-# Planned 2026-11-03; not agreed. The components path_network, reference_path
-# and supervised_path do not exist yet (README, "What is added to the package").
+# The optimiser block is that of does_a_better_optimiser_improve_the_endpoint (checked 2026-11-04).
+# Written 2026-11-03; names checked against the stbc checkout on 2026-11-04
+# (branch one_shot_path): the straight-line form is
+# straight_line_plus_scaled_correction with scale_of_outputs per_track.
 equation_of_motion: {system: lhcb, field_map: v8r1_up}
 tracks: {key: 12a8d35c3165}
 steps: {number_of_steps: 64, number_of_stages: 2}
 network:
   kind: path_network
-  output_form: straight_line_per_track
+  output_form: straight_line_plus_scaled_correction
   width: 256
   depth: 2
   activation: tanh
+  extra_outputs: 0
   scale_of_inputs: spread_of_first_round_states
-  scale_of_outputs: spread_of_first_round_states
+  scale_of_outputs: per_track
 loss: {name: supervised_path, divisor: spread_of_target_states, uncertainty: none}
 target: {name: reference_path}
 training:
@@ -24,8 +26,8 @@ training:
     iterations_per_restart: 200
     tolerance_of_the_gradient: 1.0e-13
     tolerance_of_the_change: 1.0e-16
-    line_search: strong_wolfe
     renew_scale_when_loss_falls_to: 0.1
+    threads_for_the_matrix: 4
   stopping_rule:
     name: validation_plateau
     quantity: validation_endpoint_error_larger_of_x_and_y_median_micrometres
