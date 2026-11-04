@@ -106,6 +106,14 @@ class PathNetwork(torch.nn.Module):
                 "output_form": self.output_form.name,
                 "scale_of_outputs": self.output_form.scale_setting()}
 
+    def field_lookups_per_track(self) -> int:
+        """What one call costs in field lookups: the per-track scale of the
+        straight-line form samples the field 16 times over the whole region;
+        any other scale none."""
+        from rkpinn.networks.output_forms import SAMPLES_OF_THE_FIELD_INTEGRAL
+        return (SAMPLES_OF_THE_FIELD_INTEGRAL
+                if getattr(self.output_form, "scale_is_per_track", False) else 0)
+
     def forward(self, states):
         """The emitted states, shape (n, steps, stages + 1, 4), and the extra
         outputs, shape (n, steps, stages + 1, extra) or None."""

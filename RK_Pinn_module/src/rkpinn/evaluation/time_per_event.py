@@ -40,7 +40,6 @@ from rkpinn import registry
 from rkpinn.evaluation import conventions
 from rkpinn.evaluation.newton_sweep import forward_euler_path, one_sweep
 from rkpinn.integrators.gauss_legendre_tableau import gauss_legendre_tableau
-from rkpinn.networks.output_forms import SAMPLES_OF_THE_FIELD_INTEGRAL
 from rkpinn.predicted_track.track_layout import TrackLayout
 from rkpinn.run_record.configuration import read_configuration
 from rkpinn.run_record.store import Store
@@ -94,10 +93,9 @@ def methods(*, numpy_equation, differentiable_equation, layout, chain=None, path
             N * (cost["field_lookups_per_step"]
                  + cost["field_lookups_of_the_output_scales_per_step"]))
     if path is not None:
-        # the per-track scale of the straight-line form samples the field 16 times
-        # over the whole region (output_forms.py, path_network.py)
-        own = (SAMPLES_OF_THE_FIELD_INTEGRAL
-               if getattr(path.output_form, "scale_is_per_track", False) else 0)
+        # the per-track scale of the straight-line form samples the field over
+        # the whole region (path_network.py)
+        own = path.field_lookups_per_track()
         found["path network"] = (
             lambda states: np.asarray(path.whole_track(states, layout).final_state()), own)
         found["path network + 1 sweep"] = (

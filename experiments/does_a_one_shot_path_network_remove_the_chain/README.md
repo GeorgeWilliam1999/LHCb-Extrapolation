@@ -71,9 +71,9 @@ Comparators computed on the login node, no training:
 | Chain, straight-line form, L-BFGS, 64/2 | 1.83 µm | `25dfa17ef168` |
 | Chain, straight-line form, self-scaled Broyden | 0.53 to 0.65 µm at plateau | optimiser tranche 1 |
 | Classic RK4, 64 steps | 1.08 µm | step-length study |
-| Forward-Euler path, no sweep | 10.8 mm (60 test tracks; 13.7 mm on the toy dipole) | this experiment, stage 1 |
-| Forward-Euler path + one sweep | 0.60 µm (60 test tracks) | this experiment, stage 1 |
-| Forward-Euler path + two sweeps | 0.1489 µm (60 test tracks), the exact scheme | this experiment, stage 1 |
+| Forward-Euler path, no sweep | 12.1 mm, p95 38.2 mm (13.7 mm on the toy dipole) | this experiment, stage 2, all 1,452 test tracks |
+| Forward-Euler path + one sweep | 1.01 µm, p95 35.6 µm; 64 + 128 lookups, 128 Jacobians per track | the same |
+| Forward-Euler path + two sweeps | 0.1465 µm, p95 1.17 µm, the exact scheme (0.1465 µm, p95 1.17 µm); 64 + 256 lookups, 256 Jacobians | the same |
 | Euler stages corrected step by step along the chain (not one sweep of a path) | 0.146 µm | Kalman study |
 | Exact scheme | 0.147 µm | store |
 | LHCb parametrised extrapolator | tens of µm, about 40 operations per track | Billoir et al. 2021 |
@@ -87,7 +87,7 @@ All errors are the endpoint radial median on the 1,452 test tracks against the s
 | 1 | The best path run beats the forward-Euler path by 100x or more | Euler endpoint error on the real field, measured first |
 | 2 | The best path run alone is below 100 µm | the parametrised extrapolator; below this a no-lookup method has a use |
 | 3 | The best path run alone is below 2 µm | the chain; at this level the sweep can be skipped at the chain's accuracy |
-| 4 | Path + one sweep is at or below Euler + one sweep on the real field (0.60 µm on 60 test tracks) for every run; path + two sweeps reaches the exact-scheme floor (0.15 µm) | the comparator is Euler + one sweep; the floor is reached at two sweeps (reworded 2026-11-04 after the stage 1 measurement; ruled in the thread) |
+| 4 | Path + one sweep is at or below Euler + one sweep on the real field (1.01 µm on the 1,452 test tracks; 0.60 µm on the first 60) for every run; path + two sweeps reaches the exact-scheme floor (0.15 µm) | the comparator is Euler + one sweep; the floor is reached at two sweeps (reworded 2026-11-04 after the stage 1 measurement; ruled in the thread) |
 | 5 | In P3, 68 ± 3 % of test tracks lie within one predicted sigma in x at the end plane | the covariance is calibrated |
 | 6 | Time per event of 100 tracks, measured at equal accuracy: chain, path alone, path + sweep, Euler + sweep, RK4 | the speed claim is made only at equal accuracy |
 
@@ -156,6 +156,27 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
 ## Findings
 
 None of the runs yet.
+
+**Stage 2, 2026-11-04.** On all 1,452 test tracks the Euler path is 12.1 mm alone, 1.01 µm after one sweep and 0.1465 µm after two, the exact scheme; see the Comparators table.
+
+Smoke run `047de8df7668` (`configurations/smoke_path_256_lbfgs.yaml`: P1 with 2 rounds of 2 restarts; not a run of the experiment). A restart of 200 iterations on the 11,567 training tracks takes 312 to 316 s on the login node, so a round of 25 restarts takes about 2.2 hours, not the 10 minutes planned. Validation error (larger of x and y, median): 2,859 µm after round 1, 1,899 µm after round 2. Test split, report `round_0002_at_f8d8a0f4`, radial error against the reference:
+
+| Smoke path network | Median | p95 | Against the exact scheme, median | Field lookups per track |
+|---|---|---|---|---|
+| alone | 2,000 µm | 9,538 µm | 2,000 µm | 16 (its per-track scale) |
+| + 1 sweep | 0.1625 µm | 6.83 µm | 0.158 µm | 16 + 128 |
+| + 2 sweeps | 0.1465 µm | 1.17 µm | 4e-10 µm | 16 + 256 |
+
+Time per event, `evaluation/time_per_event.py`, 1 thread, 13 events of 100 test tracks, login node:
+
+| Method | ms per event | ms per track | Radial median of the timed tracks | Field lookups per track |
+|---|---|---|---|---|
+| chain network `25dfa17ef168` | 306.2 | 3.06 | 1.83 µm | 1,152 |
+| path network (smoke) | 7.4 | 0.074 | 2,031 µm | 16 |
+| path network (smoke) + 1 sweep | 85.0 | 0.85 | 0.167 µm | 144 |
+| Euler + 1 sweep | 180.3 | 1.80 | 1.05 µm | 192 |
+| Euler + 2 sweeps | 257.8 | 2.58 | 0.145 µm | 320 |
+| RK4, 64 steps | 98.5 | 0.99 | 1.11 µm | 256 |
 
 **Stage 1, 2026-11-04 (package, not a run).** Measured by the gate `tests/test_newton_sweep.py` and on 60 test tracks, real field, 64 steps and 2 stages, median radial endpoint error against the reference:
 
