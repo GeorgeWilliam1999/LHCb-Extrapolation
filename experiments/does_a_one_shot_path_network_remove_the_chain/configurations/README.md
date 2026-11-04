@@ -28,6 +28,7 @@ Run keys: P1 `301c00917ac0`, P2 `5c1f9db32fba`, P3 `053ed209bdb9`, P4 `ddec47242
 | `path_256_gaussian_lbfgs.yaml` | P3 | `loss.uncertainty`, `network.extra_outputs` | built |
 | `path_256_broyden.yaml` | P4 | `training.optimiser` | built |
 | `endpoint_256_lbfgs.yaml` | E1 | `network.kind`, `network.output_form`, `steps`, `loss`, `target` (the control) | built |
+| `smoke_path_256_lbfgs.yaml` | smoke run of P1 (stage 2) | `training.restarts_per_round` 2, `training.rounds_at_most` 2; not a run of the experiment | built |
 
 ## How to add to it
 
