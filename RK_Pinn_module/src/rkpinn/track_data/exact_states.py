@@ -18,7 +18,19 @@ To write the exact states of the project, from `RK_Pinn_module`:
         --store /data/bfys/gscriven/rkpinn_store --tracks <key> --split test \\
         --number-of-steps 2 64 128 256 --number-of-stages 2 4 8 16 --workers 16
 
-Gates: tests/test_exact_states_in_the_store.py.
+With `--keep-stages` (added 2026-11-04) the stage states of every step are
+kept beside the plane states, in the same file, as the array `stage_states`.
+They are the labels of the path network (targets/reference_path.py), which
+trains on the training split, so this is for the training and validation
+splits; the files of the test split were written without them and are left as
+they are. For the experiment does_a_one_shot_path_network_remove_the_chain:
+
+    PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \\
+        -m rkpinn.track_data.exact_states \\
+        --store /data/bfys/gscriven/rkpinn_store --tracks 12a8d35c3165 --split training \\
+        --number-of-steps 64 --number-of-stages 2 --workers 16 --keep-stages
+
+Gates: tests/test_exact_states_in_the_store.py, tests/test_reference_path.py.
 """
 from __future__ import annotations
 
@@ -48,13 +60,17 @@ def _solve_one_share(arguments):
     solved = exact_collocation.solve_whole_track(
         equation, start_states, first_plane_mm, length_mm, number_of_steps,
         gauss_legendre_tableau(number_of_stages))
-    return solved.states, solved.solves_not_converged, solved.residual_evaluations
+    return (solved.states, solved.solves_not_converged, solved.residual_evaluations,
+            solved.stage_states[..., :4])
 
 
 def solve_exact_states(tracks: TrackSet, split: str, number_of_steps: int,
-                       number_of_stages: int, workers: int, most_tracks=None):
+                       number_of_stages: int, workers: int, most_tracks=None,
+                       keep_stages: bool = False):
     """The exact scheme's states, shape (n, number_of_steps + 1, 5), with the
-    number of solves that did not converge and of residual evaluations."""
+    number of solves that did not converge and of residual evaluations. With
+    `keep_stages`, the stage states, shape (n, number_of_steps, stages, 4),
+    come fourth."""
     tracks.planes_a_step_starts_on(number_of_steps)        # refuses steps off the planes
     start_states = tracks.split(split).start_state[:most_tracks]
     field_map = tracks.description["settings"]["field_map"]
@@ -68,17 +84,21 @@ def solve_exact_states(tracks: TrackSet, split: str, number_of_steps: int,
         with Pool(len(jobs)) as pool:
             parts = pool.map(_solve_one_share, jobs)
     states = np.concatenate([part[0] for part in parts], axis=0)
-    return states, int(sum(p[1] for p in parts)), int(sum(p[2] for p in parts))
+    solved = (states, int(sum(p[1] for p in parts)), int(sum(p[2] for p in parts)))
+    if keep_stages:
+        return solved + (np.concatenate([part[3] for part in parts], axis=0),)
+    return solved
 
 
 def write_exact_states(store: Store, tracks_key: str, split: str, number_of_steps: int,
                        number_of_stages: int, workers: int,
                        allow_uncommitted_changes: bool = False, report=print,
-                       record=None) -> str:
+                       record=None, keep_stages: bool = False) -> str:
     """Solve and write one file of exact states. Returns the key of its content.
 
-    record  the provenance, when it was taken already at the start of a
-            command that writes several files; None takes it now.
+    record       the provenance, when it was taken already at the start of a
+                 command that writes several files; None takes it now.
+    keep_stages  keep the stage states in the file too, as `stage_states`
     """
     if record is None:
         record = provenance(allow_uncommitted_changes)
@@ -87,12 +107,15 @@ def write_exact_states(store: Store, tracks_key: str, split: str, number_of_step
     store.refuse_if_present(file)
     tracks = load_tracks(store, tracks_key)
     started = time.time()
-    states, not_converged, evaluations = solve_exact_states(
-        tracks, split, number_of_steps, number_of_stages, workers)
+    solved = solve_exact_states(tracks, split, number_of_steps, number_of_stages, workers,
+                                keep_stages=keep_stages)
+    states, not_converged, evaluations = solved[:3]
     seconds = time.time() - started
     step_length = tracks.length_mm / number_of_steps
     arrays = {"states": states,
               "planes_mm": tracks.first_plane_mm + np.arange(number_of_steps + 1) * step_length}
+    if keep_stages:
+        arrays["stage_states"] = solved[3]
     key = key_of_content(arrays)
     os.makedirs(os.path.dirname(file), exist_ok=True)
     np.savez_compressed(file, **arrays)
@@ -103,8 +126,11 @@ def write_exact_states(store: Store, tracks_key: str, split: str, number_of_step
         "number_of_steps": number_of_steps, "number_of_stages": number_of_stages,
         "step_length_mm": step_length, "number_of_tracks": int(len(states)),
         "key_of_content": key,
-        "arrays": {"states": "shape (tracks, steps + 1, 5); entry 0 is the start state",
-                   "planes_mm": "z of the plane of every entry"},
+        "arrays": dict({"states": "shape (tracks, steps + 1, 5); entry 0 is the start state",
+                        "planes_mm": "z of the plane of every entry"},
+                       **({"stage_states": "shape (tracks, steps, stages, 4): the stage "
+                                           "states of every step, at its stage planes"}
+                          if keep_stages else {})),
         "solver": {
             "root_finder": "scipy.optimize.root, method hybr",
             "step_tolerance_of_the_root_finder":
@@ -153,6 +179,34 @@ def load_exact_states(store: Store, tracks_key: str, split: str, number_of_steps
     return arrays["states"], arrays["planes_mm"], description
 
 
+def read_exact_states_with_stages(store: Store, tracks_key: str, split: str,
+                                  number_of_steps: int, number_of_stages: int,
+                                  check_the_key: bool = True):
+    """(plane states (n, steps + 1, 5), stage states (n, steps, stages, 4)) of
+    one file written with `--keep-stages`. A file written without them is refused."""
+    file = store.file_of_exact_states(tracks_key, split, number_of_steps, number_of_stages)
+    if not os.path.isfile(file):
+        raise NotInTheStore(
+            "the store holds no exact states for the tracks %r, split %s, %d steps "
+            "and %d stages; write them with --keep-stages"
+            % (tracks_key, split, number_of_steps, number_of_stages))
+    with np.load(file, allow_pickle=False) as loaded:
+        arrays = {name: loaded[name] for name in loaded.files}
+    if "stage_states" not in arrays:
+        raise NotInTheStore(
+            "the exact states of the tracks %r, split %s, %d steps and %d stages were "
+            "written without their stage states" % (tracks_key, split, number_of_steps,
+                                                   number_of_stages))
+    if check_the_key:
+        with open(store.description_of_exact_states(
+                tracks_key, split, number_of_steps, number_of_stages)) as handle:
+            description = json.load(handle)
+        if key_of_content(arrays) != description["key_of_content"]:
+            raise ValueError("the exact states in %s no longer have the content their "
+                             "record describes" % file)
+    return arrays["states"], arrays["stage_states"]
+
+
 def main(arguments=None):
     for name in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
                  "NUMEXPR_NUM_THREADS"):
@@ -166,6 +220,8 @@ def main(arguments=None):
     parser.add_argument("--number-of-stages", type=int, nargs="+", required=True)
     parser.add_argument("--workers", type=int, required=True)
     parser.add_argument("--allow-uncommitted-changes", action="store_true")
+    parser.add_argument("--keep-stages", action="store_true",
+                        help="keep the stage states of every step in the file too")
     a = parser.parse_args(arguments)
     store = Store(a.store)
     record = provenance(a.allow_uncommitted_changes)     # once, before any work
@@ -180,7 +236,7 @@ def main(arguments=None):
             write_exact_states(store, a.tracks, a.split, number_of_steps,
                                number_of_stages, a.workers, a.allow_uncommitted_changes,
                                report=lambda text: print(text, flush=True),
-                               record=record)
+                               record=record, keep_stages=a.keep_stages)
 
 
 if __name__ == "__main__":

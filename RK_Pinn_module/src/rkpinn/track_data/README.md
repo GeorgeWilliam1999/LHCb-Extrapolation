@@ -15,7 +15,7 @@ Building the tracks from the official sample, loading them, drawing the states a
 | `build_tracks.py` | each particle's true state on the Upstream Tracker carried across the crossing with the reference integrator, stored on every plane, with the true state at its own plane of the fibre tracker; the cuts and their counts; written to the store under a key computed from the content | built |
 | `load_tracks.py` | loads a track set from the store by its key, with its training, validation and test splits, and checks that the content gives the key | built |
 | `draw_training_states.py` | draws the states of one round, the same number on every start plane | built |
-| `exact_states.py` | the exact scheme chained across the crossing from every start state of a split, solved once on one machine and written to the store; and its loader | built |
+| `exact_states.py` | the exact scheme chained across the crossing from every start state of a split, solved once on one machine and written to the store; and its loader. With `--keep-stages` (2026-11-04) the stage states of every step are kept in the same file, for the reference path (`read_exact_states_with_stages`) | built |
 
 ## Where each file was ported from
 

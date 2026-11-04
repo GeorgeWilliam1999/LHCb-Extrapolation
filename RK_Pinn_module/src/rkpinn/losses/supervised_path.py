@@ -18,19 +18,15 @@ The divisor s is one constant per component. In a configuration, `divisor`
 is "spread_of_target_states" (the spread of the labels over all states,
 measured once), or four numbers.
 
-Draft of 2026-11-03, written off GitHub 184cf50e. Gates:
-tests/test_supervised_path.py (planned).
+Ported onto the stbc checkout on 2026-11-04. Gates: tests/test_supervised_path.py.
 """
 from __future__ import annotations
 
-import numpy as np
 import torch
 
-from rkpinn.losses.pooled import spread_of_components
 from rkpinn.registry import register
 
 UNCERTAINTIES = ("none", "diagonal")
-SPREAD_OF_TARGET_STATES = "spread_of_target_states"
 
 
 @register("loss", "supervised_path")
@@ -41,11 +37,10 @@ class SupervisedPath:
 
     @classmethod
     def from_configuration(cls, settings, context):
-        divisor = settings["divisor"]
-        if divisor == SPREAD_OF_TARGET_STATES:
-            labels = np.asarray(context.first_round_labels)        # (n, steps, q + 1, 4)
-            divisor = spread_of_components(labels.reshape(-1, 4)).tolist()
-        return cls(divisor=divisor, uncertainty=settings["uncertainty"])
+        # "spread_of_target_states" is measured by the run over the labels of its
+        # first round, (n, steps, q + 1, 4), all states pooled (round_trainer.py)
+        return cls(divisor=context.scale(settings["divisor"], 4),
+                   uncertainty=settings["uncertainty"])
 
     def __init__(self, *, divisor, uncertainty, equation_of_motion=None):
         self.equation_of_motion = equation_of_motion      # accepted, not used
@@ -62,16 +57,26 @@ class SupervisedPath:
 
     def emitted_states(self, predicted_track):
         """Shape (n, steps, q + 1, 4): the stages, then the end state, of every step."""
-        return torch.cat([predicted_track.stage_states,
-                          predicted_track.end_states[:, :, None, :]], dim=2)
+        stages = torch.as_tensor(predicted_track.stage_states)
+        ends = torch.as_tensor(predicted_track.end_states)
+        return torch.cat([stages, ends[:, :, None, :]], dim=2)
 
-    def value(self, predicted_track, target, constants):
+    def squared_terms(self, predicted_track, target, constants):
+        """The term of every state and component, shape (n, steps, q + 1, 4).
+        The loss is its mean. With `diagonal` a term is the Gaussian one, which
+        can be negative."""
+        if target is None:
+            raise ValueError("the supervised path loss needs the reference path")
         divisor = torch.as_tensor(constants["divisor_per_component"], dtype=torch.float64)
         labels = torch.as_tensor(target, dtype=torch.float64)
-        scaled = (self.emitted_states(predicted_track) - labels) / divisor
+        scaled = (torch.as_tensor(self.emitted_states(predicted_track)) - labels) / divisor
         if constants["uncertainty"] == "none":
-            return (scaled ** 2).mean()
-        extra = getattr(predicted_track, "extra_outputs", None)
-        if extra is None:
+            return scaled ** 2
+        extra = predicted_track.extra_outputs
+        if extra is None or extra.shape[-1] != 4:
             raise ValueError("the diagonal uncertainty needs a network with extra_outputs 4")
-        return ((scaled * torch.exp(-extra)) ** 2 + 2 * extra).mean()
+        extra = torch.as_tensor(extra)
+        return (scaled * torch.exp(-extra)) ** 2 + 2 * extra
+
+    def value(self, predicted_track, target, constants):
+        return self.squared_terms(predicted_track, target, constants).mean()

@@ -152,7 +152,12 @@ def validate(configuration: dict) -> dict:
         raise ConfigurationRefused(
             "the network %r covers the crossing in one step with no stages, so steps "
             "must be {number_of_steps: 1, number_of_stages: 0}" % network.kind)
-    if protocol.for_networks_with_stages != network.has_stages:
+    # a network with stages that is not chained (path_network) trains on the
+    # start states of the tracks, which it declares; added 2026-11-04
+    trains_on_start_states = (getattr(network, "trains_on_start_states", False)
+                              and getattr(protocol, "accepts_networks_that_train_on_start_states",
+                                          False))
+    if protocol.for_networks_with_stages != network.has_stages and not trains_on_start_states:
         raise ConfigurationRefused(
             "the protocol %r is not for the network %r" % (protocol.name, network.kind))
     if not target.can_be_trained_on:

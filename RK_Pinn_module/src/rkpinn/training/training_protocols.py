@@ -16,7 +16,8 @@ Two are built.
       start plane. The states are fixed within the round, and no gradient
       flows back through earlier steps.
 
-  start_states_of_the_tracks     for the whole-crossing network
+  start_states_of_the_tracks     for the whole-crossing network, and for the
+                                 path network, which has stages but is not chained
       every round  the start states of the training tracks, with the labels
                    the target of the run gives for them. If there are more tracks
                    than `states_per_round`, that many are drawn.
@@ -95,6 +96,9 @@ class RoundsOnOwnPredictions:
 class StartStatesOfTheTracks:
     name = "start_states_of_the_tracks"
     for_networks_with_stages = False
+    # and for a network with stages that emits the whole track in one call
+    # (path_network), which declares `trains_on_start_states`; added 2026-11-04
+    accepts_networks_that_train_on_start_states = True
     settings_in_a_configuration = ("states_per_round",)
 
     @classmethod

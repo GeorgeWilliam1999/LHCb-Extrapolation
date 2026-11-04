@@ -24,6 +24,7 @@ The seam of the package. Every network, the exact scheme and the reference integ
 | `stage_states` | (rows, steps, stages, 4), or none | the state on every stage plane |
 | `end_states` | (rows, steps, 4) | the state at the end of each step |
 | `stage_rates` | (rows, steps, stages, 4), or none | the rates at the stage states, kept when whoever filled the track had to compute them |
+| `extra_outputs` | (rows, steps, stages + 1, e), or none | outputs of a network beyond the states, read by a loss only; the log-sigma of the Gaussian path loss (2026-11-04) |
 
 It also holds the step length, the tableau, the layout, and `end_state_was`, which is `summed_from_the_stages` or `predicted`.
 

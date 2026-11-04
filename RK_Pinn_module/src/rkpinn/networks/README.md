@@ -14,6 +14,7 @@ The networks, how their raw outputs become states, how the end of a step is form
 | `__init__.py` | marks the directory as part of the package; it holds no code | built |
 | `stage_network.py` | takes a state and the z of the start plane; emits the stage states of one Gauss–Legendre step, and the end state too when it is set to be predicted (`StageNetwork`, `build_stage_network`) | built |
 | `whole_crossing_network.py` | the supervised twin: takes the state on the first plane; emits the state on the last plane in one application (`WholeCrossingNetwork`) | built |
+| `path_network.py` | takes the state on the first plane; emits every stage state and every plane state of the layout in one call, not chained, trained on the reference path; the output form is bound with the whole region as its step; with `extra_outputs` 4 also a log-sigma per state and component (`PathNetwork`, 2026-11-04) | built |
 | `output_forms.py` | how raw network outputs become states. Two forms: `direct_states`, the states themselves scaled by fixed constants; `straight_line_plus_scaled_correction`, the straight line from the input plus a correction scaled per track or by fixed constants, the form of the frozen networks | built |
 | `collect_and_sum.py` | the end state of a step as the input plus the step length times the weighted sum of the stage rates | built |
 | `self_chain.py` | applies one stage network N times, each end state being the next input (`whole_track`) | built |

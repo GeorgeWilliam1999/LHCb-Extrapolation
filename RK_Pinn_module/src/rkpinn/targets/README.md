@@ -15,6 +15,7 @@ What a prediction is trained on or compared with. A target is data; it contains 
 | `no_target.py` | label-free training: the loss needs only the equation of motion | built |
 | `reference_end_state.py` | the RK6 state at the first SciFi plane; the label of the supervised twin | built |
 | `reference_states_on_planes.py` | the RK6 state on every plane of the layout; used by the evaluation | built |
+| `reference_path.py` | the exact scheme's stage states and plane states of every step of a layout, shape (tracks, steps, stages + 1, 4), read from the store (`exact_states --keep-stages`); the label of the path network. Built with the layout and the store (`needs_layout`) (2026-11-04) | built |
 | `exact_stage_states.py` | the exact scheme's stage states, started from the same input; used to hold the stage errors | planned |
 | `true_state.py` | the Geant4-true state at the particle's own first SciFi plane; the floor no field-only method can beat. It comes with the z of that plane | built |
 

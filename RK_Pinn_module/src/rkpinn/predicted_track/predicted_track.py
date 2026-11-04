@@ -27,6 +27,11 @@ Shapes, with n rows, S steps per row and q stages:
                                     of a network that is called twice a step
                                     (networks/error_conditioned_stage_network.py),
                                     for a loss on both calls. Added 2026-11-03
+    extra_outputs     (n, S, q + 1, e) or None: outputs of a network beyond the
+                                    states, read by a loss and nothing else; the
+                                    logarithm of a sigma per component for the
+                                    Gaussian path loss (losses/supervised_path.py).
+                                    Added 2026-11-04
 
 Charge over momentum is conserved. It is in the input states and is carried
 unchanged, so the stage and end states hold four components.
@@ -61,6 +66,7 @@ class PredictedTrack:
     stage_rates: Any = None
     produced_by: str = ""
     first_call: Any = None
+    extra_outputs: Any = None
 
     def __post_init__(self):
         if self.end_state_was not in WAYS_TO_FORM_THE_END_STATE:

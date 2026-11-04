@@ -19,12 +19,16 @@ PredictedTrack with a layout: the chain, the path network or the Euler path.
 Counts returned beside the track: field lookups (N q per track) and
 Jacobians (the same), so a report can print the cost.
 
-Draft of 2026-11-03, written off GitHub 184cf50e. The Jacobian comes from
-torch autograd through the differentiable equation of motion; the trilinear
-field map makes it piecewise constant in position, as in the Kalman
-experiment's analytic gain. Gates: tests/test_newton_sweep.py (planned): from
-the exact scheme's states the step changes nothing to rounding; from the
-Euler path it reaches the floor.
+What the Kalman experiment measured is not this. There the gain corrected one
+step at a time along the chain, each step from Euler stages built on the state
+the previous corrected step gave. Here the whole path is corrected at once,
+from states that may all be off; how far one global sweep gets from an Euler
+path is measured by the gates, not assumed.
+
+The Jacobian comes from torch autograd through the differentiable equation of
+motion, four backward passes over all stage points at once; inside a cell of
+the trilinear field map it is exact. Ported onto the stbc checkout on
+2026-11-04. Gates: tests/test_newton_sweep.py.
 """
 from __future__ import annotations
 
@@ -47,18 +51,19 @@ class Sweep:
 
 def rates_and_jacobians(equation, stage_states, charge_over_momentum, stage_planes_mm):
     """f and df/ds at every stage point. stage_states (n, N, q, 4);
-    charge_over_momentum (n,); stage_planes_mm (N, q). One batched call."""
+    charge_over_momentum (n,); stage_planes_mm (N, q). One batched evaluation
+    of the field; the rows of the Jacobian by four backward passes, which are
+    exact because every point's rates depend on that point alone."""
     n, N, q, _ = stage_states.shape
-    flat = stage_states.reshape(-1, 4)
-    qop = charge_over_momentum[:, None, None].expand(n, N, q).reshape(-1, 1)
-    z = stage_planes_mm[None].expand(n, N, q).reshape(-1, 1)
-
-    def one(s, k, zz):
-        return equation.rates(s[None, None, :], k[None, :], zz[None, :])[0, 0]
-
-    jac = torch.func.vmap(torch.func.jacrev(one))(flat, qop, z)
-    f = equation.rates(flat[:, None, :], qop, z)[:, 0]
-    return f.reshape(n, N, q, 4), jac.reshape(n, N, q, 4, 4)
+    with torch.enable_grad():
+        flat = stage_states.reshape(-1, 1, 4).detach().clone().requires_grad_(True)
+        qop = charge_over_momentum[:, None, None].expand(n, N, q).reshape(-1, 1)
+        z = stage_planes_mm[None].expand(n, N, q).reshape(-1, 1)
+        f = equation.rates(flat, qop, z)[:, 0]                              # (M, 4)
+        rows = [torch.autograd.grad(f[:, d].sum(), flat, retain_graph=d < 3)[0][:, 0]
+                for d in range(4)]
+    jac = torch.stack(rows, dim=1)                                          # (M, 4, 4)
+    return f.detach().reshape(n, N, q, 4), jac.reshape(n, N, q, 4, 4)
 
 
 def one_sweep(track: PredictedTrack, equation) -> Sweep:
@@ -72,7 +77,8 @@ def one_sweep(track: PredictedTrack, equation) -> Sweep:
     b = torch.as_tensor(np.asarray(tableau.weights, dtype=np.float64))
     h = float(layout.step_length_mm)
     N, q = layout.number_of_steps, layout.number_of_stages
-    stage_planes = torch.as_tensor(np.stack([layout.stage_planes_mm(k) for k in range(N)]))
+    stage_planes = torch.as_tensor(np.stack([layout.stage_planes_mm(k) for k in range(N)]),
+                                   dtype=torch.float64)
     with torch.no_grad():
         S = torch.as_tensor(np.asarray(track.stage_states, dtype=np.float64))    # (n, N, q, 4)
         inputs = torch.as_tensor(np.asarray(track.input_states, dtype=np.float64))
@@ -100,9 +106,45 @@ def one_sweep(track: PredictedTrack, equation) -> Sweep:
                     float((P1[:, 1:] - P1[:, :N] - h * torch.einsum("i,bnid->bnd", b, F1)).abs().max()))
         new_inputs = torch.cat([P1[:, :N], qop[:, None, None].expand(n, N, 1)], dim=2)
         corrected = PredictedTrack(
-            step_length_mm=h, tableau=tableau, start_planes_mm=track.start_planes_mm,
-            input_states=new_inputs.numpy(), stage_states=S1.numpy(), end_states=P1[:, 1:].numpy(),
+            step_length_mm=h, tableau=tableau,
+            start_planes_mm=np.asarray(track.start_planes_mm, dtype=np.float64).copy(),
+            input_states=new_inputs.numpy(), stage_states=S1.numpy(),
+            end_states=P1[:, 1:].numpy(),
             end_state_was=END_STATE_PREDICTED, layout=layout, stage_rates=F1.numpy(),
             produced_by=track.produced_by + " + one sweep")
     return Sweep(track=corrected, field_lookups_per_track=N * q, jacobians_per_track=N * q,
                  largest_residual_before=before, largest_residual_after=after)
+
+
+def forward_euler_path(equation, start_states, layout) -> PredictedTrack:
+    """The forward-Euler path of a layout, the network-free start of a sweep:
+    one field lookup per step, at the state on its start plane,
+
+        S_ni   = s_n + c_i h f(z_n, s_n)
+        s_n+1  = s_n + h f(z_n, s_n)
+
+    the stages built as the Euler stages of the Kalman experiment. start_states
+    (n, 5) on the first plane. Returns a whole track, as numpy."""
+    if layout.tableau is None:
+        raise ValueError("the forward-Euler path is built on a layout with stages")
+    nodes = torch.as_tensor(np.asarray(layout.tableau.nodes, dtype=np.float64))
+    h, N = float(layout.step_length_mm), layout.number_of_steps
+    with torch.no_grad():
+        s = torch.as_tensor(np.asarray(start_states, dtype=np.float64))
+        qop = s[:, 4:5]
+        current = s[:, :4]
+        inputs, stages, ends = [], [], []
+        for m, z in enumerate(layout.start_planes_mm):
+            f = equation.rates(current[:, None, :], qop,
+                               torch.tensor([float(z)], dtype=torch.float64))[:, 0]
+            inputs.append(torch.cat([current, qop], dim=1))
+            stages.append(current[:, None, :] + (nodes * h)[None, :, None] * f[:, None, :])
+            current = current + h * f
+            ends.append(current)
+    n = len(s)
+    return PredictedTrack(
+        step_length_mm=h, tableau=layout.tableau,
+        start_planes_mm=np.broadcast_to(layout.start_planes_mm, (n, N)).copy(),
+        input_states=torch.stack(inputs, 1).numpy(), stage_states=torch.stack(stages, 1).numpy(),
+        end_states=torch.stack(ends, 1).numpy(), end_state_was=END_STATE_PREDICTED,
+        layout=layout, produced_by="forward Euler")

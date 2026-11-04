@@ -75,6 +75,9 @@ from rkpinn.training.validation_error import validation_errors
 IF_THE_RUN_EXISTS = ("refuse", "resume", "extend")
 SPREAD_OF_FIRST_ROUND_STATES = "spread_of_first_round_states"
 SPREAD_OF_TARGET_END_STATES = "spread_of_target_end_states"
+# the spread of every labelled state of a target with many states per track,
+# such as the reference path (n, steps, stages + 1, 4); added 2026-11-04
+SPREAD_OF_TARGET_STATES = "spread_of_target_states"
 
 NUMBER_OF_STATES_IN_THE_CHECK = 8
 LARGEST_LOSS_AT_THE_EXACT_SOLUTION = 1e-18
@@ -108,9 +111,16 @@ class RunContext:
                     raise ValueError("there are no end states of a target in this run, "
                                      "so their spread cannot be a scale")
                 return spread_of_components(self.first_round_labels)[:number].tolist()
-            raise ValueError("a scale is %s, %s or numbers, not %r"
+            if value == SPREAD_OF_TARGET_STATES:
+                if self.first_round_labels is None:
+                    raise ValueError("there are no states of a target in this run, "
+                                     "so their spread cannot be a scale")
+                labels = np.asarray(self.first_round_labels)
+                return spread_of_components(
+                    labels.reshape(-1, labels.shape[-1]))[:number].tolist()
+            raise ValueError("a scale is %s, %s, %s or numbers, not %r"
                              % (SPREAD_OF_FIRST_ROUND_STATES, SPREAD_OF_TARGET_END_STATES,
-                                value))
+                                SPREAD_OF_TARGET_STATES, value))
         numbers = [float(v) for v in value]
         if len(numbers) != number:
             raise ValueError("this scale has %d components, not %d" % (number, len(numbers)))
@@ -172,7 +182,11 @@ def build_run(configuration: dict, store: Store, recorded_constants=None) -> Run
     seed = configuration["seed"]
     protocol = registry.component("training_protocol", training["protocol"]["name"]) \
         .from_configuration(_without(training["protocol"], "name"), None)
-    target = registry.component("target", configuration["target"]["name"])()
+    target = registry.component("target", configuration["target"]["name"])
+    # a target whose labels depend on the layout (reference_path) is built with
+    # the layout and the store it reads them from; every other with nothing
+    target = (target(layout=layout, store=store) if getattr(target, "needs_layout", False)
+              else target())
     first_round = protocol.states_of_round(1, seed, tracks, layout, None, target)
     context = RunContext(seed=seed, equation_of_motion=differentiable, layout=layout,
                          first_round_states=first_round.states,

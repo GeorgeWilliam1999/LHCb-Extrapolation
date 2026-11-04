@@ -20,6 +20,7 @@ The stage residual, and the losses built on it. All label-free losses are the me
 | `distilled_analytic_gain.py` | for the learned gain: the mean squared difference, over the divisor of the pooled loss, between the correction the network took off the summed end state and the linearised gain K r from the Jacobians at the stages; optionally plus the pooled stage terms. No reference label (2026-11-03) | built |
 | `pooled_on_both_calls.py` | for the error-conditioned stage network: the pooled loss over the stages of the second call and of the first, as one mean; the pooled loss itself for a track of one call (2026-11-03) | built |
 | `supervised_endpoint.py` | mean squared difference between a predicted end state and a target end state, over a divisor per component | built |
+| `supervised_path.py` | for the path network: mean squared difference over every emitted state and component between the path and the reference path, over a divisor per component (`spread_of_target_states` or four numbers); with `uncertainty: diagonal` the Gaussian negative log-likelihood with a sigma per state and component (2026-11-04) | built |
 
 ## Settings of a loss
 
