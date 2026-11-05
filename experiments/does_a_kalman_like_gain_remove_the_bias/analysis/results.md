@@ -324,3 +324,32 @@ Eight farm runs, submitted 2026-11-03 at commit `ae95116d`. All plateaued by the
 - No seeds 2 and 3: each result is one seed.
 - The cause of point 4 is not measured.
 - No timing of C1a and C2 beyond the time to carry a track in the standard report, on a loaded node.
+
+### Why the per-track scale fails, and what C2 learned (added 2026-11-05)
+
+`part_c_scale_check.py`: on 20,000 test steps, the spread over states of the entries of the matrix each network must give, for the entries that carry the correction (within 1/100 of the largest of their row). Spread = log10 of the 99th over the 1st percentile of the entry's magnitude.
+
+| Frozen network | Scale of the correction | C1a target, median spread (decades) | C2 target, median spread (decades) | Spread of the scale (decades) |
+|---|---|---|---|---|
+| straight line global | fixed | 3.49 | 0.00 | 0 |
+| straight line global | per track | 2.68 | 2.73 | 1.75 |
+| direct states | fixed | 3.53 | 0.00 | 0 |
+| direct states | per track | 2.70 | 1.75 | 1.75 |
+| straight line per-track | fixed | 3.49 | 0.00 | 0 |
+| straight line per-track | per track | 2.68 | 2.73 | 1.75 |
+
+- **C2.** With a fixed scale the target is constant over the states: 0.00 decades. The reason: dz A J is small, so M ≈ I and the Newton step is dY ≈ −r. With the per-track scale the same target varies by 1.75 to 2.73 decades, because the scale itself varies by 1.75 decades (a factor 57). This explains the failure of C2 with a per-track scale.
+- **C1a.** The target K varies by 3.5 decades whatever the scale (K grows with q/p and the field). The per-track scale narrows it to 2.7 decades, yet C1a with the per-track scale did worse (1.43 and 4.17 um against 0.341 and 0.807). So this measure does not explain the failure of C1a with the per-track scale. That remains open.
+
+`part_c_sweep_check.py`: is the trained C2 correction one fixed-point sweep, dY = −r? And what does the sweep itself give?
+
+| C2 run | Median of \|dY + r\| / \|r\| | 90th percentile | C2 endpoint (um) | One sweep from the same frozen network, endpoint (um) |
+|---|---|---|---|---|
+| straight line global | 0.169 | 0.724 | 0.148 | 0.147 |
+| direct states | 0.023 | 0.076 | 0.145 | 0.145 |
+| straight line per-track | 0.653 | 0.957 | 1.02 | 0.147 |
+| direct states, per-track correction scale | 0.347 | 0.813 | 1.27 | 0.145 |
+
+- Where C2 succeeds, its correction is close to one fixed-point sweep: within 2% (direct states) and 17% (global straight line) in the median.
+- One sweep, Y' = S0 + dz A F, with no second network, gives 0.145 to 0.147 um from every frozen network, the per-track one included. It costs the same 4 field lookups a step as C2 and one network call fewer. This is the result of item C.2 of the per-step bias study.
+- So C2 learns one fixed-point sweep, and adds nothing to it. It is worse where its scale keeps it from learning the sweep.

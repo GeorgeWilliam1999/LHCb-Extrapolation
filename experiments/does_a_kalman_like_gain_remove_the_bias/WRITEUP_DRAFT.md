@@ -473,12 +473,13 @@ Against the criteria of section 6.5:
 
 1. **C2 reaches the exact scheme.** On a network with a fixed output scale, the error-conditioned network gives 0.148 um and 0.145 um, against 0.147 um for the exact scheme, in every band. It needs 4 field lookups a step and no Jacobian. It reached this by round 2 of training.
 2. **C1a comes close but does not reach it.** The learned gain gives 0.341 um and 0.807 um at 2 field lookups a step. It removes the lag-1 correlation in x but not in y, and it leaves a slope error above that of the exact scheme.
-3. **A per-track scale of the correction fails.** All four runs with it keep a lag-1 of +0.75 to +0.82 in x. The cause is not measured. One candidate: the per-track scale changes by orders of magnitude between tracks and steps, so the matrix the network must give changes by the same factor.
-4. **Cost in time.** On the code of this package one network call costs as much as 8 to 9 pairs of field lookups (section 8.4). C2 costs two network calls and 4 lookups a step. RK4 costs 4 lookups. So at equal lookups C2 is 7× more accurate than RK4, but on this code it is slower.
+3. **A per-track scale of the correction fails.** All four runs with it keep a lag-1 of +0.75 to +0.82 in x. For C2 the cause is measured (point 4). For C1a it is not.
+4. **C2 learns one fixed-point sweep.** Where C2 succeeds, its correction is within 2% to 17% (median) of dY = −r, one fixed-point sweep of the stage equations. The sweep itself, Y' = S0 + dz A F with no second network, gives 0.145 to 0.147 um from every frozen network, at the same 4 lookups a step. So C2 adds nothing to a sweep. With a fixed scale the matrix C2 must give is constant over the states (dz A J is small, so M ≈ I); with the per-track scale it varies by 1.75 to 2.73 decades, which is why that form fails.
+5. **Cost in time.** On the code of this package one network call costs as much as 8 to 9 pairs of field lookups (section 8.4). C2 costs two network calls and 4 lookups a step. RK4 costs 4 lookups. So at equal lookups C2 is 7× more accurate than RK4, but on this code it is slower.
 
 ### 9.4 Questions left open
 
-1. Why does a per-track scale of the correction fail?
+1. Why does C1a fail with a per-track scale? The spread of its target does not explain it.
 2. Does C1a reach the exact scheme in y with the rates as an input, or with a longer training?
 3. Is the result of C2 the same for other seeds?
 4. What does C2 cost in time in a fused, single-precision kernel?
@@ -497,7 +498,7 @@ Against the criteria of section 6.5:
 
 - C1b is not built (section 4.3).
 - Part C has one seed per run.
-- The cause of the failure of the per-track scale of the correction (section 9.3) is not measured.
+- The cause of the failure of C1a with a per-track scale of the correction (section 9.3) is not measured.
 - The timing is on a loaded CPU node in this package's code, not in the target code.
 - The hit layout and resolutions of the toy fit were not re-checked against the LHCb Tracker Upgrade TDR.
 - Each network is one seed.

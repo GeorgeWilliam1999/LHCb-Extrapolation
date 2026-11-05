@@ -22,6 +22,8 @@ The scripts, tables and figures of Parts A and B. They read the store, the field
 | `part_c_smoke.sh <store>` | Part C smoke run: C1a and C2 on the frozen per-track straight-line network, a small draw, 3 rounds, and the standard report of each; into a scratch store | the scratch store; `logs/part_c_smoke.txt` |
 | `part_c_smoke_configurations/` | the two configurations of the smoke run (each a package default with 4,000 states, 5 restarts of 100 iterations, 3 rounds) | — |
 | `part_c_smoke.md` | the numbers of the smoke run | — |
+| `part_c_scale_check.py run` | the spread over test states of the matrix C1a and C2 must give, with a fixed and a per-track scale of the correction | `results/c_scale_check.csv` |
+| `part_c_sweep_check.py run` | whether the trained C2 correction is one fixed-point sweep (dY = −r), and the endpoint of one sweep from each frozen network | `results/c_sweep_check.csv` |
 | `part_c.py run` | Part C: the eight farm runs and their three frozen networks, scored as Part B scores its variants (endpoint per band, signed means, single steps, lag-1) | `results/c_endpoint.csv`, `results/c_single_step.csv` |
 
 ## How to run
