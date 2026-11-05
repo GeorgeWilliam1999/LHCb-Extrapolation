@@ -1,6 +1,6 @@
 # Does a Kalman-like gain remove the bias of a self-chained network? (draft)
 
-**Date:** 2026-11-03 · **State:** draft. Parts A and B have results. Part C (a learned gain) has code, gates and a smoke run; its farm runs are not made. Sections marked **[Part C: to fill]** wait for those runs.
+**Date:** 2026-11-05 · **State:** draft. Parts A, B and C have results. Part C: eight farm runs, one seed each.
 
 ---
 
@@ -425,31 +425,63 @@ The smoke run trains C1a and C2 on the frozen per-track straight-line network fo
 
 ### 9.2 Farm runs
 
-**[Part C: to fill.]** Planned runs:
+Eight runs, one seed each: C1a and C2 on each of the three frozen networks, and on direct states with a per-track scale of the correction. The training is that of section 6.3. Every run reached the plateau of the validation rule; none reached the cap. Six plateaued at round 22, the earliest round the rule allows.
 
-| Variant | Frozen network | Scale of the correction |
+Test endpoint, radial median (um):
+
+| Variant | Frozen network | Scale of the correction | Endpoint | < 3 | 3–8 | 8–20 | 20–50 | > 50 | Field lookups / step |
+|---|---|---|---|---|---|---|---|---|---|
+| frozen alone | straight line, per-track | — | 1.83 | 4.94 | 2.10 | 1.44 | 1.21 | 1.89 | 2 + 16 samples |
+| C1a | straight line, per-track | per track | 1.43 | 3.73 | 1.54 | 1.20 | 1.08 | 1.83 | 2 + 16 samples |
+| C2 | straight line, per-track | per track | 1.02 | 1.87 | 0.972 | 0.896 | 0.979 | 1.76 | 4 + 16 samples |
+| frozen alone | straight line, global | — | 2.04 | 7.42 | 3.21 | 1.31 | 1.30 | 0.654 | 2 |
+| C1a | straight line, global | four numbers | 0.341 | 1.32 | 0.511 | 0.247 | 0.187 | 0.168 | 2 |
+| C2 | straight line, global | four numbers | 0.148 | 0.665 | 0.246 | 0.0868 | 0.0361 | 0.0112 | 4 |
+| frozen alone | direct states | — | 5.71 | 21.7 | 8.75 | 3.54 | 2.96 | 3.24 | 2 |
+| C1a | direct states | state spread | 0.807 | 4.14 | 1.10 | 0.559 | 0.454 | 0.455 | 2 |
+| C2 | direct states | state spread | 0.145 | 0.643 | 0.252 | 0.0862 | 0.0340 | 0.0120 | 4 |
+| C1a | direct states | per track | 4.17 | 11.9 | 5.11 | 3.13 | 2.78 | 3.17 | 2 + 16 samples |
+| C2 | direct states | per track | 1.27 | 1.99 | 1.19 | 1.05 | 1.44 | 2.27 | 4 + 16 samples |
+| exact scheme | — | — | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 | about 2 per iteration |
+| analytic gain | any | — | 0.147 | 0.66 | 0.249 | 0.0852 | 0.0353 | 0.0115 | 2, + 2 Jacobians and a solve |
+| classic RK4 | — | — | 1.08 | | | | | | 4 |
+
+Single steps (92,928 test steps):
+
+| Variant | Frozen network | Scale of the correction | Radial median (um) | rms tx (urad) | Lag-1 x | Lag-1 y |
+|---|---|---|---|---|---|---|
+| exact scheme | — | — | 0.000718 | 0.295 | −0.22 | −0.18 |
+| C1a | straight line, global | four numbers | 0.00829 | 0.311 | −0.22 | +0.91 |
+| C2 | straight line, global | four numbers | 0.000825 | 0.295 | −0.22 | +0.12 |
+| C1a | direct states | state spread | 0.00136 | 0.356 | −0.21 | +0.53 |
+| C2 | direct states | state spread | 0.00136 | 0.295 | −0.21 | +0.53 |
+| C1a | straight line, per-track | per track | 0.0518 | 0.314 | +0.82 | +0.90 |
+| C2 | straight line, per-track | per track | 0.0347 | 0.319 | +0.75 | +0.89 |
+| C1a | direct states | per track | 0.286 | 0.363 | +0.82 | +0.88 |
+| C2 | direct states | per track | 0.0522 | 0.303 | +0.80 | +0.88 |
+
+Against the criteria of section 6.5:
+
+| # | Criterion | Result |
 |---|---|---|
-| C1a | straight line, per-track scale | same as the stage network |
-| C1a | straight line, one global scale | same as the stage network |
-| C1a | direct states | same as the stage network |
-| C1a | direct states | per track |
-| C2 | the same four | |
+| 1 | C1a below 0.30 um | fails on every network; the best is 0.341 um |
+| 2 | C2 more than 2× below its frozen network | passes on three of four: 14× (global), 39× (direct states), 4.5× (direct states, per-track scale); fails on the per-track straight line (1.8×) |
+| 3 | beats RK4 at no more than 256 lookups a track | C2 passes on the global straight line and on direct states (0.148 and 0.145 um at 256); C1a passes on the same two (0.341 and 0.807 um at 128) |
+| 4 | plateau reached | every run |
 
-Table to fill, per run: test endpoint per band, signed mean, single-step radial median and lag-1, rounds to the plateau, counts per step, time per step.
+### 9.3 What Part C shows
 
-| Variant | Frozen network | Endpoint (um) | < 3 | 3–8 | 8–20 | 20–50 | > 50 | Lag-1 x | Field lookups / step | Network calls / step |
-|---|---|---|---|---|---|---|---|---|---|---|
-| C1a | straight line, per-track | | | | | | | | 2 | 2 |
-| C2 | straight line, per-track | | | | | | | | 4 | 2 |
+1. **C2 reaches the exact scheme.** On a network with a fixed output scale, the error-conditioned network gives 0.148 um and 0.145 um, against 0.147 um for the exact scheme, in every band. It needs 4 field lookups a step and no Jacobian. It reached this by round 2 of training.
+2. **C1a comes close but does not reach it.** The learned gain gives 0.341 um and 0.807 um at 2 field lookups a step. It removes the lag-1 correlation in x but not in y, and it leaves a slope error above that of the exact scheme.
+3. **A per-track scale of the correction fails.** All four runs with it keep a lag-1 of +0.75 to +0.82 in x. The cause is not measured. One candidate: the per-track scale changes by orders of magnitude between tracks and steps, so the matrix the network must give changes by the same factor.
+4. **Cost in time.** On the code of this package one network call costs as much as 8 to 9 pairs of field lookups (section 8.4). C2 costs two network calls and 4 lookups a step. RK4 costs 4 lookups. So at equal lookups C2 is 7× more accurate than RK4, but on this code it is slower.
 
-### 9.3 Questions the farm runs answer
+### 9.4 Questions left open
 
-1. How close does the learned gain come to the analytic gain (0.147 um)?
-2. Does the learned gain keep the lag-1 autocorrelation near that of the exact scheme?
-3. Does C2, at 4 lookups a step, beat classic RK4 at the same lookups (1.08 um)?
-4. Is a learned gain cheaper in time than the analytic gain on this code?
-
----
+1. Why does a per-track scale of the correction fail?
+2. Does C1a reach the exact scheme in y with the rates as an input, or with a longer training?
+3. Is the result of C2 the same for other seeds?
+4. What does C2 cost in time in a fused, single-precision kernel?
 
 ## 10. Related work
 
@@ -464,7 +496,8 @@ Table to fill, per run: test endpoint per band, signed mean, single-step radial 
 ## 11. What is not done
 
 - C1b is not built (section 4.3).
-- The Part C farm runs are not made.
+- Part C has one seed per run.
+- The cause of the failure of the per-track scale of the correction (section 9.3) is not measured.
 - The timing is on a loaded CPU node in this package's code, not in the target code.
 - The hit layout and resolutions of the toy fit were not re-checked against the LHCb Tracker Upgrade TDR.
 - Each network is one seed.

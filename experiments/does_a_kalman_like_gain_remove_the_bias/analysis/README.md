@@ -1,6 +1,6 @@
 # Analysis
 
-**Last updated:** 2026-11-03
+**Last updated:** 2026-11-05
 
 ## What this directory is
 
@@ -10,7 +10,7 @@ The scripts, tables and figures of Parts A and B. They read the store, the field
 
 | Name | What it does | Writes |
 |---|---|---|
-| `results.md` | the results note: every number, the decision point | — |
+| `results.md` | the results note: every number, the decision point; Part C added 2026-11-05 | — |
 | `common.py` | copy of the bias study's `common.py`: the runs, the tracks, the chain, the scores; reads that study's cache | — |
 | `stage_equations.py` | copy of the bias study's file: the 2-stage stage equations, the Jacobian of f, the exact step | — |
 | `part_b.py check` | the summed end state of the script against the network's end state | `logs/part_b_check.txt` |
@@ -22,6 +22,7 @@ The scripts, tables and figures of Parts A and B. They read the store, the field
 | `part_c_smoke.sh <store>` | Part C smoke run: C1a and C2 on the frozen per-track straight-line network, a small draw, 3 rounds, and the standard report of each; into a scratch store | the scratch store; `logs/part_c_smoke.txt` |
 | `part_c_smoke_configurations/` | the two configurations of the smoke run (each a package default with 4,000 states, 5 restarts of 100 iterations, 3 rounds) | — |
 | `part_c_smoke.md` | the numbers of the smoke run | — |
+| `part_c.py run` | Part C: the eight farm runs and their three frozen networks, scored as Part B scores its variants (endpoint per band, signed means, single steps, lag-1) | `results/c_endpoint.csv`, `results/c_single_step.csv` |
 
 ## How to run
 

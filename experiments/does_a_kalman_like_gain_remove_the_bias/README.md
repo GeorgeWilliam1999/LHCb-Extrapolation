@@ -1,6 +1,6 @@
 # Does a Kalman-like gain remove the bias
 
-**Last updated:** 2026-11-03 · **State:** Parts A and B run; Part C (a learned gain) built, smoke-run, eight farm runs submitted 2026-11-03
+**Last updated:** 2026-11-05 · **State:** Parts A, B and C run; for discussion with George
 
 ## What this directory is
 
@@ -56,3 +56,5 @@ Criteria, written before the farm runs:
 | 4 | Convergence is read from the validation error. A run at its cap without a plateau is reported as such. |
 
 Smoke run: `analysis/part_c_smoke.md`. Farm runs: `configurations/README.md`, `farm/README.md`.
+
+Part C result (2026-11-05, `analysis/results.md`): C2 on the global straight line and on direct states reaches the exact scheme (0.148 and 0.145 um) at 4 field lookups a step with no Jacobian. C1a reaches 0.341 and 0.807 um at 2 lookups. Every run with a per-track scale of the correction fails (1.02 to 4.17 um, lag-1 still +0.75 to +0.82).

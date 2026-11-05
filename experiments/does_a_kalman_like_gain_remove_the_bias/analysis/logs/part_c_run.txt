@@ -1,0 +1,14 @@
+frozen straight line per-track                       25dfa17ef168: endpoint 1.8310 um, single step 0.072134 um, lag-1 x +0.85
+frozen straight line global                          9cef9c160b7d: endpoint 2.0393 um, single step 0.116655 um, lag-1 x +0.78
+frozen direct states                                 49e5e2450eaa: endpoint 5.7052 um, single step 0.485743 um, lag-1 x +0.87
+C1a    straight line per-track                       d986d2239b65: endpoint 1.4284 um, single step 0.051808 um, lag-1 x +0.82
+C1a    straight line global                          c6a7d5d15caa: endpoint 0.3410 um, single step 0.008292 um, lag-1 x -0.22
+C1a    direct states                                 d22c95bb773d: endpoint 0.8065 um, single step 0.001362 um, lag-1 x -0.21
+C1a    direct states, per-track correction scale     1006d1956c3c: endpoint 4.1738 um, single step 0.285797 um, lag-1 x +0.82
+C2     straight line per-track                       b38147788963: endpoint 1.0159 um, single step 0.034734 um, lag-1 x +0.75
+C2     straight line global                          6c881486c499: endpoint 0.1477 um, single step 0.000825 um, lag-1 x -0.22
+C2     direct states                                 1eaf33293506: endpoint 0.1452 um, single step 0.001364 um, lag-1 x -0.21
+C2     direct states, per-track correction scale     cac1a385740d: endpoint 1.2699 um, single step 0.052165 um, lag-1 x +0.80
+written: results/c_endpoint.csv
+written: results/c_single_step.csv
+exit 0 : part_c.py run

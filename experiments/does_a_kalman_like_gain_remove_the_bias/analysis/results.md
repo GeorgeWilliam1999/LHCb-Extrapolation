@@ -262,3 +262,65 @@ Cost (George, 2026-10-28: not a deciding factor): in lookups, the network with t
 - The timing is on a loaded CPU node in this package's code, not in the target code (see Timing).
 - The hit layout and resolutions of Part A were not re-checked against the TDR (as in A.7).
 - The Part A fit of a corrected network (gain + fit) was not run separately; the exact-extrapolator row stands for it.
+
+## Part C: a learned gain (added 2026-11-05)
+
+Eight farm runs, submitted 2026-11-03 at commit `ae95116d`. All plateaued by the validation rule; none reached the cap of 60 rounds. Six plateaued at round 22, the earliest round the rule allows (two windows of 10 rounds and 3 rounds held). Scored by `part_c.py run` as Part B scores its variants; the standard report of each run is in the store.
+
+### Endpoint (test, 1,452 tracks, radial median, um)
+
+| Variant | Frozen network | Scale of the correction | Rounds | Endpoint | < 3 | 3–8 | 8–20 | 20–50 | > 50 | Mean x | Mean y |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| frozen alone | straight line per-track | — | 44 | 1.83 | 4.94 | 2.10 | 1.44 | 1.21 | 1.89 | -0.03 ± 0.25 | +0.77 ± 0.46 |
+| C1a | straight line per-track | per track (that of the stage network) | 22 | 1.43 | 3.73 | 1.54 | 1.20 | 1.08 | 1.83 | +0.10 ± 0.18 | -0.17 ± 0.46 |
+| C2 | straight line per-track | per track (that of the stage network) | 28 | 1.02 | 1.87 | 0.972 | 0.896 | 0.979 | 1.76 | +0.47 ± 0.34 | +0.02 ± 0.53 |
+| frozen alone | straight line global | — | 22 | 2.04 | 7.42 | 3.21 | 1.31 | 1.30 | 0.654 | +0.02 ± 0.52 | +0.76 ± 0.32 |
+| C1a | straight line global | four numbers (that of the stage network) | 25 | 0.341 | 1.32 | 0.511 | 0.247 | 0.187 | 0.168 | +0.14 ± 0.18 | +0.03 ± 0.15 |
+| C2 | straight line global | four numbers (that of the stage network) | 22 | 0.148 | 0.665 | 0.246 | 0.0868 | 0.0361 | 0.0112 | +0.01 ± 0.13 | +0.08 ± 0.15 |
+| frozen alone | direct states | — | 59 | 5.71 | 21.7 | 8.75 | 3.54 | 2.96 | 3.24 | +1.40 ± 1.47 | -0.39 ± 0.65 |
+| C1a | direct states | state spread (that of the stage network) | 22 | 0.807 | 4.14 | 1.10 | 0.559 | 0.454 | 0.455 | -0.61 ± 0.54 | -0.23 ± 0.26 |
+| C2 | direct states | state spread (that of the stage network) | 22 | 0.145 | 0.643 | 0.252 | 0.0862 | 0.0340 | 0.0120 | +0.01 ± 0.13 | +0.08 ± 0.15 |
+| C1a | direct states | per track | 22 | 4.17 | 11.9 | 5.11 | 3.13 | 2.78 | 3.17 | -1.03 ± 1.26 | +0.67 ± 0.55 |
+| C2 | direct states | per track | 59 | 1.27 | 1.99 | 1.19 | 1.05 | 1.44 | 2.27 | +0.08 ± 0.40 | +0.55 ± 0.63 |
+| exact 2-stage scheme | — | — | — | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 | | |
+| analytic gain (Part B) | any of the three | — | — | 0.147 | 0.66 | 0.249 | 0.0852 | 0.0353 | 0.0115 | +0.01 ± 0.12 | +0.08 ± 0.15 |
+
+### Single steps (test, 92,928 steps)
+
+| Variant | Frozen network | Scale of the correction | Radial median (um) | Radial rms (um) | rms tx (urad) | rms ty (urad) | Lag-1 x | Lag-1 y |
+|---|---|---|---|---|---|---|---|---|
+| exact 2-stage scheme | — | — | 0.000718 | 0.0219 | 0.295 | 0.247 | -0.22 | -0.18 |
+| frozen alone | straight line per-track | — | 0.0721 | 0.893 | 0.300 | 0.249 | +0.85 | +0.90 |
+| C1a | straight line per-track | per track | 0.0518 | 0.733 | 0.314 | 0.313 | +0.82 | +0.90 |
+| C2 | straight line per-track | per track | 0.0347 | 1.81 | 0.319 | 0.257 | +0.75 | +0.89 |
+| frozen alone | straight line global | — | 0.117 | 1.04 | 0.303 | 0.246 | +0.78 | +0.87 |
+| C1a | straight line global | four numbers | 0.00829 | 0.0752 | 0.311 | 0.243 | -0.22 | +0.91 |
+| C2 | straight line global | four numbers | 0.000825 | 0.0224 | 0.295 | 0.248 | -0.22 | +0.12 |
+| frozen alone | direct states | — | 0.486 | 2.80 | 0.344 | 0.269 | +0.87 | +0.89 |
+| C1a | direct states | state spread | 0.00136 | 0.0230 | 0.356 | 0.297 | -0.21 | +0.53 |
+| C2 | direct states | state spread | 0.00136 | 0.0230 | 0.295 | 0.248 | -0.21 | +0.53 |
+| C1a | direct states | per track | 0.286 | 1.71 | 0.363 | 0.404 | +0.82 | +0.88 |
+| C2 | direct states | per track | 0.0522 | 2.18 | 0.303 | 0.250 | +0.80 | +0.88 |
+
+### Against the criteria written before the runs
+
+| # | Criterion | Straight line per-track | Straight line global | Direct states | Direct states, per-track correction scale |
+|---|---|---|---|---|---|
+| 1 | C1a below 0.30 um | fails (1.43) | fails (0.341) | fails (0.807) | fails (4.17) |
+| 2 | C2 more than 2× below its frozen network | fails (1.83 → 1.02, 1.8×) | passes (2.04 → 0.148, 14×) | passes (5.71 → 0.145, 39×) | passes (5.71 → 1.27, 4.5×) |
+| 3 | beats RK4 (1.08 um) at no more than 256 field lookups a track | C1a fails (1.43); C2 passes on the error (1.02) but its per-track scale adds 16 field samples a step | C1a passes (0.341 at 128); C2 passes (0.148 at 256) | C1a passes (0.807 at 128); C2 passes (0.145 at 256) | both fail |
+| 4 | plateau reached | yes (22, 28 rounds) | yes (25, 22) | yes (22, 22) | yes (22, 59) |
+
+### What the runs show
+
+1. C2 on a network with a fixed output scale reaches the exact scheme: 0.148 um (global straight line) and 0.145 um (direct states), against 0.147 um. The per-band errors equal those of the exact scheme. It uses 4 field lookups a step and no Jacobian.
+2. C1a on the same two networks comes within 2.3× (0.341 um) and 5.5× (0.807 um) of the exact scheme, at 2 field lookups a step and no Jacobian. It misses criterion 1.
+3. C1a removes the lag-1 bias in x (−0.22, −0.21) but not in y (+0.91 on the global straight line, +0.53 on direct states). Its slope error is above that of the exact scheme (tx 0.31 to 0.36 urad against 0.295). C2 leaves a lag-1 in y of +0.12 and +0.53.
+4. Every run with a per-track correction scale fails: the four lag-1 values in x stay at +0.75 to +0.82. This holds for both variants and for both networks it was tried on. The two forms that work both use four fixed numbers. The cause is not measured. One candidate: the per-track scale varies with q/p and the field integral by orders of magnitude between tracks and steps, so the matrix the network must give (K s_r / s_out) varies by the same factor, while r is divided by one fixed rms. A check is to measure the spread of that target matrix over the training states for the two scales.
+5. Six of the eight runs plateaued at round 22, the earliest round the rule allows. C2 on the global straight line and on direct states was at 0.146 and 0.144 um of validation error by round 2 and stayed there. C1a on the per-track straight line stayed between 1.30 and 1.38 um from round 1.
+
+### Not done in Part C
+
+- No seeds 2 and 3: each result is one seed.
+- The cause of point 4 is not measured.
+- No timing of C1a and C2 beyond the time to carry a track in the standard report, on a loaded node.
