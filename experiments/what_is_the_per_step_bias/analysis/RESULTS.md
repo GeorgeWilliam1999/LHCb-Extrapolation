@@ -1,6 +1,6 @@
 # Results: what is the per-step bias
 
-**Date:** 2026-10-28. **State:** for discussion with George. Nothing is written up.
+**Date:** 2026-10-28; Part B, A.8 and the figures 2026-11-05. **State:** for discussion with George. Nothing is written up. Each section opens with its figures; the full tables are folded under them ("Table").
 
 ## Scope
 
@@ -22,6 +22,8 @@
 
 ## Summary
 
+![overview](figures/overview.png)
+
 1. The slope part of e (tx, ty) is the exact scheme's own error. It comes from the cell faces of the field map. Every network shares it. Training cannot remove it.
 2. The position part of e (x, y) is the network's own error. It does not come from the cell faces. It is private: forms do not share it, and the snapshots of a straight-line run do not share it.
 3. The position error is a slow wave along the track. Its correlation length is about 5 steps. Its mean over the population is near zero. It is not a constant bias per track.
@@ -34,7 +36,11 @@
 
 ## A.1 Smooth model of e
 
+![a1 r squared](figures/a1_r_squared.png)
+
 Fitted on the training tracks (740,288 steps). R² on the validation tracks (93,632 steps). The trees setting was chosen on the last fifth of the training tracks, held out. A first fit with one setting reached R² 0.8–0.9 on the training tracks and ≤ 0.4 on validation: it learned the tracks, not the state.
+
+<details><summary>Table</summary>
 
 | Run | Component | rms of e | R² trees, training | R² trees, validation | R² cubic, validation | Removable (≥ 0.5) |
 |---|---|---|---|---|---|---|
@@ -51,9 +57,15 @@ Fitted on the training tracks (740,288 steps). R² on the validation tracks (93,
 | direct states | tx | 0.44 | 0.69 | 0.34 | 0.03 | no |
 | direct states | ty | 0.32 | 0.01 | 0.01 | 0.00 | no |
 
+</details>
+
 Table: `results/a1_smooth_model_r2.csv`.
 
 ## A.2 Binned mean of e against each variable
+
+![a2 binned mean 25dfa17ef168](figures/a2_binned_mean_25dfa17ef168.png)
+
+![a2 binned mean 49e5e2450eaa](figures/a2_binned_mean_49e5e2450eaa.png)
 
 The binned means are 0.01 to 0.1 um in x and y. The rms of e is 0.7 to 3.4 um. So the mean of e in any slice of one variable is 1% to 10% of its spread. The largest structure: e_y of the straight-line run grows at |y| > 500 mm and |ty| > 0.1 (up to 0.37 um), and at low |q/p| it is near zero.
 
@@ -61,7 +73,11 @@ Figures: `figures/a2_binned_mean_<key>.png`. Table: `results/a2_binned_mean_of_e
 
 ## A.3 e by momentum band
 
+![a3 rms by band](figures/a3_rms_by_band.png)
+
 Mean e_x along the bend, ± standard error, in um. Positive: the step bends too much. rms of e_x and e_y in um.
+
+<details><summary>Table</summary>
 
 | Band | per-track: mean along bend | per-track: rms x / y | global: mean along bend | global: rms x / y | direct: mean along bend | direct: rms x / y | exact: rms x / y |
 |---|---|---|---|---|---|---|---|
@@ -71,9 +87,13 @@ Mean e_x along the bend, ± standard error, in um. Positive: the step bends too 
 | 20–50 GeV | +0.008 ± 0.001 | 0.09 / 0.02 | -0.012 ± 0.001 | 0.08 / 0.04 | -0.015 ± 0.003 | 0.36 / 0.12 | 0.001 / 0.000 |
 | > 50 GeV | -0.006 ± 0.004 | 0.19 / 0.02 | -0.000 ± 0.002 | 0.07 / 0.03 | -0.011 ± 0.006 | 0.27 / 0.09 | 0.001 / 0.000 |
 
+</details>
+
 The fraction of steps that bend too much is 0.41 to 0.53 in every band and run. The mean along the bend is 1% to 3% of the rms.
 
 Power n of rms(e) ∝ |q/p|^n, fitted over 12 bins of |q/p|:
+
+<details><summary>Table</summary>
 
 | Run | x | y | tx | ty |
 |---|---|---|---|---|
@@ -82,13 +102,19 @@ Power n of rms(e) ∝ |q/p|^n, fitted over 12 bins of |q/p|:
 | direct states | 1.12 | 1.20 | 1.44 | 2.76 |
 | exact scheme | 1.37 | 2.82 | 1.36 | 2.75 |
 
+</details>
+
 The powers of tx and ty are the same for every network and the exact scheme. This agrees with item 1 of the summary. Tables: `results/a3_*.csv`.
 
 ## A.4 Sign structure
 
+![a4 endpoint along the bend](figures/a4_endpoint_along_the_bend.png)
+
 Single steps. The mean of e in each group is below 0.035 um for the straight-line runs and below 0.11 um for direct states. Every such mean is 4% or less of the rms of e. With the magnet up, the charge sets the bend direction, so the "charge" and "bend +x / -x" groups are the same steps. Table: `results/a4_sign_structure_of_steps.csv`.
 
 Endpoint along and across the bend. "Along": d_x × sign(tx at 7826 − tx at 2648.2). "Across": d_y × sign(y at 7826). Means ± standard error, um.
+
+<details><summary>Table</summary>
 
 | Run | Band | Tracks | Mean along bend | Median along bend | Fraction bending too much | Mean across (away from y = 0) | rms x / y |
 |---|---|---|---|---|---|---|---|
@@ -111,13 +137,21 @@ Endpoint along and across the bend. "Along": d_x × sign(tx at 7826 − tx at 26
 | | 20–50 GeV | 170 | -0.94 ± 0.18 | -1.26 | 0.39 | +2.20 ± 0.18 | 2.6 / 3.2 |
 | | > 50 GeV | 30 | -0.70 ± 0.57 | -1.51 | 0.43 | +2.07 ± 0.26 | 3.1 / 2.5 |
 
+</details>
+
 Table: `results/a4_endpoint_along_and_across_the_bend.csv`.
 
 Agreement with the resolution thread of 2026-10-28 (`/data/bfys/gscriven/scratch/resolution_2026-10-28/`, `bend_signed.csv`, same bend definition). That thread finds the pooled straight-line runs at 64 steps balanced along the bend (28% to 64% bend too much, median -1.2 to +0.3 um). This study finds 42% to 50% overall and a median of -0.39 to +0.02 um for the two straight-line runs. The two agree. Above 8 GeV some band means are 3 to 12 standard errors from zero, but they are at most 0.75 um along the bend for the straight-line runs and 2.2 um across for direct states. Below 8 GeV the means along the bend are within 1.5 standard errors of zero.
 
 ## A.4b How a lag-1 autocorrelation of 0.85 fits a mean near zero
 
+![a4b autocorrelation](figures/a4b_autocorrelation.png)
+
+![along the track](figures/along_the_track.png)
+
 Test steps. "Along the bend" for x and tx. The effective standard error of a per-track mean uses n(1 − r)/(1 + r) steps, with r the track's lag-1 autocorrelation.
+
+<details><summary>Table</summary>
 
 | Run | Component | Population mean | Population rms | Share of variance in per-track means | Tracks with mean > 3 eff. s.e. | Lag 1 | Lag 8 | Lag 16 | Lag 32 | Sign changes in 63 |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -128,17 +162,22 @@ Test steps. "Along the bend" for x and tx. The effective standard error of a per
 | direct states | x along bend | -0.025 | 2.58 | 0.12 | 0.0% | 0.87 | -0.28 | -0.19 | -0.08 | 6 |
 | direct states | y | -0.005 | 1.08 | 0.12 | 0.6% | 0.89 | -0.12 | -0.20 | -0.01 | 5 |
 
+</details>
+
 The reading:
 
 - The lag-1 autocorrelation is high, but the lag-8 autocorrelation is near zero. So e changes slowly from one step to the next, and it changes sign about 5 to 10 times along a track.
 - The per-track mean holds only 3% to 14% of the variance. Almost no track has a mean that differs from zero.
 - So e is a smooth wave along the track, not a constant offset per track. Over the population its sign is random, and its mean is near zero.
 - Neighbouring steps add in the same direction, so the endpoint grows faster than √64 × the single-step error (ratio 2.5 to 3.2, tranche-1 analysis). The wave cancels over longer distances, so the endpoint has no direction.
+- The exact scheme's own error repeats every 5 steps (the peak at lag 5): 5 steps of 80.9 mm are 4 cells of 100 mm, so a step meets a z face at the same place every 5 steps.
 - For direct states the wave has a period of about 2,000 mm and a constant phase in z (`figures/along_the_track.png`). This is a fit residual of the network in its z input.
 
 Table: `results/a4b_per_track_bias_reconciliation.csv`.
 
 ## A.5 Each step's e carried to the end
+
+![a5 share by z](figures/a5_share_by_z.png)
 
 The reference Jacobian of each step comes from central differences on the sixth-order method at 0.1 mm. T_k carries the end of step k to 7826 mm. The carried sum is Σ_k T_k e_k.
 
@@ -152,6 +191,8 @@ The endpoint error is the linear sum of the single-step errors. Chaining adds no
 
 Share of the variance of the endpoint error per z bin of 8 steps (sum = 1; an even share is 0.125):
 
+<details><summary>Table</summary>
+
 | z bin (mm) | per-track x | per-track y | global x | global y | direct x | direct y |
 |---|---|---|---|---|---|---|
 | 2648–3295 | 0.10 | 0.01 | 0.02 | 0.02 | 0.19 | 0.14 |
@@ -163,11 +204,17 @@ Share of the variance of the endpoint error per z bin of 8 steps (sum = 1; an ev
 | 6532–7179 | 0.16 | -0.02 | 0.15 | 0.07 | 0.24 | 0.23 |
 | 7179–7826 | 0.05 | 0.03 | 0.10 | 0.08 | 0.11 | 0.07 |
 
+</details>
+
 The y error of the straight-line runs comes mostly from one bin (0.52 in 4590–5237 mm; 0.60 in 3943–4590 mm). The x error spreads over the whole region. Figure: `figures/a5_share_by_z.png`. Tables: `results/a5_*.csv`.
 
 ## A.6 Steps that cross a z face of the field map
 
+![a6 cell faces](figures/a6_cell_faces.png)
+
 The grid has 100 mm cells. A step is 80.9 mm. So 81% of the steps cross one z face.
+
+<details><summary>Table</summary>
 
 | Series | Steps | Fraction | Mean radial e (um) | Mean \|e_tx\| (urad) | Mean \|e_ty\| (urad) |
 |---|---|---|---|---|---|
@@ -181,6 +228,8 @@ The grid has 100 mm cells. A step is 80.9 mm. So 81% of the steps cross one z fa
 | direct states | cross a z face | 0.81 | 1.134 | 0.130 | 0.030 |
 | direct states | cross no z face | 0.19 | 1.106 | 0.036 | 0.019 |
 
+</details>
+
 - For the exact scheme, a face crossing multiplies the error by 30 (position) and 50 (slope).
 - For the networks, the position error is the same with and without a crossing. So the faces do not cause the position error.
 - For the networks, the slope error follows the faces in the same way as the exact scheme, at the same size.
@@ -189,7 +238,11 @@ Table: `results/a6_cell_face_crossings.csv`.
 
 ## A.7 Toy track fit
 
+![a7 toy fit](figures/a7_toy_fit.png)
+
 Fit of (x, y, tx, ty, q/p) on 2648.2 mm to 4 UT hits (z 2327.5–2642.5 mm, 50 um) and 12 SciFi hits (z 7826–9403 mm, 75 um), stereo 0, +5, −5, 0 degrees. The layout and resolutions follow the brief and the LHCb Tracker Upgrade TDR (CERN-LHCC-2014-001); the values were not re-checked against the document. No scattering, no energy loss, no VELO. So the resolution is that of the hits alone. It is small, and the 10% test is strict. The network and the reference differ only from 2648.2 to 7826 mm. Both use the sixth-order method outside. 200 noise draws per track.
+
+<details><summary>Table</summary>
 
 | Band | Resolution dp/p (median) | per-track: mean bias dp/p | per-track: bias / resolution | global: bias / resolution | direct: mean bias dp/p | direct: bias / resolution | direct: rms per-track bias / own resolution | direct: pull width |
 |---|---|---|---|---|---|---|---|---|
@@ -198,6 +251,8 @@ Fit of (x, y, tx, ty, q/p) on 2648.2 mm to 4 UT hits (z 2327.5–2642.5 mm, 50 u
 | 8–20 GeV | 8.7e-4 | -1.4e-6 | -0.002 | +0.002 | +4.4e-6 | +0.005 | 0.04 | 1.00 |
 | 20–50 GeV | 1.9e-3 | -4.1e-6 | -0.002 | +0.003 | +7.2e-6 | +0.004 | 0.01 | 1.00 |
 | > 50 GeV | 5.0e-3 | +3.5e-5 | +0.007 | -0.000 | +1.0e-5 | +0.002 | 0.01 | 1.00 |
+
+</details>
 
 - The largest |mean bias| / resolution is 0.011 (direct states, 3–8 GeV). The criterion is 0.1. "Bias matters" fails in every band of every run.
 - The pull width of the reference fit is 1.00 in every band. For the straight-line runs the network fit gives 1.00 to 1.01.
@@ -209,11 +264,17 @@ C.5 (a correction from the measured SciFi residuals) is moved out of this experi
 
 ## A.8 Seeds
 
+![a8 seed correlations](figures/a8_seed_correlations.png)
+
+![a8 bias maps](figures/a8_bias_maps.png)
+
 Updated 2026-11-05. The runs are those of `does_a_better_optimiser_improve_the_endpoint` (tranche 1), each at its own last finished round (`seeds.py last`), with the seed-1 runs of this note. Per form: L-BFGS seeds 1, 2, 3 and self-scaled Broyden seeds 1, 2, 3. Rounds: straight line per-track 44 / 36 / 35 (L-BFGS) and 22 / 22 / 22 (Broyden); direct states 59 / 42 / 56 (L-BFGS) and 37 / 56 / 33 (Broyden). All plateaued. 15 pairs of seeds per form.
 
 On 2026-11-03 `c3a1aa54c6fe` (direct states, Broyden seed 2) was still training and was left out (10 pairs for direct states; `logs/seeds_last_c3a1aa54c6fe.txt`). It plateaued at round 56. With it in, the reading does not change.
 
 Bias map as in A.9: mean e in 8 × 8 cells of signed q/p × z. "Shared" if the correlation is > 0.7. The table gives the median over the pairs, with the lowest and highest pair.
+
+<details><summary>Table</summary>
 
 | Form | e | x | y | tx | ty |
 |---|---|---|---|---|---|
@@ -221,6 +282,8 @@ Bias map as in A.9: mean e in 8 × 8 cells of signed q/p × z. "Shared" if the c
 | straight line per-track | e minus the exact scheme's error | -0.10 (-0.52 to 0.34) | -0.01 (-0.44 to 0.63) | 0.02 (-0.43 to 0.65) | 0.09 (-0.37 to 0.68) |
 | direct states | e | 0.22 (-0.19 to 0.70) | 0.35 (0.04 to 0.66) | 0.78 (0.64 to 0.98) | 0.51 (0.03 to 0.87) |
 | direct states | e minus the exact scheme's error | 0.23 (-0.18 to 0.70) | 0.35 (0.03 to 0.66) | 0.12 (-0.32 to 0.61) | 0.27 (-0.56 to 0.66) |
+
+</details>
 
 Reading:
 
@@ -234,6 +297,8 @@ Table: `results/a8_seed_correlations_last.csv`. Log: `logs/seeds_last.txt`. Pack
 
 Bias map: mean e in 8 bins of signed q/p × 8 bins of z (64 cells). "Shared" if the correlation is > 0.7.
 
+<details><summary>Table</summary>
+
 | Comparison | x | y | tx | ty |
 |---|---|---|---|---|
 | straight per-track vs straight global | -0.22 | -0.12 | 0.96 | 0.70 |
@@ -244,7 +309,11 @@ Bias map: mean e in 8 bins of signed q/p × 8 bins of z (64 cells). "Shared" if 
 | last 5 snapshots, direct | 0.89 | 0.60 | 0.90 | 0.75 |
 | each run vs the exact scheme (per-track / global / direct) | 0.10 / -0.14 / -0.23 | 0.45 / 0.18 / -0.03 | 0.99 / 0.97 / 0.72 | 0.98 / 0.76 / 0.43 |
 
+</details>
+
 Share of the variance of e that is not the exact scheme's error (e minus the exact scheme's e):
+
+<details><summary>Table</summary>
 
 | Run | x | y | tx | ty |
 |---|---|---|---|---|
@@ -252,11 +321,17 @@ Share of the variance of e that is not the exact scheme's error (e minus the exa
 | straight line global | 1.00 | 1.00 | 0.04 | 0.03 |
 | direct states | 1.00 | 1.00 | 0.25 | 0.14 |
 
+</details>
+
 With the exact scheme's error removed, no slope map is shared between forms (-0.58 to 0.27), and the slope maps of the last 5 snapshots of the straight-line runs fall to 0.02–0.44. The x map of the direct-states snapshots stays shared (0.89): this network has a stable wave in z across its last rounds (A.4b). Table: `results/a9_bias_map_correlations.csv`.
 
 ## B.1 and Part C: corrections
 
+![c variants](figures/c_variants.png)
+
 Test endpoint radial median (um), per band, mean signed endpoint error ± standard error (um), lag-1 autocorrelation of the corrected single-step e, calls per track.
+
+<details><summary>Table</summary>
 
 | Run | Variant | Field calls | Net calls | Endpoint | < 3 | 3–8 | 8–20 | 20–50 | > 50 | Mean x | Mean y | Lag-1 x / y |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -290,6 +365,8 @@ Test endpoint radial median (um), per band, mean signed endpoint error ± standa
 | comparator | exact 2-stage Gauss–Legendre | — | 0 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 | +0.01 ± 0.12 | +0.08 ± 0.15 | -0.22 / -0.18 |
 | comparator | classic RK4 | 256 | 0 | 1.08 | 3.08 | 1.66 | 0.62 | 0.28 | 0.11 | -0.22 ± 0.22 | -0.21 ± 0.14 | -0.15 / -0.13 |
 
+</details>
+
 "Field calls" counts f at one stage state. C.3 takes the field gradient with 128 of its 256 field calls. Tables: `results/c_variants_<key>.csv`, `results/c_comparators.csv`. Figure: `figures/c_variants.png`.
 
 Pass criteria:
@@ -312,9 +389,13 @@ What the corrections show:
 
 ## C.2b Control: the same sweeps from stages without a network
 
+![c2 control](figures/c2_control.png)
+
 The same sweeps and Newton steps, from six starts. Field calls per track = 64 × (calls of the start + 2 per sweep or Newton step + 2 for the summed end). Straight line: Y_i = (x + tx c_i h, y + ty c_i h, tx, ty), no field call. Euler: Y_i = S0 + c_i h f(S0), 1 call a step. RK4: classic RK4 from z0 to each stage plane, 8 calls a step. A Newton step uses the field gradient with its 2 calls; a call with the gradient costs more than a call without it.
 
 Test endpoint radial median (um) and per band:
+
+<details><summary>Table</summary>
 
 | Start | Method | k | Field calls | Net calls | Endpoint | < 3 | 3–8 | 8–20 | 20–50 | > 50 |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -339,9 +420,13 @@ Test endpoint radial median (um) and per band:
 | RK4 predictor | sweeps | 0 | 640 | 0 | 0.145 | 0.63 | 0.24 | 0.085 | 0.035 | 0.011 |
 | | sweeps | 1 | 768 | 0 | 0.147 | 0.66 | 0.25 | 0.085 | 0.035 | 0.012 |
 
+</details>
+
 Every start reaches 0.147 um with 3 and 5 sweeps and with 2 Newton steps (full rows in `results/c2_control_endpoint.csv`).
 
 Stage error of one step from the reference state, against the exact stages: median over steps of the largest stage error, position (um) / slope (urad).
+
+<details><summary>Table</summary>
 
 | Start | k = 0 | 1 sweep | 2 sweeps | 3 sweeps | 1 Newton step |
 |---|---|---|---|---|---|
@@ -351,6 +436,8 @@ Stage error of one step from the reference state, against the exact stages: medi
 | straight line (no field) | 59.1 / 1850 | 59.1 / 0.476 | 0.0111 / 3.3e-4 | 5.6e-6 / 1.7e-7 | 5.9e-5 / 3.5e-3 |
 | Euler predictor | 59.1 / 22.6 | 0.528 / 4.5e-3 | 7.7e-5 / 2.7e-6 | 2.5e-8 / 6.7e-10 | 6.4e-9 / 4.7e-7 |
 | RK4 predictor | 0.0487 / 0.0357 | 6.9e-4 / 5.3e-6 | 2.1e-7 / 1.1e-8 | 3.7e-10 / 8.7e-12 | 0 / 0 |
+
+</details>
 
 The reading:
 
@@ -364,7 +451,13 @@ Figure: `figures/c2_control.png` (left panel: a point at 1e-9 um is an error of 
 
 ## B.3 and B.4 runs
 
+![b bands](figures/b_bands.png)
+
+![b training](figures/b_training.png)
+
 Added 2026-11-05; `5cb2aeb6778b` final the same day. Four runs on the farm at commit `27a054e1`, submitted 2026-11-03. Each is at its last finished round, scored on test (1,452 tracks): radial median of the endpoint at z = 7826 mm, in um. Baselines: `49e5e2450eaa` (direct states, round 59) and `25dfa17ef168` (straight line per-track, round 44). Target: direct states <= 2.85 um, straight line <= 0.92 um, and no momentum band more than 2× worse than the baseline.
+
+<details><summary>Table</summary>
 
 | Run | Form, item | Round | State | Endpoint | Target | Worst band / baseline | Mean signed x ± SE | Mean signed y ± SE | Lag-1 x / y |
 |---|---|---|---|---|---|---|---|---|---|
@@ -375,7 +468,11 @@ Added 2026-11-05; `5cb2aeb6778b` final the same day. Four runs on the farm at co
 | `8a0f3b8f422f` | straight line, B.3 residual draws | 30 | plateaued | 3.33 | fails | 1.90 | 0.34 ± 0.23 | 0.48 ± 0.35 | 0.90 / 0.91 |
 | `f0f219df805e` | straight line, B.4 bias term | 45 | plateaued | 1.70 | fails | 1.66 | 0.03 ± 0.21 | 0.37 ± 0.29 | 0.87 / 0.90 |
 
+</details>
+
 Endpoint per momentum band (um):
+
+<details><summary>Table</summary>
 
 | Run | < 3 GeV | 3–8 | 8–20 | 20–50 | > 50 |
 |---|---|---|---|---|---|
@@ -386,11 +483,13 @@ Endpoint per momentum band (um):
 | `8a0f3b8f422f` B.3 | 7.39 | 3.63 | 2.60 | 2.30 | 2.41 |
 | `f0f219df805e` B.4 | 4.84 | 2.10 | 1.20 | 1.15 | 3.13 |
 
+</details>
+
 Reading:
 
 - No run meets its target. Each run is one seed, so a difference under 2× is not a claim.
 - B.4 straight line (1.70) is equal to its baseline (1.83). It is better below 50 GeV by 0–17% and worse above 50 GeV (3.13 against 1.89).
-- B.3 straight line (3.33) is 1.8× worse than its baseline and stopped earliest (round 30). B.4 direct states (8.36) is 1.5× worse. B.3 direct states (7.78) is 1.4× worse. At round 66 it gave 6.41; its validation score moves by up to 1.6× from round to round (2.89 to 4.66 um, rounds 63–70).
+- B.3 straight line (3.33) is 1.8× worse than its baseline and stopped earliest (round 30). B.4 direct states (8.36) is 1.5× worse. B.3 direct states (7.78) is 1.4× worse. At round 66 it gave 6.41; its validation score moves by up to 1.3× from round to round (5.82 to 7.57 um, rounds 63–70).
 - The lag-1 autocorrelation stays at 0.82 to 0.93 in every run. Neither item makes the step errors less correlated along the track.
 - Every mean signed endpoint error is within 2 SE of zero, as for the baselines.
 

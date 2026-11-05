@@ -2,4 +2,14 @@ written: figures/along_the_track.png
 written: figures/a5_share_by_z.png
 written: figures/a7_toy_fit.png
 written: figures/c_variants.png
-exit 0 : figures.py
+written: figures/a1_r_squared.png
+written: figures/a3_rms_by_band.png
+written: figures/a4_endpoint_along_the_bend.png
+written: figures/a4b_autocorrelation.png
+written: figures/a6_cell_faces.png
+written: figures/a8_seed_correlations.png
+written: figures/a8_bias_maps.png
+written: figures/b_bands.png
+written: figures/b_training.png
+written: figures/overview.png
+exit 0
