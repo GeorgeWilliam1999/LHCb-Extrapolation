@@ -1,0 +1,4 @@
+6aba11cc7475: carried 1452 tracks of the test split
+6aba11cc7475: stage errors of 200 tracks held and carried; check {'sum_against_final_minus_carried_start_largest_micrometres': 0.0, 'sum_against_measured_endpoint_error_largest_micrometres': 0.0011321926649543457, 'sum_against_measured_endpoint_error_largest_slope': 4.057580937910643e-10, 'carried_start_against_stored_reference_largest_micrometres': 0.0011321926649543457, 'measured_endpoint_error_in_x_median_of_absolute_micrometres': 7.819264289480543, 'step_length_of_the_carrying_mm': 1.0, 'number_of_tracks': 200}
+6aba11cc7475: report written to reports/round_0051_at_27a054e1
+exit 0 : report_of_a_run 6aba11cc7475 test last (package at 27a054e1, stbc-i2)

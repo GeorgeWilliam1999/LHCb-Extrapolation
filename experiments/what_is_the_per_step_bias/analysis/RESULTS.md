@@ -209,29 +209,26 @@ C.5 (a correction from the measured SciFi residuals) is moved out of this experi
 
 ## A.8 Seeds
 
-Added 2026-11-03. The runs are those of `does_a_better_optimiser_improve_the_endpoint` (tranche 1), each at its own last finished round (`seeds.py last c3a1aa54c6fe`), with the seed-1 runs of this note. Per form: L-BFGS seeds 1, 2, 3 and self-scaled Broyden seeds 1, 2, 3. Rounds: straight line per-track 44 / 36 / 35 (L-BFGS) and 22 / 22 / 22 (Broyden); direct states 59 / 42 / 56 (L-BFGS) and 37 / 33 (Broyden seeds 1 and 3). All plateaued.
+Updated 2026-11-05. The runs are those of `does_a_better_optimiser_improve_the_endpoint` (tranche 1), each at its own last finished round (`seeds.py last`), with the seed-1 runs of this note. Per form: L-BFGS seeds 1, 2, 3 and self-scaled Broyden seeds 1, 2, 3. Rounds: straight line per-track 44 / 36 / 35 (L-BFGS) and 22 / 22 / 22 (Broyden); direct states 59 / 42 / 56 (L-BFGS) and 37 / 56 / 33 (Broyden). All plateaued. 15 pairs of seeds per form.
 
-`c3a1aa54c6fe` (direct states, self-scaled Broyden, seed 2) is left out. On 2026-11-03 it is still training, at round 45 of 80.
+On 2026-11-03 `c3a1aa54c6fe` (direct states, Broyden seed 2) was still training and was left out (10 pairs for direct states; `logs/seeds_last_c3a1aa54c6fe.txt`). It plateaued at round 56. With it in, the reading does not change.
 
-Bias map as in A.9: mean e in 8 × 8 cells of signed q/p × z. "Shared" if the correlation is > 0.7. The table gives the median over the pairs of seeds, with the lowest and highest pair. Straight line: 15 pairs. Direct states: 10 pairs.
+Bias map as in A.9: mean e in 8 × 8 cells of signed q/p × z. "Shared" if the correlation is > 0.7. The table gives the median over the pairs, with the lowest and highest pair.
 
 | Form | e | x | y | tx | ty |
 |---|---|---|---|---|---|
 | straight line per-track | e | -0.11 (-0.52 to 0.34) | -0.01 (-0.44 to 0.63) | 0.95 (0.89 to 0.99) | 0.59 (0.34 to 0.92) |
 | straight line per-track | e minus the exact scheme's error | -0.10 (-0.52 to 0.34) | -0.01 (-0.44 to 0.63) | 0.02 (-0.43 to 0.65) | 0.09 (-0.37 to 0.68) |
-| direct states | e | 0.24 (-0.01 to 0.70) | 0.25 (0.04 to 0.66) | 0.76 (0.64 to 0.93) | 0.50 (0.03 to 0.70) |
-| direct states | e minus the exact scheme's error | 0.24 (-0.01 to 0.70) | 0.25 (0.03 to 0.66) | 0.17 (-0.24 to 0.61) | 0.27 (-0.56 to 0.62) |
-
-By optimiser, the bias map correlation of e for the straight line in tx is 0.99 between the L-BFGS seeds and 0.89 between the Broyden seeds. Without the exact scheme's error, it is 0.32 and -0.34.
+| direct states | e | 0.22 (-0.19 to 0.70) | 0.35 (0.04 to 0.66) | 0.78 (0.64 to 0.98) | 0.51 (0.03 to 0.87) |
+| direct states | e minus the exact scheme's error | 0.23 (-0.18 to 0.70) | 0.35 (0.03 to 0.66) | 0.12 (-0.32 to 0.61) | 0.27 (-0.56 to 0.66) |
 
 Reading:
 
-- The slope maps that look shared (tx in both forms, ty of the straight line between the L-BFGS seeds) are the exact scheme's own error. A.9 found the same for one seed. With that error removed, no component is shared in either form. Medians are -0.10 to 0.27. None of the 100 rows is above 0.7; the highest is 0.696.
+- The slope maps that look shared (tx in both forms; ty of the straight line between the L-BFGS seeds) are the exact scheme's own error. A.9 found the same for one seed. With that error removed, no component is shared in either form. Medians are -0.10 to 0.35. None of the 120 rows is above 0.7; the highest is 0.697 (direct states x, L-BFGS seeds 1–2).
 - The network's own part of e is private to each seed. A correction learned from one network does not carry over to another seed.
-- x and y never carry the exact scheme's error (A.9: share of variance not exact = 1.00), so the two rows agree there.
-- Direct states, x: the highest pair is L-BFGS seeds 1–2 (0.70), and the two Broyden seeds give 0.63. The other pairs are 0.09 to 0.30. Two pairs near 0.7 out of 10 is not a shared map.
+- x and y do not carry the exact scheme's error (A.9: share of variance not exact = 1.00), so the two rows agree there.
 
-Table: `results/a8_seed_correlations_last.csv`. Log: `logs/seeds_last_c3a1aa54c6fe.txt`. Package code at commit `27a054e1`. The round-1 smoke test of 2026-10-28 is in `results/a8_seed_correlations_common.csv`; round 1 is not a trained network and is not a result.
+Table: `results/a8_seed_correlations_last.csv`. Log: `logs/seeds_last.txt`. Package code at commit `27a054e1`. The round-1 smoke test of 2026-10-28 is in `results/a8_seed_correlations_common.csv`; round 1 is not a trained network and is not a result.
 
 ## A.9 Bias maps: forms and snapshots
 
@@ -365,6 +362,41 @@ The reading:
 
 Figure: `figures/c2_control.png` (left panel: a point at 1e-9 um is an error of zero to rounding). Tables: `results/c2_control_endpoint.csv`, `results/c2_control_stage_error.csv`. Script: `control_c2.py`.
 
+## B.3 and B.4 runs
+
+Added 2026-11-05. Four runs on the farm at commit `27a054e1`, submitted 2026-11-03. Each is at its last finished round, scored on test (1,452 tracks): radial median of the endpoint at z = 7826 mm, in um. Baselines: `49e5e2450eaa` (direct states, round 59) and `25dfa17ef168` (straight line per-track, round 44). Target: direct states <= 2.85 um, straight line <= 0.92 um, and no momentum band more than 2× worse than the baseline.
+
+| Run | Form, item | Round | State | Endpoint | Target | Worst band / baseline | Mean signed x ± SE | Mean signed y ± SE | Lag-1 x / y |
+|---|---|---|---|---|---|---|---|---|---|
+| `49e5e2450eaa` | direct states, baseline | 59 | plateaued | 5.71 | | | 1.40 ± 1.46 | -0.39 ± 0.65 | 0.87 / 0.89 |
+| `5cb2aeb6778b` | direct states, B.3 residual draws | 66 | **training** | 6.41 | fails | 1.53 | 0.89 ± 0.71 | 0.44 ± 0.47 | 0.90 / 0.93 |
+| `6aba11cc7475` | direct states, B.4 bias term | 51 | plateaued | 8.36 | fails | 1.69 | 0.24 ± 1.43 | 0.70 ± 0.61 | 0.82 / 0.88 |
+| `25dfa17ef168` | straight line, baseline | 44 | plateaued | 1.83 | | | -0.03 ± 0.25 | 0.77 ± 0.46 | 0.85 / 0.90 |
+| `8a0f3b8f422f` | straight line, B.3 residual draws | 30 | plateaued | 3.33 | fails | 1.90 | 0.34 ± 0.23 | 0.48 ± 0.35 | 0.90 / 0.91 |
+| `f0f219df805e` | straight line, B.4 bias term | 45 | plateaued | 1.70 | fails | 1.66 | 0.03 ± 0.21 | 0.37 ± 0.29 | 0.87 / 0.90 |
+
+Endpoint per momentum band (um):
+
+| Run | < 3 GeV | 3–8 | 8–20 | 20–50 | > 50 |
+|---|---|---|---|---|---|
+| `49e5e2450eaa` baseline | 21.67 | 8.74 | 3.54 | 2.96 | 3.24 |
+| `5cb2aeb6778b` B.3 (training) | 18.93 | 8.52 | 4.62 | 4.53 | 4.68 |
+| `6aba11cc7475` B.4 | 24.14 | 12.06 | 5.69 | 5.01 | 3.53 |
+| `25dfa17ef168` baseline | 4.94 | 2.10 | 1.44 | 1.21 | 1.89 |
+| `8a0f3b8f422f` B.3 | 7.39 | 3.63 | 2.60 | 2.30 | 2.41 |
+| `f0f219df805e` B.4 | 4.84 | 2.10 | 1.20 | 1.15 | 3.13 |
+
+Reading:
+
+- No run meets its target. Each run is one seed, so a difference under 2× is not a claim.
+- B.4 straight line (1.70) is equal to its baseline (1.83). It is better below 50 GeV by 0–17% and worse above 50 GeV (3.13 against 1.89).
+- B.3 straight line (3.33) is 1.8× worse than its baseline and stopped earliest (round 30). B.4 direct states (8.36) is 1.5× worse.
+- The lag-1 autocorrelation stays at 0.82 to 0.93 in every run. Neither item makes the step errors less correlated along the track.
+- Every mean signed endpoint error is within 2 SE of zero, as for the baselines.
+- `5cb2aeb6778b` is still training (round 66 of 80); its row is not final.
+
+Table: `results/b_part_b_scores.csv`. Log: `logs/part_b_scores.txt`. The standard reports of the three runs that ended (`report_of_a_run --split test --round last`) are in the store, in `runs/<key>/reports/round_<n>_at_27a054e1/`; logs `logs/report_of_a_run_<key>.txt`. Run on `stbc-i2` (the `stbc-i3` login failed on 2026-11-05), package at `27a054e1`.
+
 ## Decision point
 
 | Question | Answer | Evidence |
@@ -380,6 +412,7 @@ By the plan's own rule, A.7 says stop and write up. The open choice is George's:
 
 ## What is not done
 
-- A.8 (2026-11-03): the network's own bias is private to each seed. The slope maps that look shared are the exact scheme's error. `c3a1aa54c6fe` is left out (still training).
+- A.8 (2026-11-03, with `c3a1aa54c6fe` 2026-11-05): the network's own bias is private to each seed. The slope maps that look shared are the exact scheme's error.
+- B.3 direct states (`5cb2aeb6778b`) is still training on 2026-11-05 (round 66 of 80). Score it again when it ends: `part_b_scores.py` and `report_of_a_run`.
 - C.5 and the Kalman-filter question are moved out of this experiment to a separate thread (George, 2026-10-28).
 - The UT and SciFi layout and resolutions in A.7 were not re-checked against the TDR.

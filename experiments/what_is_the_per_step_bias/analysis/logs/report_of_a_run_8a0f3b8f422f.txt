@@ -1,0 +1,4 @@
+8a0f3b8f422f: carried 1452 tracks of the test split
+8a0f3b8f422f: stage errors of 200 tracks held and carried; check {'sum_against_final_minus_carried_start_largest_micrometres': 0.0, 'sum_against_measured_endpoint_error_largest_micrometres': 0.0011321926649543457, 'sum_against_measured_endpoint_error_largest_slope': 4.057580937910643e-10, 'carried_start_against_stored_reference_largest_micrometres': 0.0011321926649543457, 'measured_endpoint_error_in_x_median_of_absolute_micrometres': 2.7937165992284463, 'step_length_of_the_carrying_mm': 1.0, 'number_of_tracks': 200}
+8a0f3b8f422f: report written to reports/round_0030_at_27a054e1
+exit 0 : report_of_a_run 8a0f3b8f422f test last (package at 27a054e1, stbc-i2)
