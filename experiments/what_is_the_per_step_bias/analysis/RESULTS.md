@@ -364,12 +364,12 @@ Figure: `figures/c2_control.png` (left panel: a point at 1e-9 um is an error of 
 
 ## B.3 and B.4 runs
 
-Added 2026-11-05. Four runs on the farm at commit `27a054e1`, submitted 2026-11-03. Each is at its last finished round, scored on test (1,452 tracks): radial median of the endpoint at z = 7826 mm, in um. Baselines: `49e5e2450eaa` (direct states, round 59) and `25dfa17ef168` (straight line per-track, round 44). Target: direct states <= 2.85 um, straight line <= 0.92 um, and no momentum band more than 2× worse than the baseline.
+Added 2026-11-05; `5cb2aeb6778b` final the same day. Four runs on the farm at commit `27a054e1`, submitted 2026-11-03. Each is at its last finished round, scored on test (1,452 tracks): radial median of the endpoint at z = 7826 mm, in um. Baselines: `49e5e2450eaa` (direct states, round 59) and `25dfa17ef168` (straight line per-track, round 44). Target: direct states <= 2.85 um, straight line <= 0.92 um, and no momentum band more than 2× worse than the baseline.
 
 | Run | Form, item | Round | State | Endpoint | Target | Worst band / baseline | Mean signed x ± SE | Mean signed y ± SE | Lag-1 x / y |
 |---|---|---|---|---|---|---|---|---|---|
 | `49e5e2450eaa` | direct states, baseline | 59 | plateaued | 5.71 | | | 1.40 ± 1.46 | -0.39 ± 0.65 | 0.87 / 0.89 |
-| `5cb2aeb6778b` | direct states, B.3 residual draws | 66 | **training** | 6.41 | fails | 1.53 | 0.89 ± 0.71 | 0.44 ± 0.47 | 0.90 / 0.93 |
+| `5cb2aeb6778b` | direct states, B.3 residual draws | 70 | plateaued | 7.78 | fails | 1.86 | 0.57 ± 0.75 | 0.16 ± 0.46 | 0.89 / 0.94 |
 | `6aba11cc7475` | direct states, B.4 bias term | 51 | plateaued | 8.36 | fails | 1.69 | 0.24 ± 1.43 | 0.70 ± 0.61 | 0.82 / 0.88 |
 | `25dfa17ef168` | straight line, baseline | 44 | plateaued | 1.83 | | | -0.03 ± 0.25 | 0.77 ± 0.46 | 0.85 / 0.90 |
 | `8a0f3b8f422f` | straight line, B.3 residual draws | 30 | plateaued | 3.33 | fails | 1.90 | 0.34 ± 0.23 | 0.48 ± 0.35 | 0.90 / 0.91 |
@@ -380,7 +380,7 @@ Endpoint per momentum band (um):
 | Run | < 3 GeV | 3–8 | 8–20 | 20–50 | > 50 |
 |---|---|---|---|---|---|
 | `49e5e2450eaa` baseline | 21.67 | 8.74 | 3.54 | 2.96 | 3.24 |
-| `5cb2aeb6778b` B.3 (training) | 18.93 | 8.52 | 4.62 | 4.53 | 4.68 |
+| `5cb2aeb6778b` B.3 | 19.92 | 10.71 | 6.05 | 5.51 | 5.50 |
 | `6aba11cc7475` B.4 | 24.14 | 12.06 | 5.69 | 5.01 | 3.53 |
 | `25dfa17ef168` baseline | 4.94 | 2.10 | 1.44 | 1.21 | 1.89 |
 | `8a0f3b8f422f` B.3 | 7.39 | 3.63 | 2.60 | 2.30 | 2.41 |
@@ -390,12 +390,11 @@ Reading:
 
 - No run meets its target. Each run is one seed, so a difference under 2× is not a claim.
 - B.4 straight line (1.70) is equal to its baseline (1.83). It is better below 50 GeV by 0–17% and worse above 50 GeV (3.13 against 1.89).
-- B.3 straight line (3.33) is 1.8× worse than its baseline and stopped earliest (round 30). B.4 direct states (8.36) is 1.5× worse.
+- B.3 straight line (3.33) is 1.8× worse than its baseline and stopped earliest (round 30). B.4 direct states (8.36) is 1.5× worse. B.3 direct states (7.78) is 1.4× worse. At round 66 it gave 6.41; its validation score moves by up to 1.6× from round to round (2.89 to 4.66 um, rounds 63–70).
 - The lag-1 autocorrelation stays at 0.82 to 0.93 in every run. Neither item makes the step errors less correlated along the track.
 - Every mean signed endpoint error is within 2 SE of zero, as for the baselines.
-- `5cb2aeb6778b` is still training (round 66 of 80); its row is not final.
 
-Table: `results/b_part_b_scores.csv`. Log: `logs/part_b_scores.txt`. The standard reports of the three runs that ended (`report_of_a_run --split test --round last`) are in the store, in `runs/<key>/reports/round_<n>_at_27a054e1/`; logs `logs/report_of_a_run_<key>.txt`. Run on `stbc-i2` (the `stbc-i3` login failed on 2026-11-05), package at `27a054e1`.
+Table: `results/b_part_b_scores.csv`. Log: `logs/part_b_scores.txt`. The standard reports of the four runs (`report_of_a_run --split test --round last`) are in the store, in `runs/<key>/reports/round_<n>_at_27a054e1/`; logs `logs/report_of_a_run_<key>.txt`. Run on `stbc-i2` (the `stbc-i3` login failed on 2026-11-05), package at `27a054e1`.
 
 ## Decision point
 
@@ -413,6 +412,5 @@ By the plan's own rule, A.7 says stop and write up. The open choice is George's:
 ## What is not done
 
 - A.8 (2026-11-03, with `c3a1aa54c6fe` 2026-11-05): the network's own bias is private to each seed. The slope maps that look shared are the exact scheme's error.
-- B.3 direct states (`5cb2aeb6778b`) is still training on 2026-11-05 (round 66 of 80). Score it again when it ends: `part_b_scores.py` and `report_of_a_run`.
 - C.5 and the Kalman-filter question are moved out of this experiment to a separate thread (George, 2026-10-28).
 - The UT and SciFi layout and resolutions in A.7 were not re-checked against the TDR.
