@@ -48,3 +48,18 @@ single_network_chain_discrete_approach/**/results/smoke/
 # Private correspondence: never committed to this public repository
 # (George, 2026-09-28).
 single_network_chain_discrete_approach/Block_F_reweighted_loss/F3_Analysis/email/
+
+# Archive (moved 2026-10-13): the same rules for the old studies at their new
+# paths under Archive/.
+Archive/**/results/**/*.pt
+Archive/**/results/**/*.npz
+Archive/**/condor/logs/
+Archive/**/results/smoke/
+Archive/**/results/smoke_twin/
+Archive/**/results/timing/
+Archive/**/*.aux
+Archive/**/*.bbl
+Archive/**/*.blg
+Archive/**/*.out
+Archive/**/*.toc
+Archive/single_network_chain_discrete_approach/Block_F_reweighted_loss/F3_Analysis/email/

@@ -1,0 +1,10 @@
+series,run_key,choice,rounds_used,rounds_done,validation_quantity_of_the_rounds_used_micrometres,test_endpoint_radial_median_micrometres,test_endpoint_radial_p84_micrometres,standard_report_of_the_round_micrometres
+"straight line, per-track scale",25dfa17ef168,last round,44,44,1.708,1.8309558272305706,5.368844022607775,1.8309558272305706
+"straight line, per-track scale",25dfa17ef168,best round by validation,33,44,1.586,1.6902113513899146,4.897564093824123,
+"straight line, per-track scale",25dfa17ef168,average of the outputs of the last 5 snapshots,40 41 42 43 44,44,1.822 1.629 1.882 1.773 1.708,1.40993649441929,4.117969693343114,
+"straight line, one global scale",9cef9c160b7d,last round,22,22,1.875,2.0393193333101207,6.9301934483535375,2.0393193333101207
+"straight line, one global scale",9cef9c160b7d,best round by validation,19,22,1.776,1.9089015918088847,7.152613059690188,1.9089015918088847
+"straight line, one global scale",9cef9c160b7d,average of the outputs of the last 5 snapshots,18 19 20 21 22,22,1.837 1.776 2.265 2.446 1.875,1.36752100168132,5.136456662078016,
+direct states,49e5e2450eaa,last round,59,59,5.463,5.705208965402906,23.661196178790693,5.705208965402906
+direct states,49e5e2450eaa,best round by validation,59,59,5.463,5.705208965402906,23.661196178790693,5.705208965402906
+direct states,49e5e2450eaa,average of the outputs of the last 5 snapshots,55 56 57 58 59,59,8.523 8.119 6.864 8.229 5.463,5.2359635013617964,21.7468833284985,

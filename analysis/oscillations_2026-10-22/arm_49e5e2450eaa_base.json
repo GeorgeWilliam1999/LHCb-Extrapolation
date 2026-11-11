@@ -1,0 +1,43 @@
+{
+ "key": "49e5e2450eaa",
+ "arm": "base",
+ "round": 59,
+ "start_snapshot": 58,
+ "draw": "round",
+ "lr": 1.0,
+ "history": 120,
+ "rows": [
+  {
+   "restart": 0,
+   "loss": 3.362407468198987e-08,
+   "score": 8.228778393913672
+  },
+  {
+   "restart": 1,
+   "loss": 3.220227793756928e-08,
+   "score": 9.564952787911807,
+   "iterations": 200,
+   "evaluations": 209,
+   "stopped_early": 0,
+   "seconds": 142.84
+  },
+  {
+   "restart": 2,
+   "loss": 3.142918458986201e-08,
+   "score": 10.425307425094843,
+   "iterations": 200,
+   "evaluations": 208,
+   "stopped_early": 0,
+   "seconds": 142.79
+  },
+  {
+   "restart": 3,
+   "loss": 3.090522910575123e-08,
+   "score": 9.154622724793171,
+   "iterations": 200,
+   "evaluations": 210,
+   "stopped_early": 0,
+   "seconds": 129.45
+  }
+ ]
+}
