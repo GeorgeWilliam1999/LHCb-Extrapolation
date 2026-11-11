@@ -1,26 +1,35 @@
 # LHCb Extrapolation
 
-Applying the physics-informed-network programme (Raissi et al. 2019, validated
-on the van der Pol study) to LHCb track extrapolation — starting from the data:
-generate full simulated events with the official LHCb software, run the real
-reconstruction on them, and build characterised, event-derived training samples.
+**Last updated:** 2026-11-12
 
-Canonical tracker: the **LHCb Extrpolator** project in Notion (guide at the top
-of the project page; every figure documented in "The data, figure by figure").
+Runge–Kutta physics-informed networks (RK-PINNs) for charged-track extrapolation through the LHCb magnet. A small network gives the stage states of an implicit Gauss–Legendre Runge–Kutta step. The step sums its end state from the stages. The network is applied to itself, step after step, from the last UT plane (z = 2648 mm) to the first SciFi plane (z = 7826 mm).
 
-| Folder | What it is |
+## Where to start
+
+| To read | Go to |
 |---|---|
-| `Data_generation_exploration/First_Pass/` | Generate + understand simulated events locally (Gauss v61r0p2, 2024 conditions). Truth dump + event displays. |
-| `Data_generation_exploration/First_Pass/First_reco/` | The reconstruction pipeline on our own events: Boole digitisation, Moore HLT2 + HLT1 (Allen), root-caused gotchas. |
-| `Data_generation_exploration/Data/` | The training sample: event-derived population x gated RK4/v8r1 labels, characterisation figures, integrity gates. |
-| `multi_network_chain_discrete_approach/` | The discrete-time technique port (gated: starts after the data-exploration phase). Three blocks, read in order — see its own [README](multi_network_chain_discrete_approach/README.md). |
-| `multi_network_chain_discrete_approach/_shared/` | The machinery all three blocks import: equation of motion, tableau, field loaders, model, both losses, trainer, scorer, smoke tests, farm harness. |
-| `multi_network_chain_discrete_approach/Block_0_first_pass/` | July 2026 — does the scheme port to LHCb at all? Data look, the exact scheme with no network, the first one-step network, and the official-sample baseline everything else is gated against. |
-| `multi_network_chain_discrete_approach/Block_A_technique_works/` | 5–6 Sep 2026 — does the technique work, and what limits it? Stage count, network size and seed, one network for all legs, chaining, and training where no labels exist. |
-| `multi_network_chain_discrete_approach/Block_C_step_size_and_stages/` | 7–8 Sep 2026 — the supervisors' table: error against step length and stage count over 720 trained networks, against a sixth-order reference and against real hits, plus the chained crossings. |
-| `multi_network_chain_discrete_approach/Block_D_fixed_step_crossing/` | 14–16 Sep 2026 — one separate network per fixed step, chained across the magnet: 5 step counts × 20 stage counts (4,260 networks), the exact scheme, the supervised twin, and the error anatomy (the networks stopped early: the optimiser's absolute tolerances). |
-| `single_network_chain_discrete_approach/` | From 16 Sep 2026 — one network per step length and stage count, applied to itself N times across the magnet and trained over the whole crossing. See its own [README](single_network_chain_discrete_approach/README.md). |
+| What every experiment asked and found, one line each | [`experiments/README.md`](experiments/README.md) |
+| Every trained run, its settings and its score | [`experiments/RUNS.md`](experiments/RUNS.md) |
+| How the package behaves and how work on it proceeds | [`RK_Pinn_module/WORKFLOW.md`](RK_Pinn_module/WORKFLOW.md) |
+| The package itself | [`RK_Pinn_module/README.md`](RK_Pinn_module/README.md) |
 
-Bulky artifacts (.sim/.digi/.root, truth CSVs, training .npz) are gitignored —
-every one is deterministically regenerable from the scripts, seeds and
-provenance metadata committed here (see each folder's README).
+## Contents
+
+| Folder | What it is | State |
+|---|---|---|
+| `RK_Pinn_module/` | the `rkpinn` package: field map, equation of motion, tableaux, exact scheme, networks, losses, trainer, standard evaluation, and the gates (`tests/`) | live |
+| `experiments/` | one folder per experiment made with the package, each named by its question; configurations, farm files and analysis, never weights | live |
+| `analysis/` | two read-only analyses of existing runs: the late-training oscillations (2026-10-22) and tranche 1 of the improvement plan (2026-10-28) | done |
+| `Data_generation_exploration/` | the simulated events (Gauss, Boole, Moore), the official samples, the field map and the training tracks the package reads | done; the package's track set is built from it |
+| `Talks/` | the progress talk of 2026-09-07 | done |
+| `Archive/` | the studies before the package: the multi-network and single-network chains (Blocks 0 to F), the cost-function study and the two mini-papers. Read-only; moved here on 2026-10-13 | frozen |
+
+## Data
+
+Runs, weights, reports and exact states are not in git. They are in the project store, `/data/bfys/gscriven/rkpinn_store`, under the key of each run. Bulky files of the archive (.sim, .digi, .root, .npz, .pt, farm logs) are also git-ignored; the scripts, seeds and metadata here regenerate them.
+
+## Conventions
+
+- Errors are in micrometres, slopes are dimensionless, momenta in GeV. The momentum bands are below 3, 3 to 8, 8 to 20, 20 to 50 and above 50 GeV.
+- The reference is a sixth-order Runge–Kutta integration at 0.1 mm steps on the same field map.
+- Every directory has a README that lists what is in it.

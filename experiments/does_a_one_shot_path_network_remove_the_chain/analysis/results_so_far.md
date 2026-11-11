@@ -1,6 +1,6 @@
 # Results so far
 
-**Last updated:** 2026-11-06 · **State:** draft; P2 is still training. Not a results note.
+**Last updated:** 2026-11-12 · **State:** draft; P1, P2 and E1 at their caps and scored. Not a results note.
 
 Every error is the radial error at the end of the region against the sixth-order reference, on the 1,452 test tracks, unless a line says otherwise. The path runs are supervised on the exact scheme's states; the chain is not.
 
@@ -9,7 +9,7 @@ Every error is the radial error at the end of the region against the sixth-order
 | Run | Key | State | Rounds | Round scored | Validation error, best (larger of x and y, median) |
 |---|---|---|---|---|---|
 | P1 path, width 256 | `25934ed22604` | at its cap, no plateau; still falling (213.4 µm at round 30, 180.1 µm at round 40) | 40 | 40 (best and last) | 180.1 µm |
-| P2 path, width 512 | `45093f0c80d6` | training | 35 of 40 | not scored | 197.6 µm at round 35 |
+| P2 path, width 512 | `45093f0c80d6` | at its cap, no plateau; still falling slowly (197.6 µm at round 35, 192.4 µm at round 40) | 40 | 40 (last; best is 39, 190.7 µm) | 190.7 µm |
 | E1 control, whole crossing | `dd9acf59ac88` | at its cap, no plateau; still falling | 40 | 40 (last; best is 39) | 70.6 µm |
 | P3, P4 | | not submitted | | | |
 
@@ -18,7 +18,7 @@ Validation curves, larger of x and y, median, µm, by round:
 | Round | 1 | 5 | 10 | 15 | 20 | 25 | 30 | 35 | 40 |
 |---|---|---|---|---|---|---|---|---|---|
 | P1 | 1,653 | 532 | 358 | 291 | 252 | 223 | 213 | 191 | 180 |
-| P2 | 1,874 | 618 | 397 | 303 | 284 | 239 | 228 | 198 | |
+| P2 | 1,874 | 618 | 397 | 303 | 284 | 239 | 228 | 198 | 192 |
 
 ## The endpoint, test split
 
@@ -27,6 +27,9 @@ Validation curves, larger of x and y, median, µm, by round:
 | P1 alone | 196.9 µm | 1,263 µm | 196.9 µm | 16 | `runs/25934ed22604/reports/round_0040_at_4f453087` |
 | P1 + 1 sweep | 0.1455 µm | 1.23 µm | 0.0015 µm (p95 0.13 µm) | 16 + 128 | the same |
 | P1 + 2 sweeps | 0.1465 µm | 1.17 µm | 1.2e-10 µm | 16 + 256 | the same |
+| P2 alone | 201.6 µm | 1,254 µm | 201.5 µm | 16 | `runs/45093f0c80d6/reports/round_0040_at_39ff6bd4` |
+| P2 + 1 sweep | 0.1444 µm | 1.26 µm | 0.0017 µm | 16 + 128 | the same |
+| P2 + 2 sweeps | 0.1465 µm | 1.17 µm | 1.2e-10 µm | 16 + 256 | the same |
 | E1 alone (no path, no sweep possible) | 78.9 µm | 720 µm | | 0 | `runs/dd9acf59ac88/reports/round_0040_at_4f453087` |
 | Euler path alone | 12.1 mm | 38.2 mm | 12.1 mm | 64 | stage 2 |
 | Euler + 1 sweep | 1.01 µm | 35.6 µm | 0.99 µm | 64 + 128 | stage 2 |
@@ -53,11 +56,11 @@ P1 alone, by momentum band (median / p95, µm): below 3 GeV 504 / 2,295; 3 to 8 
 
 | # | Criterion | P1 | P2 | P3 | E1 (control) |
 |---|---|---|---|---|---|
-| 1 | best path run beats the Euler path by 100x or more | **fail**: 12.1 mm / 196.9 µm = 61x | not scored yet | not run | not a path run |
-| 2 | best path run alone below 100 µm | **fail**: 196.9 µm | not scored yet | not run | (78.9 µm; the control, not a path run) |
-| 3 | best path run alone below 2 µm | **fail** | not scored yet | not run | (fail) |
-| 4 | path + 1 sweep at or below Euler + 1 sweep (1.01 µm), and path + 2 sweeps at the floor (0.15 µm) | **pass**: 0.1455 µm after one sweep, at the floor already; 0.1465 µm after two | not scored yet | not run | no path to sweep |
+| 1 | best path run beats the Euler path by 100x or more | **fail**: 12.1 mm / 196.9 µm = 61x | **fail**: 12.1 mm / 201.6 µm = 60x | not run | not a path run |
+| 2 | best path run alone below 100 µm | **fail**: 196.9 µm | **fail**: 201.6 µm | not run | (78.9 µm; the control, not a path run) |
+| 3 | best path run alone below 2 µm | **fail** | **fail** | not run | (fail) |
+| 4 | path + 1 sweep at or below Euler + 1 sweep (1.01 µm), and path + 2 sweeps at the floor (0.15 µm) | **pass**: 0.1455 µm after one sweep, at the floor already; 0.1465 µm after two | **pass**: 0.1444 µm after one sweep; 0.1465 µm after two | not run | no path to sweep |
 | 5 | 68 ± 3 % of tracks within one predicted sigma | n/a | n/a | not run | n/a |
-| 6 | time per event at equal accuracy | measured: P1 + 1 sweep 0.83 ms per track at 0.144 µm, against Euler + 2 sweeps 2.47 ms at 0.145 µm (3.0x faster); the chain is 2.93 ms at 1.83 µm | not scored yet | not run | |
+| 6 | time per event at equal accuracy | measured: P1 + 1 sweep 0.83 ms per track at 0.144 µm, against Euler + 2 sweeps 2.47 ms at 0.145 µm (3.0x faster); the chain is 2.93 ms at 1.83 µm | not timed | not run | |
 
-Outcome so far, read against the README's table: criterion 1 fails, so for the network alone the README reads "supervised one-shot regression over 5.2 m does not train at this size". P1 was still improving at its cap, and P2 has not ended. Criterion 4 passes for P1: one sweep from P1 reaches the exact-scheme floor (0.0015 µm from the exact scheme, median), where one sweep from Euler stops at 1.01 µm.
+Outcome so far, read against the README's table: criterion 1 fails, so for the network alone the README reads "supervised one-shot regression over 5.2 m does not train at this size". P1 was still improving at its cap. P2, twice as wide, ends at 201.6 µm on the test split, no better than P1, so width is not what limits the network alone. Criterion 4 passes for P1: one sweep from P1 reaches the exact-scheme floor (0.0015 µm from the exact scheme, median), where one sweep from Euler stops at 1.01 µm.
