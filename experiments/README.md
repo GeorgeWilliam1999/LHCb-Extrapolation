@@ -15,6 +15,7 @@ The experiments made with the package `rkpinn`, one folder each. An experiment i
 | `index_of_the_runs.py` | writes `RUNS.md` from the store; reads the store only | built |
 | `does_a_one_shot_path_network_remove_the_chain/` | one supervised network call emits the whole 64-step path of a track; one parallel Newton sweep corrects it; against the chain on accuracy and cost per event | built; P1, P2 and the control scored, P3 and P4 not submitted |
 | `what_is_the_per_step_bias/` | the per-step bias of the trained networks: its size and sign along the track, its correlation, and corrections for it (Part B: residual draws and a bias term in the loss) | built |
+| `how_does_the_stage_residual_become_the_endpoint_error/` | Strand 1 of the plan of 2026-11-12: the chain from the trained stage residual to the endpoint error, step by step, on existing runs; no training | running |
 | `does_a_kalman_like_gain_remove_the_bias/` | a Kalman-like gain from the free stage residual: a model-error covariance in a toy fit (Part A), the analytic gain (Part B), a learned gain and an error-conditioned network (Part C) | built; second tranche of Part C plateaued, not scored |
 | `does_a_summed_end_state_train/` | the pilot: one network of 64 steps and 2 stages, trained with its end state summed from the stages and with its end state predicted | built |
 | `redo_the_papers_nine_runs_in_the_summed_form/` | the paper's three cells under the pooled and the two cost-weighted losses, trained again by the package in the summed form, seed 1 | built |
