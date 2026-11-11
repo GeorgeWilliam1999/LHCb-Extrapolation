@@ -1,6 +1,6 @@
 # Does the error fall with the step length
 
-**Last updated:** 2026-10-23
+**Last updated:** 2026-11-12
 
 ## What this directory is
 
@@ -93,4 +93,29 @@ The exact scheme for 4, 8, 16 and 32 steps at 2, 4, 8 and 16 stages was written 
 
 ## Findings
 
-None yet. They are discussed with George before anything is written up.
+**2026-11-12.** All nine runs plateaued. The numbers are in `analysis/results/` and the figure in `analysis/figures/`. They are discussed with George before anything is written up.
+
+Straight line, per-track scale, 2 stages. Test tracks, radial error, median (16th to 84th percentile), micrometres. The exact scheme and RK4 are at the same number of steps.
+
+| Steps | Step length | Network, single step | Network, end of region | Exact two-stage scheme, end of region | RK4, end of region |
+|---|---|---|---|---|---|
+| 8 | 647 mm | 4.72 (1.80 to 13.7) | 31.0 (10.5 to 86.0) | 24.8 | 18.4 |
+| 16 | 324 mm | 1.15 (0.47 to 3.13) | 7.76 (3.13 to 27.6) | 1.68 | 3.86 |
+| 32 | 162 mm | 0.288 (0.114 to 0.837) | 3.82 (1.61 to 10.7) | 0.787 | 0.314 |
+| 64 | 80.9 mm | 0.072 (0.028 to 0.210) | 1.83 (0.76 to 5.37) | 0.147 | 1.08 |
+| 128 | 40.5 mm | 0.020 (0.008 to 0.057) | 1.28 (0.46 to 3.52) | 0.511 | 0.562 |
+| 256 | 20.2 mm | 0.0051 (0.0019 to 0.0154) | 0.657 (0.254 to 1.82) | 0.228 | 0.325 |
+
+Stages at 64 steps: 2, 4, 8 and 16 stages give 1.83, 2.07, 2.12 and 2.35 µm at the end of the region.
+
+Against the criteria:
+
+| # | Outcome |
+|---|---|
+| 1 | met: the figure has both panels, log-log, with the 16th to 84th percentile bars |
+| 2 | met: all nine runs plateaued |
+| 3 | the network's end-of-region error falls monotonically from 8 to 256 steps. The single-step error falls as the square of the step length (a factor 3.6 to 4.1 for each halving); the end-of-region error falls about linearly (a factor 1.4 to 4.0 for each halving). The exact scheme and RK4 do not fall monotonically: the trilinear field map has a jump in its derivative at every grid face, 100 mm apart |
+| 4 | open: the four points span 1.83 to 2.35 µm (a factor 1.3), but the variation of the test error between neighbouring rounds is not yet measured |
+
+From 32 steps on, the network is above the exact scheme of the same step count. So the network, not the scheme, sets the error there.
+

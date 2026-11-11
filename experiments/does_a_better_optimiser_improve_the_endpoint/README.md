@@ -1,6 +1,6 @@
 # Does a better optimiser improve the endpoint
 
-**Last updated:** 2026-10-28
+**Last updated:** 2026-11-12
 
 ## What this directory is
 
@@ -96,4 +96,28 @@ PYTHONNOUSERSITE=1 PYTHONPATH=src /data/bfys/gscriven/conda/envs/TE/bin/python \
 
 ## Findings
 
-None yet. They are discussed with George before anything is written up.
+**2026-11-12.** All ten runs plateaued (22 to 56 rounds); the seed-1 L-BFGS baselines are the runs of the nine-run and straight-line experiments. Every run has a standard report at its last round and at its best round by validation. They are discussed with George before anything is written up.
+
+Test endpoint radial error, micrometres: median at the last round (median at the best round by validation in brackets), and p95 and mean at the last round.
+
+| Form | Optimiser | Seed 1 | Seed 2 | Seed 3 | Median of 3 | Range | p95, seeds 1 / 2 / 3 | Mean, seeds 1 / 2 / 3 |
+|---|---|---|---|---|---|---|---|---|
+| direct states | L-BFGS | 5.71 (5.71) | 9.58 (7.26) | 7.80 (6.35) | 7.80 | 3.87 | 67.8 / 79.4 / 73.8 | 19.3 / 22.7 / 22.0 |
+| direct states | self-scaled Broyden | 1.37 (1.25) | 1.58 (1.31) | 1.55 (1.20) | 1.55 | 0.21 | 18.3 / 18.3 / 17.6 | 5.70 / 5.33 / 6.09 |
+| straight line, per-track scale | L-BFGS | 1.83 (1.88) | 2.20 (2.16) | 2.10 (1.75) | 2.10 | 0.37 | 12.7 / 16.0 / 17.0 | 4.93 / 5.34 / 5.39 |
+| straight line, per-track scale | self-scaled Broyden | 0.59 (0.41) | 0.53 (0.39) | 0.65 (0.42) | 0.59 | 0.12 | 5.7 / 5.5 / 6.7 | 3.62 / 3.46 / 7.44 |
+
+Against the criteria:
+
+| # | Direct states | Straight line |
+|---|---|---|
+| 1 | **pass**: 7.80 - 1.55 = 6.25 µm, larger than the seed spread of 3.87 µm | **pass**: 2.10 - 0.59 = 1.51 µm, larger than the seed spread of 0.37 µm |
+| 2 | met: 1.55 µm, below 2.18 µm | met: 0.59 µm, below 1.08 µm |
+| 3 | all plateaued | all plateaued |
+
+Three facts limit the reading of the outcome table above:
+
+- The exact two-stage scheme at 64 steps is 0.147 µm on the same tracks. The best arm is four times above it. So "the network reaches the reference scheme" does not hold; the network beats RK4 at 64 steps.
+- The Broyden straight-line runs have their best round by validation at rounds 5 to 8 (0.39 to 0.42 µm). The rule stops them later, at round 22, where the error is 0.53 to 0.65 µm. So the stopping rule costs these runs about 40 %.
+- The Broyden arm lowers the median and the p95, not the mean in every seed: seed 3 of the straight line has a mean of 7.44 µm, the largest of its form.
+
