@@ -1,6 +1,6 @@
 # Networks
 
-**Last updated:** 2026-11-03
+**Last updated:** 2026-11-12
 
 ## What this directory is
 
@@ -20,6 +20,7 @@ The networks, how their raw outputs become states, how the end of a step is form
 | `self_chain.py` | applies one stage network N times, each end state being the next input (`whole_track`) | built |
 | `stage_network_of_a_run.py` | reads a trained stage network from a run in the store (settings and the weights of one round); the first call (stages, rates, residual); the root mean square of the residual and the rates over the first round's states; the scale of a correction (2026-11-03) | built |
 | `stage_network_with_a_learned_gain.py` | C1 of the Kalman-like gain study: a frozen (or trained) stage network and a small network G whose 4 x 4q output matrix multiplies the stage residual; the end state is the summed one minus the correction (`StageNetworkWithALearnedGain`, 2026-11-03) | built |
+| `stage_network_with_a_physics_layer.py` | the stage network with the stage map as its last layer: `sweeps_inside` applications of Y ← S0 + dz A f(Y) to the stages the body emits, the body trained through them; the end state summed from the stages after the layer; with 0 sweeps the stage network to the last bit (`StageNetworkWithAPhysicsLayer`, 2026-11-12) | built |
 | `error_conditioned_stage_network.py` | C2 of the same study: the stage network is called once, a corrector reads the residual of that call (6 + 4q inputs) and gives a 4q x 4q matrix that multiplies it to correct the stages; the end state is summed from the corrected stages (`ErrorConditionedStageNetwork`, 2026-11-03) | built |
 
 ## Settings of a network

@@ -67,7 +67,7 @@ def test_the_parts_of_the_training_can_be_named():
     assert registry.registered_names("training_protocol") == (
         "rounds_on_one_fixed_draw", "rounds_on_own_predictions",
         "rounds_on_own_predictions_with_residual_draws",
-        "start_states_of_the_tracks")
+        "rounds_on_whole_tracks_of_own_predictions", "start_states_of_the_tracks")
     assert registry.registered_names("optimiser") == (
         "lbfgs_restarts", "self_scaled_broyden_restarts")
     assert registry.registered_names("stopping_rule") == ("validation_plateau",)
@@ -79,12 +79,14 @@ def test_the_parts_of_the_training_can_be_named():
 def test_the_networks_losses_and_targets_can_be_named():
     assert registry.registered_names("network") == (
         "error_conditioned_stage_network", "path_network", "stage_network",
-        "stage_network_with_a_learned_gain", "whole_crossing_network")
+        "stage_network_with_a_learned_gain", "stage_network_with_a_physics_layer",
+        "whole_crossing_network")
     assert registry.registered_names("output_form") == (
         "direct_states", "straight_line_plus_scaled_correction")
     assert registry.registered_names("loss") == (
         "cost_weighted", "distilled_analytic_gain", "pooled", "pooled_on_both_calls",
-        "pooled_with_a_bias_term", "supervised_endpoint", "supervised_path", "unweighted")
+        "pooled_with_a_bias_term", "pooled_with_a_carried_defect_term",
+        "supervised_endpoint", "supervised_path", "unweighted")
     assert registry.registered_names("target") == (
         "no_target", "reference_end_state", "reference_path", "reference_states_on_planes",
         "true_state")

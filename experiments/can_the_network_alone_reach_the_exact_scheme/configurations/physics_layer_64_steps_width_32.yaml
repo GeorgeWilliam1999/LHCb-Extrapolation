@@ -1,0 +1,50 @@
+# The physics layer, one sweep inside, 64 steps, a body of width 32.
+# Copied from ../../does_the_straight_line_form_restore_the_old_accuracy/
+# configurations/64_steps_2_stages_pooled_per_track_scale.yaml (run key
+# 25dfa17ef168) and changed only in what the first line names.
+# Seed 1, cap 80 rounds. See ../README.md.
+equation_of_motion:
+  system: lhcb
+  field_map: v8r1_up
+tracks:
+  key: 12a8d35c3165
+steps:
+  number_of_steps: 64
+  number_of_stages: 2
+network:
+  kind: stage_network_with_a_physics_layer
+  output_form: straight_line_plus_scaled_correction
+  width: 32
+  depth: 2
+  activation: tanh
+  end_state: summed_from_the_stages
+  scale_of_inputs: spread_of_first_round_states
+  scale_of_outputs: per_track
+  sweeps_inside: 1
+loss:
+  name: pooled
+  terms: stages
+target:
+  name: no_target
+training:
+  protocol:
+    name: rounds_on_own_predictions
+    states_per_round: 32000
+  restarts_per_round: 25
+  end_a_round_when_stalled: null
+  optimiser:
+    name: lbfgs_restarts
+    iterations_per_restart: 200
+    history: 120
+    tolerance_of_the_gradient: 1.0e-13
+    tolerance_of_the_change: 1.0e-16
+    line_search: strong_wolfe
+    renew_scale_when_loss_falls_to: 0.1
+  stopping_rule:
+    name: validation_plateau
+    quantity: validation_endpoint_error_larger_of_x_and_y_median_micrometres
+    window_in_rounds: 10
+    tolerance: 0.05
+    rounds_held: 3
+  rounds_at_most: 80
+seed: 1

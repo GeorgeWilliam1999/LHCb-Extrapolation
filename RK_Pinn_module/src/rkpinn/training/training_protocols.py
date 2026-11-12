@@ -310,3 +310,65 @@ class RoundsOnOwnPredictionsWithResidualDraws:
             start_planes_mm=np.concatenate([uniform.start_planes_mm,
                                             pool.start_planes_mm[chosen]]),
             labels=None, source=FROM_OWN_PREDICTIONS_BY_RESIDUAL)
+
+
+FROM_THE_REFERENCE_WHOLE_TRACKS = "reference states, whole tracks"
+FROM_OWN_PREDICTIONS_WHOLE_TRACKS = "own predictions, whole tracks"
+
+
+@register("training_protocol", "rounds_on_whole_tracks_of_own_predictions")
+class RoundsOnWholeTracksOfOwnPredictions:
+    """Whole tracks: every step of each drawn track, track after track.
+
+    Added 2026-11-12 for the loss `pooled_with_a_carried_defect_term`, which
+    sums over the steps of a track. A round draws `states_per_round` divided by
+    the number of steps (rounded down) training tracks, without repetition,
+    and takes the state on every start plane of each. The states are ordered
+    track after track, the start planes of a track in order.
+
+      round 1       the reference states of the drawn tracks
+      later rounds  the network's own predictions on the drawn tracks, as in
+                    `rounds_on_own_predictions`: no gradient flows back through
+                    earlier steps
+
+    `rounds_on_own_predictions` draws the same number of states on every start
+    plane, each plane from its own tracks. This protocol has the same number
+    of states on every start plane too, all from the same tracks.
+    `rounds_on_own_predictions` is unchanged, so no run made before changes
+    its key.
+    Gates: tests/test_physics_layer_and_carried_defect.py.
+    """
+
+    name = "rounds_on_whole_tracks_of_own_predictions"
+    for_networks_with_stages = True
+    settings_in_a_configuration = ("states_per_round",)
+
+    @classmethod
+    def from_configuration(cls, settings, context):
+        return cls(**settings)
+
+    def __init__(self, *, states_per_round):
+        self.states_per_round = int(states_per_round)
+
+    def states_of_round(self, round_number, seed, tracks, layout, network,
+                        target) -> StatesOfARound:
+        training = tracks.training
+        N = layout.number_of_steps
+        n = training.number_of_tracks
+        number = min(n, self.states_per_round // N)
+        if number < 1:
+            raise ValueError("%d states a round are fewer than the %d steps of one track"
+                             % (self.states_per_round, N))
+        rows = (np.arange(n) if number == n else np.sort(
+            generator_of_a_round(seed, round_number).choice(n, number, replace=False)))
+        if round_number == 1:
+            on = tracks.planes_a_step_starts_on(N)
+            states = training.reference_states_on_planes[rows][:, on]
+            source = FROM_THE_REFERENCE_WHOLE_TRACKS
+        else:
+            states = np.asarray(network.whole_track(training.start_state[rows],
+                                                    layout).input_states)
+            source = FROM_OWN_PREDICTIONS_WHOLE_TRACKS
+        start_planes = np.tile(tracks.start_planes_mm(N), number)
+        return StatesOfARound(states=np.ascontiguousarray(states.reshape(-1, 5)),
+                              start_planes_mm=start_planes, labels=None, source=source)

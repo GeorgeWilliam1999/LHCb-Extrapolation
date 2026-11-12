@@ -1,6 +1,6 @@
 # Loss functions
 
-**Last updated:** 2026-11-03
+**Last updated:** 2026-11-12
 
 ## What this directory is
 
@@ -16,6 +16,7 @@ The stage residual, and the losses built on it. All label-free losses are the me
 | `unweighted.py` | divisor 1: the baseline with no weighting | built |
 | `pooled.py` | divisor per component: the spread of that component over the first round's states. Equation 19 of the second mini-paper | built |
 | `cost_weighted.py` | divisor per track, stage plane and component: lever arm, track bend, momentum window, clamp. Equation 20 | built |
+| `pooled_with_a_carried_defect_term.py` | the pooled loss plus lambda times the squared label-free estimate of the endpoint error of each track: the defect of each step (end state summed from the stages minus end state summed from the swept stages) carried on a straight line to the last plane and summed over the steps of the track; lambda fixed at round 1 so the term is a set share of the loss (2026-11-12) | built |
 | `pooled_with_a_bias_term.py` | the pooled loss plus lambda times the mean squared bin-mean of the normalised residual, bins of (band of start planes, momentum band, charge); lambda fixed at round 1 so the term is a set share of the loss (2026-10-28, item B.4 of the per-step bias study) | built |
 | `distilled_analytic_gain.py` | for the learned gain: the mean squared difference, over the divisor of the pooled loss, between the correction the network took off the summed end state and the linearised gain K r from the Jacobians at the stages; optionally plus the pooled stage terms. No reference label (2026-11-03) | built |
 | `pooled_on_both_calls.py` | for the error-conditioned stage network: the pooled loss over the stages of the second call and of the first, as one mean; the pooled loss itself for a track of one call (2026-11-03) | built |
