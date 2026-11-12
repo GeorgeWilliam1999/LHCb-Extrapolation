@@ -11,6 +11,8 @@ The script of the experiment and, once it has run, its tables, figures and resul
 | Name | What it does | State |
 |---|---|---|
 | `README.md` | this file | built |
+| `summarise.py` | the tables `results/per_run.csv` and `results/per_band.csv` and the figure `figures/step_length.png`, from the cached arrays | built |
+| `results.md` | the results note: the numbers against the criteria | built |
 | `decompose.py` | per run, along its own chain on the test tracks: the stage residual, the stage error and its first-order value, the local defect and its first-order value, and the carried defects (exact on 200 tracks, linear on all) | built; smoke run on 20 tracks passed (exact residual below 1e-12; the carried defects sum exactly to the network's endpoint minus the exact chain's) |
 
 ## How to run

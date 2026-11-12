@@ -1,6 +1,6 @@
 # How does the stage residual become the endpoint error
 
-**Last updated:** 2026-11-12 · **State:** planned; criteria written, no number computed yet
+**Last updated:** 2026-11-12 · **State:** computed on all 11 runs; results in `analysis/results.md`, for discussion with George
 
 ## What this directory is
 
@@ -11,7 +11,7 @@ Strand 1 of the plan "RK-PINN: plan for the next phase" (Claude Docs, 2026-11-12
 | Name | What it does | State |
 |---|---|---|
 | `README.md` | this file: the question, the theory, the runs, the criteria | built |
-| `analysis/` | the script, the tables (`results/`), the figures (`figures/`) and the results note | planned |
+| `analysis/` | the scripts, the tables (`results/`), the figure (`figures/`) and the results note | built |
 
 ## The question
 
@@ -61,3 +61,7 @@ For each run, along its own chain on each test track, at every step: r, ε, δ, 
 | 7 | fixed relative precision | median \|ε\| / dz varies by less than a factor 2 over 8 to 256 steps, and the median \|δ\| falls with dz with an exponent between 1.7 and 2.3 |
 
 If a claim fails, the results note says by how much, and the theory is changed before it is written up.
+
+## Findings
+
+Claims 1, 3, 4 and 6 hold. Claim 2 holds from 32 steps on. Claim 5 fails: the defects are coherent over a fixed length of track (about 11 independent segments per track at every step count), not over the whole track. Claim 7 half holds. See `analysis/results.md`.
