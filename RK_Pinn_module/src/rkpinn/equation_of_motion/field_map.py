@@ -4,6 +4,12 @@ The map is stored on a regular grid and interpolated linearly in each of the
 three directions. The interpolated field is continuous, but its derivative
 jumps at every cell face.
 
+A second interpolation of the same grid is a setting (added 2026-11-12, George
+agreed on 2026-11-12): the field maps named with the suffix `_cubic` use a
+tricubic B-spline through the grid points (`CubicFieldMap`). That field and
+its first and second derivatives are continuous. The linear maps are unchanged
+and stay the default.
+
 Ported from the frozen code, with the arithmetic unchanged and in the same
 order, so that the field values are identical to the last bit:
 
@@ -21,6 +27,7 @@ import hashlib
 
 import numpy as np
 import torch
+from scipy.ndimage import spline_filter
 
 from rkpinn.registry import register
 
@@ -28,6 +35,9 @@ FIELD_MAP_FILES = {
     "v8r1_down": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.down.bin",
     "v8r1_up": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.up.bin",
 }
+# The cubic maps read the same files; only the interpolation differs.
+FIELD_MAP_FILES["v8r1_down_cubic"] = FIELD_MAP_FILES["v8r1_down"]
+FIELD_MAP_FILES["v8r1_up_cubic"] = FIELD_MAP_FILES["v8r1_up"]
 
 
 class FieldMap:
@@ -59,6 +69,10 @@ class FieldMap:
         else:
             raise ValueError("unrecognised field units, peak |By| = %r" % peak)
         self.peak_of_field_y_in_file = peak
+
+    def differentiable(self) -> "DifferentiableFieldMap":
+        """The same field on torch tensors."""
+        return DifferentiableFieldMap(self)
 
     def description(self) -> str:
         cell_size = 1.0 / self.inverse_cell_size
@@ -157,6 +171,100 @@ class DifferentiableFieldMap(torch.nn.Module):
                 interpolate(self.field_z))
 
 
+def cubic_b_spline_weights(t, xp):
+    """The four weights of the uniform cubic B-spline at the fraction t of a
+    cell, for the coefficients at i - 1, i, i + 1 and i + 2."""
+    t2 = t * t
+    t3 = t2 * t
+    return ((1 - t) ** 3 / 6, (3 * t3 - 6 * t2 + 4) / 6,
+            (-3 * t3 + 3 * t2 + 3 * t + 1) / 6, t3 / 6)
+
+
+class CubicFieldMap(FieldMap):
+    """The field of the same grid through a tricubic B-spline.
+
+    The coefficients are the grid values filtered so that the spline passes
+    through every grid point (scipy.ndimage.spline_filter, mode "nearest").
+    Beyond the grid the coefficient indices are clamped to the edge, which is
+    what scipy.ndimage.map_coordinates does in mode "nearest". Each point reads
+    64 coefficients per component, against 8 for the linear map.
+
+    Gates: tests/test_cubic_field_map.py.
+    """
+
+    def __init__(self, path: str):
+        super().__init__(path)
+        self.coefficients = tuple(
+            spline_filter(grid * self.scale_to_tesla, order=3, mode="nearest")
+            for grid in (self.field_x, self.field_y, self.field_z))
+
+    def differentiable(self) -> "DifferentiableCubicFieldMap":
+        return DifferentiableCubicFieldMap(self)
+
+    def description(self) -> str:
+        return FieldMap.description(self) + ", tricubic B-spline"
+
+    def __call__(self, x, y, z):
+        x = np.asarray(x, dtype=np.float64)
+        y = np.asarray(y, dtype=np.float64)
+        z = np.asarray(z, dtype=np.float64)
+        fs = [(c - self.lowest_corner[a]) * self.inverse_cell_size[a]
+              for a, c in enumerate((x, y, z))]
+        indices, weights = [], []
+        for a, f in enumerate(fs):
+            i = np.floor(f).astype(np.int64)
+            weights.append(cubic_b_spline_weights(f - i, np))
+            indices.append([np.clip(i + o, 0, self.number_of_points[a] - 1) for o in (-1, 0, 1, 2)])
+        ix, iy, iz = indices
+        wx, wy, wz = weights
+        out = []
+        for grid in self.coefficients:
+            total = 0.0
+            for c in range(4):
+                for b in range(4):
+                    row = 0.0
+                    for a in range(4):
+                        row = row + wx[a] * grid[iz[c], iy[b], ix[a]]
+                    total = total + wz[c] * wy[b] * row
+            out.append(total)
+        return tuple(out)
+
+
+class DifferentiableCubicFieldMap(torch.nn.Module):
+    """The tricubic field on torch tensors, in double precision; the field and
+    its gradient are continuous everywhere."""
+
+    def __init__(self, field_map: CubicFieldMap):
+        super().__init__()
+        self.field_map = field_map
+        self.register_buffer("inverse_cell_size", torch.tensor(field_map.inverse_cell_size))
+        self.register_buffer("lowest_corner", torch.tensor(field_map.lowest_corner))
+        for name, grid in zip(("field_x", "field_y", "field_z"), field_map.coefficients):
+            self.register_buffer(name, torch.tensor(grid))
+        self.number_of_points = tuple(int(n) for n in field_map.number_of_points)
+
+    def forward(self, x, y, z):
+        indices, weights = [], []
+        for a, c in enumerate((x, y, z)):
+            f = (c - self.lowest_corner[a]) * self.inverse_cell_size[a]
+            i = f.detach().floor().long()
+            weights.append(cubic_b_spline_weights(f - i, torch))
+            indices.append([(i + o).clamp(0, self.number_of_points[a] - 1) for o in (-1, 0, 1, 2)])
+        ix, iy, iz = indices
+        wx, wy, wz = weights
+        out = []
+        for grid in (self.field_x, self.field_y, self.field_z):
+            total = 0.0
+            for c in range(4):
+                for b in range(4):
+                    row = 0.0
+                    for a in range(4):
+                        row = row + wx[a] * grid[iz[c], iy[b], ix[a]]
+                    total = total + wz[c] * wy[b] * row
+            out.append(total)
+        return tuple(out)
+
+
 _loaded: dict[str, FieldMap] = {}
 
 
@@ -166,7 +274,8 @@ def load_field_map(name: str) -> FieldMap:
         raise KeyError("no field map is named %r; the names are %s"
                        % (name, ", ".join(sorted(FIELD_MAP_FILES))))
     if name not in _loaded:
-        _loaded[name] = FieldMap(FIELD_MAP_FILES[name])
+        kind = CubicFieldMap if name.endswith("_cubic") else FieldMap
+        _loaded[name] = kind(FIELD_MAP_FILES[name])
     return _loaded[name]
 
 
@@ -180,6 +289,18 @@ def v8r1_up() -> FieldMap:
 def v8r1_down() -> FieldMap:
     """The v8r1 map with the magnet polarity down."""
     return load_field_map("v8r1_down")
+
+
+@register("field_map", "v8r1_up_cubic")
+def v8r1_up_cubic() -> FieldMap:
+    """The v8r1 map with the magnet polarity up, through a tricubic B-spline."""
+    return load_field_map("v8r1_up_cubic")
+
+
+@register("field_map", "v8r1_down_cubic")
+def v8r1_down_cubic() -> FieldMap:
+    """The v8r1 map with the magnet polarity down, through a tricubic B-spline."""
+    return load_field_map("v8r1_down_cubic")
 
 
 def hash_of_field_map_file(name: str, chunk_bytes: int = 1 << 20) -> str:

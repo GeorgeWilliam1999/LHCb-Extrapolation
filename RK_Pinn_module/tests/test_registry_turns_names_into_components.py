@@ -33,7 +33,8 @@ def test_built_components_can_be_named():
     assert registry.component("integrator", "exact_collocation") is solve_one_step
     assert (registry.component("integrator", "runge_kutta_sixth_order")
             is integrate_with_sixth_order)
-    assert registry.registered_names("field_map") == ("v8r1_down", "v8r1_up")
+    assert registry.registered_names("field_map") == (
+        "v8r1_down", "v8r1_down_cubic", "v8r1_up", "v8r1_up_cubic")
 
 
 def test_a_configuration_can_be_resolved():

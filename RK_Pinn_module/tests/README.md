@@ -1,6 +1,6 @@
 # Tests: the gates
 
-**Last updated:** 2026-11-03
+**Last updated:** 2026-11-12
 
 ## What this directory is
 
@@ -13,6 +13,7 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `README.md` | this file | built |
 | `test_every_directory_is_described.py` | fails if a directory has no README, if a README does not name something in its directory, or if something marked built does not exist | built |
 | `frozen_code.py` | not a gate: where the parity gates find the frozen code, the frozen tracks and the stored exact states, at the root of the project or under `Archive/`. The only file that inserts into the import path | built |
+| `test_cubic_field_map.py` | the cubic maps: the linear maps unchanged; the spline passes through every grid point; equal to scipy's map_coordinates inside and beyond the edges; the torch field equal to the numpy one; a gradient continuous across a cell face where the linear one jumps; the same field as the linear map where tracks pass | built |
 | `test_field_map_matches_the_frozen_code.py` | the hash of the map file; field values identical to the frozen loader on 200,000 points, both polarities; the differentiable field identical to the frozen one | built |
 | `test_equation_of_motion_matches_the_frozen_code.py` | rates identical to the frozen code on 500 real states; torch rates and their gradient identical to the frozen code; torch equals numpy | built |
 | `test_gauss_legendre_tableau_matches_the_frozen_code.py` | the tableau identical to the frozen one to the last bit at 16 stages and eleven other stage counts; the five identities | built |

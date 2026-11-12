@@ -1,6 +1,6 @@
 # Equations of motion
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-11-12
 
 ## What this directory is
 
@@ -13,7 +13,7 @@ The differential equations a track obeys, and the magnetic field they need. One 
 | `README.md` | this file | built |
 | `__init__.py` | marks the directory as part of the package; it holds no code | built |
 | `lhcb.py` | the rates of change of (x, y, slope in x, slope in y) with z in the LHCb field, in numpy (`LhcbEquationOfMotion`) and in torch (`DifferentiableLhcbEquationOfMotion`); charge over momentum is conserved | built |
-| `field_map.py` | the v8r1 field map, both polarities (`FieldMap`), its differentiable double-precision twin (`DifferentiableFieldMap`), the hash of the map file and the corners of the map | built |
+| `field_map.py` | the v8r1 field map, both polarities (`FieldMap`), its differentiable double-precision twin (`DifferentiableFieldMap`), the hash of the map file and the corners of the map; and, as a setting (2026-11-12), the same grid through a tricubic B-spline (`CubicFieldMap`, `DifferentiableCubicFieldMap`, names `v8r1_up_cubic` and `v8r1_down_cubic`), whose field and gradient are continuous. The linear maps stay the default | built |
 | `van_der_pol.py` | the van der Pol oscillator, the second system, used to show the package is not shaped around LHCb alone | planned |
 
 ## Where each file was ported from

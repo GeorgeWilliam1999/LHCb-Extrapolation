@@ -35,7 +35,7 @@ from __future__ import annotations
 import numpy as np
 import torch
 
-from rkpinn.equation_of_motion.field_map import DifferentiableFieldMap, FieldMap
+from rkpinn.equation_of_motion.field_map import FieldMap
 from rkpinn.registry import register
 
 KAPPA = 1.0e-3
@@ -97,7 +97,7 @@ class DifferentiableLhcbEquationOfMotion(torch.nn.Module):
 
     def __init__(self, field_map: FieldMap):
         super().__init__()
-        self.field = DifferentiableFieldMap(field_map)
+        self.field = field_map.differentiable()
 
     def rates(self, state_without_charge_over_momentum, charge_over_momentum, z):
         """The rates of (x, y, tx, ty) at the states given.
