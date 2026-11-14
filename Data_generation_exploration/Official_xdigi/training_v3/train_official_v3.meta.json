@@ -1,0 +1,97 @@
+{
+ "created": "2026-11-14 16:55:08",
+ "sample": {
+  "origin": "official central production (LHCb TestFileDB), not self-generated",
+  "testfiledb_entry": "expected_2024_minbias_xdigi (PRConfig)",
+  "production": "00212966",
+  "format": "XDIGI (digitised banks + packed MC truth pSim/...)",
+  "conditions": "Simulation; DDDB dddb-20231017, CondDB sim-20231017-vc-mu100, DataType 2024",
+  "input_files": [
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000013_1.xdigi",
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000018_1.xdigi",
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000026_1.xdigi",
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000031_1.xdigi",
+   "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/expected_2024_minbias_xdigi/00212966_00000086_1.xdigi"
+  ],
+  "access": "local CVMFS mirror /cvmfs/lhcbdev.cern.ch/testfiledb-mirror/ (5 of the entry's 8 files, 19 GB) - no EOS, kerberos or DIRAC",
+  "n_events": 2000,
+  "event_numbers": "0-1999, the 0-based index in the concatenated file stream (the stream reached the second file)",
+  "truth_dump": "Official_xdigi/dump_xdigi.py (bash run_dump.sh truth_official_2000 2000) -> Official_xdigi/truth_official_2000/",
+  "key": "official_xdigi_2000"
+ },
+ "population": "states harvested from tracker MCHits (see harvest_states.py + results/harvest_summary.json)",
+ "labels": {
+  "engine": "fp64 fixed-step RK4, step_mm=5.0, ODE identical to Allen (deriv mirrored from track-extrapolation-pinn/datagen/generate_data_v2.py)",
+  "field": {
+   "file": "/cvmfs/lhcb.cern.ch/lib/lhcb/DBASE/FieldMap/v8r1/cdf/field.v8r1.down.bin",
+   "md5": "af284c6954d2273c637a5e766b82b58e"
+  },
+  "kappa": 0.001,
+  "qop_convention": "qop = 0.299792458 * q / p[GeV] (Allen)",
+  "material_effects": "excluded by design (master-extrapolator responsibility)",
+  "archive_core_commit": "1faa97e085918082fd8ff15e60aa7932bb588786"
+ },
+ "leg_types": {
+  "A": "first VP state -> its PV z (backward)",
+  "B": "cross-magnet, both directions",
+  "C": "consecutive plane crossings (forward), <=3/particle",
+  "D": "first T state -> its PV z (backward)"
+ },
+ "domain_cuts": {
+  "p_GeV": [
+   1.0,
+   200.0
+  ],
+  "slopes": "<1.0",
+  "aperture_mm": 5000
+ },
+ "core_selection": "non-electron & origin radius < 10 mm & 1.8 < eta < 5.2 (flag CORE; tails kept, selectable)",
+ "rows": {
+  "total": 3029075,
+  "per_leg": {
+   "A": 457769,
+   "B": 387972,
+   "C": 1929196,
+   "D": 254138
+  },
+  "split": {
+   "train": 2423883,
+   "val": 303567,
+   "test": 301625,
+   "by": "particle",
+   "seed": 20260718,
+   "kept_from_an_earlier_set": {
+    "of": "/data/bfys/gscriven/LHCb_Extrapolation_Project/Data_generation_exploration/Official_xdigi/training_v2/train_official_v2.npz",
+    "particles_kept": 76353,
+    "particles_of_the_old_set": 76353,
+    "particles_new": 638910
+   }
+  }
+ },
+ "gates": {
+  "G1_reprop_closure_mm": {
+   "median": 1.4723178232145528e-09,
+   "worst": 0.04993813096010058,
+   "n": 2000
+  },
+  "G2_label_vs_next_hit_mm": {
+   "median": 0.02135298536581498,
+   "p95": 5.794661565638606,
+   "median_p_gt_5GeV": 0.006129486518984706,
+   "median_p_lt_2GeV": 0.08271313055138307,
+   "n": 1929196,
+   "meaning": "residual = material effects (scattering/dE), out of label scope by design"
+  },
+  "G3_step_convergence_mm_5vs1": {
+   "median": 3.2322112764049393e-09,
+   "worst": 0.011364774344656325,
+   "n": 200
+  },
+  "G4_qop_passthrough_exact": true
+ },
+ "format": {
+  "X": "(x,y,tx,ty,qop,z0,z1) fp32",
+  "Y": "(x,y,tx,ty,qop) at z1, fp32",
+  "note": "labels computed in fp64, stored fp32 (same as vertex-fit corpus)"
+ }
+}

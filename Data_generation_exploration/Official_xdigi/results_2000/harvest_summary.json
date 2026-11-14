@@ -1,0 +1,22 @@
+{
+ "truth_dir": "truth_official_2000",
+ "n_hits_in": 13522823,
+ "n_states": 11724987,
+ "n_particles_with_states": 1696841,
+ "n_charged_truth": 5317592,
+ "states_per_det": {
+  "VP": 4088349,
+  "UT": 1952853,
+  "FT": 5683785
+ },
+ "cuts": {
+  "charged_only": true,
+  "min_sensor_dz_mm": 0.05,
+  "max_abs_slope": 1.0,
+  "dets": [
+   "VP",
+   "UT",
+   "FT"
+  ]
+ }
+}

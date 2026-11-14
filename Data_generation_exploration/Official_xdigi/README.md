@@ -42,3 +42,19 @@ events) while every other field described this build. The block now describes th
 CondDB `sim-20231017-vc-mu100`, 5 mirrored files, 200 events), and the file records the fix
 under `meta_corrected`. `../Data/make_training_set.py` now takes the sample key as its
 4th argument, so a rebuild writes the right block by itself. No data changed.
+
+## The larger harvest (2026-11-13/14)
+
+George asked for more tracks of the same sample (2026-11-13). The first 2,000 events of the same
+concatenated stream were read with the same scripts; events 0 to 199 are those of v2.
+
+| Step | Command | Output |
+|---|---|---|
+| truth dump | `bash run_dump.sh truth_official_2000 2000` (35 minutes) | `truth_official_2000/` (4.7 GB, not in git) |
+| states | `python ../Data/harvest_states.py truth_official_2000 results_2000` | `results_2000/states.npz` (11.7 million states) |
+| sample | `python ../Data/make_training_set.py results_2000/states.npz training_v3 train_official_v3 official_xdigi_2000 training_v2/train_official_v2.npz` | `training_v3/train_official_v3.npz` (3,029,075 rows; 387,972 across the magnet against 41,398 in v2) |
+
+The fifth argument keeps the split of v2: each of the 76,353 particles of v2 keeps its split, and
+the 638,910 new particles are split at random in the same proportions. Checked: the rows of v2
+across the magnet are in v3 unchanged, to the last bit, with the same split. The four gates give
+the same values as in v2 (`results_2000/gates.json`).
