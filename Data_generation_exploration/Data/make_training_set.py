@@ -52,6 +52,12 @@ STATES = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(HER
 OUT = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(HERE, "training_v1")
 TAG = sys.argv[3] if len(sys.argv) > 3 else "train_mb100_v1"
 SAMPLE_KEY = sys.argv[4] if len(sys.argv) > 4 else "gauss_mb100"
+# Optional 5th argument (added 2026-11-13): an earlier training set (.npz) of the
+# same event stream whose split is kept. A particle that is in that set keeps its
+# split there; only the particles that are new are split at random. So a larger
+# harvest of the same stream adds tracks without moving an old training track
+# into the test split. Without it the split is as before, to the last bit.
+KEEP_SPLIT_OF = os.path.abspath(sys.argv[5]) if len(sys.argv) > 5 else None
 
 # Where the events came from. One entry per input sample; the meta json records
 # the entry named by SAMPLE_KEY, so a rebuild on a different sample cannot
@@ -89,6 +95,27 @@ SAMPLES = {
         "event_numbers": "0-199, the 0-based index in the concatenated file stream",
         "truth_dump": "Official_xdigi/dump_xdigi.py (bash run_dump.sh truth_official 200) "
                       "-> Official_xdigi/truth_official/",
+    },
+    # v3 (2026-11-13): the same official sample, the first 2,000 events of the
+    # same concatenated stream; events 0-199 are those of v2.
+    "official_xdigi_2000": {
+        "origin": "official central production (LHCb TestFileDB), not self-generated",
+        "testfiledb_entry": "expected_2024_minbias_xdigi (PRConfig)",
+        "production": "00212966",
+        "format": "XDIGI (digitised banks + packed MC truth pSim/...)",
+        "conditions": "Simulation; DDDB dddb-20231017, CondDB sim-20231017-vc-mu100, DataType 2024",
+        "input_files": [
+            "/cvmfs/lhcbdev.cern.ch/testfiledb-mirror/lhcb/swtest/"
+            "expected_2024_minbias_xdigi/00212966_000000%s_1.xdigi" % n
+            for n in ("13", "18", "26", "31", "86")
+        ],
+        "access": "local CVMFS mirror /cvmfs/lhcbdev.cern.ch/testfiledb-mirror/ "
+                  "(5 of the entry's 8 files, 19 GB) - no EOS, kerberos or DIRAC",
+        "n_events": 2000,
+        "event_numbers": "0-1999, the 0-based index in the concatenated file stream "
+                         "(the stream reached the second file)",
+        "truth_dump": "Official_xdigi/dump_xdigi.py (bash run_dump.sh truth_official_2000 2000) "
+                      "-> Official_xdigi/truth_official_2000/",
     },
 }
 assert SAMPLE_KEY in SAMPLES, "unknown sample key %r (have %s)" % (SAMPLE_KEY, sorted(SAMPLES))
@@ -279,6 +306,29 @@ ntr = int(SPLITS[0] * len(up)); nva = int(SPLITS[1] * len(up))
 lab = np.zeros(len(up), dtype=np.int8)
 lab[perm[ntr:ntr + nva]] = 1
 lab[perm[ntr + nva:]] = 2
+kept_split = None
+if KEEP_SPLIT_OF is not None:
+    old = np.load(KEEP_SPLIT_OF)
+    old_key = old["EVT"].astype(np.int64) * 10_000_000 + old["MCKEY"]
+    old_up, first = np.unique(old_key, return_index=True)
+    old_lab = old["SPLIT"][first]
+    # a particle has one split in the old set
+    assert np.array_equal(old_lab[np.searchsorted(old_up, old_key)], old["SPLIT"])
+    at = np.searchsorted(old_up, up).clip(0, len(old_up) - 1)
+    known = old_up[at] == up
+    # the particles that are new are split at random, in the same proportions
+    new = np.flatnonzero(~known)
+    perm_new = np.random.default_rng(SPLIT_SEED).permutation(len(new))
+    ntr_new = int(SPLITS[0] * len(new)); nva_new = int(SPLITS[1] * len(new))
+    lab = np.zeros(len(up), dtype=np.int8)
+    lab[new[perm_new[ntr_new:ntr_new + nva_new]]] = 1
+    lab[new[perm_new[ntr_new + nva_new:]]] = 2
+    lab[known] = old_lab[at[known]]
+    kept_split = {"of": KEEP_SPLIT_OF, "particles_kept": int(known.sum()),
+                  "particles_of_the_old_set": int(len(old_up)),
+                  "particles_new": int(len(new))}
+    print("split kept for %d of the %d particles of %s; %d new particles split at random"
+          % (known.sum(), len(old_up), KEEP_SPLIT_OF, len(new)))
 SPLIT = lab[np.searchsorted(up, pkey)]
 
 np.savez_compressed(
@@ -324,7 +374,8 @@ meta = {
     "rows": {"total": int(len(X)),
              "per_leg": {t: int((LEG == i).sum()) for i, t in enumerate("ABCD")},
              "split": {"train": int((SPLIT == 0).sum()), "val": int((SPLIT == 1).sum()),
-                        "test": int((SPLIT == 2).sum()), "by": "particle", "seed": SPLIT_SEED}},
+                        "test": int((SPLIT == 2).sum()), "by": "particle", "seed": SPLIT_SEED,
+                        "kept_from_an_earlier_set": kept_split}},
     "gates": gates,
     "format": {"X": "(x,y,tx,ty,qop,z0,z1) fp32", "Y": "(x,y,tx,ty,qop) at z1, fp32",
                "note": "labels computed in fp64, stored fp32 (same as vertex-fit corpus)"},

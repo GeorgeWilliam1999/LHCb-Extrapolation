@@ -18,6 +18,11 @@ GeneratorLog.xml
 Data_generation_exploration/Official_xdigi/truth_official/
 Data_generation_exploration/Official_xdigi/training_v2/*.npz
 Data_generation_exploration/Official_xdigi/dump.log
+# The larger harvest of 2026-11-13 (2,000 events of the same official sample).
+Data_generation_exploration/Official_xdigi/truth_official_2000/
+Data_generation_exploration/Official_xdigi/results_2000/*.npz
+Data_generation_exploration/Official_xdigi/training_v3/*.npz
+Data_generation_exploration/Official_xdigi/dump_2000.log
 
 # Discrete-time experiments: model weights, prepared datasets and farm logs.
 # All regenerable from the scripts, seeds and metadata here (see

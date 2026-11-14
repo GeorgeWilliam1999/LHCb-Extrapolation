@@ -1,6 +1,6 @@
 # Can the network alone reach the exact scheme
 
-**Last updated:** 2026-11-12 · **State:** built and checked; **not submitted** (a farm submission needs George's word)
+**Last updated:** 2026-11-12 · **State:** seven runs submitted on 2026-11-12 (George: "go"), all ended and scored on 2026-11-14; results in `analysis/results.md`, for discussion
 
 ## What this directory is
 
@@ -12,8 +12,8 @@ Strand 2 of the plan "RK-PINN: plan for the next phase" (Claude Docs, 2026-11-12
 |---|---|---|
 | `README.md` | this file: the question, the two techniques, the runs, the criteria | built |
 | `configurations/` | one file per run, seven in all | built |
-| `farm/` | what puts the runs on the farm and keeps them going | built, not submitted |
-| `analysis/` | the check of the label-free estimate on existing runs, the smoke check of the configurations, and later the results | started |
+| `farm/` | what puts the runs on the farm and keeps them going | built; the runs have ended |
+| `analysis/` | the check of the label-free estimate on existing runs, the smoke check of the configurations, and the results note | built |
 
 ## The question
 
@@ -98,4 +98,4 @@ See `farm/README.md`. Nothing is submitted until George says so in the thread.
 
 ## Findings
 
-None yet.
+**2026-11-14.** B passes everywhere: the network with a physics layer equals the exact scheme at 64, 32 and 16 steps (0.146, 0.782, 1.68 µm), also with a body of width 32. On one CPU thread it is not faster than a classical method of the same accuracy. A passes against its control (1.77 against 2.80 µm) and not against the baseline (1.83 µm); the whole-track protocol itself costs accuracy. See `analysis/results.md`.
