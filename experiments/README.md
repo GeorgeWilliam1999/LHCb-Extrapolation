@@ -1,6 +1,6 @@
 # Experiments
 
-**Last updated:** 2026-11-12
+**Last updated:** 2026-11-15
 
 ## What this directory is
 
@@ -16,7 +16,7 @@ The experiments made with the package `rkpinn`, one folder each. An experiment i
 | `does_a_one_shot_path_network_remove_the_chain/` | one supervised network call emits the whole 64-step path of a track; one parallel Newton sweep corrects it; against the chain on accuracy and cost per event | built; P1, P2 and the control scored, P3 and P4 not submitted |
 | `what_is_the_per_step_bias/` | the per-step bias of the trained networks: its size and sign along the track, its correlation, and corrections for it (Part B: residual draws and a bias term in the loss) | built |
 | `how_does_the_stage_residual_become_the_endpoint_error/` | Strand 1 of the plan of 2026-11-12: the chain from the trained stage residual to the endpoint error, step by step, on existing runs; no training | built |
-| `can_the_network_alone_reach_the_exact_scheme/` | Strand 2 of the plan: a loss on the label-free estimate of each track's endpoint error, and a physics layer inside the network; seven runs | built, not submitted |
+| `can_the_network_alone_reach_the_exact_scheme/` | Strand 2 of the plan: a loss on the label-free estimate of each track's endpoint error, and a physics layer inside the network; seven runs | built; runs ended and scored |
 | `does_a_kalman_like_gain_remove_the_bias/` | a Kalman-like gain from the free stage residual: a model-error covariance in a toy fit (Part A), the analytic gain (Part B), a learned gain and an error-conditioned network (Part C) | built; second tranche of Part C plateaued, not scored |
 | `does_a_summed_end_state_train/` | the pilot: one network of 64 steps and 2 stages, trained with its end state summed from the stages and with its end state predicted | built |
 | `redo_the_papers_nine_runs_in_the_summed_form/` | the paper's three cells under the pooled and the two cost-weighted losses, trained again by the package in the summed form, seed 1 | built |
@@ -40,7 +40,22 @@ Test endpoint error: radial, median over the 1,452 test tracks, against the sixt
 | `what_is_the_per_step_bias/` | What is the per-step bias, and can a correction remove it? | The step errors in x and y are strongly correlated along the track (lag-1 0.85 to 0.90), so they add up; one fixed-point sweep per step removes them. | see its `analysis/RESULTS.md` |
 | `does_a_kalman_like_gain_remove_the_bias/` | Does a Kalman-like gain from the stage residual remove the bias? | The analytic gain is one Newton step and reaches the exact scheme. The learned correction that works learns one fixed-point sweep and adds nothing to it. | 0.147 µm (analytic), 0.145 to 0.148 µm (learned, fixed scale) |
 | `how_does_the_stage_residual_become_the_endpoint_error/` | How does the trained residual become the endpoint error? | The stage error is the residual; the step defect is linear in it; the defects of a track keep one sign over a fixed length, about 11 segments a track. | endpoint ∝ dz^0.88 measured, dz^0.93 from the theory |
+| `can_the_network_alone_reach_the_exact_scheme/` | Can the network reach the exact scheme with no solver after it? | Yes with a physics layer inside the network, at 64, 32 and 16 steps. No with a loss term on the estimated endpoint error. On one CPU thread the layer network is slower than a classical method of the same accuracy. | 0.146 µm (layer, 64 steps) against 1.83 µm (baseline); 3.96 ms per track |
 | `does_a_one_shot_path_network_remove_the_chain/` | Can one network give the whole path in one call? | Not alone; one Newton sweep from it reaches the exact scheme. | 196.9 µm alone, 0.1455 µm after one sweep, 0.83 ms per track |
+
+## The track sets in the store
+
+| Key | Field map of the reference | Tracks: training / validation / test | Events of the official sample | Use |
+|---|---|---|---|---|
+| `12a8d35c3165` | `v8r1_up` (linear) | 11,567 / 1,463 / 1,452 | 0 to 199 | every run up to 2026-11-14 |
+| `afc61a558211` | `v8r1_up` (linear) | 108,915 / 13,684 / 13,447 | 0 to 1,999 | built 2026-11-14 (George, 2026-11-13: more tracks of the same sample). Each split of `12a8d35c3165` is a subset of the same split here, with identical reference states, so an old run can be scored on the new test split |
+| `5558be31abeb` | `v8r1_up_cubic` | 108,915 / 13,684 / 13,447 | 0 to 1,999 | built 2026-11-14: the same particles with the reference on the cubic field map; for runs on that map |
+
+The same settings built all three (planes 2648.2 to 7826.0 mm, 256 steps between the planes, reference step 0.1 mm, pseudorapidity 2 to 5, momentum 1 to 200 GeV, no electrons). The sample of the two new sets is `Data_generation_exploration/Official_xdigi/training_v3/`; its README has the commands.
+
+On the 13,447 test tracks the reference on the cubic map and the reference on the linear map end 22.9 µm apart in the median (38.3 µm in 3 to 8 GeV, 80.3 µm below 3 GeV, 2.9 µm above 50 GeV). The interpolation of the field map moves the endpoint far more than the error of the scheme (0.147 µm at 64 steps).
+
+To build a track set, export `OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1` in the shell first: the workers otherwise start one thread per core each (2026-11-14).
 
 ## The contract
 
