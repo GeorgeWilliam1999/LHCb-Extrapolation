@@ -1,0 +1,44 @@
+/* Tokens and styles for architectures.js. Light values on :root, dark in both dark blocks. */
+:root{
+  --ak-ink:#17202b; --ak-sub:#4f5b6a; --ak-edge:#7d8896; --ak-numbg:#ffffff; --ak-numfg:#17202b;
+  --ak-net-f:#dce9fb; --ak-net-s:#2f6fc4; --ak-phys-f:#ecebf9; --ak-phys-s:#6a5fc4;
+  --ak-field-f:#fcefd6; --ak-field-s:#b67a12; --ak-loss-f:#e2f3ea; --ak-loss-s:#2b8a62;
+  --ak-sup-f:#fbe6d8; --ak-sup-s:#b45a1e; --ak-state-f:#ffffff; --ak-state-s:#9aa5b3;
+  --ak-use-f:#f3f5f8; --ak-use-s:#7d8896;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ak-ink:#e6ebf1; --ak-sub:#a7b2c0; --ak-edge:#7f8b9a; --ak-numbg:#19212b; --ak-numfg:#e6ebf1;
+  --ak-net-f:#1b2e4a; --ak-net-s:#76a8ec; --ak-phys-f:#26234a; --ak-phys-s:#ada4ff;
+  --ak-field-f:#3a2c10; --ak-field-s:#e8b45a; --ak-loss-f:#16352a; --ak-loss-s:#6fd3a8;
+  --ak-sup-f:#3d2414; --ak-sup-s:#f0a46a; --ak-state-f:#19212b; --ak-state-s:#5d6a7a;
+  --ak-use-f:#151c24; --ak-use-s:#6f7c8c;}}
+:root[data-theme="dark"]{
+  --ak-ink:#e6ebf1; --ak-sub:#a7b2c0; --ak-edge:#7f8b9a; --ak-numbg:#19212b; --ak-numfg:#e6ebf1;
+  --ak-net-f:#1b2e4a; --ak-net-s:#76a8ec; --ak-phys-f:#26234a; --ak-phys-s:#ada4ff;
+  --ak-field-f:#3a2c10; --ak-field-s:#e8b45a; --ak-loss-f:#16352a; --ak-loss-s:#6fd3a8;
+  --ak-sup-f:#3d2414; --ak-sup-s:#f0a46a; --ak-state-f:#19212b; --ak-state-s:#5d6a7a;
+  --ak-use-f:#151c24; --ak-use-s:#6f7c8c;}
+.ak-net{--ak-fill:var(--ak-net-f);--ak-stroke:var(--ak-net-s)}
+.ak-phys{--ak-fill:var(--ak-phys-f);--ak-stroke:var(--ak-phys-s)}
+.ak-field{--ak-fill:var(--ak-field-f);--ak-stroke:var(--ak-field-s)}
+.ak-loss{--ak-fill:var(--ak-loss-f);--ak-stroke:var(--ak-loss-s)}
+.ak-sup{--ak-fill:var(--ak-sup-f);--ak-stroke:var(--ak-sup-s)}
+.ak-state{--ak-fill:var(--ak-state-f);--ak-stroke:var(--ak-state-s)}
+.ak-use{--ak-fill:var(--ak-use-f);--ak-stroke:var(--ak-use-s)}
+.ak-svg{display:block;width:100%;min-width:760px;height:auto;font-family:"IBM Plex Sans",system-ui,sans-serif}
+.ak-t{font-size:12.5px;font-weight:600}
+.ak-s{font-size:10.5px}
+.ak-el{font-size:10.5px;font-style:italic}
+.ak-num{font-size:10px;font-weight:700}
+.ak-scroll{overflow-x:auto}
+.ak-fig{margin:0;display:flex;flex-direction:column;gap:6px}
+.ak-fig figcaption{font-size:12.5px;color:var(--ak-sub)}
+.ak-wrap{display:flex;flex-direction:column;gap:14px}
+.ak-h{margin:0;font-size:17px}
+.ak-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ak-sub)}
+.ak-legend span{display:inline-flex;align-items:center;gap:5px}
+.ak-sw{width:13px;height:13px;border-radius:3px;background:var(--ak-fill);border:1.4px solid var(--ak-stroke)}
+.ak-dash{border-style:dashed}
+.ak-line{width:20px;border-top:1.5px dashed var(--ak-edge)}
+.ak-steps{margin:6px 0 0;padding-left:22px;display:grid;gap:3px;font-size:13px;max-width:80ch}
+.ak-det summary{cursor:pointer;font-weight:600;font-size:13px}
