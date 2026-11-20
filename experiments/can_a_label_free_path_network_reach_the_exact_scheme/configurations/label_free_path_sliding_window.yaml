@@ -1,0 +1,48 @@
+# Run B1: as A1, with the sliding-window weights (block 4 steps, width 2 steps).
+# TODO: settled_below is provisional. Set it from the loss scale of stage A
+# before B1 is submitted; the run key changes when it is set.
+# Written 2026-11-20 from the plan agreed by George the same day. Cubic field map
+# and the cubic track set 5558be31abeb, as in
+# ../../does_the_result_hold_on_the_larger_track_sets/configurations/physics_layer_64_steps_cubic_map.yaml.
+# The optimiser and the stopping rule are those of
+# ../../does_a_one_shot_path_network_remove_the_chain/configurations/path_256_lbfgs.yaml.
+equation_of_motion: {system: lhcb, field_map: v8r1_up_cubic}
+tracks: {key: 5558be31abeb}
+steps: {number_of_steps: 64, number_of_stages: 2}
+network:
+  kind: label_free_path_network
+  output_form: straight_line_plus_scaled_correction
+  width: 256
+  depth: 2
+  activation: tanh
+  scale_of_inputs: spread_of_first_round_states
+  scale_of_outputs: per_track
+loss:
+  name: stage_residual_of_a_path
+  weights: sliding_window
+  gradient_through_plane_states: true
+  block_of_steps: 4
+  width_in_steps: 2.0
+  settled_below: 1.0e-10
+  weight_of_the_last_step_at_round_one: null
+target: {name: no_target}
+training:
+  protocol: {name: start_states_of_the_tracks, states_per_round: 4096}
+  restarts_per_round: 5
+  end_a_round_when_stalled: null
+  optimiser:
+    name: lbfgs_restarts
+    iterations_per_restart: 200
+    history: 120
+    tolerance_of_the_gradient: 1.0e-13
+    tolerance_of_the_change: 1.0e-16
+    line_search: strong_wolfe
+    renew_scale_when_loss_falls_to: 0.1
+  stopping_rule:
+    name: validation_plateau
+    quantity: validation_endpoint_error_larger_of_x_and_y_median_micrometres
+    window_in_rounds: 10
+    tolerance: 0.05
+    rounds_held: 3
+  rounds_at_most: 40
+seed: 1
