@@ -1,6 +1,6 @@
 # Loss functions
 
-**Last updated:** 2026-11-12
+**Last updated:** 2026-11-20
 
 ## What this directory is
 
@@ -22,6 +22,7 @@ The stage residual, and the losses built on it. All label-free losses are the me
 | `pooled_on_both_calls.py` | for the error-conditioned stage network: the pooled loss over the stages of the second call and of the first, as one mean; the pooled loss itself for a track of one call (2026-11-03) | built |
 | `supervised_endpoint.py` | mean squared difference between a predicted end state and a target end state, over a divisor per component | built |
 | `supervised_path.py` | for the path network: mean squared difference over every emitted state and component between the path and the reference path, over a divisor per component (`spread_of_target_states` or four numbers); with `uncertainty: diagonal` the Gaussian negative log-likelihood with a sigma per state and component (2026-11-04) | built |
+| `stage_residual_of_a_path.py` | for a whole track: rebuilds the plane states from the stages, and takes the stage residual of every step with the chaining inside the loss; per-step losses weighted `uniform`, `causal` (eps measured at round one) or `sliding_window`; `gradient_through_plane_states` true or false; weights held for a restart through `start_a_restart` (2026-11-20) | built |
 
 ## Settings of a loss
 

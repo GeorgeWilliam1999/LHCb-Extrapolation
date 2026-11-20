@@ -1,6 +1,6 @@
 # Tests: the gates
 
-**Last updated:** 2026-11-12
+**Last updated:** 2026-11-20
 
 ## What this directory is
 
@@ -44,6 +44,7 @@ Every gate of the package, run with pytest. A change is not finished until all o
 | `test_learned_gain_and_error_conditioned_network.py` | the two networks of 2026-11-03 (Kalman-like gain study, Part C): the analytic gain equals that of the Part B script to the last bit; both networks have their shapes, start as the stage network, and give no correction for a residual of zero; the distilled loss is zero at K r and is its formula; the loss on both calls is the mean of two pooled losses; each configuration is read back to its key, trains, leaves the frozen network unchanged, resumes to the same weights, and reports its counts | built |
 | `test_newton_sweep.py` | one Newton sweep of the stage equations of a whole track (2026-11-04): from the exact scheme it changes nothing beyond rounding; from the forward-Euler path one sweep comes within a micrometre and two reach the exact scheme; its counts | built |
 | `test_path_network.py` | the path network (2026-11-04): its shapes and the whole track it fills; the extra outputs; the same seed gives the same weights; with the last layer zero, the straight line or zero; only the first plane | built |
+| `test_label_free_path.py` | the label-free path network and the stage residual of a path (2026-11-20): shapes; plane states are the explicit sum; zero last layer gives the straight line; zero loss at the exact scheme and the Newton sweep's residual; gradient against finite differences; detached plane states; causal and sliding-window weights; weights held through a restart | built |
 | `test_supervised_path.py` | the supervised path loss (2026-11-04): its value on a known pair; the Gaussian loss lowest at the right sigma; its terms; what it refuses | built |
 | `test_reference_path.py` | the reference path and `exact_states --keep-stages` (2026-11-04): round trip on a small store; the labels are the stored stages and planes; what it refuses; the project's store holds the training and validation splits at 64 steps and 2 stages with their stages; a path network trains through the trainer | built |
 | `test_time_and_sweeps.py` | the report with `with_one_sweep` (2026-11-04): one row alone and one after each of two sweeps, their counts, the exact scheme after two; no sweeps without it; the time per event: one row per method, the runs given or not, the lookups each costs | built |

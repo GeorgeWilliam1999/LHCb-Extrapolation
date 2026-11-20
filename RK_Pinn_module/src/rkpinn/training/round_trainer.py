@@ -404,6 +404,10 @@ def train(configuration: dict, store: Store, *, if_the_run_exists: str,
             run.optimiser.start_round(run.network.parameters())
             rows, stalled = [], 0
             for in_round in range(1, training["restarts_per_round"] + 1):
+                # a loss whose weights depend on the residuals holds them fixed
+                # for one restart (stage_residual_of_a_path); added 2026-11-20
+                if hasattr(run.loss, "start_a_restart"):
+                    run.loss.start_a_restart()
                 row = run.optimiser.one_restart(loss_now)
                 row.update(restart=state["restarts_done"] + len(rows) + 1, round=number,
                            restart_in_round=in_round)
