@@ -1,0 +1,9 @@
+run,quantity,steps 0-15,16-31,32-47,48-63
+A1,loss,0.019,0.183,0.309,0.489
+A1,grad_outputs,0.024,0.370,0.296,0.311
+A1,grad_params,0.141,0.243,0.167,0.449
+A1,carried_defect_squared,0.009,0.228,0.388,0.375
+A2,loss,0.018,0.167,0.305,0.510
+A2,grad_outputs,0.018,0.167,0.305,0.510
+A2,grad_params,0.108,0.177,0.171,0.544
+A2,carried_defect_squared,0.009,0.191,0.414,0.386

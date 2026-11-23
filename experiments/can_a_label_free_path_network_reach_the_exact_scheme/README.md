@@ -68,8 +68,11 @@ The weights carry no gradient. They are held fixed for one restart of L-BFGS, so
 | B1 | B | sliding window | yes | `label_free_path_sliding_window.yaml` | `4cb5f4821e9f` |
 | B2 | B | causal, last weight 0.1 | yes | `label_free_path_causal_last_weight_0_1.yaml` | `332072fbffa9` |
 | B3 | B | causal, last weight 0.001 | yes | `label_free_path_causal_last_weight_0_001.yaml` | `07a3299ece5e` |
+| C1 | C | uniform + drift term `endpoint_sum` | yes | `label_free_path_drift_endpoint_sum.yaml` | `450fff13e800` |
+| C2 | C | uniform + drift term `block_sums` (4, 8, 16, 32, 64 steps) | yes | `label_free_path_drift_block_sums.yaml` | `26c5a53de1bc` |
+| C3 | C | uniform + drift term `newton_endpoint` (J detached) | yes | `label_free_path_drift_newton_endpoint.yaml` | `02d0d81b399b` |
 
-Stage B runs only if criterion 1 passes. One seed per run. Differences under 2x are not claimed.
+Stage B runs only if criterion 1 passes. Stage C (2026-11-23, approved by George the same day) adds to A1's loss a term that sees how the step errors add along the track; λ is set so the term is half the loss of the first round's states. Why: `analysis/failure_of_A1/results.md`; the terms measured first: `analysis/loss_terms_check/`. One seed per run. Differences under 2x are not claimed.
 
 The threshold of B1 (`settled_below`, now 1e-10) is provisional. It is set from the loss scale of stage A before B1 is submitted. Its key then changes.
 
@@ -151,6 +154,8 @@ The run at 16,384 states does not fit in 48 h. The configurations use 4,096 stat
 |---|---|
 | `networks/label_free_path_network.py` | the network |
 | `losses/stage_residual_of_a_path.py` | the loss and its three weights |
+| `losses/stage_residual_of_a_path_with_a_drift_term.py` | stage C: the loss plus one of three drift terms (2026-11-23) |
+| `tests/test_drift_term.py` | its gates |
 | `training/round_trainer.py` | calls `start_a_restart()` before every restart, on a loss that has it |
 | `tests/test_label_free_path.py` | the gates |
 

@@ -63,6 +63,7 @@ COMPONENT_MODULES = (
     "rkpinn.losses.pooled_on_both_calls",
     "rkpinn.losses.supervised_path",
     "rkpinn.losses.stage_residual_of_a_path",
+    "rkpinn.losses.stage_residual_of_a_path_with_a_drift_term",
     "rkpinn.targets.no_target",
     "rkpinn.targets.reference_end_state",
     "rkpinn.targets.reference_states_on_planes",

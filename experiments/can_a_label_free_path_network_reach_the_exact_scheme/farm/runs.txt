@@ -1,2 +1,3 @@
-label_free_path_uniform.yaml
-label_free_path_uniform_detached.yaml
+label_free_path_drift_endpoint_sum.yaml
+label_free_path_drift_block_sums.yaml
+label_free_path_drift_newton_endpoint.yaml

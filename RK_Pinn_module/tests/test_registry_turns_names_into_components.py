@@ -78,7 +78,8 @@ def test_the_parts_of_the_training_can_be_named():
 
 def test_the_networks_losses_and_targets_can_be_named():
     assert registry.registered_names("network") == (
-        "error_conditioned_stage_network", "path_network", "stage_network",
+        "error_conditioned_stage_network", "label_free_path_network", "path_network",
+        "stage_network",
         "stage_network_with_a_learned_gain", "stage_network_with_a_physics_layer",
         "whole_crossing_network")
     assert registry.registered_names("output_form") == (
@@ -86,6 +87,7 @@ def test_the_networks_losses_and_targets_can_be_named():
     assert registry.registered_names("loss") == (
         "cost_weighted", "distilled_analytic_gain", "pooled", "pooled_on_both_calls",
         "pooled_with_a_bias_term", "pooled_with_a_carried_defect_term",
+        "stage_residual_of_a_path", "stage_residual_of_a_path_with_a_drift_term",
         "supervised_endpoint", "supervised_path", "unweighted")
     assert registry.registered_names("target") == (
         "no_target", "reference_end_state", "reference_path", "reference_states_on_planes",

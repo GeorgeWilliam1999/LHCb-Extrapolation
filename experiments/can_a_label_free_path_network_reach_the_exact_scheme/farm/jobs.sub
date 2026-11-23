@@ -15,7 +15,7 @@ error                   = $(logs)/$(configuration).$(Cluster).err
 log                     = $(logs)/$(configuration).$(Cluster).log
 
 request_cpus            = 1
-request_memory          = 12288
+request_memory          = 16384
 should_transfer_files   = NO
 getenv                  = False
 +UseOS                  = "el9"
