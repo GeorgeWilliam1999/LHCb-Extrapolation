@@ -129,3 +129,8 @@ accuracy": https://claude.ai/artifact/3yHeRnE6bNHWSCnmNcysct
   the trainer runs and resumes; about 18 s for 40 iterations on 8 threads. The design
   choices of DESIGN.md are used as drafted; the extra-input run is replaced by an
   integrator with 12 steps on the cubic reference. Waiting for George's word to submit.
+- 2026-11-24, 21:19 UTC: George: "please commit then send the runs". Committed the
+  folder Fast_extrapolator as eebf9e62 on the branch that was checked out
+  (label_free_path; no branch was switched, nothing pushed). Submitted the first
+  batch: 20 jobs, HTCondor cluster 54668, 8 cores each (stage_2_training/farm/jobs.sub).
+  Runs go to /data/bfys/gscriven/fast_extrapolator_store/runs/<name>.
