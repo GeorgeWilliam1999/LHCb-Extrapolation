@@ -1,0 +1,17 @@
+map,reader,precision,pattern,reads,ns_lowest,ns_median,checksum
+v8r1_up,linear,double,random points,1048576,50.5538,50.597,789814
+v8r1_up,linear,double,along the tracks,860608,49.7469,50.2423,629421
+v8r1_up,cubic,double,random points,1048576,103.763,136.108,790012
+v8r1_up,cubic,double,along the tracks,860608,68.8331,70.8418,629410
+v8r1_up,rec,double,random points,1048576,15.582,15.64,789.814
+v8r1_up,rec,double,along the tracks,860608,14.3798,14.4656,629.421
+v8r1_up,allen,double,random points,1048576,21.4066,21.4791,789814
+v8r1_up,allen,double,along the tracks,860608,15.4345,15.4968,629421
+v8r1_up,linear,float,random points,1048576,25.3326,25.4428,789809
+v8r1_up,linear,float,along the tracks,860608,18.3472,18.3806,629555
+v8r1_up,cubic,float,random points,1048576,97.9244,98.0808,790029
+v8r1_up,cubic,float,along the tracks,860608,66.1116,66.1488,629545
+v8r1_up,rec,float,random points,1048576,13.3117,13.3297,789.823
+v8r1_up,rec,float,along the tracks,860608,10.5654,10.5715,629.3
+v8r1_up,allen,float,random points,1048576,17.2275,17.2594,789809
+v8r1_up,allen,float,along the tracks,860608,13.0085,13.0298,629555

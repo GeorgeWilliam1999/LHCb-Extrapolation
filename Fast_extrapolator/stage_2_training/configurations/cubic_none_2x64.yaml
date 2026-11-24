@@ -1,0 +1,13 @@
+depth: 2
+iterations: 200
+loss: huber
+name: cubic_none_2x64
+reference: cubic
+restarts: 5
+rounds_at_most: 200
+scale: fixed
+seed: 1
+start: none
+steps: 0
+width: 64
+window: 15

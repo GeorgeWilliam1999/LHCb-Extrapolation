@@ -1,0 +1,127 @@
+precision,depth,width,activation,multiply_adds,hidden_units,calls,ns_lowest,ns_median,checksum
+double,1,8,tanh of the C library,112,8,357142,335.666,335.849,-99881.4
+double,1,8,tanh from the vector exponential,112,8,357142,95.7973,95.8771,-99881.4
+double,1,8,none,112,8,357142,63.2438,63.3383,-102865
+double,1,16,tanh of the C library,224,16,178571,406.166,483.36,25013.3
+double,1,16,tanh from the vector exponential,224,16,178571,86.2772,89.698,25013.3
+double,1,16,none,224,16,178571,49.5073,50.5602,26757.7
+double,1,32,tanh of the C library,448,32,89285,616.032,616.318,-3659.5
+double,1,32,tanh from the vector exponential,448,32,89285,117.292,117.644,-3659.5
+double,1,32,none,448,32,89285,58.037,58.1165,-2716.22
+double,1,64,tanh of the C library,896,64,44642,1217.1,1217.78,3224.96
+double,1,64,tanh from the vector exponential,896,64,44642,205.056,205.652,3224.96
+double,1,64,none,896,64,44642,89.5426,89.8042,3148.65
+double,1,128,tanh of the C library,1792,128,22321,2429.41,2431.15,1851.7
+double,1,128,tanh from the vector exponential,1792,128,22321,397.723,398.163,1851.7
+double,1,128,none,1792,128,22321,161.055,161.868,1923.39
+double,1,256,tanh of the C library,3584,256,11160,4868.82,4872.59,1302.51
+double,1,256,tanh from the vector exponential,3584,256,11160,861.776,862.148,1302.51
+double,1,256,none,3584,256,11160,344.775,345.312,1503.59
+double,1,512,tanh of the C library,7168,512,5580,9979.66,9983.89,283.461
+double,1,512,tanh from the vector exponential,7168,512,5580,1896.43,1899.1,283.461
+double,1,512,none,7168,512,5580,951.71,960.267,283.653
+double,2,8,tanh of the C library,176,16,227272,318.99,319.364,9536.29
+double,2,8,tanh from the vector exponential,176,16,227272,82.6241,82.7573,9536.29
+double,2,8,none,176,16,227272,48.582,48.6779,12000
+double,2,16,tanh of the C library,480,32,83333,610.141,610.73,30066.6
+double,2,16,tanh from the vector exponential,480,32,83333,140.78,141.258,30066.6
+double,2,16,none,480,32,83333,81.2377,81.5785,29627.7
+double,2,32,tanh of the C library,1472,64,27173,1203.62,1204.28,-2758.53
+double,2,32,tanh from the vector exponential,1472,64,27173,241.54,242.115,-2758.53
+double,2,32,none,1472,64,27173,121.87,122.472,-3172.64
+double,2,64,tanh of the C library,4992,128,8012,2666.12,2668.7,1700.8
+double,2,64,tanh from the vector exponential,4992,128,8012,749.305,751.428,1700.8
+double,2,64,none,4992,128,8012,499.35,500.358,1991.98
+double,2,128,tanh of the C library,18176,256,2200,6164.02,6172.13,-206.812
+double,2,128,tanh from the vector exponential,18176,256,2200,2328.17,2332.09,-206.812
+double,2,128,none,18176,256,2200,1824.63,1826.32,-235.248
+double,2,256,tanh of the C library,69120,512,2000,17121.5,17185.2,-399.544
+double,2,256,tanh from the vector exponential,69120,512,2000,9264.79,9276.24,-399.544
+double,2,256,none,69120,512,2000,8107.68,8114.82,-467.012
+double,2,512,tanh of the C library,269312,1024,2000,53821.7,53934.2,63.5735
+double,2,512,tanh from the vector exponential,269312,1024,2000,39365.1,39399.5,63.5735
+double,2,512,none,269312,1024,2000,37153.1,37199.2,89.6354
+double,3,8,tanh of the C library,240,24,166666,447.719,447.974,-110791
+double,3,8,tanh from the vector exponential,240,24,166666,113.977,114.503,-110791
+double,3,8,none,240,24,166666,62.4448,62.5262,-112856
+double,3,16,tanh of the C library,736,48,54347,857.721,858.156,6351.93
+double,3,16,tanh from the vector exponential,736,48,54347,202.203,202.745,6351.93
+double,3,16,none,736,48,54347,115.854,116.194,6465.56
+double,3,32,tanh of the C library,2496,96,16025,1721.5,1722,-4531.25
+double,3,32,tanh from the vector exponential,2496,96,16025,376.825,377.421,-4531.25
+double,3,32,none,2496,96,16025,179.146,179.67,-4648.67
+double,3,64,tanh of the C library,9088,192,4401,3868.43,3871.05,-93.1283
+double,3,64,tanh from the vector exponential,9088,192,4401,1208.73,1210.16,-93.1283
+double,3,64,none,9088,192,4401,839.396,840.628,-77.3573
+double,3,128,tanh of the C library,34560,384,2000,9459.76,9466.54,59.3025
+double,3,128,tanh from the vector exponential,34560,384,2000,4162.34,4166.62,59.3025
+double,3,128,none,34560,384,2000,3414.66,3417.5,61.0743
+double,3,256,tanh of the C library,134656,768,2000,28275.8,28313.2,-59.3976
+double,3,256,tanh from the vector exponential,134656,768,2000,17355.1,17370.7,-59.3976
+double,3,256,none,134656,768,2000,15593.2,15625.5,-93.4866
+double,3,512,tanh of the C library,531456,1536,2000,91103.8,91182.8,178.51
+double,3,512,tanh from the vector exponential,531456,1536,2000,70296.3,70344.2,178.51
+double,3,512,none,531456,1536,2000,67084.6,67125.3,183.442
+float,1,8,tanh of the C library,112,8,357142,178.278,178.355,-99881
+float,1,8,tanh from the vector exponential,112,8,357142,36.9956,37.0122,-99881
+float,1,8,none,112,8,357142,25.3637,25.3919,-102859
+float,1,16,tanh of the C library,224,16,178571,322.999,323.152,25014
+float,1,16,tanh from the vector exponential,224,16,178571,46.2799,46.3609,25014
+float,1,16,none,224,16,178571,32.7711,32.8062,26757.2
+float,1,32,tanh of the C library,448,32,89285,614.311,614.958,-3659.51
+float,1,32,tanh from the vector exponential,448,32,89285,64.6019,64.7059,-3659.51
+float,1,32,none,448,32,89285,44.6037,44.6697,-2716.21
+float,1,64,tanh of the C library,896,64,44642,1202.24,1203.27,3224.96
+float,1,64,tanh from the vector exponential,896,64,44642,90.8934,91.2576,3224.96
+float,1,64,none,896,64,44642,53.1633,53.3269,3148.68
+float,1,128,tanh of the C library,1792,128,22321,2400.23,2402.41,1851.69
+float,1,128,tanh from the vector exponential,1792,128,22321,161.274,161.448,1851.69
+float,1,128,none,1792,128,22321,88.5894,88.9786,1923.38
+float,1,256,tanh of the C library,3584,256,11160,4769.78,4771.41,1302.51
+float,1,256,tanh from the vector exponential,3584,256,11160,308.048,308.541,1302.51
+float,1,256,none,3584,256,11160,153.575,154.275,1503.59
+float,1,512,tanh of the C library,7168,512,5580,9574.72,9577.65,283.461
+float,1,512,tanh from the vector exponential,7168,512,5580,626.906,628.441,283.461
+float,1,512,none,7168,512,5580,326.863,327.598,283.653
+float,2,8,tanh of the C library,176,16,227272,323.918,324.104,9536.24
+float,2,8,tanh from the vector exponential,176,16,227272,67.1961,67.2308,9536.24
+float,2,8,none,176,16,227272,35.2676,35.2872,11999.8
+float,2,16,tanh of the C library,480,32,83333,597.814,598.172,30066.5
+float,2,16,tanh from the vector exponential,480,32,83333,79.7958,79.9883,30066.5
+float,2,16,none,480,32,83333,52.4803,52.5063,29627.5
+float,2,32,tanh of the C library,1472,64,27173,1193.21,1193.79,-2758.54
+float,2,32,tanh from the vector exponential,1472,64,27173,134.905,135.279,-2758.53
+float,2,32,none,1472,64,27173,97.1203,97.4057,-3172.64
+float,2,64,tanh of the C library,4992,128,8012,2361.57,2363.21,1700.8
+float,2,64,tanh from the vector exponential,4992,128,8012,233.571,233.754,1700.8
+float,2,64,none,4992,128,8012,151.007,151.436,1991.98
+float,2,128,tanh of the C library,18176,256,2200,5324.38,5327.77,-206.812
+float,2,128,tanh from the vector exponential,18176,256,2200,1077.65,1080.44,-206.812
+float,2,128,none,18176,256,2200,913.175,913.425,-235.248
+float,2,256,tanh of the C library,69120,512,2000,12186.3,12199.8,-399.544
+float,2,256,tanh from the vector exponential,69120,512,2000,3660.04,3663.77,-399.544
+float,2,256,none,69120,512,2000,3335.35,3336.44,-467.012
+float,2,512,tanh of the C library,269312,1024,2000,35030.9,35108.8,63.5735
+float,2,512,tanh from the vector exponential,269312,1024,2000,17810.3,18313.5,63.5735
+float,2,512,none,269312,1024,2000,17121.5,17145.2,89.6354
+float,3,8,tanh of the C library,240,24,166666,455.769,456.196,-110790
+float,3,8,tanh from the vector exponential,240,24,166666,97.7302,97.9687,-110790
+float,3,8,none,240,24,166666,45.3127,45.4848,-112853
+float,3,16,tanh of the C library,736,48,54347,843.194,843.807,6351.85
+float,3,16,tanh from the vector exponential,736,48,54347,113.948,114.265,6351.85
+float,3,16,none,736,48,54347,73.2469,73.3687,6465.62
+float,3,32,tanh of the C library,2496,96,16025,1698.27,1699.82,-4531.25
+float,3,32,tanh from the vector exponential,2496,96,16025,213.965,214.362,-4531.25
+float,3,32,none,2496,96,16025,156.85,157.121,-4648.67
+float,3,64,tanh of the C library,9088,192,4401,3456.49,3461.32,-93.1283
+float,3,64,tanh from the vector exponential,9088,192,4401,506.704,508.874,-93.1283
+float,3,64,none,9088,192,4401,386.3,387.165,-77.3572
+float,3,128,tanh of the C library,34560,384,2000,7834.76,7853.01,59.3025
+float,3,128,tanh from the vector exponential,34560,384,2000,1971.11,1980.33,59.3025
+float,3,128,none,34560,384,2000,1728.46,1729.63,61.0744
+float,3,256,tanh of the C library,134656,768,2000,19512.3,19529.2,-59.3976
+float,3,256,tanh from the vector exponential,134656,768,2000,7725.72,7743.54,-59.3976
+float,3,256,none,134656,768,2000,7211.27,7214.5,-93.4867
+float,3,512,tanh of the C library,531456,1536,2000,56616.4,56725.5,178.51
+float,3,512,tanh from the vector exponential,531456,1536,2000,32318.8,32352.4,178.51
+float,3,512,none,531456,1536,2000,31377.2,31409.5,183.442

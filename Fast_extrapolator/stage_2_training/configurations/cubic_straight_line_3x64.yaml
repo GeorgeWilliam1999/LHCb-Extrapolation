@@ -1,0 +1,13 @@
+depth: 3
+iterations: 200
+loss: huber
+name: cubic_straight_line_3x64
+reference: cubic
+restarts: 5
+rounds_at_most: 200
+scale: times_qop
+seed: 1
+start: straight_line
+steps: 0
+width: 64
+window: 15

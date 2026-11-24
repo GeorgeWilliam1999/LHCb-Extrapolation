@@ -1,0 +1,8 @@
+what,jobs,ns_a_state_lowest,ns_a_state_highest
+Rec v41r3 in Gaudi: TrackRungeKuttaExtrapolator (adaptive Cash-Karp) with its transport matrix,2,8127.261833208115,8154.187453042825
+Rec v41r3 in Gaudi: TrackSTEPExtrapolator (adaptive Nystrom) with its transport matrix,2,9457.427873779112,9548.723140495867
+our program: Cash-Karp copy state only,1,4548.145,5048.365
+our program: Cash-Karp copy with transport matrix,1,7241.757,7626.53
+our program: adaptive Nystrom (STEP) copy state only,1,6013.322,6389.913
+our program: adaptive Nystrom (STEP) copy with transport matrix,1,9133.897,9543.745
+our program: RK4 with one step (4 field reads),1,136.101,226.594

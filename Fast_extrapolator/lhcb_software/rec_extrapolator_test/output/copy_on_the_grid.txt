@@ -1,0 +1,5 @@
+label=Cash-Karp_copy_state_only method=rec_cash_karp precision=double map=v5r0_down reader=rec states=/data/bfys/gscriven/fast_extrapolator_store/exports/gate/grid_of_the_rec_test.f64 z0=3000.0 z1=7000.0
+label=Cash-Karp_copy_with_transport_matrix method=rec_cash_karp:jacobian=1 precision=double map=v5r0_down reader=rec states=/data/bfys/gscriven/fast_extrapolator_store/exports/gate/grid_of_the_rec_test.f64 z0=3000.0 z1=7000.0
+label=adaptive_Nystrom_(STEP)_copy_state_only method=rec_step precision=double map=v5r0_down reader=rec states=/data/bfys/gscriven/fast_extrapolator_store/exports/gate/grid_of_the_rec_test.f64 z0=3000.0 z1=7000.0
+label=adaptive_Nystrom_(STEP)_copy_with_transport_matrix method=rec_step:jacobian=1 precision=double map=v5r0_down reader=rec states=/data/bfys/gscriven/fast_extrapolator_store/exports/gate/grid_of_the_rec_test.f64 z0=3000.0 z1=7000.0
+label=RK4_with_one_step_(4_field_reads) method=rk4:1 precision=double map=v5r0_down reader=rec states=/data/bfys/gscriven/fast_extrapolator_store/exports/gate/grid_of_the_rec_test.f64 z0=3000.0 z1=7000.0

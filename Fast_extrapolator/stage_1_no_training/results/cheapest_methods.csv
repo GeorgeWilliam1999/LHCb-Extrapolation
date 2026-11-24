@@ -1,0 +1,46 @@
+map,target,family,method,field_reads,ns,radial_median_um,radial_95_um,worst_band_median_um
+linear,target A,"RK4, equal steps","RK4, 31 equal steps",124.0,2169.369,0.5819324927734312,7.026740090758917,2.6732776020615496
+linear,target A,"Nystrom, equal steps","Nystrom, 31 equal steps",63.0,2440.394,0.6059610302664531,7.123081247753721,2.740183523420112
+linear,target A,"RK4, step plan","RK4 on a step plan, 32 steps",128.0,2248.97,0.3125117844212904,5.517689876518487,1.5586033327875954
+linear,target A,"Nystrom, step plan","Nystrom on a step plan, 32 steps",65.0,2499.329,0.3297532747959788,5.48585867333838,1.556984728367658
+linear,target A,HLT2 adaptive Nystrom,none,,,,,
+linear,target A,HLT2 adaptive Cash-Karp,none,,,,,
+linear,target A,Allen adaptive Nystrom,none,,,,,
+linear,target A,Gauss-Legendre sweeps,none,,,,,
+linear,target B,"RK4, equal steps","RK4, 19 equal steps",76.0,1347.407,0.8540714478904582,14.45934292583292,4.843255757428993
+linear,target B,"Nystrom, equal steps","Nystrom, 19 equal steps",39.0,1514.398,0.8265996779316103,14.201027584291888,4.635052674451122
+linear,target B,"RK4, step plan","RK4 on a step plan, 20 steps",80.0,1411.125,1.5567776704408824,13.961075625763774,6.171317706827095
+linear,target B,"Nystrom, step plan","Nystrom on a step plan, 20 steps",41.0,1586.2,1.555104248832217,13.858588000292444,6.054049744333737
+linear,target B,HLT2 adaptive Nystrom,"HLT2 adaptive Nystrom (STEP), tolerance 0.1 um",159.09437049155946,10040.595,2.637791863373028,10.440309652235914,5.725258505972394
+linear,target B,HLT2 adaptive Cash-Karp,none,,,,,
+linear,target B,Allen adaptive Nystrom,"Allen adaptive Nystrom, tolerance 0.1 um",158.0607570461813,8713.686,2.607057724259419,10.493457947536172,5.684436775957415
+linear,target B,Gauss-Legendre sweeps,none,,,,,
+linear,the LHCb level,"RK4, equal steps","RK4, 19 equal steps",76.0,1347.407,0.8540714478904582,14.45934292583292,4.843255757428993
+linear,the LHCb level,"Nystrom, equal steps","Nystrom, 19 equal steps",39.0,1514.398,0.8265996779316103,14.201027584291888,4.635052674451122
+linear,the LHCb level,"RK4, step plan","RK4 on a step plan, 20 steps",80.0,1411.125,1.5567776704408824,13.961075625763774,6.171317706827095
+linear,the LHCb level,"Nystrom, step plan","Nystrom on a step plan, 20 steps",41.0,1586.2,1.555104248832217,13.858588000292444,6.054049744333737
+linear,the LHCb level,HLT2 adaptive Nystrom,"HLT2 adaptive Nystrom (STEP), tolerance 5 um",55.74581691083513,3626.938,10.107942245063288,38.7992278849362,16.212585820256766
+linear,the LHCb level,HLT2 adaptive Cash-Karp,none,,,,,
+linear,the LHCb level,Allen adaptive Nystrom,"Allen adaptive Nystrom, tolerance 0.3 um",109.07347363724251,6132.287,5.174822647483567,20.685673554347463,10.504776473516856
+linear,the LHCb level,Gauss-Legendre sweeps,none,,,,,
+cubic,target A,"RK4, equal steps","RK4, 29 equal steps",116.0,8736.408,0.6212645258454971,6.8596789087369405,2.98855744007498
+cubic,target A,"Nystrom, equal steps","Nystrom, 29 equal steps",59.0,5409.686,0.5939516007832142,7.010316569958971,2.979840561551022
+cubic,target A,"RK4, step plan","RK4 on a step plan, 32 steps",128.0,9679.326,0.3062626959631066,4.787542896297035,1.87107662923546
+cubic,target A,"Nystrom, step plan","Nystrom on a step plan, 32 steps",65.0,5961.48,0.3102904473268992,4.83540985185193,1.9069853297965973
+cubic,target A,HLT2 adaptive Nystrom,"HLT2 adaptive Nystrom (STEP), tolerance 1 um",81.67873875213802,9835.094,0.7810310187008994,2.9683530595612364,0.881234102869977
+cubic,target A,HLT2 adaptive Cash-Karp,none,,,,,
+cubic,target A,Gauss-Legendre sweeps,"Gauss-Legendre, 16 steps x 4 stages, 3 sweeps",256.0,19117.463,0.1222850190979507,1.962706638222817,0.6527205015264923
+cubic,target B,"RK4, equal steps","RK4, 19 equal steps",76.0,5761.832,1.749760369286926,27.84775961139825,7.4481735706363
+cubic,target B,"Nystrom, equal steps","Nystrom, 19 equal steps",39.0,3658.38,1.6894023203130004,27.905517919983367,7.003040859688639
+cubic,target B,"RK4, step plan","RK4 on a step plan, 20 steps",80.0,6120.951,1.6217609468812468,26.642881692133205,8.333197175539404
+cubic,target B,"Nystrom, step plan","Nystrom on a step plan, 20 steps",41.0,3821.434,1.6252739380056611,26.63760395749984,8.197247449175649
+cubic,target B,HLT2 adaptive Nystrom,"HLT2 adaptive Nystrom (STEP), tolerance 10 um",48.031531196549416,5897.108,4.622795122652129,24.94988410154223,8.893879258963732
+cubic,target B,HLT2 adaptive Cash-Karp,"HLT2 adaptive Cash-Karp, tolerances x 0.1",95.57328772216852,8791.141,2.36579679544162,16.83004858247951,5.068345335059068
+cubic,target B,Gauss-Legendre sweeps,"Gauss-Legendre, 16 steps x 4 stages, 2 sweeps",192.0,14533.572,0.1692515067167114,7.861366309326897,4.7354415419101095
+cubic,the LHCb level,"RK4, equal steps","RK4, 29 equal steps",116.0,8736.408,0.6212645258454971,6.8596789087369405,2.98855744007498
+cubic,the LHCb level,"Nystrom, equal steps","Nystrom, 29 equal steps",59.0,5409.686,0.5939516007832142,7.010316569958971,2.979840561551022
+cubic,the LHCb level,"RK4, step plan","RK4 on a step plan, 32 steps",128.0,9679.326,0.3062626959631066,4.787542896297035,1.87107662923546
+cubic,the LHCb level,"Nystrom, step plan","Nystrom on a step plan, 32 steps",65.0,5961.48,0.3102904473268992,4.83540985185193,1.9069853297965973
+cubic,the LHCb level,HLT2 adaptive Nystrom,"HLT2 adaptive Nystrom (STEP), tolerance 5 um",56.04937904365286,6838.947,3.2091232741999374,15.51099009266832,4.445377225211754
+cubic,the LHCb level,HLT2 adaptive Cash-Karp,none,,,,,
+cubic,the LHCb level,Gauss-Legendre sweeps,"Gauss-Legendre, 16 steps x 4 stages, 3 sweeps",256.0,19117.463,0.1222850190979507,1.962706638222817,0.6527205015264923

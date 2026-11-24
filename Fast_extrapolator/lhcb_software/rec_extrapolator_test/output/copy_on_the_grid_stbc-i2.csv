@@ -1,0 +1,6 @@
+label,method,precision,map,reader,tracks,repeats,ns_lowest,ns_median,ns_highest,ns_shuffled_lowest,ns_shuffled_median,cold_calls,cold_ns_median,cold_ns_lowest,clock_overhead_ns,host
+Cash-Karp_copy_state_only,rec_cash_karp,double,v5r0_down,rec,1331,31,4548.145,4579.542,5048.365,4622.688,4648.304,0,0.0,0.0,40.0,stbc-i2.nikhef.nl
+Cash-Karp_copy_with_transport_matrix,rec_cash_karp:jacobian=1,double,v5r0_down,rec,1331,31,7241.757,7286.935,7626.530,7312.099,7366.476,0,0.0,0.0,40.0,stbc-i2.nikhef.nl
+adaptive_Nystrom_(STEP)_copy_state_only,rec_step,double,v5r0_down,rec,1331,31,6013.322,6084.334,6389.913,6172.517,6195.325,0,0.0,0.0,40.0,stbc-i2.nikhef.nl
+adaptive_Nystrom_(STEP)_copy_with_transport_matrix,rec_step:jacobian=1,double,v5r0_down,rec,1331,31,9133.897,9208.884,9543.745,9277.202,9319.664,0,0.0,0.0,40.0,stbc-i2.nikhef.nl
+RK4_with_one_step_(4_field_reads),rk4:1,double,v5r0_down,rec,1331,31,136.101,139.044,226.594,135.394,139.428,0,0.0,0.0,40.0,stbc-i2.nikhef.nl
