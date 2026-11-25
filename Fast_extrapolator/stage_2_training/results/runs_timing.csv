@@ -1,0 +1,10 @@
+label,method,precision,map,reader,tracks,repeats,ns_lowest,ns_median,ns_highest,ns_shuffled_lowest,ns_shuffled_median,cold_calls,cold_ns_median,cold_ns_lowest,clock_overhead_ns,host
+m000,corrected:cubic_none_2x64:fast_tanh=1,float,v8r1_up,cubic,13447,15,518.863,527.091,529.488,516.713,522.155,200,3692.0,3206.0,40.0,stbc-i2.nikhef.nl
+m001,corrected:cubic_straight_line_2x128:fast_tanh=1,float,v8r1_up,cubic,13447,15,2196.966,2203.789,2211.521,2220.609,2226.802,200,10174.0,9068.0,40.0,stbc-i2.nikhef.nl
+m002,corrected:cubic_straight_line_2x32:fast_tanh=1,float,v8r1_up,cubic,13447,15,260.757,262.183,263.049,264.532,265.194,200,2494.5,2024.0,40.0,stbc-i2.nikhef.nl
+m003,corrected:cubic_straight_line_2x64:fast_tanh=1,float,v8r1_up,cubic,13447,15,518.838,523.982,526.009,517.501,522.371,200,3797.0,3306.0,40.0,stbc-i2.nikhef.nl
+m004,corrected:cubic_straight_line_2x64_fixed_scale:fast_tanh=1,float,v8r1_up,cubic,13447,15,514.515,524.451,529.304,522.779,525.904,200,3692.0,3156.0,40.0,stbc-i2.nikhef.nl
+m005,corrected:cubic_straight_line_2x64_squared_loss:fast_tanh=1,float,v8r1_up,cubic,13447,15,525.513,528.281,534.019,518.929,523.139,200,3707.0,3156.0,40.0,stbc-i2.nikhef.nl
+m006,corrected:cubic_straight_line_3x64:fast_tanh=1,float,v8r1_up,cubic,13447,15,903.874,908.391,909.716,906.997,909.800,200,5615.5,4909.0,40.0,stbc-i2.nikhef.nl
+m007,corrected:linear_straight_line_2x128:fast_tanh=1,float,v8r1_up,rec,13447,15,2221.883,2228.064,2274.843,2174.708,2186.772,200,10515.0,9528.0,40.0,stbc-i2.nikhef.nl
+m008,corrected:linear_straight_line_2x64:fast_tanh=1,float,v8r1_up,rec,13447,15,527.260,533.807,539.092,521.782,523.566,200,3978.0,3126.0,40.0,stbc-i2.nikhef.nl

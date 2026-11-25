@@ -149,3 +149,10 @@ accuracy": https://claude.ai/artifact/3yHeRnE6bNHWSCnmNcysct
   Polynomial baseline: 4.35 / 386 / 32.7 (cubic, degree 9), 27.5 / 512 / 115 (linear).
   Not timed yet: the login ticket expired and stbc-i3 cannot be reached; George is
   asked to run kinit. The 11 integrator runs are cluster 92603.
+- 2026-11-25, 08:31 UTC: George: use stbc-i2 for the times, as normal. All times from
+  here on are from stbc-i2 (about 1.4 times slower than stbc-i3); the stbc-i3 tables of
+  the polynomial baseline are kept as results/polynomial_baseline*_stbc-i3.csv. Same run
+  on stbc-i2, core 7: HLT1 parametrised step 515 ns; LHCb adaptive Nystrom 5,399 ns;
+  Cash-Karp 2,507 ns; straight line + polynomial of degree 7 612 ns, degree 9 1,124 ns;
+  straight line + network 2x64 519 ns, 3x64 904 ns, 2x128 2,197 ns
+  (results/runs.csv, results/polynomial_baseline.csv).

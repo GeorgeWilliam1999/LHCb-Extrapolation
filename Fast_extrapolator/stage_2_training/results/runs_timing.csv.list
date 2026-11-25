@@ -1,0 +1,9 @@
+label=m000 method=corrected:cubic_none_2x64:fast_tanh=1 precision=float map=v8r1_up reader=cubic states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_cubic/start_state.f64 z0=2648.2 z1=7826.0
+label=m001 method=corrected:cubic_straight_line_2x128:fast_tanh=1 precision=float map=v8r1_up reader=cubic states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_cubic/start_state.f64 z0=2648.2 z1=7826.0
+label=m002 method=corrected:cubic_straight_line_2x32:fast_tanh=1 precision=float map=v8r1_up reader=cubic states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_cubic/start_state.f64 z0=2648.2 z1=7826.0
+label=m003 method=corrected:cubic_straight_line_2x64:fast_tanh=1 precision=float map=v8r1_up reader=cubic states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_cubic/start_state.f64 z0=2648.2 z1=7826.0
+label=m004 method=corrected:cubic_straight_line_2x64_fixed_scale:fast_tanh=1 precision=float map=v8r1_up reader=cubic states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_cubic/start_state.f64 z0=2648.2 z1=7826.0
+label=m005 method=corrected:cubic_straight_line_2x64_squared_loss:fast_tanh=1 precision=float map=v8r1_up reader=cubic states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_cubic/start_state.f64 z0=2648.2 z1=7826.0
+label=m006 method=corrected:cubic_straight_line_3x64:fast_tanh=1 precision=float map=v8r1_up reader=cubic states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_cubic/start_state.f64 z0=2648.2 z1=7826.0
+label=m007 method=corrected:linear_straight_line_2x128:fast_tanh=1 precision=float map=v8r1_up reader=rec states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_linear/start_state.f64 z0=2648.2 z1=7826.0
+label=m008 method=corrected:linear_straight_line_2x64:fast_tanh=1 precision=float map=v8r1_up reader=rec states=/data/bfys/gscriven/fast_extrapolator_store/exports/tracks_linear/start_state.f64 z0=2648.2 z1=7826.0
