@@ -1,0 +1,16 @@
+# The runs with an integrator, sent again on 2026-11-25 (their first jobs found no compiled program on the farm nodes).
+#   condor_submit jobs.sub
+universe                = vanilla
+stage                   = /data/bfys/gscriven/LHCb_Extrapolation_Project/Fast_extrapolator/stage_2_training
+executable              = $(stage)/farm/wrapper.sh
+arguments               = $(configuration)
+output                  = $(stage)/farm/logs/$Fn(configuration).$(Cluster).out
+error                   = $(stage)/farm/logs/$Fn(configuration).$(Cluster).err
+log                     = $(stage)/farm/logs/$Fn(configuration).$(Cluster).log
+request_cpus            = 8
+request_memory          = 8192
+should_transfer_files   = NO
+getenv                  = False
++UseOS                  = "el9"
++JobCategory            = "medium"
+queue configuration matching files $(stage)/configurations/*nystrom*.yaml

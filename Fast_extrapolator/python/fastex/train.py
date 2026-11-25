@@ -28,6 +28,7 @@ The start of every track is computed once by the compiled program in single
 precision, as the compiled method computes it.
 
     python -m fastex.train <configuration.yaml> [--rounds N]
+    python -m fastex.train --starts <configuration.yaml> ...   the starts of the integrators, on a login node
     python -m fastex.train --export <name> [--round R]     the correction for the compiled program
 """
 from __future__ import annotations
@@ -78,15 +79,27 @@ def split(reference, name):
             np.fromfile(os.path.join(folder, "momentum_gev.f64")))
 
 
-def start_of(states, c):
+def start_of(states, c, split_name=None):
     if c["start"] == "none":
         return np.zeros((len(states), 4))
     if c["start"] == "straight_line":
         length = Z1 - Z0
         return np.stack([states[:, 0] + length * states[:, 2], states[:, 1] + length * states[:, 3],
                          states[:, 2], states[:, 3]], 1)
-    return compiled_run("nystrom:%d" % c["steps"], states, Z0, Z1, reader=READER_OF[c["reference"]],
-                        precision="float")[0][:, :4]
+    # The start of an integrator is kept in the store, <exports>/starts: a farm
+    # node has no compiled program, so the file is made on a login node first
+    # (python -m fastex.train --starts <configuration> ...).
+    if split_name is not None:
+        kept = os.path.join(FOLDER_OF_EXPORTS, "starts",
+                            "%s_nystrom_%d_%s.f64" % (c["reference"], c["steps"], split_name))
+        if os.path.exists(kept):
+            return np.fromfile(kept).reshape(-1, 4)
+    start = compiled_run("nystrom:%d" % c["steps"], states, Z0, Z1, reader=READER_OF[c["reference"]],
+                         precision="float")[0][:, :4]
+    if split_name is not None:
+        os.makedirs(os.path.dirname(kept), exist_ok=True)
+        start.tofile(kept)
+    return start
 
 
 def body(width, depth, seed):
@@ -150,8 +163,8 @@ def train(path, rounds_in_this_call=None, report=print):
 
     train_s, train_ref, _ = split(c["reference"], "training")
     val_s, val_ref, val_p = split(c["reference"], "validation")
-    target = train_ref - start_of(train_s, c)
-    start_val = start_of(val_s, c)
+    target = train_ref - start_of(train_s, c, "training")
+    start_val = start_of(val_s, c, "validation")
     file_of_constants = os.path.join(folder, "constants.json")
     if os.path.exists(file_of_constants):
         constants = json.load(open(file_of_constants))
@@ -263,7 +276,13 @@ def export(name, round_number=None):
 
 if __name__ == "__main__":
     arguments = sys.argv[1:]
-    if arguments[0] == "--export":
+    if arguments[0] == "--starts":
+        for path in arguments[1:]:
+            c = read_configuration(path)
+            for name in ("training", "validation"):
+                start_of(split(c["reference"], name)[0], c, name)
+            print("starts of %s are in the store" % c["name"])
+    elif arguments[0] == "--export":
         _, _, _, used = export(arguments[1], int(arguments[3]) if len(arguments) > 3 else None)
         print("exported %s, round %d" % (arguments[1], used))
     else:

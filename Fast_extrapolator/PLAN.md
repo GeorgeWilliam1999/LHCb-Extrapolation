@@ -134,3 +134,9 @@ accuracy": https://claude.ai/artifact/3yHeRnE6bNHWSCnmNcysct
   (label_free_path; no branch was switched, nothing pushed). Submitted the first
   batch: 20 jobs, HTCondor cluster 54668, 8 cores each (stage_2_training/farm/jobs.sub).
   Runs go to /data/bfys/gscriven/fast_extrapolator_store/runs/<name>.
+- 2026-11-25, 08:20 UTC: check of the first batch. The 11 runs with an integrator
+  failed at their start: the trainer called the compiled program, which is built on the
+  login nodes only. Fix: the start of an integrator is computed once on a login node and
+  kept in the store (`python -m fastex.train --starts`); checked that the trainer then
+  runs with no compiled program. The 11 runs are sent again (farm/jobs_with_an_integrator.sub),
+  under George's word of 2026-11-24 for this batch.
