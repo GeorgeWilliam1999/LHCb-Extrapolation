@@ -1,0 +1,41 @@
+section,name,reference_map,state,in_queue,rounds_done,last_validation_median_um,best_validation_median_um,test_round_measured,test_median_um,test_p95_um,worst_band_median_um,us_per_track,host,final
+stage-2 network,cubic_none_2x64,cubic,training,running,210.0,26.051442806827374,26.02195523352613,200.0,25.980453181802872,741.4247789971878,156.69459674489218,0.527091,stbc-i2.nikhef.nl,"no: test score at round 200, run still training"
+stage-2 network,cubic_nystrom_12_2x64,cubic,training,running,44.0,1.750261698133017,1.7393224792978104,,,,,,,no: not scored yet
+stage-2 network,cubic_nystrom_4_2x32,cubic,finished (plateau),,43.0,5.260051273057551,5.058331970579511,,,,,,,no: not scored yet
+stage-2 network,cubic_nystrom_4_2x64,cubic,training,running,9.0,5.237466766757489,5.180408056541038,,,,,,,no: not scored yet
+stage-2 network,cubic_nystrom_8_2x32,cubic,training,running,11.0,2.893622779732889,2.8567648275631914,,,,,,,no: not scored yet
+stage-2 network,cubic_nystrom_8_2x64,cubic,training,running,9.0,2.748852934259006,2.6349027593033756,,,,,,,no: not scored yet
+stage-2 network,cubic_straight_line_2x128,cubic,training,running,97.0,3.652567556935094,3.6279083253086046,91.0,3.62702612395969,186.7179046220262,26.538330755158423,2.203789,stbc-i2.nikhef.nl,"no: test score at round 91, run still training"
+stage-2 network,cubic_straight_line_2x32,cubic,finished (plateau),,109.0,10578.12741963316,10578.12741963316,109.0,10436.168209523066,102711.36542341016,36218.75927525626,0.262183,stbc-i2.nikhef.nl,"no: test score at round 109, run ended later"
+stage-2 network,cubic_straight_line_2x32_seed_2,cubic,training,running,15.0,5999.8273684964015,5999.8273684964015,,,,,,,no: not scored yet
+stage-2 network,cubic_straight_line_2x64,cubic,finished (plateau),,196.0,4.4634381298334205,4.4634381298334205,179.0,4.504656954197731,278.96786211053904,43.46396093142117,0.523982,stbc-i2.nikhef.nl,"no: test score at round 179, run ended later"
+stage-2 network,cubic_straight_line_2x64_fixed_scale,cubic,finished (at its cap),,200.0,20.411948726457723,20.411948726457723,157.0,23.16221823100064,818.0587108246824,161.57566800204788,0.524451,stbc-i2.nikhef.nl,"no: test score at round 157, run ended later"
+stage-2 network,cubic_straight_line_2x64_squared_loss,cubic,training,running,41.0,434.7998076572025,434.1830778016416,31.0,423.7577992191057,4446.742072552274,1874.2593341343315,0.528281,stbc-i2.nikhef.nl,"no: test score at round 31, run still training"
+stage-2 network,cubic_straight_line_3x64,cubic,training,running,168.0,4.332439231441435,4.332439231441435,128.0,4.80046167415091,226.7850499899596,42.42093052903857,0.908391,stbc-i2.nikhef.nl,"no: test score at round 128, run still training"
+stage-2 network,linear_nystrom_12_2x32,linear,training,running,11.0,1.525698741992925,1.513737406858527,,,,,,,no: not scored yet
+stage-2 network,linear_nystrom_12_2x64,linear,training,running,9.0,1.5239531028108626,1.513244581511652,,,,,,,no: not scored yet
+stage-2 network,linear_nystrom_6_2x32,linear,training,running,11.0,3.757734333011048,3.6950893541079104,,,,,,,no: not scored yet
+stage-2 network,linear_nystrom_6_2x64,linear,training,running,9.0,3.523331001575055,3.4894246887280933,,,,,,,no: not scored yet
+stage-2 network,linear_nystrom_8_2x32,linear,training,running,12.0,2.2598961025748983,2.2222008923456498,,,,,,,no: not scored yet
+stage-2 network,linear_nystrom_8_2x64,linear,training,running,10.0,1.9219162746406577,1.9219162746406577,,,,,,,no: not scored yet
+stage-2 network,linear_straight_line_2x128,linear,training,running,83.0,26.22835855354735,26.167353864247843,77.0,25.68895225389977,241.05519989820613,99.1746545878573,2.228064,stbc-i2.nikhef.nl,"no: test score at round 77, run still training"
+stage-2 network,linear_straight_line_2x64,linear,training,running,133.0,32.28024276340804,32.159609170809176,123.0,31.991021436406253,513.7230895293588,150.45272116012094,0.533807,stbc-i2.nikhef.nl,"no: test score at round 123, run still training"
+no network,Straight line + polynomial of degree 7,cubic,finished,,,,,,6.694757744207492,621.6675931748601,49.79093284313953,0.614666,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,Straight line + polynomial of degree 9,cubic,finished,,,,,,4.345085462851814,386.4881994706193,32.744025337941025,1.125743,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 4 steps + polynomial of degree 7",cubic,finished,,,,,,6.485670967823136,310.0061426381159,41.56895135825424,2.019861,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 4 steps, alone",cubic,finished,,,,,,200.26688358585216,2838.1327910992377,759.6511187751203,1.30793,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 8 steps + polynomial of degree 7",cubic,finished,,,,,,3.676569857550345,225.60979850277664,21.889489463898464,3.395638,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 8 steps, alone",cubic,finished,,,,,,13.017966447978509,210.66395668595217,50.67805725426743,2.69438,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 12 steps + polynomial of degree 7",cubic,finished,,,,,,3.331240499258965,57.286697058104906,17.596487107083206,4.397475,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 12 steps, alone",cubic,finished,,,,,,8.509189860682866,72.53763656943102,33.27230494180742,3.717948,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,Straight line + polynomial of degree 7,linear,finished,,,,,,27.526495619391927,512.251265161469,115.27173932274007,0.6203730000000001,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 6 steps + polynomial of degree 7",linear,finished,,,,,,6.16823163576358,131.98454551276188,38.63924052456496,1.333903,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 6 steps, alone",linear,finished,,,,,,20.596494307160224,215.57901584414915,79.155398277905,0.6754049999999999,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 8 steps + polynomial of degree 7",linear,finished,,,,,,3.092603808466149,103.0111025291357,19.67445964610037,1.5753789999999999,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 8 steps, alone",linear,finished,,,,,,19.37552443543688,140.81413825377223,63.70359074977627,0.9105359999999999,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 12 steps + polynomial of degree 7",linear,finished,,,,,,2.152586938618472,36.78433379179269,12.314667650857354,2.139687,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+no network,"Nystrom, 12 steps, alone",linear,finished,,,,,,15.152328373111608,94.70885884804848,54.89835319221852,1.447317,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+LHCb method,HLT2 adaptive Nystrom (LHCb reference),linear,finished,,,,,,10.107942245063288,38.7992278849362,16.212585820256766,5.417283,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+LHCb method,HLT2 adaptive Cash-Karp,linear,finished,,,,,,22.16466571060606,112.19950186988244,47.280216173059046,2.5293930000000002,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+LHCb method,HLT1 parametrised step,linear,finished,,,,,,55.64922477583474,2333.9766283734325,1174.605679321796,0.519135,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"
+LHCb method,"HLT2 adaptive Nystrom, as LHCb runs it, against the cubic reference",cubic,finished,,,,,,25.89654318359883,169.02016968804838,83.67919156817764,5.412187,stbc-i2.nikhef.nl,"yes (timing on stbc-i2, shared login node)"

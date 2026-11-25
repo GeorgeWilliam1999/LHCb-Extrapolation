@@ -1,0 +1,21 @@
+model_class,map,run_key,steps,stages,optimiser,state,test_tracks,test_median_um,exact_scheme_median_um,source
+direct states,linear,49e5e2450eaa,64,2,lbfgs_restarts,plateaued,1452,5.705208965402906,0.14654447085865235,stored report round_0059_at_c44a599c
+direct states,linear,75200e48408c,128,8,lbfgs_restarts,plateaued,1452,6.597931962600622,0.011479546691578616,stored report round_0054_at_c44a599c
+direct states,linear,f38ec3e29819,256,16,lbfgs_restarts,plateaued,1452,4.811454785600249,0.0010500749677327626,stored report round_0042_at_c44a599c
+"straight line, per-track scale",linear,a66c06472d3d,8,2,lbfgs_restarts,plateaued,1452,31.02174989657978,24.81904516307187,stored report round_0024_at_6ebb296d
+"straight line, per-track scale",linear,6c4a3b022a2f,16,2,lbfgs_restarts,plateaued,1452,7.757192167942588,1.6817256027147716,stored report round_0038_at_6ebb296d
+"straight line, per-track scale",linear,29cbba959300,32,2,lbfgs_restarts,plateaued,1452,3.823445506741587,0.7869091179330467,stored report round_0040_at_6ebb296d
+"straight line, per-track scale",linear,25dfa17ef168,64,2,lbfgs_restarts,plateaued,1452,1.8309558272305704,0.14654447085865235,stored report round_0044_at_bc467594
+"straight line, per-track scale",linear,15242aa17c65,128,2,lbfgs_restarts,plateaued,1452,1.2750851410239372,0.5106528310478732,stored report round_0042_at_6ebb296d
+"straight line, per-track scale",linear,eeb809e9254d,256,2,lbfgs_restarts,plateaued,1452,0.6572095390624049,0.22839544901051695,stored report round_0028_at_6ebb296d
+"straight line, per-track scale",linear,4543836de1ce,64,4,lbfgs_restarts,plateaued,1452,2.070501803010987,0.47828818668249573,stored report round_0041_at_6ebb296d
+"straight line, per-track scale",linear,9aed5ce39ff8,64,8,lbfgs_restarts,plateaued,1452,2.1226622033135127,0.10301050637956323,stored report round_0040_at_6ebb296d
+"straight line, per-track scale",linear,06a45b4dd0d3,64,16,lbfgs_restarts,plateaued,1452,2.3540772434917185,0.07188876045357934,stored report round_0042_at_6ebb296d
+"straight line, per-track scale (self-scaled Broyden)",cubic,c08a9da58999,16,2,self_scaled_broyden_restarts,plateaued,13447,4.301036144125633,1.5597355731412303,scored here (end states of the last round)
+"straight line, per-track scale (self-scaled Broyden)",cubic,1978be93a5c3,32,2,self_scaled_broyden_restarts,plateaued,13447,1.940337110791297,0.21352763311150824,scored here (end states of the last round)
+"straight line, per-track scale (self-scaled Broyden)",cubic,713f38afa7a3,64,2,self_scaled_broyden_restarts,plateaued,13447,0.7116073782868001,0.018291624105154846,scored here (end states of the last round)
+"straight line, per-track scale (self-scaled Broyden)",cubic,29a416b77582,128,2,self_scaled_broyden_restarts,plateaued,13447,0.27853774194352593,0.0021611087036183425,scored here (end states of the last round)
+direct states,cubic,29510f525130,64,2,lbfgs_restarts,plateaued,13447,7.644148699350825,0.018291624105154846,scored here (end states of the last round)
+physics layer,cubic,a524012c8d41,16,2,lbfgs_restarts,plateaued,13447,1.5597452555645726,1.5597355731412303,scored here (end states of the last round)
+physics layer,cubic,2e8f364b79e2,32,2,lbfgs_restarts,plateaued,13447,0.21459157700927717,0.21352763311150824,scored here (end states of the last round)
+physics layer,cubic,cdd676e19320,64,2,lbfgs_restarts,plateaued,13447,0.0181631681167896,0.018291624105154846,scored here (end states of the last round)
