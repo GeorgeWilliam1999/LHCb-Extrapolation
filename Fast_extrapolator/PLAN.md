@@ -140,3 +140,12 @@ accuracy": https://claude.ai/artifact/3yHeRnE6bNHWSCnmNcysct
   kept in the store (`python -m fastex.train --starts`); checked that the trainer then
   runs with no compiled program. The 11 runs are sent again (farm/jobs_with_an_integrator.sub),
   under George's word of 2026-11-24 for this batch.
+- 2026-11-25, 08:35 UTC: the 9 runs with no field read, test tracks, compiled, single
+  precision (stage_2_training/results/runs_accuracy.csv), median / 95 % / worst band:
+  cubic reference, straight line + network: 2x128 3.63 / 187 / 26.5 um (ended at 91
+  rounds), 2x64 4.5 / 279 / 43.5 (running), 3x64 4.8 / 227 / 42.4 (running); controls at
+  2x64: fixed scale 23.2 / 818, no start 26.0 / 741, squared loss 424 / 4,447; 2x32 did
+  not train (10 mm). Linear reference: 2x128 25.7 / 241 / 99, 2x64 32.0 / 514 / 151.
+  Polynomial baseline: 4.35 / 386 / 32.7 (cubic, degree 9), 27.5 / 512 / 115 (linear).
+  Not timed yet: the login ticket expired and stbc-i3 cannot be reached; George is
+  asked to run kinit. The 11 integrator runs are cluster 92603.
