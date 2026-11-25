@@ -99,6 +99,34 @@ What the numbers mean:
 - **Every model except the un-swept path networks and the predicted end state matches the floor.** Its "prediction against true state" equals the floor to 3–4 significant figures.
 - **The floor's p-dependence.** `benchmark_against_true_state.png` shows that it falls roughly as 1/p above about 8 GeV and more steeply below that.
 
+### Item 8b: the LHCb adaptive Nyström as an extra reference
+
+The LHCb adaptive Runge-Kutta-Nyström integrator (the copy of Rec's TrackSTEPExtrapolator, tolerance 5 µm, in the fast-extrapolator program `fx`, method `rec_step`) carried the same 13,447 test tracks from 2648.2 mm to 7826.0 mm. It reads the linear v8r1 magnet-up map, as LHCb does. It started from the start states of the set it is compared with. (The cubic and linear sets hold the same tracks, but their start states differ by up to 0.13 µm.) I then carried its end states to each particle's own plane with the benchmark integrator of that set, as above. Script: `_scripts/nystrom_three_references.py` (about 15 s on one core). Output: `nystrom_three_references.csv` (also the last-plane rows), `against_true_state_with_nystrom.png`, `benchmark_against_true_state_with_nystrom.png`.
+
+All momenta, on the particle's own plane:
+
+| Comparison | Δx signed median (µm) | Δx half-width (µm) | Δx median abs (µm) | Δy half-width (µm) | Radial median (µm) | Δtx half-width | Δty half-width |
+|---|---|---|---|---|---|---|---|
+| Nyström against the cubic benchmark | −0.19 | 41.9 | 24.2 | 1.76 | 25.9 | 1.3e-5 | 1.3e-6 |
+| Nyström against the linear benchmark | −0.00 | 16.3 | 9.9 | 0.73 | 10.1 | 5.4e-6 | 5.8e-7 |
+| Nyström against the true state | 24.5 | 2712 | 1222 | 1402 | 1848 | 8.7e-4 | 4.0e-4 |
+| (cubic benchmark against the true state, the floor) | | 2715 | | | 1861 | 8.7e-4 | |
+| (linear benchmark against the true state) | | 2708 | | | 1851 | 8.7e-4 | |
+
+Radial median (µm) per band:
+
+| Comparison | < 3 | 3–8 | 8–20 | 20–50 | > 50 |
+|---|---|---|---|---|---|
+| Nyström against the cubic benchmark | 83.7 | 41.7 | 17.8 | 7.3 | 3.1 |
+| Nyström against the linear benchmark | 16.2 | 14.2 | 9.4 | 2.6 | 1.6 |
+| Nyström against the true state | 9630 | 3052 | 883 | 373 | 167 |
+
+What the numbers mean:
+
+- **Linear against cubic map.** The Nyström reads the linear map. Against the cubic benchmark, its error (25.9 µm) is mostly the difference between the two maps, not the integrator. Against the benchmark of its own map it is 10.1 µm. These two numbers agree with the timing test (item 10).
+- **Against the true state the Nyström matches the floor.** Its 68 % half-width in x (2712 µm) and its radial median (1848 µm) lie within 0.7 % of the two benchmarks' values. Its field-model error is about 100 times smaller than the effect of scattering and energy loss. The true-state rows are the same (to 0.1 %) whichever set's start states and carry I use.
+- **The Nyström is a weaker reference than the cubic benchmark.** In the figure every cubic network except the un-swept label-free path network lies below the Nyström line against the cubic benchmark.
+
 ## Item 10: the compiled timing test (state at about 12:30 UTC)
 
 Read `timing_test_state.md`. In short (µs per track, one core of stbc-i2, single-precision networks, test tracks):
