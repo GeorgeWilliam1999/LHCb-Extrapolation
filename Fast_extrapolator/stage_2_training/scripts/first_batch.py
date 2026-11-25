@@ -9,17 +9,22 @@ import os
 import yaml
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-COMMON = dict(seed=1, restarts=5, iterations=200, rounds_at_most=200, window=15)
+# The stopping rule of 2026-11-25: a run ends when its best validation median of the last
+# 30 rounds is not 1 % below the best before them. The first rule (15 rounds, 2 %, at most
+# 200 rounds) ended runs whose validation error still fell by 6 % in 30 rounds.
+COMMON = dict(restarts=5, iterations=200, rounds_at_most=1000, window=30, fall_needed=0.01)
 
 
-def run(reference, start, steps, width, depth=2, scale="times_qop", loss="huber"):
+def run(reference, start, steps, width, depth=2, scale="times_qop", loss="huber", seed=1):
     name = "%s_%s_%dx%d" % (reference, "nystrom_%d" % steps if start == "nystrom" else start, depth, width)
     if scale != "times_qop" and start != "none":
         name += "_fixed_scale"
     if loss != "huber":
         name += "_squared_loss"
+    if seed != 1:
+        name += "_seed_%d" % seed
     return dict(name=name, reference=reference, start=start, steps=steps, width=width, depth=depth,
-                scale=scale, loss=loss, **COMMON)
+                scale=scale, loss=loss, seed=seed, **COMMON)
 
 
 def batch():
@@ -32,6 +37,8 @@ def batch():
     rows += [run("cubic", "nystrom", n, w) for n in (4, 8) for w in (32, 64)]
     rows += [run("cubic", "nystrom", 12, 64)]
     rows += [run("linear", "nystrom", n, w) for n in (6, 8, 12) for w in (32, 64)]
+    # the run of width 32 with seed 1 did not train (it stays at 10 mm); a second seed
+    rows += [run("cubic", "straight_line", 0, 32, seed=2)]
     return rows
 
 

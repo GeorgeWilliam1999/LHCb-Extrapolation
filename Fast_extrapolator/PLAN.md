@@ -156,3 +156,13 @@ accuracy": https://claude.ai/artifact/3yHeRnE6bNHWSCnmNcysct
   Cash-Karp 2,507 ns; straight line + polynomial of degree 7 612 ns, degree 9 1,124 ns;
   straight line + network 2x64 519 ns, 3x64 904 ns, 2x128 2,197 ns
   (results/runs.csv, results/polynomial_baseline.csv).
+- 2026-11-25, 08:32 UTC: George: "consolidate, make sure everything from the last round
+  has converged before the next phase". Check of the 9 trained runs: none had
+  converged. The best validation median of every run still fell by 4 % to 12 % in its
+  last 30 rounds; the first stop rule (15 rounds, 2 %, cap 200) ended 5 of them early.
+  New rule in all configurations: 30 rounds, 1 %, cap 1,000. The trainer can extend a
+  run (other values of the stop settings; written in state.json). Sent again to go on:
+  the 5 ended runs and a second seed of the width-32 run that did not train
+  (farm/extend_1.txt). The 3 runs that still train under the first rule are extended
+  when their jobs end, so that no two jobs write to one run. The 11 integrator runs
+  start with the new rule.

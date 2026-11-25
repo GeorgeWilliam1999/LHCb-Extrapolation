@@ -1,0 +1,15 @@
+# One job for each run named in a list of this folder:  condor_submit list=extend_1.txt jobs_of_a_list.sub
+universe                = vanilla
+stage                   = /data/bfys/gscriven/LHCb_Extrapolation_Project/Fast_extrapolator/stage_2_training
+executable              = $(stage)/farm/wrapper.sh
+arguments               = $(stage)/configurations/$(name).yaml
+output                  = $(stage)/farm/logs/$(name).$(Cluster).out
+error                   = $(stage)/farm/logs/$(name).$(Cluster).err
+log                     = $(stage)/farm/logs/$(name).$(Cluster).log
+request_cpus            = 8
+request_memory          = 8192
+should_transfer_files   = NO
+getenv                  = False
++UseOS                  = "el9"
++JobCategory            = "medium"
+queue name from $(stage)/farm/$(list)

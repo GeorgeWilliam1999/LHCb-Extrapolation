@@ -1,0 +1,6 @@
+cubic_none_2x64
+cubic_straight_line_2x128
+cubic_straight_line_2x64_squared_loss
+linear_straight_line_2x128
+linear_straight_line_2x64
+cubic_straight_line_2x32_seed_2

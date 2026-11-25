@@ -21,8 +21,9 @@ provenance.json. A run that is started again goes on from its last round.
 A round is `restarts` restarts of L-BFGS (`iterations` each) on all training
 tracks, in double precision. After a round the validation tracks are scored
 (radial error on the last plane). The run ends when the best validation median
-of the last `window` rounds is not 2 % below the best before them, or at
-`rounds_at_most`. The test tracks are not read here.
+of the last `window` rounds is not `fall_needed` (a fraction) below the best
+before them, or at `rounds_at_most`. A run that is started again with other
+values of these three settings is extended. The test tracks are not read here.
 
 The start of every track is computed once by the compiled program in single
 precision, as the compiled method computes it.
@@ -55,7 +56,10 @@ READER_OF = {"cubic": "cubic", "linear": "rec"}
 FLOOR_OF_THE_THRESHOLD = np.array([2e-3, 2e-3, 1e-6, 1e-6])
 FOLDER_OF_RUNS = os.path.join(STORE_OF_THIS_EXPERIMENT, "runs")
 KEYS = {"name", "reference", "start", "steps", "width", "depth", "scale", "loss", "seed",
-        "restarts", "iterations", "rounds_at_most", "window"}
+        "restarts", "iterations", "rounds_at_most", "window", "fall_needed"}
+# The settings of the stopping rule. A run can be started again with other
+# values of these: that extends it, and the change is written in its state.
+STOPPING = ("rounds_at_most", "window", "fall_needed")
 
 
 def read_configuration(path):
@@ -153,9 +157,16 @@ def train(path, rounds_in_this_call=None, report=print):
     os.makedirs(os.path.join(folder, "snapshots"), exist_ok=True)
     kept = os.path.join(folder, "configuration.yaml")
     if os.path.exists(kept):
-        if read_configuration(kept) != c:
+        before = read_configuration(kept)
+        if {k: v for k, v in before.items() if k not in STOPPING} != \
+                {k: v for k, v in c.items() if k not in STOPPING}:
             raise ValueError("the run %s exists with another configuration" % c["name"])
+        extended = {k: [before[k], c[k]] for k in STOPPING if before[k] != c[k]}
+        if extended:
+            with open(kept, "w") as handle:
+                yaml.safe_dump(c, handle)
     else:
+        extended = {}
         with open(kept, "w") as handle:
             yaml.safe_dump(c, handle)
         with open(os.path.join(folder, "provenance.json"), "w") as handle:
@@ -176,6 +187,12 @@ def train(path, rounds_in_this_call=None, report=print):
     file_of_state = os.path.join(folder, "state.json")
     state = json.load(open(file_of_state)) if os.path.exists(file_of_state) else \
         dict(rounds_done=0, ended=None, validation_medians_um=[])
+    if extended and os.path.exists(file_of_state):
+        state.setdefault("extensions", []).append(dict(
+            at_round=state["rounds_done"], had_ended=state["ended"], changed=extended,
+            when=time.strftime("%Y-%m-%d %H:%M:%S")))
+        state["ended"] = None
+        json.dump(state, open(file_of_state, "w"), indent=1)
     if state["rounds_done"]:
         network.load_state_dict(torch.load(os.path.join(folder, "snapshots", "round_%04d.pt" % state["rounds_done"])))
     x, y = torch.tensor(train_s), torch.tensor(target)
@@ -232,7 +249,8 @@ def train(path, rounds_in_this_call=None, report=print):
                 writer.writeheader()
             writer.writerow(row)
         medians, window = state["validation_medians_um"], c["window"]
-        if len(medians) > window and min(medians[-window:]) > 0.98 * min(medians[:-window]):
+        if len(medians) > window and \
+                min(medians[-window:]) > (1.0 - c["fall_needed"]) * min(medians[:-window]):
             state["ended"] = "plateau"
         elif state["rounds_done"] >= c["rounds_at_most"]:
             state["ended"] = "at its cap"

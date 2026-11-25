@@ -1,0 +1,14 @@
+depth: 2
+fall_needed: 0.01
+iterations: 200
+loss: huber
+name: cubic_straight_line_2x32_seed_2
+reference: cubic
+restarts: 5
+rounds_at_most: 1000
+scale: times_qop
+seed: 2
+start: straight_line
+steps: 0
+width: 32
+window: 30

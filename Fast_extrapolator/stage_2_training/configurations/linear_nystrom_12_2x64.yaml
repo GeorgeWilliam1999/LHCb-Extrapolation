@@ -1,13 +1,14 @@
 depth: 2
+fall_needed: 0.01
 iterations: 200
 loss: huber
 name: linear_nystrom_12_2x64
 reference: linear
 restarts: 5
-rounds_at_most: 200
+rounds_at_most: 1000
 scale: times_qop
 seed: 1
 start: nystrom
 steps: 12
 width: 64
-window: 15
+window: 30
