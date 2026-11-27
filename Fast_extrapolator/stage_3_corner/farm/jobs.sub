@@ -1,0 +1,16 @@
+# Stage 3, the corner of the crossing: one job a configuration (4 runs), 4 cores, 8 GB, under 24 h.
+#   condor_submit jobs.sub        (George agreed, 2026-11-27)
+universe                = vanilla
+stage                   = /data/bfys/gscriven/worktrees/allen_nn/Fast_extrapolator/stage_3_corner
+executable              = $(stage)/farm/wrapper.sh
+arguments               = $(configuration)
+output                  = $(stage)/farm/logs/$Fn(configuration).$(Cluster).out
+error                   = $(stage)/farm/logs/$Fn(configuration).$(Cluster).err
+log                     = $(stage)/farm/logs/$Fn(configuration).$(Cluster).log
+request_cpus            = 4
+request_memory          = 8192
+should_transfer_files   = NO
+getenv                  = False
++UseOS                  = "el9"
++JobCategory            = "medium"
+queue configuration matching files $(stage)/configurations/*.yaml

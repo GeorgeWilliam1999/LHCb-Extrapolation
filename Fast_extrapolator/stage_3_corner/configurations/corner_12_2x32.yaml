@@ -1,0 +1,13 @@
+name: corner_12_2x32
+data: corner_training
+validation: corner_validation
+tail_weight: null
+stop_on: median
+width: 32
+depth: 2
+seed: 1
+restarts: 5
+iterations: 200
+rounds_at_most: 150
+window: 30
+fall_needed: 0.01

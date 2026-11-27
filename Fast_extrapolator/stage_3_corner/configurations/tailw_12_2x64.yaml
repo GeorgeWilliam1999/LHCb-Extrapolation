@@ -1,0 +1,13 @@
+name: tailw_12_2x64
+data: training
+validation: validation
+tail_weight: {y_from: 500.0, y_to: 900.0, most: 20.0}
+stop_on: p99
+width: 64
+depth: 2
+seed: 1
+restarts: 5
+iterations: 200
+rounds_at_most: 150
+window: 30
+fall_needed: 0.01

@@ -1,0 +1,19 @@
+# Paired Allen PrKF runs on the 2026 expected MinBias DIGI: ARKN (off), the network with no fallback (on_nofb),
+# and the network with the corner rule (on_rule48: |y| at 5 m above 700 mm -> 48 plain Nystrom steps; never the ARKN).
+universe       = vanilla
+executable     = /data/bfys/gscriven/allen_physics/scripts/prkf_job.sh
+request_cpus   = 1
+request_memory = 8 GB
+should_transfer_files = NO
++UseOS         = "el9"
++JobCategory   = "medium"
+getenv         = False
+log            = /data/bfys/gscriven/allen_physics/runs/condor_$(Cluster).log
+output         = /data/bfys/gscriven/allen_physics/runs/full/$(tag)/job.out
+error          = /data/bfys/gscriven/allen_physics/runs/full/$(tag)/job.err
+arguments      = /data/bfys/gscriven/allen_physics/runs/full/$(tag) $(evtmax) 0 1 $(weights)
+queue tag, evtmax, weights from (
+  off, -1, none
+  on_nofb, -1, /data/bfys/gscriven/worktrees/allen_nn/Fast_extrapolator/allen_nn/weights/linear_nystrom_12_2x64_nofb.json
+  on_rule48, -1, /data/bfys/gscriven/worktrees/allen_nn/Fast_extrapolator/allen_nn/weights/linear_nystrom_12_2x64_rule48.json
+)

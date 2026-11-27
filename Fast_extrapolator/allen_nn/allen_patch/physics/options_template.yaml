@@ -1,0 +1,17 @@
+testfiledb_key: "2026_expected_MinBias_Sim10g_digi"
+allow_input_data_override: true
+input_files: ["/data/bfys/gscriven/allen_samples/00360851_00000002_1.digi"]
+evt_max: EVTMAX
+first_evt: FIRSTEVT
+n_threads: NTHREADS
+events_per_slice: 100
+device_memory_pool: 2000
+conditions_location: "git:/cvmfs/lhcb.cern.ch/lib/lhcb/git-conddb/lhcb-conditions-database.git"
+histo_file: "HISTO"
+ntuple_file: "NTUPLE"
+# The simulation (SIMCOND upgrade/sim10-2026-v00.00-mu100) used field.v8r1 up, polarity +1;
+# the DD4hep tag sim10/run3-ideal of the TestFileDB entry names v6r1 and polarity -1. Override both.
+conditions_overrides:
+  "/world/MagnetRegion/Magnet:Magnet": "{Current: 5850, Polarity: 1}"
+  "/world/MagnetRegion/Magnet:FieldMapFilesUp": "{Files: [field.v8r1.c1.up.cdf, field.v8r1.c2.up.cdf, field.v8r1.c3.up.cdf, field.v8r1.c4.up.cdf]}"
+  "/world/MagnetRegion/Magnet:FieldMapFilesDown": "{Files: [field.v8r1.c1.down.cdf, field.v8r1.c2.down.cdf, field.v8r1.c3.down.cdf, field.v8r1.c4.down.cdf]}"

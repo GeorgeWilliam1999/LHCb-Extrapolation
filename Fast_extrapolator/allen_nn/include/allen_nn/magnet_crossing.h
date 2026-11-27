@@ -53,6 +53,11 @@ namespace allen_nn {
     // of any step of the crossing is above this (mm): the fixed steps then miss a feature
     // of the field (large |y| and |ty|, near the yoke). Infinite: off.
     R most_step_error = R( 1e30 );
+    // the corner rule (George, 2026-11-27): when |y| of the straight line from the state on z0 at
+    // z = corner_z is above corner_y, or the state is outside the box, the crossing is corner_steps
+    // plain Nystrom steps (no network, no ARKN). corner_y infinite: off.
+    R   corner_y = R( 1e30 ), corner_z = R( 5000 );
+    int corner_steps = 48;
     // 1: the transport matrix has the derivative of the network; 0: the matrix of the K
     // Nystrom steps only (the network moves the end by micrometres; its derivative is far
     // below the error of the field-held-fixed chaining, and costs 4-5 network calls)
@@ -201,6 +206,20 @@ namespace allen_nn {
     return step_error;
   }
 
+  // The crossing z0 -> z1 as corner_steps equal plain Nystrom steps (the corner rule), in chunks of
+  // MOST_STEPS so that no long plane array is needed; J (or null) is d end / d s0.
+  template <class R, class Field>
+  ALLEN_NN_HD inline void plain_crossing( const CrossingNetwork<R>& net, R s[5], R B0[3], const Field& field,
+                                          R ( *J )[5] ) {
+    const int n = net.corner_steps;
+    R         p[MOST_STEPS + 1];
+    for ( int done = 0; done < n; done += MOST_STEPS ) {
+      const int m = ( n - done < MOST_STEPS ) ? n - done : MOST_STEPS;
+      for ( int i = 0; i <= m; ++i ) p[i] = net.z0 + ( net.z1 - net.z0 ) * ( R( done + i ) / R( n ) );
+      nystrom_fixed( s, p, m, B0, field, J );
+    }
+  }
+
   // Way A with the interface of ARKN::propagate_jac: x is a Vector5 of Allen
   // (q/p in 1/MeV), J the 5 x 5 transport matrix (q/p columns in 1/MeV). Returns
   // false (and leaves x, J and fit_success alone) when the state on z0 is outside
@@ -219,8 +238,14 @@ namespace allen_nn {
     R J1[5][5], J2[5][5], J3[5][5], T[5][5];
     if ( withJacobian ) set_identity( J1 ), set_identity( J3 );
     nystrom_leg( s, z_in, net.z0, net.leg_step, B0, field, withJacobian ? J1 : nullptr );
-    if ( !in_domain( net, s ) ) return false;
-    if ( crossing( net, s, B0, true, field, polarity, withJacobian ? J2 : nullptr ) > net.most_step_error ) return false;
+    const bool corner_rule = net.corner_y < R( 1e29 );
+    if ( corner_rule && ( !in_domain( net, s ) || fabs( s[1] + s[3] * ( net.corner_z - net.z0 ) ) > net.corner_y ) ) {
+      if ( withJacobian ) set_identity( J2 );
+      plain_crossing( net, s, B0, field, withJacobian ? J2 : nullptr );
+    } else {
+      if ( !in_domain( net, s ) ) return false;
+      if ( crossing( net, s, B0, true, field, polarity, withJacobian ? J2 : nullptr ) > net.most_step_error ) return false;
+    }
     nystrom_leg( s, net.z1, z_out, net.leg_step, B0, field, withJacobian ? J3 : nullptr );
 
     if ( !( fabs( s[2] ) <= R( 10 ) && fabs( s[3] ) <= R( 10 ) && s[0] == s[0] && s[1] == s[1] ) ) {

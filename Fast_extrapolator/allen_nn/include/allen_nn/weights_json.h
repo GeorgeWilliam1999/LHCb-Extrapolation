@@ -153,6 +153,10 @@ namespace allen_nn {
     if ( j.has( "leg_step_mm" ) ) net.leg_step = static_cast<R>( j["leg_step_mm"].number );
     if ( j.has( "network_jacobian" ) ) net.network_jacobian = static_cast<int>( j["network_jacobian"].number );
     if ( j.has( "fallback_step_error_mm" ) ) net.most_step_error = static_cast<R>( j["fallback_step_error_mm"].number );
+    if ( j.has( "corner_y_mm" ) ) net.corner_y = static_cast<R>( j["corner_y_mm"].number );
+    if ( j.has( "corner_z_mm" ) ) net.corner_z = static_cast<R>( j["corner_z_mm"].number );
+    if ( j.has( "corner_steps" ) ) net.corner_steps = static_cast<int>( j["corner_steps"].number );
+    if ( net.corner_steps < 1 ) throw std::runtime_error( "weights file: corner_steps out of range" );
 
     const auto& layers = j["layers"].items;
     if ( static_cast<int>( layers.size() ) != net.depth + 1 ) throw std::runtime_error( "weights file: layers" );
