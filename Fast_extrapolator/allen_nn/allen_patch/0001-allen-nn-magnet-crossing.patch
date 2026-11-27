@@ -1,0 +1,1111 @@
+From 05be341ff591776cf11aac95fc0732e203a50dc6 Mon Sep 17 00:00:00 2001
+From: George Scriven <george.w.scriven@gmail.com>
+Date: Fri, 27 Nov 2026 02:03:33 +0100
+Subject: [PATCH] PROTOTYPE: PrKF magnet crossing (UT->T) through K Nystrom
+ steps + a network correction
+
+Off by default (full_kalman_filter property magnet_nn_weights empty). With a JSON
+weights file the second-pass magnet crossing (last UT hit -> first SciFi hit) uses
+allen_nn::propagate_magnet instead of the adaptive RKN, with an RKN fallback outside
+the training box or when a fixed step's error estimate is above a threshold.
+Catch2 tests [magnet_nn] check the transport matrix against finite differences.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../secondary_vertex_reconstruction.py        |   4 +
+ .../ParKalman/include/MagnetCrossingNN.cuh    |  68 +++++
+ .../ParKalman/include/PrKalmanFilter.cuh      |  26 +-
+ .../ParKalman/include/PrKalmanMethods.cuh     |  22 +-
+ .../include/allen_nn/magnet_crossing.h        | 286 ++++++++++++++++++
+ .../ParKalman/include/allen_nn/rkn_common.h   | 224 ++++++++++++++
+ device/kalman/ParKalman/src/PrKalmanFilter.cu | 137 ++++++++-
+ .../generic/src/TestMagnetCrossingNN.cpp      | 134 ++++++++
+ 8 files changed, 884 insertions(+), 17 deletions(-)
+ create mode 100644 device/kalman/ParKalman/include/MagnetCrossingNN.cuh
+ create mode 100644 device/kalman/ParKalman/include/allen_nn/magnet_crossing.h
+ create mode 100644 device/kalman/ParKalman/include/allen_nn/rkn_common.h
+ create mode 100644 test/unit_tests/generic/src/TestMagnetCrossingNN.cpp
+
+diff --git a/configuration/python/AllenConf/secondary_vertex_reconstruction.py b/configuration/python/AllenConf/secondary_vertex_reconstruction.py
+index 6a291d5aa..65bdbbcfc 100644
+--- a/configuration/python/AllenConf/secondary_vertex_reconstruction.py
++++ b/configuration/python/AllenConf/secondary_vertex_reconstruction.py
+@@ -113,7 +113,10 @@ def make_full_kalman_long(
+     is_electron_result=None,
+     outlier_chi2_threshold=9.0,
+     max_outlier_iterations=2,
++    magnet_nn_weights="",
+ ):
++    """magnet_nn_weights (PROTOTYPE): a JSON weights file of the magnet-crossing network;
++    empty (default) keeps the adaptive RKN for the UT -> T crossing."""
+     number_of_events = initialize_number_of_events()
+ 
+     kalman = make_algorithm(
+@@ -134,6 +137,7 @@ def make_full_kalman_long(
+         dev_is_muon_t=is_muon_result["dev_is_muon"],
+         outlier_chi2_threshold=outlier_chi2_threshold,
+         max_outlier_iterations=max_outlier_iterations,
++        magnet_nn_weights=magnet_nn_weights,
+     )
+ 
+     return {
+diff --git a/device/kalman/ParKalman/include/MagnetCrossingNN.cuh b/device/kalman/ParKalman/include/MagnetCrossingNN.cuh
+new file mode 100644
+index 000000000..cc3dc7a6d
+--- /dev/null
++++ b/device/kalman/ParKalman/include/MagnetCrossingNN.cuh
+@@ -0,0 +1,68 @@
++/*****************************************************************************\
++* (c) Copyright 2026 CERN for the benefit of the LHCb Collaboration           *
++*                                                                             *
++* This software is distributed under the terms of the Apache License          *
++* version 2 (Apache-2.0), copied verbatim in the file "LICENSE".              *
++*                                                                             *
++* In applying this licence, CERN does not waive the privileges and immunities *
++* granted to it by virtue of its status as an Intergovernmental Organization  *
++* or submit itself to any jurisdiction.                                       *
++\*****************************************************************************/
++#pragma once
++
++// PROTOTYPE (not for merging as is): the magnet crossing of PrKF through
++// "K fixed Nystrom steps + one network correction" instead of the adaptive RKN.
++// The tool itself is allen_nn/magnet_crossing.h (plain functions, shared with the
++// standalone checks of the RK-PINN project); this file adds the field adapter, the
++// call in the form of ARKN::propagate_jac and the host-side loader of the weights.
++
++#include "BackendCommon.h"
++#include "MagneticField.cuh"
++#include "ExtrapolatorCommon.cuh"
++
++#ifndef ALLEN_NN_HD
++#define ALLEN_NN_HD __host__ __device__
++#endif
++#include "allen_nn/magnet_crossing.h"
++
++namespace MagnetCrossingNN {
++
++  using Network = allen_nn::CrossingNetwork<float>;
++
++  struct MagfieldAdapter {
++    const MagneticField::Magfield& field;
++    __device__ void operator()(float x, float y, float z, float& bx, float& by, float& bz) const
++    {
++      const float3 B = field.fieldVectorLinearInterpolation(float3 {x, y, z});
++      bx = B.x;
++      by = B.y;
++      bz = B.z;
++    }
++  };
++
++  // As ARKN::propagate_jac. Returns false (nothing changed) when the state is outside
++  // the domain of the network; the caller then calls the ARKN.
++  __device__ inline bool propagate_jac(
++    const Network& net,
++    KalmanFilter::Vector5& state,
++    Extrapolators::State::Jacobian& jacobian,
++    const float z_in,
++    const float z_out,
++    const MagneticField::Magfield& field,
++    const float polarity,
++    bool& fit_success)
++  {
++    float x[5] = {state[0], state[1], state[2], state[3], state[4]};
++    float J[5][5];
++    const bool done =
++      allen_nn::propagate_magnet<float, true>(net, x, J, z_in, z_out, MagfieldAdapter {field}, polarity, fit_success);
++    if (!done || !fit_success) return done;
++    for (int i = 0; i < 4; ++i)
++      state[i] = x[i];
++    for (int i = 0; i < 5; ++i)
++      for (int j = 0; j < 5; ++j)
++        jacobian.jacobian(i, j) = J[i][j];
++    return true;
++  }
++
++} // namespace MagnetCrossingNN
+diff --git a/device/kalman/ParKalman/include/PrKalmanFilter.cuh b/device/kalman/ParKalman/include/PrKalmanFilter.cuh
+index 76e6a0f24..08a06468b 100644
+--- a/device/kalman/ParKalman/include/PrKalmanFilter.cuh
++++ b/device/kalman/ParKalman/include/PrKalmanFilter.cuh
+@@ -40,7 +40,9 @@ namespace PrKalmanFilter {
+     SimpleKalmanState& r2_b_state,
+     const MagneticField::Magfield& field,
+     const float outlier_chi2_threshold = -1.0f,
+-    const uint64_t skip_mask = 0);
++    const uint64_t skip_mask = 0,
++    const MagnetCrossingNN::Network* magnet_nn = nullptr,
++    const float magnet_nn_polarity = 1.f);
+ 
+   // Set the fit results
+   __host__ __device__ void set_result(
+@@ -90,8 +92,12 @@ namespace full_kalman_filter {
+   //--------------------------------------------------
+   // Main execution of the Kalman Filter.
+   //--------------------------------------------------
+-  __global__ void
+-  full_kalman_filter(Parameters, const MagneticField::Magfield field, const float outlier_chi2_threshold);
++  __global__ void full_kalman_filter(
++    Parameters,
++    const MagneticField::Magfield field,
++    const float outlier_chi2_threshold,
++    const MagnetCrossingNN::Network* magnet_nn,
++    const float magnet_nn_polarity);
+ 
+   __global__ void kalman_pv_ip(Parameters parameters);
+ 
+@@ -117,5 +123,19 @@ namespace full_kalman_filter {
+       "max_outlier_iterations",
+       2u,
+       "Maximum number of outlier removal passes (1 = one hit removal possible)"};
++    // PROTOTYPE: the magnet crossing UT -> T through K Nystrom steps + a network.
++    Allen::Property<std::string> m_magnet_nn_weights {
++      this,
++      "magnet_nn_weights",
++      "",
++      "JSON weights of the magnet-crossing network (empty: off, the ARKN is used)"};
++    Allen::Property<float> m_magnet_nn_polarity_of_training {
++      this,
++      "magnet_nn_polarity_of_training",
++      1.f,
++      "Polarity of the field map the network was trained on (+1 up, -1 down)"};
++
++    mutable MagnetCrossingNN::Network* m_dev_magnet_nn = nullptr;
++    mutable std::string m_loaded_magnet_nn;
+   };
+ } // namespace full_kalman_filter
+diff --git a/device/kalman/ParKalman/include/PrKalmanMethods.cuh b/device/kalman/ParKalman/include/PrKalmanMethods.cuh
+index 522f2c93f..cd73c2641 100644
+--- a/device/kalman/ParKalman/include/PrKalmanMethods.cuh
++++ b/device/kalman/ParKalman/include/PrKalmanMethods.cuh
+@@ -21,6 +21,7 @@
+ #include "BeamlinePVConstants.cuh"
+ #include "RungeKuttaExtrapolator.cuh"
+ #include "ExtrapolatorCommon.cuh"
++#include "MagnetCrossingNN.cuh"
+ 
+ using namespace KalmanFilter;
+ using ARKN = Extrapolators::AdaptiveRKNystromExtrapolator;
+@@ -187,7 +188,9 @@ __device__ inline void PredictState(
+   SymMatrix5x5& C,
+   trackInfo& tI,
+   const float zTo,
+-  const bool inVELO)
++  const bool inVELO,
++  const MagnetCrossingNN::Network* magnet_nn = nullptr,
++  const float magnet_nn_polarity = 1.f)
+ {
+   const float zIn = tI.m_Lastz;
+   const float dz = zTo - zIn; // needed in noise definition
+@@ -195,8 +198,15 @@ __device__ inline void PredictState(
+   Extrapolators::State::Jacobian F; // already initialised
+   Vector5 x_state = x_ref;          // needed for later calculation of transport vector
+ 
+-  // Propagate reference state
+-  ARKN::propagate_jac(x_state, F, zIn, zTo, field, tI.m_fit_success);
++  // Propagate reference state. The magnet crossing UT -> T can go through the
++  // network tool (prototype, off unless a weights file is given); outside the
++  // domain of the network it falls back on the ARKN.
++  bool propagated = false;
++  if (magnet_nn != nullptr && dz > 0.f) {
++    propagated =
++      MagnetCrossingNN::propagate_jac(*magnet_nn, x_state, F, zIn, zTo, field, magnet_nn_polarity, tI.m_fit_success);
++  }
++  if (!propagated) ARKN::propagate_jac(x_state, F, zIn, zTo, field, tI.m_fit_success);
+   if (!tI.m_fit_success) return;
+ 
+   Vector5 x_ref_save = x_ref; // save reference vector for later propagation
+@@ -283,11 +293,13 @@ __device__ inline void PredictStateUTT_T(
+   Vector5& x_ref,
+   SymMatrix5x5& C,
+   trackInfo& tI,
+-  const unsigned hit_counter)
++  const unsigned hit_counter,
++  const MagnetCrossingNN::Network* magnet_nn = nullptr,
++  const float magnet_nn_polarity = 1.f)
+ {
+   const float zTo = track.hit(hit_counter).z0();
+   // inVELO should always be false for any function not predicting between VELO and VELO hit
+-  PredictState(dev_pars, field, x, x_ref, C, tI, zTo, false);
++  PredictState(dev_pars, field, x, x_ref, C, tI, zTo, false, magnet_nn, magnet_nn_polarity);
+ }
+ 
+ ////////////////////////////////////////////////////////////////////////
+diff --git a/device/kalman/ParKalman/include/allen_nn/magnet_crossing.h b/device/kalman/ParKalman/include/allen_nn/magnet_crossing.h
+new file mode 100644
+index 000000000..7e8a75eed
+--- /dev/null
++++ b/device/kalman/ParKalman/include/allen_nn/magnet_crossing.h
+@@ -0,0 +1,286 @@
++/*****************************************************************************\
++* (c) Copyright 2026 CERN for the benefit of the LHCb Collaboration           *
++*                                                                             *
++* This software is distributed under the terms of the GNU General Public      *
++* Licence version 3 (GPL Version 3), copied verbatim in the file "COPYING".   *
++*                                                                             *
++* In applying this licence, CERN does not waive the privileges and immunities *
++* granted to it by virtue of its status as an Intergovernmental Organization  *
++* or submit itself to any jurisdiction.                                       *
++\*****************************************************************************/
++// The magnet crossing of the Kalman fit: K fixed Nystrom steps plus one network
++// correction, with its transport matrix. A drop-in for
++// AdaptiveRKNystromExtrapolator::propagate_jac on the crossing from the last UT
++// hit to the first SciFi hit ("way A"):
++//
++//     z_in  --leg-->  z0 = 2648.2  --crossing-->  z1 = 7826  --leg-->  z_out
++//
++// The legs are fixed Nystrom steps of at most `leg_step` mm (the hits are a few
++// tens of mm from the planes, so a leg is one step). The crossing is
++//
++//     s_K  = K equal Nystrom steps from z0 to z1 (the field read as the ARKN reads it)
++//     end  = s_K + sigma_out * (q/p / sigma_qop) * NN(s0 / sigma_in)
++//
++// with NN a tanh network (depth hidden layers of `width`, a linear last layer),
++// as trained by fastex/train.py (start "nystrom", scale "times_qop"); s0 is the
++// state on z0 with q/p * c_light, the q/p of the experiment.
++//
++// The transport matrix is the product of the three parts. A Nystrom part is
++// chained step by step with the field held fixed, as LHCb does
++// (evaluate_jacobian_rkn); the network part is its exact derivative, all five
++// columns. The q/p columns come back in 1/MeV.
++//
++// Polarity: the two LHCb maps are exact negatives of each other (v8r1, checked),
++// so a network trained on one serves the other with q/p -> -q/p. The Nystrom
++// parts read the real field and need nothing; `polarity` is -1 when the network
++// was trained on the other polarity.
++//
++// Outside the domain of the training tracks (|q/p| above the largest of the
++// training set, slopes or positions outside its box) the function returns false
++// and changes nothing, so that the caller falls back on the ARKN.
++#pragma once
++
++#include "rkn_common.h"
++
++namespace allen_nn {
++
++  constexpr int MOST_WIDTH = 64;
++  constexpr int MOST_HIDDEN = 3; // hidden layers
++  constexpr int MOST_STEPS = 16; // Nystrom steps of the crossing
++
++  template<class R>
++  struct CrossingNetwork {
++    int steps = 0, depth = 0, width = 0;
++    R z0 = 0, z1 = 0;
++    R planes[MOST_STEPS + 1] = {};
++    R inv_scale_in[5] = {}; // 1 / sigma_in
++    R scale_out[4] = {};
++    R inv_scale_qop = 0;
++    // the box of the training tracks on z0 (largest absolute values); q/p * c_light
++    R most_qop = 0, most_tx = 0, most_ty = 0, most_x = 0, most_y = 0;
++    R leg_step = 250;
++    // fall back on the ARKN when the error estimate of the ARKN, (k0 - k1 - k2 + k3) dz^2,
++    // of any step of the crossing is above this (mm): the fixed steps then miss a feature
++    // of the field (large |y| and |ty|, near the yoke). Infinite: off.
++    R most_step_error = R(1e30);
++    // 1: the transport matrix has the derivative of the network; 0: the matrix of the K
++    // Nystrom steps only (the network moves the end by micrometres; its derivative is far
++    // below the error of the field-held-fixed chaining, and costs 4-5 network calls)
++    int network_jacobian = 1;
++    // weights, row-major [out][in]
++    R W_first[MOST_WIDTH * 5] = {};
++    R b_first[MOST_WIDTH] = {};
++    R W_hidden[MOST_HIDDEN - 1][MOST_WIDTH * MOST_WIDTH] = {};
++    R b_hidden[MOST_HIDDEN - 1][MOST_WIDTH] = {};
++    R W_last[4 * MOST_WIDTH] = {};
++    R b_last[4] = {};
++  };
++
++  // tanh from one exponential (|error| < 1e-7 in float): the tanh of the C library is
++  // several times slower than exp on the host.
++  template<class R>
++  ALLEN_NN_HD inline R tanh_fast(const R a)
++  {
++    return R(1) - R(2) / (exp(R(2) * a) + R(1));
++  }
++
++  // b + sum_m W[m] h[m] with eight independent partial sums, so that the sum is not
++  // one chain of dependent multiply-adds (the compiler keeps the order of a plain sum).
++  template<class R>
++  ALLEN_NN_HD inline R dot_plus(const R* W, const R* h, const int n, const R b)
++  {
++    R acc[8] = {};
++    int m = 0;
++    for (; m + 8 <= n; m += 8)
++      for (int k = 0; k < 8; ++k)
++        acc[k] += W[m + k] * h[m + k];
++    for (; m < n; ++m)
++      acc[0] += W[m] * h[m];
++    return b + (((acc[0] + acc[1]) + (acc[2] + acc[3])) + ((acc[4] + acc[5]) + (acc[6] + acc[7])));
++  }
++
++  // The network and, when D is given, its derivative D[4][5] = d NN / d u.
++  template<class R>
++  ALLEN_NN_HD inline void network_forward(const CrossingNetwork<R>& net, const R u[5], R out[4], R (*D)[5])
++  {
++    const int w = net.width;
++    R h[MOST_WIDTH], g[MOST_WIDTH];
++    R M[MOST_WIDTH][5], N[MOST_WIDTH][5]; // d h / d u
++    for (int i = 0; i < w; ++i) {
++      R a = net.b_first[i];
++      for (int j = 0; j < 5; ++j)
++        a += net.W_first[i * 5 + j] * u[j];
++      h[i] = tanh_fast(a);
++      if (D) {
++        const R d = R(1) - h[i] * h[i];
++        for (int j = 0; j < 5; ++j)
++          M[i][j] = d * net.W_first[i * 5 + j];
++      }
++    }
++    for (int l = 0; l < net.depth - 1; ++l) {
++      const R* W = net.W_hidden[l];
++      for (int i = 0; i < w; ++i) {
++        g[i] = tanh_fast(dot_plus(W + i * w, h, w, net.b_hidden[l][i]));
++      }
++      if (D) {
++        for (int i = 0; i < w; ++i) {
++          const R d = R(1) - g[i] * g[i];
++          for (int j = 0; j < 5; ++j) {
++            R a = 0;
++            for (int m = 0; m < w; ++m)
++              a += W[i * w + m] * M[m][j];
++            N[i][j] = d * a;
++          }
++        }
++        for (int i = 0; i < w; ++i)
++          for (int j = 0; j < 5; ++j)
++            M[i][j] = N[i][j];
++      }
++      for (int i = 0; i < w; ++i)
++        h[i] = g[i];
++    }
++    for (int o = 0; o < 4; ++o) {
++      out[o] = dot_plus(net.W_last + o * w, h, w, net.b_last[o]);
++      if (D)
++        for (int j = 0; j < 5; ++j) {
++          R b = 0;
++          for (int m = 0; m < w; ++m)
++            b += net.W_last[o * w + m] * M[m][j];
++          D[o][j] = b;
++        }
++    }
++  }
++
++  // Fixed Nystrom steps on the planes p[0..n] (the field at the start in B0, the
++  // field at the end left in B0). The state has q/p * c_light. J (or null) is the
++  // running Jacobian of the part, chained as the ARKN chains it.
++  // Returns the largest error estimate of the steps (mm).
++  template<class R, class Field>
++  ALLEN_NN_HD inline R nystrom_fixed(R s[5], const R* p, const int n, R B0[3], const Field& field, R (*J)[5])
++  {
++    R B[3][3], k[4][2];
++    R most = 0;
++    for (int c = 0; c < 3; ++c)
++      B[0][c] = B0[c];
++    for (int i = 0; i < n; ++i) {
++      const R dz = p[i + 1] - p[i];
++      const R err = nystrom_stages(s, p[i], dz, B, k, field);
++      if (err > most) most = err;
++      if (J) evaluate_jacobian_rkn(J, dz, s[2], s[3], k, s[4], B);
++      nystrom_update(s, dz, k);
++      for (int c = 0; c < 3; ++c)
++        B[0][c] = B[2][c];
++    }
++    for (int c = 0; c < 3; ++c)
++      B0[c] = B[0][c];
++    return most;
++  }
++
++  // A leg from za to zb in equal steps of at most leg_step.
++  template<class R, class Field>
++  ALLEN_NN_HD inline void
++  nystrom_leg(R s[5], const R za, const R zb, const R leg_step, R B0[3], const Field& field, R (*J)[5])
++  {
++    const R length = zb - za;
++    if (fabs(length) <= R(1e-3)) return;
++    int n = static_cast<int>(ceil(fabs(length) / leg_step));
++    if (n < 1) n = 1;
++    if (n > MOST_STEPS) n = MOST_STEPS;
++    R p[MOST_STEPS + 1];
++    for (int i = 0; i <= n; ++i)
++      p[i] = za + length * (R(i) / R(n));
++    p[n] = zb;
++    nystrom_fixed(s, p, n, B0, field, J);
++  }
++
++  template<class R>
++  ALLEN_NN_HD inline bool in_domain(const CrossingNetwork<R>& net, const R s[5])
++  {
++    return fabs(s[4]) <= net.most_qop && fabs(s[2]) <= net.most_tx && fabs(s[3]) <= net.most_ty &&
++           fabs(s[0]) <= net.most_x && fabs(s[1]) <= net.most_y;
++  }
++
++  // The crossing alone, z0 -> z1. s has q/p * c_light; B0 is the field at the start
++  // (read here when has_B0 is false). J (or null) receives d end / d s0 in the
++  // units of s (q/p * c_light). Returns the largest step error estimate (mm).
++  template<class R, class Field>
++  ALLEN_NN_HD inline R
++  crossing(const CrossingNetwork<R>& net, R s[5], R B0[3], bool has_B0, const Field& field, const R polarity, R (*J)[5])
++  {
++    const R s0[5] = {s[0], s[1], s[2], s[3], s[4]};
++    if (!has_B0) field(s[0], s[1], net.z0, B0[0], B0[1], B0[2]);
++    if (J) set_identity(J);
++    const R step_error = nystrom_fixed(s, net.planes, net.steps, B0, field, J);
++
++    const R q = polarity * s0[4];
++    const R u[5] = {
++      s0[0] * net.inv_scale_in[0],
++      s0[1] * net.inv_scale_in[1],
++      s0[2] * net.inv_scale_in[2],
++      s0[3] * net.inv_scale_in[3],
++      q * net.inv_scale_in[4]};
++    R out[4], D[4][5];
++    network_forward(net, u, out, (J && net.network_jacobian) ? D : nullptr);
++    const R f = q * net.inv_scale_qop;
++    for (int o = 0; o < 4; ++o)
++      s[o] += net.scale_out[o] * f * out[o];
++    if (J && net.network_jacobian) {
++      for (int o = 0; o < 4; ++o) {
++        const R so = net.scale_out[o];
++        for (int j = 0; j < 4; ++j)
++          J[o][j] += so * f * D[o][j] * net.inv_scale_in[j];
++        // d/dq of so * (q / sigma_qop) * NN(.., q / sigma_in), then dq/ds0[4] = polarity
++        J[o][4] += polarity * so * (net.inv_scale_qop * out[o] + f * D[o][4] * net.inv_scale_in[4]);
++      }
++    }
++    return step_error;
++  }
++
++  // Way A with the interface of ARKN::propagate_jac: x is a Vector5 of Allen
++  // (q/p in 1/MeV), J the 5 x 5 transport matrix (q/p columns in 1/MeV). Returns
++  // false (and leaves x, J and fit_success alone) when the state on z0 is outside
++  // the domain of the network or a step of the crossing has an error estimate above
++  // most_step_error; the caller then calls the ARKN.
++  template<class R, bool withJacobian, class Field>
++  ALLEN_NN_HD inline bool propagate_magnet(
++    const CrossingNetwork<R>& net,
++    R x[5],
++    R J[5][5],
++    const R z_in,
++    const R z_out,
++    const Field& field,
++    const R polarity,
++    bool& fit_success)
++  {
++    if (!fit_success || (x[4] != x[4])) {
++      fit_success = false;
++      return true;
++    }
++    R s[5] = {x[0], x[1], x[2], x[3], x[4] * R(c_light)};
++    R B0[3];
++    field(s[0], s[1], z_in, B0[0], B0[1], B0[2]);
++    R J1[5][5], J2[5][5], J3[5][5], T[5][5];
++    if (withJacobian) set_identity(J1), set_identity(J3);
++    nystrom_leg(s, z_in, net.z0, net.leg_step, B0, field, withJacobian ? J1 : nullptr);
++    if (!in_domain(net, s)) return false;
++    if (crossing(net, s, B0, true, field, polarity, withJacobian ? J2 : nullptr) > net.most_step_error) return false;
++    nystrom_leg(s, net.z1, z_out, net.leg_step, B0, field, withJacobian ? J3 : nullptr);
++
++    if (!(fabs(s[2]) <= R(10) && fabs(s[3]) <= R(10) && s[0] == s[0] && s[1] == s[1])) {
++      fit_success = false;
++      return true;
++    }
++    x[0] = s[0];
++    x[1] = s[1];
++    x[2] = s[2];
++    x[3] = s[3];
++    if (withJacobian) {
++      multiply(J2, J1, T);
++      multiply(J3, T, J);
++      for (int i = 0; i < 4; ++i)
++        J[i][4] *= R(c_light);
++    }
++    return true;
++  }
++
++} // namespace allen_nn
+diff --git a/device/kalman/ParKalman/include/allen_nn/rkn_common.h b/device/kalman/ParKalman/include/allen_nn/rkn_common.h
+new file mode 100644
+index 000000000..523f52f5f
+--- /dev/null
++++ b/device/kalman/ParKalman/include/allen_nn/rkn_common.h
+@@ -0,0 +1,224 @@
++/*****************************************************************************\
++* (c) Copyright 2026 CERN for the benefit of the LHCb Collaboration           *
++*                                                                             *
++* This software is distributed under the terms of the GNU General Public      *
++* Licence version 3 (GPL Version 3), copied verbatim in the file "COPYING".   *
++*                                                                             *
++* In applying this licence, CERN does not waive the privileges and immunities *
++* granted to it by virtue of its status as an Intergovernmental Organization  *
++* or submit itself to any jurisdiction.                                       *
++\*****************************************************************************/
++// The pieces that the adaptive RKN of Allen and the magnet-crossing tool share.
++//
++// Units are those of Allen's AdaptiveRKNystromExtrapolator: positions in mm, q/p
++// in 1/MeV on the outside and q/p * c_light on the inside, the field in the unit
++// of the LHCb field grid (Gaudi: 1 T = 1e-3). With these units the slope
++// derivative needs no other factor.
++//
++// A field is any object with
++//     void operator()(R x, R y, R z, R& bx, R& by, R& bz) const
++// in the Gaudi unit. In Allen it is a thin adapter of
++// MagneticField::Magfield::fieldVectorLinearInterpolation.
++//
++// A Jacobian is R J[5][5], J[i][j] = d out_i / d in_j, rows and columns
++// (x, y, tx, ty, q/p), as Extrapolators::State::Jacobian.
++//
++// Everything is a plain function; with nvcc or hipcc it is __host__ __device__.
++#pragma once
++
++#include <cmath>
++
++#ifndef ALLEN_NN_HD
++#if defined(__CUDACC__) || defined(__HIPCC__)
++#define ALLEN_NN_HD __host__ __device__
++#else
++#define ALLEN_NN_HD
++#endif
++#endif
++
++namespace allen_nn {
++
++  // The float overloads of the math functions (a bare ::pow or ::sqrt can be the
++  // double one on the host, which rounds differently from Allen's powf, sqrtf).
++  using std::ceil;
++  using std::exp;
++  using std::fabs;
++  using std::fmax;
++  using std::fmin;
++  using std::pow;
++  using std::sqrt;
++  using std::tanh;
++
++  // Extrapolators::c_light of Allen, rounded to float as Allen rounds it.
++  constexpr float c_light = 299.792458f;
++
++  template<class R>
++  ALLEN_NN_HD inline void set_identity(R J[5][5])
++  {
++    for (int i = 0; i < 5; ++i)
++      for (int j = 0; j < 5; ++j)
++        J[i][j] = (i == j) ? R(1) : R(0);
++  }
++
++  // C = A B
++  template<class R>
++  ALLEN_NN_HD inline void multiply(const R A[5][5], const R B[5][5], R C[5][5])
++  {
++    for (int i = 0; i < 5; ++i)
++      for (int j = 0; j < 5; ++j) {
++        R sum = 0;
++        for (int m = 0; m < 5; ++m)
++          sum += A[i][m] * B[m][j];
++        C[i][j] = sum;
++      }
++  }
++
++  // slope_derivative of ExtrapolatorCommon.cuh (q/p already times c_light)
++  template<class R>
++  ALLEN_NN_HD inline void slope_derivative(R tx, R ty, R qop, const R B[3], R& dtx, R& dty)
++  {
++    const R tx2 = tx * tx;
++    const R ty2 = ty * ty;
++    const R norm = sqrt(R(1) + tx2 + ty2);
++    const R ax = norm * (ty * (tx * B[0] + B[2]) - (R(1) + tx2) * B[1]);
++    const R ay = norm * (-tx * (ty * B[1] + B[2]) + (R(1) + ty2) * B[0]);
++    dtx = qop * ax;
++    dty = qop * ay;
++  }
++
++  // State::Jacobian::JacobianDerivatives of ExtrapolatorCommon.cuh, term by term.
++  // m[2][3] are the 2 x 3 blocks (rows tx, ty or x, y; columns tx0, ty0, q/p).
++  template<class R>
++  ALLEN_NN_HD inline void jacobian_derivatives(
++    R tx_matrix[2][3],
++    R pos_jac[2][3],
++    R slope_jac[2][3],
++    const int stage,
++    const R dz,
++    const R sx,
++    const R sy,
++    const R qop,
++    const R B[3])
++  {
++    const R norm = sqrt(R(1) + sx * sx + sy * sy);
++    const R factorY = sx * sy * B[0] - (R(1) + sx * sx) * B[1] + sy * B[2];
++    const R factorX = (R(1) + sy * sy) * B[0] - sx * sy * B[1] - sx * B[2];
++
++    const R factorXDerivTx = sx / norm * factorX - norm * (sy * B[1] + B[2]);
++    const R factorXDerivTy = sy / norm * factorX + norm * (2 * sy * B[0] - sx * B[1]);
++    const R factorYDerivTx = sx / norm * factorY + norm * (sy * B[0] - 2 * sx * B[1]);
++    const R factorYDerivTy = sy / norm * factorY + norm * (sx * B[0] + B[2]);
++
++    const R a11 = qop * (factorYDerivTx * tx_matrix[0][0] + factorYDerivTy * tx_matrix[1][0]);
++    const R a21 = qop * (factorXDerivTx * tx_matrix[0][0] + factorXDerivTy * tx_matrix[1][0]);
++    const R a12 = qop * (factorYDerivTx * tx_matrix[0][1] + factorYDerivTy * tx_matrix[1][1]);
++    const R a22 = qop * (factorXDerivTx * tx_matrix[0][1] + factorXDerivTy * tx_matrix[1][1]);
++    const R e1 = factorY * norm + qop * (factorYDerivTx * tx_matrix[0][2] + factorYDerivTy * tx_matrix[1][2]);
++    const R e2 = factorX * norm + qop * (factorXDerivTx * tx_matrix[0][2] + factorXDerivTy * tx_matrix[1][2]);
++
++    if (stage != 3) {
++      const R f = dz * dz / R(6);
++      pos_jac[0][0] += f * a11;
++      pos_jac[0][1] += f * a12;
++      pos_jac[0][2] += f * e1;
++      pos_jac[1][0] += f * a21;
++      pos_jac[1][1] += f * a22;
++      pos_jac[1][2] += f * e2;
++      const R prefactor = (stage == 0) || (stage == 1) ? R(0.5) : R(1);
++      tx_matrix[0][0] = prefactor * dz * a11;
++      tx_matrix[0][1] = prefactor * dz * a12;
++      tx_matrix[0][2] = prefactor * dz * e1;
++      tx_matrix[1][0] = prefactor * dz * a21;
++      tx_matrix[1][1] = prefactor * dz * a22;
++      tx_matrix[1][2] = prefactor * dz * e2;
++    }
++    const R g = (dz / R(6)) * ((stage == 1) || (stage == 2) ? R(2) : R(1));
++    slope_jac[0][0] += g * a11;
++    slope_jac[0][1] += g * a12;
++    slope_jac[0][2] += g * e1;
++    slope_jac[1][0] += g * a21;
++    slope_jac[1][1] += g * a22;
++    slope_jac[1][2] += g * e2;
++  }
++
++  // State::Jacobian::evaluateJacobianRKN: the Jacobian of one Nystrom step with the
++  // field held at the three values of the step, added to the running J. It is
++  // called with the slopes before the step and the k of the step.
++  template<class R>
++  ALLEN_NN_HD inline void
++  evaluate_jacobian_rkn(R J[5][5], const R dz, const R tx, const R ty, const R k[4][2], const R qop, const R B[3][3])
++  {
++    R pos_jac[2][3] = {};
++    R slope_jac[2][3] = {};
++    R orig[2][3], t[2][3];
++    for (int r = 0; r < 2; ++r)
++      for (int c = 0; c < 3; ++c)
++        orig[r][c] = t[r][c] = J[2 + r][2 + c];
++    jacobian_derivatives(t, pos_jac, slope_jac, 0, dz, tx, ty, qop, B[0]);
++    for (int r = 0; r < 2; ++r)
++      for (int c = 0; c < 3; ++c)
++        t[r][c] += orig[r][c];
++    jacobian_derivatives(
++      t, pos_jac, slope_jac, 1, dz, tx + k[0][0] * R(0.5) * dz, ty + k[0][1] * R(0.5) * dz, qop, B[1]);
++    for (int r = 0; r < 2; ++r)
++      for (int c = 0; c < 3; ++c)
++        t[r][c] += orig[r][c];
++    jacobian_derivatives(
++      t, pos_jac, slope_jac, 2, dz, tx + k[1][0] * R(0.5) * dz, ty + k[1][1] * R(0.5) * dz, qop, B[1]);
++    for (int r = 0; r < 2; ++r)
++      for (int c = 0; c < 3; ++c)
++        t[r][c] += orig[r][c];
++    jacobian_derivatives(t, pos_jac, slope_jac, 3, dz, tx + k[2][0] * dz, ty + k[2][1] * dz, qop, B[2]);
++    for (int r = 0; r < 2; ++r)
++      for (int c = 0; c < 3; ++c) {
++        J[r][2 + c] += pos_jac[r][c] + dz * orig[r][c];
++        J[2 + r][2 + c] += slope_jac[r][c];
++      }
++  }
++
++  // One Nystrom step of length dz from the state s (x, y, tx, ty, q/p * c_light) at z,
++  // three field points: B[0] at the start (given), B[1] at the middle, B[2] at the end
++  // (evaluateRKStep of RungeKuttaExtrapolator.cuh). k receives the four slope derivatives.
++  // Returns the error estimate max(|err_x|, |err_y|) of the ARKN.
++  template<class R, class Field>
++  ALLEN_NN_HD inline R nystrom_stages(const R s[5], const R z, const R dz, R B[3][3], R k[4][2], const Field& field)
++  {
++    const R dz2 = dz * dz;
++    const R halfdz = R(0.5) * dz;
++    slope_derivative(s[2], s[3], s[4], B[0], k[0][0], k[0][1]);
++    field(
++      s[0] + halfdz * s[2] + R(0.125) * dz2 * k[0][0],
++      s[1] + halfdz * s[3] + R(0.125) * dz2 * k[0][1],
++      z + halfdz,
++      B[1][0],
++      B[1][1],
++      B[1][2]);
++    for (int stage = 1; stage < 3; ++stage)
++      slope_derivative(
++        s[2] + halfdz * k[stage - 1][0], s[3] + halfdz * k[stage - 1][1], s[4], B[1], k[stage][0], k[stage][1]);
++    field(
++      s[0] + dz * s[2] + R(0.5) * dz2 * k[2][0],
++      s[1] + dz * s[3] + R(0.5) * dz2 * k[2][1],
++      z + dz,
++      B[2][0],
++      B[2][1],
++      B[2][2]);
++    slope_derivative(s[2] + dz * k[2][0], s[3] + dz * k[2][1], s[4], B[2], k[3][0], k[3][1]);
++    const R ex = (k[0][0] - k[1][0] - k[2][0] + k[3][0]) * dz2;
++    const R ey = (k[0][1] - k[1][1] - k[2][1] + k[3][1]) * dz2;
++    return fabs(ex) > fabs(ey) ? fabs(ex) : fabs(ey);
++  }
++
++  // evaluateStateRKN: the state update of an accepted step.
++  template<class R>
++  ALLEN_NN_HD inline void nystrom_update(R s[5], const R dz, const R k[4][2])
++  {
++    const R fpos = dz * dz * (R(1) / R(6));
++    const R fslo = dz * (R(1) / R(6));
++    s[0] = s[0] + dz * s[2] + (k[0][0] + k[1][0] + k[2][0]) * fpos;
++    s[1] = s[1] + dz * s[3] + (k[0][1] + k[1][1] + k[2][1]) * fpos;
++    s[2] += (k[0][0] + k[1][0] * R(2) + k[2][0] * R(2) + k[3][0]) * fslo;
++    s[3] += (k[0][1] + k[1][1] * R(2) + k[2][1] * R(2) + k[3][1]) * fslo;
++  }
++
++} // namespace allen_nn
+diff --git a/device/kalman/ParKalman/src/PrKalmanFilter.cu b/device/kalman/ParKalman/src/PrKalmanFilter.cu
+index c08553e32..a155cf3d1 100644
+--- a/device/kalman/ParKalman/src/PrKalmanFilter.cu
++++ b/device/kalman/ParKalman/src/PrKalmanFilter.cu
+@@ -11,13 +11,88 @@
+ #include "PrKalmanFilter.cuh"
+ #include "KalmanScatteringConstants.cuh"
+ 
++#include <fstream>
++#include <nlohmann/json.hpp>
++
+ INSTANTIATE_ALGORITHM(full_kalman_filter::full_kalman_filter_t)
+ 
+ __global__ void refit_outliers_full_fit(
+   full_kalman_filter::Parameters parameters,
+   const MagneticField::Magfield& field,
+   const float outlier_chi2_threshold,
+-  const unsigned max_outlier_iterations);
++  const unsigned max_outlier_iterations,
++  const MagnetCrossingNN::Network* magnet_nn,
++  const float magnet_nn_polarity);
++
++namespace {
++  // PROTOTYPE: read the weights of the magnet-crossing network (allen_nn JSON format).
++  MagnetCrossingNN::Network read_magnet_nn(const std::string& path)
++  {
++    nlohmann::json j;
++    {
++      std::ifstream in(path);
++      if (!in) throw std::runtime_error("full_kalman_filter: cannot open magnet_nn_weights " + path);
++      j = nlohmann::json::parse(in);
++    }
++    MagnetCrossingNN::Network net;
++    net.steps = j.at("steps").get<int>();
++    net.depth = j.at("depth").get<int>();
++    net.width = j.at("width").get<int>();
++    if (
++      net.steps < 1 || net.steps > allen_nn::MOST_STEPS || net.depth < 1 || net.depth > allen_nn::MOST_HIDDEN ||
++      net.width < 1 || net.width > allen_nn::MOST_WIDTH)
++      throw std::runtime_error("full_kalman_filter: magnet_nn_weights has a size out of range");
++    const double z0 = j.at("z0").get<double>(), z1 = j.at("z1").get<double>();
++    net.z0 = static_cast<float>(z0);
++    net.z1 = static_cast<float>(z1);
++    for (int i = 0; i <= net.steps; ++i)
++      net.planes[i] = static_cast<float>(z0 + i * ((z1 - z0) / net.steps));
++    const auto in_scale = j.at("scale_of_inputs").get<std::vector<double>>();
++    const auto out_scale = j.at("scale_of_outputs").get<std::vector<double>>();
++    for (int a = 0; a < 5; ++a)
++      net.inv_scale_in[a] = static_cast<float>(1.0 / in_scale.at(a));
++    for (int a = 0; a < 4; ++a)
++      net.scale_out[a] = static_cast<float>(out_scale.at(a));
++    net.inv_scale_qop = static_cast<float>(1.0 / j.at("scale_of_qop").get<double>());
++    const auto& d = j.at("domain");
++    net.most_qop = d.at("most_abs_qop").get<float>();
++    net.most_tx = d.at("most_abs_tx").get<float>();
++    net.most_ty = d.at("most_abs_ty").get<float>();
++    net.most_x = d.at("most_abs_x").get<float>();
++    net.most_y = d.at("most_abs_y").get<float>();
++    if (j.contains("leg_step_mm")) net.leg_step = j.at("leg_step_mm").get<float>();
++    if (j.contains("network_jacobian")) net.network_jacobian = j.at("network_jacobian").get<int>();
++    if (j.contains("fallback_step_error_mm")) net.most_step_error = j.at("fallback_step_error_mm").get<float>();
++    const auto& layers = j.at("layers");
++    if (static_cast<int>(layers.size()) != net.depth + 1)
++      throw std::runtime_error("full_kalman_filter: magnet_nn_weights has the wrong number of layers");
++    const int w = net.width;
++    auto matrix = [](const nlohmann::json& W, int rows, int cols, float* out) {
++      const auto m = W.get<std::vector<std::vector<double>>>();
++      if (static_cast<int>(m.size()) != rows) throw std::runtime_error("magnet_nn_weights: rows");
++      for (int r = 0; r < rows; ++r) {
++        if (static_cast<int>(m[r].size()) != cols) throw std::runtime_error("magnet_nn_weights: columns");
++        for (int c = 0; c < cols; ++c)
++          out[r * cols + c] = static_cast<float>(m[r][c]);
++      }
++    };
++    auto vector = [](const nlohmann::json& b, int n, float* out) {
++      const auto v = b.get<std::vector<double>>();
++      if (static_cast<int>(v.size()) != n) throw std::runtime_error("magnet_nn_weights: bias");
++      for (int r = 0; r < n; ++r)
++        out[r] = static_cast<float>(v[r]);
++    };
++    matrix(layers[0].at("W"), w, 5, net.W_first);
++    vector(layers[0].at("b"), w, net.b_first);
++    for (int l = 1; l < net.depth; ++l) {
++      matrix(layers[l].at("W"), w, w, net.W_hidden[l - 1]);
++      vector(layers[l].at("b"), w, net.b_hidden[l - 1]);
++    }
++    matrix(layers[net.depth].at("W"), 4, w, net.W_last);
++    vector(layers[net.depth].at("b"), 4, net.b_last);
++    return net;
++  }
++} // namespace
+ 
+ void full_kalman_filter::full_kalman_filter_t::update(const Constants& constants) const
+ {
+@@ -56,11 +131,30 @@ void full_kalman_filter::full_kalman_filter_t::operator()(
+   dim3 block_dim = m_block_dim;
+   int _gridDim = (first<host_number_of_reconstructed_scifi_tracks_t>(arguments) + (block_dim.x) - 1) / (block_dim.x);
+ 
++  // PROTOTYPE: the magnet-crossing network, loaded once when a weights file is set.
++  const std::string magnet_nn_path = m_magnet_nn_weights.value();
++  if (!magnet_nn_path.empty() && magnet_nn_path != m_loaded_magnet_nn) {
++    const MagnetCrossingNN::Network host_net = read_magnet_nn(magnet_nn_path);
++    if (m_dev_magnet_nn == nullptr) Allen::malloc((void**) &m_dev_magnet_nn, sizeof(MagnetCrossingNN::Network));
++    Allen::memcpy(m_dev_magnet_nn, &host_net, sizeof(MagnetCrossingNN::Network), Allen::memcpyHostToDevice);
++    m_loaded_magnet_nn = magnet_nn_path;
++    printf(
++      "full_kalman_filter: magnet crossing through %d Nystrom steps + network %dx%d (%s)\n",
++      host_net.steps,
++      host_net.depth,
++      host_net.width,
++      magnet_nn_path.c_str());
++  }
++  const MagnetCrossingNN::Network* magnet_nn = magnet_nn_path.empty() ? nullptr : m_dev_magnet_nn;
++  // the polarity of the run (constants: -1 down, +1 up) times that of the training map
++  const float magnet_nn_polarity =
++    (constants.magnet_polarity < 0.f ? -1.f : 1.f) * m_magnet_nn_polarity_of_training.value();
++
+   // Zero-initialize outlier counter before main fit
+   Allen::memset_async<dev_n_outlier_tracks_t>(arguments, 0, context);
+ 
+   global_function(full_kalman_filter)(dim3(_gridDim), m_block_dim, context)(
+-    arguments, *constants.magnetic_field, m_outlier_chi2_threshold);
++    arguments, *constants.magnetic_field, m_outlier_chi2_threshold, magnet_nn, magnet_nn_polarity);
+ 
+   // Refit outlier tracks excluding their worst hit (only if enabled).
+   if (m_outlier_chi2_threshold > 0.0f) {
+@@ -72,7 +166,12 @@ void full_kalman_filter::full_kalman_filter_t::operator()(
+     if (n_outlier_tracks > 0) {
+       _gridDim = (n_outlier_tracks + block_dim.x - 1) / block_dim.x;
+       global_function(refit_outliers_full_fit)(dim3(_gridDim), m_block_dim, context)(
+-        arguments, *constants.magnetic_field, m_outlier_chi2_threshold, m_max_outlier_iterations);
++        arguments,
++        *constants.magnetic_field,
++        m_outlier_chi2_threshold,
++        m_max_outlier_iterations,
++        magnet_nn,
++        magnet_nn_polarity);
+     }
+   }
+ 
+@@ -95,7 +194,9 @@ namespace PrKalmanFilter {
+     SimpleKalmanState& r2_b_state,
+     const MagneticField::Magfield& field,
+     const float outlier_chi2_threshold,
+-    const uint64_t skip_mask)
++    const uint64_t skip_mask,
++    const MagnetCrossingNN::Network* magnet_nn,
++    const float magnet_nn_polarity)
+   {
+     using namespace kf_scattering;
+ 
+@@ -380,7 +481,16 @@ namespace PrKalmanFilter {
+     // Magnet extrapolation of both x and the reference vector, as no reference vector available behind the magnet
+     // Extrapolation to first SciFi hit
+     PredictStateUTT_T(
+-      scifi_track, dev_scatter_UTT_pars, field, x, x_ref, C, tI_bwd, saved_scifi_hit_counter[n_scifi_layers - 1]);
++      scifi_track,
++      dev_scatter_UTT_pars,
++      field,
++      x,
++      x_ref,
++      C,
++      tI_bwd,
++      saved_scifi_hit_counter[n_scifi_layers - 1],
++      magnet_nn,
++      magnet_nn_polarity);
+     if (oc_bwd.should_process(true))
+       oc_bwd.consider(
+         UpdateStateT(
+@@ -535,7 +645,9 @@ __global__ void refit_outliers_full_fit(
+   full_kalman_filter::Parameters parameters,
+   const MagneticField::Magfield& field,
+   const float outlier_chi2_threshold,
+-  const unsigned max_outlier_iterations)
++  const unsigned max_outlier_iterations,
++  const MagnetCrossingNN::Network* magnet_nn,
++  const float magnet_nn_polarity)
+ {
+   const unsigned n_outlier_tracks = *parameters.dev_n_outlier_tracks;
+   const unsigned total_tracks = parameters.dev_long_track_view.size();
+@@ -577,7 +689,9 @@ __global__ void refit_outliers_full_fit(
+         r2_b,
+         field,
+         outlier_chi2_threshold,
+-        new_mask);
++        new_mask,
++        magnet_nn,
++        magnet_nn_polarity);
+ 
+       refit_track.skip_mask = new_mask;
+ 
+@@ -612,7 +726,9 @@ __global__ void refit_outliers_full_fit(
+ __global__ void full_kalman_filter::full_kalman_filter(
+   full_kalman_filter::Parameters parameters,
+   const MagneticField::Magfield field,
+-  const float outlier_chi2_threshold)
++  const float outlier_chi2_threshold,
++  const MagnetCrossingNN::Network* magnet_nn,
++  const float magnet_nn_polarity)
+ {
+ 
+   // Base pointer for the list of all tracks (contiguous in memory), regardless of events boundaries
+@@ -648,7 +764,10 @@ __global__ void full_kalman_filter::full_kalman_filter(
+       r2_f_state,
+       r2_b_state,
+       field,
+-      outlier_chi2_threshold);
++      outlier_chi2_threshold,
++      0,
++      magnet_nn,
++      magnet_nn_polarity);
+     kalman_track.skip_mask = 0; // No hits removed yet; refit_outliers_full_fit accumulates into this
+     PrKalmanFilter::set_result(track_id, kalman_track, kalman_states);
+     parameters.dev_kf_tracks[track_id] = kalman_track;
+diff --git a/test/unit_tests/generic/src/TestMagnetCrossingNN.cpp b/test/unit_tests/generic/src/TestMagnetCrossingNN.cpp
+new file mode 100644
+index 000000000..7dbb2abdc
+--- /dev/null
++++ b/test/unit_tests/generic/src/TestMagnetCrossingNN.cpp
+@@ -0,0 +1,134 @@
++/*****************************************************************************\
++* (c) Copyright 2026 CERN for the benefit of the LHCb Collaboration           *
++*                                                                             *
++* This software is distributed under the terms of the Apache License          *
++* version 2 (Apache-2.0), copied verbatim in the file "LICENSE".              *
++*                                                                             *
++* In applying this licence, CERN does not waive the privileges and immunities *
++* granted to it by virtue of its status as an Intergovernmental Organization  *
++* or submit itself to any jurisdiction.                                       *
++\*****************************************************************************/
++// PROTOTYPE: checks of the magnet-crossing tool (K Nystrom steps + network) on a
++// synthetic field (z only), with no input data: (1) a network with zero last layer gives
++// the plain fixed-step Nystrom; (2) the transport matrix of the tool against
++// finite differences (a smooth field, double); (3) the polarity symmetry.
++
++#if __has_include(<catch2/catch.hpp>)
++#include <catch2/catch.hpp>
++#else
++#include <catch2/catch_test_macros.hpp>
++#endif
++
++#include <cmath>
++#include <memory>
++
++#include "../../../../device/kalman/ParKalman/include/allen_nn/magnet_crossing.h"
++
++namespace {
++  // a field that depends on z only, in the Gaudi unit (1 T = 1e-3), sign `s`. With no
++  // dependence on x and y the Nystrom matrix chained with the field held fixed (as the
++  // ARKN chains it) is the exact derivative of the scheme, so the whole matrix of the
++  // tool can be checked against finite differences.
++  struct ToyField {
++    double s = 1;
++    template<class R>
++    void operator()(R, R, R z, R& bx, R& by, R& bz) const
++    {
++      const R g = std::exp(-((z - R(5000)) * (z - R(5000))) / R(2 * 1500. * 1500.));
++      by = R(s) * R(-1.0e-3) * g;
++      bx = R(s) * R(5e-5) * g;
++      bz = R(s) * R(2e-5) * g;
++    }
++  };
++
++  template<class R>
++  std::unique_ptr<allen_nn::CrossingNetwork<R>> toy_network(bool zero_last)
++  {
++    auto net = std::make_unique<allen_nn::CrossingNetwork<R>>();
++    net->steps = 8, net->depth = 2, net->width = 8;
++    net->z0 = R(2648.2), net->z1 = R(7826.);
++    for (int i = 0; i <= 8; ++i)
++      net->planes[i] = R(2648.2 + i * ((7826. - 2648.2) / 8));
++    const double in[5] = {180, 175, 0.07, 0.07, 0.06}, out[4] = {0.015, 0.002, 1.3e-5, 1.9e-6};
++    for (int a = 0; a < 5; ++a)
++      net->inv_scale_in[a] = R(1 / in[a]);
++    for (int a = 0; a < 4; ++a)
++      net->scale_out[a] = R(out[a]);
++    net->inv_scale_qop = R(1 / 0.06);
++    net->most_qop = R(0.3), net->most_tx = R(1), net->most_ty = R(1), net->most_x = R(1000), net->most_y = R(1000);
++    for (int i = 0; i < 8 * 5; ++i)
++      net->W_first[i] = R(0.3 * std::sin(1.7 * i + 0.3));
++    for (int i = 0; i < 8; ++i)
++      net->b_first[i] = R(0.1 * std::cos(2.3 * i));
++    for (int i = 0; i < 64; ++i)
++      net->W_hidden[0][i] = R(0.25 * std::sin(0.9 * i + 1.1));
++    for (int i = 0; i < 8; ++i)
++      net->b_hidden[0][i] = R(0.05 * std::sin(3.1 * i));
++    for (int i = 0; i < 32; ++i)
++      net->W_last[i] = zero_last ? R(0) : R(0.5 * std::cos(1.3 * i + 0.2));
++    for (int i = 0; i < 4; ++i)
++      net->b_last[i] = zero_last ? R(0) : R(0.1 * i);
++    return net;
++  }
++} // namespace
++
++TEST_CASE("magnet crossing: zero network is the fixed Nystrom", "[magnet_nn]")
++{
++  auto net = toy_network<double>(true);
++  ToyField field;
++  const double qop = 1.0 / 5000.; // 5 GeV, 1/MeV
++  double x[5] = {100, 50, 0.04, 0.02, qop}, J[5][5];
++  bool ok = true;
++  REQUIRE(allen_nn::propagate_magnet<double, true>(*net, x, J, 2648.2, 7826., field, 1., ok));
++  REQUIRE(ok);
++  double s[5] = {100, 50, 0.04, 0.02, qop * double(allen_nn::c_light)}, B0[3];
++  field(s[0], s[1], 2648.2, B0[0], B0[1], B0[2]);
++  allen_nn::nystrom_fixed(s, net->planes, 8, B0, field, (double(*)[5]) nullptr);
++  for (int i = 0; i < 4; ++i)
++    REQUIRE(std::abs(x[i] - s[i]) <= 1e-12 * (1 + std::abs(s[i])));
++}
++
++TEST_CASE("magnet crossing: transport matrix against finite differences", "[magnet_nn]")
++{
++  auto net = toy_network<double>(false);
++  ToyField field;
++  const double s0[5] = {120, -60, 0.05, -0.03, 1.0 / 4000.};
++  double x[5], J[5][5];
++  for (int i = 0; i < 5; ++i)
++    x[i] = s0[i];
++  bool ok = true;
++  REQUIRE(allen_nn::propagate_magnet<double, true>(*net, x, J, 2630., 7850., field, 1., ok));
++  const double h[5] = {1e-3, 1e-3, 1e-6, 1e-6, 1e-9};
++  for (int j = 0; j < 5; ++j) {
++    double p[5], m[5], dummy[5][5];
++    for (int i = 0; i < 5; ++i)
++      p[i] = m[i] = s0[i];
++    p[j] += h[j], m[j] -= h[j];
++    bool okp = true, okm = true;
++    allen_nn::propagate_magnet<double, false>(*net, p, dummy, 2630., 7850., field, 1., okp);
++    allen_nn::propagate_magnet<double, false>(*net, m, dummy, 2630., 7850., field, 1., okm);
++    for (int i = 0; i < 4; ++i) {
++      const double fd = (p[i] - m[i]) / (2 * h[j]);
++      const double tolerance = 1e-6 * (std::abs(fd) + 1e-3 * std::abs(J[i][j])) + 1e-9;
++      INFO("row " << i << " column " << j << " matrix " << J[i][j] << " finite difference " << fd);
++      REQUIRE(std::abs(J[i][j] - fd) <= tolerance);
++    }
++  }
++}
++
++TEST_CASE("magnet crossing: polarity symmetry", "[magnet_nn]")
++{
++  auto net = toy_network<float>(false);
++  ToyField up {1}, down {-1};
++  float a[5] = {80, 40, 0.03, 0.015, 1.f / 6000.f}, b[5] = {80, 40, 0.03, 0.015, -1.f / 6000.f};
++  float Ja[5][5], Jb[5][5];
++  bool oka = true, okb = true;
++  allen_nn::propagate_magnet<float, true>(*net, a, Ja, 2648.2f, 7826.f, up, 1.f, oka);
++  allen_nn::propagate_magnet<float, true>(*net, b, Jb, 2648.2f, 7826.f, down, -1.f, okb);
++  for (int i = 0; i < 4; ++i) {
++    REQUIRE(a[i] == b[i]);
++    for (int j = 0; j < 4; ++j)
++      REQUIRE(Ja[i][j] == Jb[i][j]);
++    REQUIRE(Ja[i][4] == -Jb[i][4]);
++  }
++}
+-- 
+2.52.0
+

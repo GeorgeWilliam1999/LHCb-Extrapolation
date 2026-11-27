@@ -1,0 +1,12 @@
+gate 1: arkn_state == allen_adaptive_nystrom (float), 2000 tracks: True; largest difference 0 mm; accepted steps equal: True
+gate 2: arkn (float) vs rec_step (double): radial difference median 0.1 um, 99 % 1.01 um, max 174 um; radial error against the reference: arkn median 10.04 um, rec_step 10.03 um; mean field reads arkn 54.2
+        transport matrix (columns tx0, ty0, q/p): median relative difference 5.9e-08, 99 % 1.9e-06 (relative to the largest entry of each element)
+gate 3: linear_nystrom_12_2x32   end vs torch: largest |difference| / |correction| 9.5e-11, / |end| 1.6e-15; d correction / d s0 vs autograd: largest relative 2.1e-14  -> pass
+gate 3: linear_nystrom_12_2x64   end vs torch: largest |difference| / |correction| 1.6e-10, / |end| 2.5e-15; d correction / d s0 vs autograd: largest relative 5.2e-14  -> pass
+gate 3: linear_nystrom_6_2x32    end vs torch: largest |difference| / |correction| 8.1e-11, / |end| 2.2e-14; d correction / d s0 vs autograd: largest relative 5.3e-14  -> pass
+gate 3: linear_nystrom_6_2x64    end vs torch: largest |difference| / |correction| 1.2e-10, / |end| 1.2e-14; d correction / d s0 vs autograd: largest relative 4.4e-14  -> pass
+gate 3: linear_nystrom_8_2x32    end vs torch: largest |difference| / |correction| 1.4e-11, / |end| 6.3e-16; d correction / d s0 vs autograd: largest relative 7.1e-14  -> pass
+gate 3: linear_nystrom_8_2x64    end vs torch: largest |difference| / |correction| 1.5e-10, / |end| 1.2e-14; d correction / d s0 vs autograd: largest relative 5e-14  -> pass
+gate 4: tool float vs double (8 steps, 2x64): radial median 0.042 um, max 118 um; fell back 270 of 2000
+        polarity: tool on the down map with -q/p and polarity -1 vs the up map: largest state difference 0, matrix 0 (q/p column with its sign flipped 0)
+        the reference (RK4, 2000 steps) on the down map with -q/p vs the up map: largest difference 0 mm

@@ -1,0 +1,19 @@
+dense reference (reference:4000) vs the track-set reference: median 0.000388 um, max 0.253 um
+tool K=6 2x32          radial median 3.61 um, 95 % 40.4 um, reads 26.4, fell back 3134
+tool K=6 2x64          radial median 3.33 um, 95 % 39.4 um, reads 26.4, fell back 3134
+tool K=8 2x32          radial median 2.09 um, 95 % 34.8 um, reads 25.2, fell back 1947
+tool K=8 2x64          radial median 1.74 um, 95 % 34.3 um, reads 25.2, fell back 1947
+tool K=12 2x32         radial median 1.47 um, 95 % 28.2 um, reads 30.1, fell back 1323
+tool K=12 2x64         radial median 1.40 um, 95 % 27.7 um, reads 30.1, fell back 1323
+tool K=12 2x64, no fallback radial median 1.40 um, 95 % 29.1 um, reads 25.0, fell back 0
+tool K=12 2x64, network in the matrix radial median 1.40 um, 95 % 27.7 um, reads 30.1, fell back 1323
+ARKN (Allen)           radial median 10.12 um, 95 % 38.8 um, reads 54.7, fell back 0
+Nystrom 6 steps        radial median 20.60 um, 95 % 215.6 um, reads 13.0, fell back 0
+Nystrom 8 steps        radial median 19.38 um, 95 % 140.8 um, reads 17.0, fell back 0
+Nystrom 12 steps       radial median 15.14 um, 95 % 94.7 um, reads 25.0, fell back 0
+Nystrom 32 steps       radial median 0.33 um, 95 % 5.5 um, reads 65.0, fell back 0
+Rec STEP (double)      radial median 10.11 um, 95 % 38.8 um, reads 0.0, fell back 0
+(sink -1.267e+07)
+(sink -606348)
+wrote /data/bfys/gscriven/worktrees/allen_nn/Fast_extrapolator/allen_nn/results
+wrote /data/bfys/gscriven/worktrees/allen_nn/Fast_extrapolator/allen_nn/figures
