@@ -64,6 +64,15 @@ def main():
     paired = n == len(b["qop"]) and np.all(a["ntrack"] == b["ntrack"]) and np.all(a["itrack"] == b["itrack"])
     lines.append("fitted long tracks (rows): off %d, on %d; same events and order: %s" % (n, len(b["qop"]), paired))
     event = np.cumsum(a["itrack"] == 0) - 1
+    if paired:
+        bad_a = ~(np.isfinite(a["qop"]) & np.isfinite(a["chi2"]))
+        bad_b = ~(np.isfinite(b["qop"]) & np.isfinite(b["chi2"]))
+        lines.append("fits with a NaN q/p or chi2: off %d, on %d, both %d (left out below)" % (
+            bad_a.sum(), bad_b.sum(), (bad_a & bad_b).sum()))
+        keep = ~(bad_a | bad_b)
+        a = {k: v[keep] for k, v in a.items()}
+        b = {k: v[keep] for k, v in b.items()}
+        event = event[keep]
     lines.append("events with tracks: %d" % (event.max() + 1))
 
     rows = []
@@ -84,7 +93,7 @@ def main():
             r["dpp_sigma_%d_%d" % (lo, hi)] = core_sigma(dpp[m])
             r["n_%d_%d" % (lo, hi)] = int(m.sum())
         rows.append(r)
-    with open(os.path.join(RESULTS, "events_summary.csv"), "w", newline="") as f:
+    with open(os.path.join(RESULTS, "events_summary_%s.csv" % on_name), "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
@@ -108,6 +117,7 @@ def main():
         dq = (b["qop"] - a["qop"]) / np.abs(a["qop"])
         ca, cb = a["chi2"] / np.maximum(a["ndof"], 1), b["chi2"] / np.maximum(b["ndof"], 1)
         changed = (dq != 0) | (cb != ca) | (a["ndof"] != b["ndof"])
+        n = len(dq)
         lines.append("\nTrack by track (on - off):")
         lines.append("  tracks with any change in q/p, chi2 or ndof: %d of %d (%.2f %%); q/p changed: %d; ndof changed: %d" % (
             changed.sum(), n, 100 * changed.mean(), (dq != 0).sum(), (a["ndof"] != b["ndof"]).sum()))
@@ -124,9 +134,11 @@ def main():
         lines.append("  tracks heading to |y| > %.0f mm at z = 5 m: %d (%.2f %%), %.3f per event (events with >= 1: %.1f %%)" % (
             TAIL_Y_MM, tail.sum(), 100 * tail.mean(), per_event.mean(), 100 * (per_event > 0).mean()))
         for label, m in (("tail", tail), ("not tail", ~tail)):
-            lines.append("    %-8s: changed %.2f %%, chi2/ndf change mean %+.4f (real tracks %d)" % (
-                label, 100 * changed[m].mean(), d[m].mean(), (m & real).sum()))
-        np.savetxt(os.path.join(RESULTS, "events_tracks.csv"),
+            lines.append("    %-8s: changed %.2f %%, chi2/ndf change mean %+.4f, 0.1 %% %+.3f, 99.9 %% %+.3f, largest |change| %.2f;"
+                         " ndof changed %d (real tracks %d)" % (
+                             label, 100 * changed[m].mean(), d[m].mean(), np.percentile(d[m], 0.1), np.percentile(d[m], 99.9),
+                             np.abs(d[m]).max(), (a["ndof"][m] != b["ndof"][m]).sum(), (m & real).sum()))
+        np.savetxt(os.path.join(RESULTS, "events_tracks_%s.csv" % on_name),
                    np.column_stack([event, a["itrack"], real, a["truemom"], a["qop"], b["qop"], a["chi2"], b["chi2"], a["ndof"],
                                     b["ndof"], y5]), delimiter=",", fmt="%.8g",
                    header="event,itrack,real,true_p_gev,qop_off,qop_on,chi2_off,chi2_on,ndof_off,ndof_on,abs_y_at_5m_mm", comments="")
@@ -136,7 +148,7 @@ def main():
     lines.append("\nRICH2 states against MC truth (TrackResChecker, long tracks): mean and RMS of the residuals / pulls")
     lines.append("| state | quantity | off entries | off mean | on mean | off RMS | on RMS |")
     lines.append("|---|---|---|---|---|---|---|")
-    with open(os.path.join(RESULTS, "events_rich2.csv"), "w", newline="") as f:
+    with open(os.path.join(RESULTS, "events_rich2_%s.csv" % on_name), "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["state", "quantity", "off_entries", "off_mean", "on_mean", "off_rms", "on_rms"])
         for key in sorted(ra):
@@ -158,7 +170,7 @@ def main():
         x_.set_ylabel(lab)
         x_.legend()
     fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES, "events_momentum.png"), dpi=130)
+    fig.savefig(os.path.join(FIGURES, "events_momentum_%s.png" % on_name), dpi=130)
     plt.close(fig)
     fig, ax = plt.subplots(1, 2, figsize=(11, 4))
     for j, (label, sel) in enumerate((("real", True), ("ghost", False))):
@@ -169,7 +181,7 @@ def main():
         ax[j].set_xlabel("chi2/ndf, %s tracks" % label)
         ax[j].legend()
     fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES, "events_chi2.png"), dpi=130)
+    fig.savefig(os.path.join(FIGURES, "events_chi2_%s.png" % on_name), dpi=130)
     plt.close(fig)
     keys = [k for k in sorted(ra) if k[0] == "RICH2Beg" and k in rb]
     if keys:
@@ -182,10 +194,10 @@ def main():
             x_.set_yscale("log")
             x_.legend(fontsize=7)
         fig.tight_layout()
-        fig.savefig(os.path.join(FIGURES, "events_rich2.png"), dpi=130)
+        fig.savefig(os.path.join(FIGURES, "events_rich2_%s.png" % on_name), dpi=130)
         plt.close(fig)
     text = "\n".join(lines)
-    open(os.path.join(RESULTS, "events_tables.md"), "w").write(text + "\n")
+    open(os.path.join(RESULTS, "events_tables_%s.md" % on_name), "w").write(text + "\n")
     print(text)
 
 
