@@ -21,3 +21,21 @@ ARKN alone: median 10.12 95% 38.8 99.9% 145-155 max 436 reads 54.7
 The tracks of the tail (radial > 1 mm without fallback, 94 of 13,447 for K=12): p 2.0-19.5 GeV
 (median 3.6), |y| on z0 230-682 mm (median 586), |ty| 0.17-0.26. The plain fixed-step Nystrom
 has the same tail (12 steps: 99.9% 7.1 mm), so it is the fixed steps, not the network.
+
+=== 2026-11-27: threshold re-chosen on the VALIDATION tracks (python/fallback_validation.py, results/fallback_validation.csv)
+Rule: the smallest fallback fraction such that no validation track (13,684, track set afc61a558211, split
+"validation") has a radial end-point error above 2x the largest ARKN validation error (2 x 331.3 = 662.7 um).
+Then the test tracks (13,447) scored once with that threshold. The scan above (on the test tracks) is superseded.
+
+validation, K=12 2x64:  E=0.24 fell back 54.15% median 2.64 95% 38.2 99.9% 172 max 331   <- chosen (E=0.25: max 1130)
+validation, K=8 2x64:   E=1.9  fell back 34.70% median 1.97 95% 37.8 99.9% 178 max 331   <- chosen (E=2.0: max 2390)
+test, K=12 2x64 E=0.24: fell back 53.83% median 2.65 95% 37.7 99.9% 155 max 436
+test, K=8 2x64  E=1.9:  fell back 34.70% median 1.94 95% 37.0 99.9% 165 max 1152 (above the 663 um bound)
+test, ARKN:             median 10.1 95% 38.8 max 436
+
+What sets the K=12 threshold: one validation track (18.8 GeV, x -298 y 538 mm, tx -0.117 ty 0.209 at z0) has
+1130 um error with a step-error estimate between 0.24 and 0.25 mm; plain 12 Nystrom steps give 1219 um there,
+the ARKN 66 um. The five largest validation errors at E=0.7 are all |y| 420-540 mm, |ty| 0.175-0.21: the
+fixed-step tail. The step-error estimate does not separate this tail well; a cut on the start state (y, ty)
+may do better (not tried).
+Weights with these thresholds: weights/linear_nystrom_12_2x64_valfb.json (0.24), linear_nystrom_8_2x64_valfb.json (1.9).

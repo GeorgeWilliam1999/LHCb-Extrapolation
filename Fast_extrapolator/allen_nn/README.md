@@ -169,7 +169,25 @@ Figures: `figures/accuracy_vs_time.png`, `figures/error_by_momentum.png`, `figur
   are wrong by up to 28 mm for about 0.7 % of the tracks (|y| 230-680 mm, |ty| 0.17-0.26 on z0);
   plain fixed Nystrom steps have the same tail, so it is the fixed steps, not the network. The
   fallback (step-error estimate above 0.7 mm for K = 12) sends 9.8 % of the tracks to the ARKN.
-  Its threshold was chosen on the test tracks; it must be re-chosen on the validation tracks.
+  Its threshold was chosen on the test tracks; it is re-chosen on the validation tracks below.
+
+### Fallback threshold chosen on the validation tracks (2026-11-27)
+
+Rule: the smallest fallback fraction such that no validation track (13,684) has a radial error above
+2x the largest ARKN validation error (2 x 331 = 663 um); then the test tracks scored once
+(`python/fallback_validation.py`, `results/fallback_validation.csv`, `results/fallback_scan.txt`).
+
+| method | threshold (mm) | fell back, validation | fell back, test | test radial median | 95 % | 99.9 % | largest |
+|---|---|---|---|---|---|---|---|
+| tool K=12 2x64 | 0.24 (was 0.7) | 54.2 % | 53.8 % | 2.65 | 37.7 | 155 | 436 |
+| tool K=8 2x64 | 1.9 (was 3) | 34.7 % | 34.7 % | 1.94 | 37.0 | 165 | 1152 |
+| ARKN (Allen) | - | - | - | 10.1 | 38.8 | 155 | 436 |
+
+With this rule the gain shrinks: K = 12 is 3.8x better than the ARKN in the median (not 7x) and half
+the tracks go to the ARKN. One K = 12 validation track (18.8 GeV, y 538 mm, ty 0.21) is 1130 um off
+with a step-error estimate of 0.24-0.25 mm, so the estimate does not catch the fixed-step tail well.
+K = 8 passes the rule on validation but its largest test error (1152 um) is above the 663 um bound.
+Weights with these thresholds: `weights/*_valfb.json`.
 - **Transport matrix: as good as the ARKN's.** Every integrator here chains the step Jacobians with
   the field held fixed, as LHCb does; their errors against finite differences are the same to
   three digits (median: 0.18 / 0.84 / 1.4 / 13.8 / 1.6 um for x0 / y0 / tx0 / ty0 / q/p). The
@@ -192,6 +210,6 @@ Figures: `figures/accuracy_vs_time.png`, `figures/error_by_momentum.png`, `figur
 - The T → UT crossing of the first fit pass still uses the ARKN (needs a reverse network or a
   Newton inversion of the forward tool).
 - K = 4 is not trained on the linear map; no farm job was submitted tonight.
-- The fallback threshold is tuned on the test tracks; the training box (domain) is the largest
+- The fallback threshold is now chosen on the validation tracks (above); the training box (domain) is the largest
   absolute value of each start variable, not a real acceptance.
 - Timing is on a shared login node (load 20-40 during the final timing).
