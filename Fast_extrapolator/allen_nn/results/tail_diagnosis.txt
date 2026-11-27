@@ -1,0 +1,63 @@
+Validation tracks: 13684 (track set afc61a558211, v8r1 up, 2648.2 -> 7826 mm). No fallback.
+tool K=12 2x64   median 1.42  95% 31.9  99% 636  99.9% 7134  max 27275 um  >200um 238  >1mm 100  reads 25.0
+Nystrom 12       median 15.17  95% 98.2  99% 1348  99.9% 10485  max 27121 um  >200um 358  >1mm 158  reads 25.0
+Nystrom 32       median 0.34  95% 6.1  99% 128  99.9% 1034  max 2007 um  >200um 96  >1mm 16  reads 65.0
+ARKN             median 10.05  95% 39.6  99% 78  99.9% 172  max 331 um  >200um 5  >1mm 0  reads 54.9
+tracks > 200 um for the tool: 238, of which Nystrom 12 also > 200 um: 228
+
+By |y| of the straight line at z = 5000 mm (median / 99 % / max of the tool, um):
+     0- 600 mm: n 12407  tool 1.2 / 27 / 157   Nystrom 12 13.3 / 86   ARKN 9.2 / 45   >200um 0
+   600- 800 mm: n   722  tool 13.4 / 235 / 1706   Nystrom 12 63.3 / 301   ARKN 20.3 / 84   >200um 12
+   800- 900 mm: n   191  tool 61.4 / 1556 / 2299   Nystrom 12 192.7 / 1963   ARKN 26.3 / 144   >200um 41
+   900-1000 mm: n   164  tool 134.0 / 3185 / 3365   Nystrom 12 279.4 / 4139   ARKN 37.8 / 154   >200um 66
+  1000-1100 mm: n   109  tool 372.1 / 7134 / 11506   Nystrom 12 1038.7 / 9459   ARKN 59.4 / 185   >200um 58
+  1100-2000 mm: n    91  tool 521.7 / 26225 / 27275   Nystrom 12 1950.3 / 26017   ARKN 79.9 / 278   >200um 61
+By momentum (tool median / 99 %, tracks > 200 um):
+  p    0-3    GeV: n  1591  7.8 / 3027  >200um 61
+  p    3-5    GeV: n  3314  3.8 / 1899  >200um 115
+  p    5-8    GeV: n  2877  1.7 / 456  >200um 46
+  p    8-20   GeV: n  4054  0.7 / 36  >200um 16
+  p   20-999  GeV: n  1848  0.2 / 1  >200um 0
+  charge +1: n  6996  median 1.5 99% 775  >200um 123
+  charge -1: n  6688  median 1.3 99% 506  >200um 115
+  y at 5 m > 0, |y|>800: n  274  >200um 202
+  y at 5 m < 0, |y|>800: n  281  >200um 24
+
+Check: RK4 4000 per plane chained to z1 vs the stored reference, radial median 0.0000 max 0.001 um
+
+Local error of one Nystrom step started on the reference (um): median / 99 % over all tracks, and median over the worst 100:
+  step   z from-to (mm)     all median  all 99%   worst100 median  worst100 max  dominant in worst100
+   1    2648-  3080        0.65       2.6            0.7            18        0
+   2    3080-  3511        0.49       7.5            3.4            48        0
+   3    3511-  3943        1.07      11.4           22.9           151        0
+   4    3943-  4374        0.73      53.8          124.7           632       34
+   5    4374-  4806        0.35      45.8          121.3          1107       40
+   6    4806-  5237        0.12      19.9           60.9           565        2
+   7    5237-  5669        0.29      17.6           52.3           879        6
+   8    5669-  6100        0.29      13.5           78.3           497        4
+   9    6100-  6532        0.09      14.5           62.7           752        7
+  10    6532-  6963        0.35      23.9           70.6          1112        7
+  11    6963-  7395        0.29       5.7            5.3            26        0
+  12    7395-  7826        1.20      12.8            4.3            48        0
+
+Worst 100 tracks (results/tail_worst100.csv): dominant step, its middle (x, y), the largest |B| and |dBy/dz| on it:
+  step  4 (z 3943-4374):  34 tracks; |y_mid| [760, 897, 1038] mm; |x_mid| [0, 113, 694] mm; |B| max [1.28, 1.42, 1.74] T; |dBy/dz| max [0.92, 1.6, 3.58] T/m; a core track on that step: |B| 1.04 T, |dBy/dz| 3.03 T/m
+  step  5 (z 4374-4806):  40 tracks; |y_mid| [778, 960, 1154] mm; |x_mid| [9, 491, 983] mm; |B| max [1.22, 1.36, 1.46] T; |dBy/dz| max [0.28, 1.11, 3.85] T/m; a core track on that step: |B| 1.09 T, |dBy/dz| 2.45 T/m
+  step  6 (z 4806-5237):   2 tracks; |y_mid| [1025, 1082, 1140] mm; |x_mid| [17, 159, 300] mm; |B| max [1.19, 1.19, 1.19] T; |dBy/dz| max [0.4, 0.45, 0.5] T/m; a core track on that step: |B| 1.06 T, |dBy/dz| 1.49 T/m
+  step  7 (z 5237-5669):   6 tracks; |y_mid| [1167, 1279, 1318] mm; |x_mid| [145, 524, 1037] mm; |B| max [1.09, 1.16, 1.17] T; |dBy/dz| max [0.63, 1.02, 1.6] T/m; a core track on that step: |B| 1.00 T, |dBy/dz| 1.26 T/m
+  step  8 (z 5669-6100):   4 tracks; |y_mid| [1016, 1268, 1408] mm; |x_mid| [91, 213, 619] mm; |B| max [1.0, 1.06, 1.15] T; |dBy/dz| max [0.18, 0.46, 0.7] T/m; a core track on that step: |B| 0.92 T, |dBy/dz| 2.07 T/m
+  step  9 (z 6100-6532):   7 tracks; |y_mid| [1324, 1505, 1561] mm; |x_mid| [20, 464, 968] mm; |B| max [1.1, 1.21, 1.42] T; |dBy/dz| max [0.48, 1.34, 2.53] T/m; a core track on that step: |B| 0.81 T, |dBy/dz| 1.63 T/m
+  step 10 (z 6532-6963):   7 tracks; |y_mid| [1163, 1442, 1747] mm; |x_mid| [105, 298, 1813] mm; |B| max [0.88, 1.12, 2.12] T; |dBy/dz| max [0.67, 1.32, 5.95] T/m; a core track on that step: |B| 0.68 T, |dBy/dz| 1.43 T/m
+  share of the worst-100 summed local error made by the dominant step: median 0.30
+
+Track 11609: p 18.81 GeV, start [-298.1891, 537.6064, -0.1172, 0.209, 0.0159]
+  reference:4000               end x -1088.0844 y 1628.3636 mm; radial vs stored reference 0.00 um
+  reference:16000              end x -1088.0844 y 1628.3636 mm; radial vs stored reference 0.00 um
+  reference:64000              end x -1088.0844 y 1628.3636 mm; radial vs stored reference 0.00 um
+  arkn                         end x -1088.1261 y 1628.4150 mm; radial vs stored reference 66.21 um
+  nystrom:12                   end x -1087.5568 y 1627.2644 mm; radial vs stored reference 1219.28 um
+  nystrom:32                   end x -1088.0294 y 1628.4424 mm; radial vs stored reference 96.08 um
+  nystrom:128                  end x -1088.0837 y 1628.3634 mm; radial vs stored reference 0.70 um
+  linear_nystrom_12_2x64.json:fallback=1e30 end x -1087.2250 y 1627.6295 mm; radial vs stored reference 1130.27 um
+  local error by step (um): [0.1, 0.5, 1.3, 21.4, 66.6, 26.8, 5.9, 15.8, 9.5, 10.2, 0.5, 0.7]
+  cumulative error at each plane (um): [0.0, 0.1, 0.7, 1.1, 20.3, 109.9, 248.6, 397.7, 554.6, 720.7, 888.0, 1053.7, 1219.3]

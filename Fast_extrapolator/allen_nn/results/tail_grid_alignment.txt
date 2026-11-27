@@ -1,0 +1,17 @@
+z=4000 By(y)= {np.int64(-1300): np.float64(1.936), np.int64(-1000): np.float64(1.505), np.int64(-800): np.float64(1.188), np.int64(0): np.float64(0.908), np.int64(800): np.float64(1.227), np.int64(1000): np.float64(1.539), np.int64(1300): np.float64(2.165)}  Bz: [-1.450e+00 -5.650e-01 -3.910e-01  1.000e-03  3.920e-01  5.170e-01
+  1.282e+00]
+z=4400 By(y)= {np.int64(-1300): np.float64(2.251), np.int64(-1000): np.float64(1.362), np.int64(-800): np.float64(1.241), np.int64(0): np.float64(1.024), np.int64(800): np.float64(1.226), np.int64(1000): np.float64(1.292), np.int64(1300): np.float64(2.439)}  Bz: [-1.044  0.015 -0.057  0.002  0.036 -0.045  1.564]
+z=4800 By(y)= {np.int64(-1300): np.float64(1.263), np.int64(-1000): np.float64(1.186), np.int64(-800): np.float64(1.149), np.int64(0): np.float64(1.047), np.int64(800): np.float64(1.147), np.int64(1000): np.float64(1.194), np.int64(1300): np.float64(1.319)}  Bz: [ 0.098  0.143  0.084  0.002 -0.083  0.025  0.857]
+z=5500 By(y)= {np.int64(-1300): np.float64(1.038), np.int64(-1000): np.float64(1.016), np.int64(-800): np.float64(1.003), np.int64(0): np.float64(0.961), np.int64(800): np.float64(1.001), np.int64(1000): np.float64(1.017), np.int64(1300): np.float64(1.025)}  Bz: [ 0.246  0.198  0.153  0.003 -0.148 -0.197 -0.331]
+uniform                                      K=12 reads 25 median 15.17 95% 98.2 99.9% 10485 max 27121 >1mm 158
+uniform, planes on grid nodes                K=12 reads 25 median 45.66 95% 167.8 99.9% 12982 max 22548 >1mm 180
+uniform, planes mid-cell                     K=12 reads 25 median 13.53 95% 110.4 99.9% 13667 max 29633 >1mm 158
+uniform                                      K=16 reads 33 median 4.11 95% 42.6 99.9% 6749 max 17561 >1mm 114
+uniform, planes on grid nodes                K=16 reads 33 median 46.34 95% 200.2 99.9% 7936 max 19883 >1mm 143
+uniform, planes mid-cell                     K=16 reads 33 median 14.13 95% 83.6 99.9% 7439 max 19498 >1mm 138
+uniform                                      K=20 reads 41 median 1.55 95% 14.5 99.9% 3954 max 12265 >1mm 63
+uniform, planes on grid nodes                K=20 reads 41 median 26.88 95% 90.3 99.9% 2619 max 8748 >1mm 49
+uniform, planes mid-cell                     K=20 reads 41 median 11.84 95% 60.4 99.9% 7782 max 16969 >1mm 114
+uniform                                      K=24 reads 49 median 2.42 95% 81.9 99.9% 2178 max 5402 >1mm 41
+uniform, planes on grid nodes                K=24 reads 49 median 57.88 95% 192.6 99.9% 2712 max 6142 >1mm 60
+uniform, planes mid-cell                     K=24 reads 49 median 8.58 95% 85.8 99.9% 3677 max 8509 >1mm 57

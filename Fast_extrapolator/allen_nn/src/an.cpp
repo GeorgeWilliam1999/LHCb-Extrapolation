@@ -23,6 +23,7 @@
 //                      netjac=0: transport matrix of the Nystrom steps only; fallback=E overrides the step-error threshold of the ARKN fallback (mm)
 //   tool_state:JSON    the same without Jacobian
 //   nystrom:K          K equal Nystrom steps z_in -> z_out with the ARKN Jacobian
+//   planes:Z0:Z1:...   fixed Nystrom steps on the given planes (z_in, z_out ignored), ARKN Jacobian
 //   rec_step           the Rec STEP integrator (cpp/lhcb/rec_step.h, double), Jacobian
 //   reference:N        RK4, N equal steps, double, the trilinear map (no Jacobian)
 //   parkf              the HLT1 parametrised step (cpp/lhcb/allen_utt.h), planes 2665 -> 7826
@@ -198,6 +199,29 @@ namespace {
         std::vector<R> p( K + 1 );
         allen_nn::set_identity( J );
         for ( int i = 0; i <= K; ++i ) p[i] = R( zi + i * ( ( zo - zi ) / K ) );
+        field( x[0], x[1], p[0], B0[0], B0[1], B0[2] );
+        allen_nn::nystrom_fixed( x, p.data(), K, B0, field, J );
+        identity_xy( r );
+        for ( int i = 0; i < 4; ++i ) {
+          r.end[i] = double( x[i] );
+          for ( int j = 0; j < 5; ++j ) r.J[i][j] = double( J[i][j] );
+        }
+        r.end[4]    = s[4];
+        r.counts[0] = field.reads, r.counts[1] = K, r.counts[2] = 0, r.counts[3] = 0;
+      };
+    }
+    if ( name == "planes" ) { // fixed Nystrom steps on the given planes (z_in, z_out are ignored)
+      std::vector<double> planes;
+      for ( std::size_t i = 1; i < parts.size(); ++i ) planes.push_back( std::stod( parts[i] ) );
+      const int K = int( planes.size() ) - 1;
+      if ( K < 1 ) throw std::runtime_error( "planes: needs at least two planes" );
+      return [&w, planes, K]( const double* s, double, double, Result& r ) {
+        RecAdapter<R> field{ w.rec.get() };
+        R             x[5] = { R( s[0] ), R( s[1] ), R( s[2] ), R( s[3] ), R( s[4] ) };
+        R             J[5][5], B0[3];
+        std::vector<R> p( K + 1 );
+        allen_nn::set_identity( J );
+        for ( int i = 0; i <= K; ++i ) p[i] = R( planes[i] );
         field( x[0], x[1], p[0], B0[0], B0[1], B0[2] );
         allen_nn::nystrom_fixed( x, p.data(), K, B0, field, J );
         identity_xy( r );
